@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteRule ^inicio$ index.php?controller=views
+RewriteRule ^inicio$ index.php?controller=views
