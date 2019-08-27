@@ -22,6 +22,10 @@ p{
     flex-direction: column;
     justify-content: center
 }
+.main-item a {
+    list-style: none;
+    color: #6d6e71
+}
 .icon-menu{
     color: #8e8e8e;
     width: 20px;
@@ -56,13 +60,37 @@ p{
 
 .content-main{
     background: #f7f7f7;
-    min-height: 100vh;
+    min-height: 90vh;
     padding-left: 220px;
     padding-right: 60px;
-    padding-top: 30px;
-   
+    padding-top: 30px;  
 }
 
+/* slide-menu */
+.slide-menu{
+    width: 100%;
+    height: 70px;
+    background: #e6e7e8;
+    border-radius: 8px;
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: 30px
+}
+.slide-item{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    transition: .2s all ease;
+}
+.slide-item.active{
+    border: 3px solid #6eb639;
+    border-radius: 8px;
+}
+.border-slide{
+    border-left: 1px solid #dcdcdc
+}
 /* home-admin */
 .card-statistics {
     width: 23%;
@@ -82,4 +110,13 @@ p{
 .card-data {
     color: #6d6e71;
     font-weight: 400;  
+}
+
+
+/* invoces-admin */
+.subcontent{
+    background: white;
+    border: 1px solid #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.07);
 }

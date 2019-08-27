@@ -16,15 +16,17 @@
         <div class="row content-login">
             <div class="login-form col-6 d-flex justify-content-center flex-column">
                 <h4 class="text-center mb-4 title">Inicia sesion</h4>
-                <form>
+                <form id="form-login" class="needs-validation" novalidate>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre de usuario:</label>
-                        <input type="text" class="form-control" id="login" aria-describedby="emailHelp"
-                            placeholder="Maria123#">
+                        <label for="user-name">Nombre de usuario:</label>
+                        <input type="text" class="form-control" id="user-name" placeholder="Maria123#" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña:</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" required>
                     </div>
                     <button type="submit" class="btn btn-darkgreen text-white btn-block" id="submitLogin">Ingresar</button>
                 </form>

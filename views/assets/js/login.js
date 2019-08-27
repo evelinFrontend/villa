@@ -1,12 +1,16 @@
 
-$("#submitLogin").click(function(e){
-    location.href();
+$("#form-login").submit(function(e){
     e.preventDefault();
+    console.log(
+        $("#user-name").val(),
+        $("#password").val()
+     );
+    
     $.ajax({
         url: actionurl,
-        type: 'post',
+        type: 'POST',
         dataType: 'json',
-        // data: $("#myform").serialize(),
+        data: ({}),
         success: function(data) {
             
         },
