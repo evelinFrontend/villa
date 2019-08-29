@@ -1,3 +1,8 @@
+function init() {
+    $("#section-2-tab").hide();
+    $("#section-3-tab").hide();
+}
+
 $(".slide-item").click(function(e){
     var id = e.currentTarget.id;
     switch (id) {
@@ -11,7 +16,7 @@ $(".slide-item").click(function(e){
             $("#section-1-tab").hide();
             $("#section-3-tab").hide();
             break;
-        case 'section-2':
+        case 'section-3':
             $("#section-2-tab").hide();
             $("#section-1-tab").hide();
             $("#section-3-tab").show();
