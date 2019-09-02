@@ -17,7 +17,7 @@
             Nuevo producto
         </button>
         <div class="content-table">
-            <table class="table table-sm">
+            <table class="table table-striped col" id="table-product">
                 <thead>
                     <tr>
                         <th scope="col">Codigo</th>
@@ -42,20 +42,20 @@
     </div>
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Listado de categorias</h4>
-        <div class="content-crear">
+        <div class="content-crear pb-4 mb-4 border-bottom">
             <p>Crear una categoria</p>
-                <form id="form-create-category" class="d-flex">
-                    <div class="form-group col">
-                        <label for="name-product">Nombre de la categoria:</label>
-                        <input id="name-product" class="form-control" type="text" require>
-										</div>
-										<div class="form-group col d-flex align-items-end ">
-											<button type="submit" class="btn btn-primary btn-block">Crear</button>
-										</div>
-                </form>
+            <form id="form-create-category" class="d-flex">
+                <div class="form-group col">
+                    <label for="name-product">Nombre de la categoria:</label>
+                    <input id="name-product" class="form-control" type="text" require>
+                </div>
+                <div class="form-group col d-flex align-items-end ">
+                    <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                </div>
+            </form>
         </div>
         <div class="content-table">
-            <table class="table table-sm">
+            <table class="table table-striped col" id="table-category">
                 <thead>
                     <tr>
                         <th scope="col">Codigo</th>
@@ -155,3 +155,6 @@
         </div>
     </div>
 </div>
+
+<script src="views/assets/js/data-tables.min.js"></script>
+<script src="views/assets/js/inventory.js"></script>

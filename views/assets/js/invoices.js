@@ -1,4 +1,6 @@
-
+$(document).ready(function() {
+    $('#table-search-invoices').DataTable();
+} );
 $("#select-option").change(function(e) {
   const value =  $(this).val();
   if ( value === "range") {

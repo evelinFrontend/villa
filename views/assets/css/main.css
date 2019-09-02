@@ -93,8 +93,7 @@ p{
 }
 #section-2-tab , #section-3-tab { display: none}
 /* home-admin */
-.card-statistics {
-    width: 23%;
+.cards {
     background: white;
     border: 1px solid #f1f1f1;
     border-radius: 8px;
@@ -103,7 +102,10 @@ p{
     flex-direction: column;
     align-content: center;
 }
-.card-title{
+.cards.statistics{
+    width: 23%;
+}
+.cards-title{
     color: #6eb639;
     font-size: 16px;
     font-weight: 700;
@@ -123,3 +125,48 @@ p{
     box-shadow: 0 2px 6px 0 rgba(0,0,0,.07);
 }
 .range{ display: none }
+
+/* room */
+
+.card-body {
+    background: #ffffff
+}
+.card-number{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #28a745;
+}
+.cards.room{
+    width: 20%;
+    cursor: pointer;
+    transition: all .3s ease
+}
+.cards.room:hover{
+   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.47);
+}
+
+/* data-table */
+
+table.dataTable.no-footer {
+    border-bottom: none;
+    text-align: center
+}
+.dataTables_filter input, .dataTables_length select{
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* users */
+.user-content-table{
+    margin-top: 100px
+}
