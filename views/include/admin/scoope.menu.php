@@ -11,6 +11,13 @@
             <div>
             <img src="views/assets/icons/file.svg" class="icon-menu">
             </div>
+            <a href="facturas">Recepción</a>
+        </li>
+        <div class="liner"></div>
+        <li class="main-item">
+            <div>
+            <img src="views/assets/icons/file.svg" class="icon-menu">
+            </div>
             <a href="facturas">Facturas</a>
         </li>
         <div class="liner"></div>
@@ -39,7 +46,7 @@
             <div>
             <img src="views/assets/icons/user.svg" class="icon-menu">
             </div>
-            <a href="usuarios">Usuarios</a>
+            <a href="configuraciones">Configuraciones</a>
         </li>
         <div class="liner"></div>
     </ul>

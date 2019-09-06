@@ -4,6 +4,13 @@ RewriteRule ^login$ index.php?controller=views
 RewriteRule ^home$ index.php?controller=views&a=home
 RewriteRule ^facturas$ index.php?controller=views&a=invoices
 RewriteRule ^inventario$ index.php?controller=views&a=inventory
-RewriteRule ^usuarios$ index.php?controller=views&a=users
+RewriteRule ^configuraciones$ index.php?controller=views&a=setting
 RewriteRule ^habitaciones$ index.php?controller=views&a=rooms
 RewriteRule ^reportes$ index.php?controller=views&a=reports
+
+
+RewriteRule ^home-personal$ index.php?controller=views&a=homeEmployee
+RewriteRule ^lista-facturas$ index.php?controller=views&a=invoicesEmployee
+RewriteRule ^cierre$ index.php?controller=views&a=closeEmployee
+
+

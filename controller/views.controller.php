@@ -28,11 +28,11 @@ class ViewsController{
         require_once "views/modules/admin/inventory.php";
         require_once "views/include/admin/scoope.footer.php";
     }
-    function users(){
+    function setting(){
         require_once "views/include/admin/scoope.header.php";
         require_once "views/include/admin/scoope.menu.php";
         require_once "views/include/admin/scoope.navbar.php";
-        require_once "views/modules/admin/users.php";
+        require_once "views/modules/admin/setting.php";
         require_once "views/include/admin/scoope.footer.php";
     }
     
@@ -48,6 +48,30 @@ class ViewsController{
         require_once "views/include/admin/scoope.menu.php";
         require_once "views/include/admin/scoope.navbar.php";
         require_once "views/modules/admin/reports.php";
+        require_once "views/include/admin/scoope.footer.php";
+    }
+    
+    // employee
+    
+    function homeEmployee(){
+        require_once "views/include/admin/scoope.header.php";
+        require_once "views/include/employee/scoope-menu-employee.php";
+        require_once "views/include/admin/scoope.navbar.php";
+        require_once "views/modules/employee/reception.php";
+        require_once "views/include/admin/scoope.footer.php";
+    }
+    function invoicesEmployee(){
+        require_once "views/include/admin/scoope.header.php";
+        require_once "views/include/employee/scoope-menu-employee.php";
+        require_once "views/include/admin/scoope.navbar.php";
+        require_once "views/modules/employee/invoices.php";
+        require_once "views/include/admin/scoope.footer.php";
+    }
+    function closeEmployee(){
+        require_once "views/include/admin/scoope.header.php";
+        require_once "views/include/employee/scoope-menu-employee.php";
+        require_once "views/include/admin/scoope.navbar.php";
+        require_once "views/modules/employee/close.php";
         require_once "views/include/admin/scoope.footer.php";
     }
     

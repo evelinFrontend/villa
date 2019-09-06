@@ -4,7 +4,7 @@ function init() {
 }
 
 $(".slide-item").click(function(e){
-    var id = e.currentTarget.id;
+    var id = e.currentTarget.id;  
     switch (id) {
         case 'section-1':
             $("#section-2-tab").hide();
@@ -26,3 +26,4 @@ $(".slide-item").click(function(e){
             break;
     }    
 });
+

@@ -14,7 +14,7 @@ p{
     padding: 0;
 }
 .main-item{
-    height: 100px;
+    height: 92px;
     text-align: center;
     cursor: pointer;
     padding: 18px;
@@ -26,13 +26,18 @@ p{
     list-style: none;
     color: #6d6e71
 }
+
+#section-1.active, #section-2.active, #section-3.active{
+    border: 3px solid #C9DF8A;
+    border-radius: 8px
+}
 .icon-menu{
     color: #8e8e8e;
     width: 20px;
 }
 
 .main-item:hover{
-    background: #e0e0e0;
+    background: #C9DF8A;
 }
 .liner{
     width: 151px;
@@ -53,7 +58,7 @@ p{
 }
 .liner-navbar{
     height: 10px;
-    background: #099214;
+    background: #77AB59;
 }
 
 /* shared */

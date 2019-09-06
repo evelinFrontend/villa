@@ -1,16 +1,16 @@
 <div class="content-main">
     <div class="slide-menu">
-        <div class="slide-item w-50" id="section-1">
+        <!-- <div class="slide-item w-50" id="section-1">
             <p>Habitaciones</p>
-        </div>
-        <div class="slide-item w-50 border-slide" id="section-2">
+        </div> -->
+        <div class="slide-item w-50 border-slide" id="section-1">
             <p>Crear Habitación</p>
         </div>
-        <div class="slide-item w-50 border-slide" id="section-3">
+        <div class="slide-item w-50 border-slide" id="section-2">
             <p>Tipo de Habitación</p>
         </div>
     </div>
-    <div class="content-card row" id="section-1-tab">
+    <!-- <div class="content-card row" id="section-1-tab">
         <div class="cards room bg-success mb-3 col-2" onclick="openModal()">
             <div class="card-header text-white text-center">Disponible</div>
             <div class="card-body row">
@@ -23,8 +23,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="subcontent p-4" id="section-2-tab">
+    </div> -->
+    <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear habitación</h4>
         <form id="create-room" class="border-bottom pb-4 mb-4">
             <div class="row">
@@ -38,20 +38,6 @@
                         <option>normal</option>
                         <option>chevere</option>
                     </select>
-                </div>
-                <div class="form-group col-4">
-                    <label for="room-price">Valor por hora:</label>
-                    <input id="room-price" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="row ">
-                <div class="form-group col-4">
-                    <label for="room-price">Valor por persona adicional :</label>
-                    <input id="room-price" class="form-control" type="number">
-                </div>
-                <div class="form-group col-4">
-                    <label for="room-price">Valor decoración:</label>
-                    <input id="room-price" class="form-control" type="number">
                 </div>
                 <div class="form-group col-4">
                     <label for="room-detail">Detalles de la habitación:</label>
@@ -90,21 +76,35 @@
             </tbody>
         </table>
     </div>
-    <div class="subcontent p-4" id="section-3-tab">
+    <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Crear tipo de habitación</h4>
-        <form id="form-type-room">
-            <div class="row mb-5 border-bottom pb-4">
-                <div class="form-group col-5">
+        <form id="form-type-room" class="border-bottom pb-4 mb-5">
+            <div class="row">
+                <div class="form-group col">
                     <label for="room-type-name">Nombre:</label>
                     <input id="room-type-name" class="form-control" type="text" require>
                 </div>
-                <div class="form-group col-5">
+                <div class="form-group col">
                     <label for="room-type-detail">Detalles:</label>
                     <input id="room-type-detail" class="form-control" type="text" requiere>
                 </div>
-                <div class="form-group col-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                <div class="form-group col-4">
+                    <label for="room-price">Valor por hora:</label>
+                    <input id="room-price" class="form-control" type="number">
                 </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4">
+                    <label for="room-price">Valor por persona adicional :</label>
+                    <input id="room-price" class="form-control" type="number">
+                </div>
+                <div class="form-group col-4">
+                    <label for="room-price">Valor decoración:</label>
+                    <input id="room-price" class="form-control" type="number">
+                </div>
+            <div class="form-group col-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            </div>
             </div>
         </form>
         <h4 class="pricipal-title mb-4">Lista de tipo de habitaciones</h4>

@@ -27,5 +27,15 @@
                 <h1 class="card-data text-center">123</h1>
             </div>
         </div>
+        <div class="row">
+            <canvas id="chart"></canvas>
+        </div>
     </div>
 </div>
+<script src="views/assets/lib/Chart.bundle.min.js"></script>
+<script src="views/assets/lib/Chart.min.js"></script>
+<script src="views/assets/js/home.js"></script>
+
+<!-- reporte cierre de dia
+turnos de empleados
+ -->

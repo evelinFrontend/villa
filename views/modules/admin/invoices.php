@@ -1,16 +1,16 @@
 <div class="content-main">
     <div class="slide-menu">
-        <div class="slide-item w-50 border-slide" id="section-1">
+        <!-- <div class="slide-item w-50 border-slide" id="section-1">
             <p>Crear factura</p>
-        </div>
-        <div class="slide-item w-50" id="section-2">
+        </div> -->
+        <div class="slide-item w-50" id="section-1">
             <p>Buscar facturas</p>
         </div>
-        <div class="slide-item w-50 border-slide" id="section-3">
+        <div class="slide-item w-50 border-slide" id="section-2">
             <p>Configuracion de facturas</p>
         </div>
     </div>
-    <div class="subcontent p-4" id="section-1-tab">
+    <!-- <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear Facturas</h4>
         <div class="row">
             <div class="col-9">
@@ -82,8 +82,8 @@
                 <p>restan tan</p>
             </div>
         </div>
-    </div>
-    <div class="subcontent p-4" id="section-2-tab">
+    </div> -->
+    <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Buscar facturas</h4>
         <div class="filter mb-4 border-bottom pb-4">
             <form id="form-search-invoice " required>
@@ -139,7 +139,7 @@
         </div>
 
     </div>
-    <div class="subcontent p-4" id="section-3-tab">
+    <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Configurar Facturas</h4>
         <div class="d-flex justify-content-end mb-4" role="group" aria-label="Vertical button group">
             <button type="button" class="btn btn-primary ml-4" data-toggle="modal" data-target="#modal-iva">
