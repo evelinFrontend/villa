@@ -27,7 +27,9 @@ Class LoginController{
                     $status = "success";
                     $message = "sesion iniciada.";
                 }else{
+                    header('Internal server error', true, 500);
                     $status = "error";
+                    $rolIngresado = null;
                     $message = "Contraseña incorrecta.";
                 }
             }else{

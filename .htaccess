@@ -30,6 +30,10 @@ RewriteRule ^UpdateTypeRoom$ index.php?controller=tipoHabitacion&a=UpdateTypeRoo
 RewriteRule ^deleteTypeRoom$ index.php?controller=tipoHabitacion&a=deleteTypeRoom
 RewriteRule ^readByTypeRoom$ index.php?controller=tipoHabitacion&a=readByTypeRoom
 
+#Habitaciones 
+RewriteRule ^newNumberOfRoom$ index.php?controller=habitacion&a=newNumberOfRoom
+RewriteRule ^createRoom$ index.php?controller=habitacion&a=createRoom
+
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
