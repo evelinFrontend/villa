@@ -84,41 +84,41 @@
                             <input id="doc-employee" class="form-control" type="number" name="">
                         </div>
                         <div class="form-group col">
-                            <label for="doc-employee">Fecha de nacimiento:</label>
-                            <input id="doc-employee" class="form-control" type="date" name="">
+                            <label for="birthdate">Fecha de nacimiento:</label>
+                            <input id="birthdate" class="form-control" type="date" name="">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="doc-employee">Hora de entrada:</label>
-                            <input id="doc-employee" class="form-control" type="time" name="">
+                            <label for="email">Correo electronico:</label>
+                            <input id="email" class="form-control" type="email" name="">
                         </div>
                         <div class="form-group col">
-                            <label for="doc-employee">hora de salida:</label>
-                            <input id="doc-employee" class="form-control" type="time" name="">
+                            <label for="number">Número de contacto:</label>
+                            <input id="number" class="form-control" type="number" name="">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col">
-                            <label for="doc-employee">Número de contacto:</label>
-                            <input id="doc-employee" class="form-control" type="number" name="">
-                        </div>
                         <div class="form-group col">
                             <label for="rol">Rol</label>
                             <select id="rol" class="form-control" name="">
-                                <option>Administrador</option>
-                                <option>Caja</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Caja</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col">
                             <label for="user-name-employee">Nombre de usuario:</label>
                             <input id="user-name-employee" class="form-control" type="text" name="">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col">
                             <label for="password-employee">Contraseña</label>
                             <input id="password-employee" class="form-control" type="password" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="password-repet-employee">Contraseña</label>
+                            <input id="password-repet-employee" class="form-control" type="password" name="">
                         </div>
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
@@ -129,4 +129,4 @@
 </div>
 
 <script src="views/assets/js/data-tables.min.js"></script>
-<script src="views/assets/js/user.js"></script>
+<script src="views/assets/js/setting.js"></script>

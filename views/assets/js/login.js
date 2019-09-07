@@ -13,10 +13,18 @@ $("#form-login").submit(function(e){
             type: 'POST',
             dataType: 'json',
             data: (data),
-            success: function(data) {
-                location.href = "home"
+            success: function(success) {
+                console.log(success);
+                if (success.rol === 'ADMIN') {
+                    location.href = 'home';
+                } else if (success.rol == 'EMPLOYEE') {
+                    location.href = 'home-personal'
+                } else {
+
+                }
             },
-            error: {
+            error: function(err) {
+                console.log(err);
                 
             }
         });
