@@ -35,7 +35,7 @@ Class LoginController{
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este usuario no  se encuentra  registrado en nuestro sistema.";
+                $message = "Este usuario no se encuentra registrado en nuestro sistema.";
                 $rolIngresado = null;
             }
             $result = array("status"=>$status,"rol"=>$rolIngresado,"message"=>$message);
