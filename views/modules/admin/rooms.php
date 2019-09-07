@@ -97,11 +97,7 @@
                 <div class="form-group col-4">
                     <label for="room-price">Valor por persona adicional :</label>
                     <input id="room-price" class="form-control" type="number">
-                </div>
-                <div class="form-group col-4">
-                    <label for="room-price">Valor decoración:</label>
-                    <input id="room-price" class="form-control" type="number">
-                </div>
+                </div>>
             <div class="form-group col-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary btn-block">Guardar</button>
             </div>
