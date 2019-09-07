@@ -17,6 +17,13 @@ Class LoginController{
                     $_SESSION["DATA_USER"]["LAST_NAME"] = $existeUsuario[0]->usu_apellidos;
                     $_SESSION["DATA_USER"]["LOGIN_NAME"] = $existeUsuario[0]->usu_nombre_login;
                     $_SESSION["DATA_USER"]["ROL"] = $existeUsuario[0]->usu_rol;
+                    if($existeUsuario[0]->usu_rol == 1){
+                        $rolIngresado = "ADMIN"; 
+                    }else if($existeUsuario[0]->usu_rol == 2){
+                        $rolIngresado = "SECRET";
+                    }else{
+                        $rolIngresado = "EMPLOYEE";
+                    }
                     $status = "success";
                     $message = "sesion iniciada.";
                 }else{
@@ -26,9 +33,10 @@ Class LoginController{
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este no  esta registrado en el sistema.";
+                $message = "Este usuario no  se encuentra  registrado en nuestro sistema.";
+                $rolIngresado = null;
             }
-            $result = array("status"=>$status,"message"=>$message);
+            $result = array("status"=>$status,"rol"=>$rolIngresado,"message"=>$message);
             echo json_encode($result);
         }else{
             header('405 Method Not Allowede', true, 405);

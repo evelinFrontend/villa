@@ -24,4 +24,7 @@ RewriteRule ^home-personal$ index.php?controller=views&a=homeEmployee
 RewriteRule ^lista-facturas$ index.php?controller=views&a=invoicesEmployee
 RewriteRule ^cierre$ index.php?controller=views&a=closeEmployee
 
+#Tipo habitacion 
+RewriteRule ^createType$ index.php?controller=tipoHabitacion&a=createType
+
 
