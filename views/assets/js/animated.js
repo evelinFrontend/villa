@@ -1,3 +1,20 @@
+$("#logOut").click(function() {
+    console.log("salir");
+    $.ajax({
+        url:'logOut',
+        type: 'GET',
+        success: function(success) {
+            console.log(success);
+            location.href = 'login'
+        },
+        error: function(err) {
+            console.log(err);
+            
+        }
+    });
+    
+})
+
 function init() {
     $("#section-2-tab").hide();
     $("#section-3-tab").hide();
