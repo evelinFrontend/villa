@@ -7,7 +7,7 @@
             <p>Listado de categorias</p>
         </div>
         <div class="slide-item w-50 border-slide" id="section-3">
-            <p>Promociones</p>
+            <p>Proveedores</p>
         </div>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
@@ -43,7 +43,6 @@
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Listado de categorias</h4>
         <div class="content-crear pb-4 mb-4 border-bottom">
-            <p>Crear una categoria</p>
             <form id="form-create-category" class="d-flex">
                 <div class="form-group col">
                     <label for="name-product">Nombre de la categoria:</label>
@@ -72,27 +71,42 @@
         </div>
     </div>
     <div class="subcontent p-4" id="section-3-tab">
-        <h4 class="pricipal-title mb-4">Promociones y descuentos</h4>
+    <h4 class="pricipal-title mb-4">Proveedores</h4>
         <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal"
-            data-target="#create-category">
-            nueva promoción
+            data-target="#create-provider">
+            Nuevo proveedor
         </button>
-        <div class="content-table">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Codigo</th>
-                        <th scope="col">Nombre</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>1233</th>
-                        <td>bebidas</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row user-content-table">
+            <div class="col-12">
+                <table class="table table-striped col" id="table-provider">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th></th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Normal</td>
+                            <td>Pues es normal</td>
+                            <td>editar</td>
+                        </tr>
+                        <tr>
+                            <td>Normal</td>
+                            <td>Pues es normal</td>
+                            <td>editar</td>
+                        </tr>
+                        <tr>
+                            <td>Normal</td>
+                            <td>Pues es normal</td>
+                            <td>editar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -151,6 +165,60 @@
             </div>
             <div class="modal-body m-4">
 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal create provider -->
+<div id="create-provider" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="my-modal-title">Crear un nuevo proveedor</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-create-provider" class="m-4">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="name-incharge">Nombre del encargo:</label>
+                            <input id="name-incharge" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col">
+                            <label for="name-provider">Nombre del proveedor:</label>
+                            <input id="name-provider" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="nit-provider">Nit:</label>
+                            <input id="nit-provider" class="form-control" type="number" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="business-name-provider">Razón social:</label>
+                            <input id="business-name-provider" class="form-control" type="text" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="number-provider">Telefono:</label>
+                            <input id="number-provider" class="form-control" type="number" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="address-provider">Direccion:</label>
+                            <input id="address-provider" class="form-control" type="text" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="doc-employee">correo eléctronico:</label>
+                            <input id="doc-employee" class="form-control" type="number" name="">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
+                </form>
             </div>
         </div>
     </div>
