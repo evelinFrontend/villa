@@ -14,15 +14,20 @@ Class TipoHabitacionController{
             //validar si el tipo de habitacion  existe
             $existeTipo = $this->masterModel->sqlSelect("SELECT id_habitacion FROM tipo_habitacion WHERE th_nombre_tipo = ? ",array($request["nombre_tipo"]));
             if(empty($existeTipo)){
-                $request["th_fecha_creacion"] = date("Y-m-d");
-                $request["th_estado"] = 1;
-                $insert = $this->masterModel->insert("tipo_habitacion",array($request["nombres"],$request["apellidos"],$request["numero_documento"],$request["fecha_nacimiento"],$request["numero_contacto"],$request["correo"],$request["nombre_login"],$request["rol"],$request["contrasena"],$request["usu_fecha_creacion"],$request["usu_estado"]),array("usu_id"));
-                if($insert){
-                    $status = "success";
-                    $message = "usuario registrado.";
+                if($request["valor_hora"]>0 && $request["valor_persona_adicional"]>0){
+                    $request["th_fecha_creacion"] = date("Y-m-d");
+                    $request["th_estado"] = 1;
+                    $insert = $this->masterModel->insert("tipo_habitacion",array($request["nombre_tipo"],$request["descripcion"],$request["valor_hora"],$request["valor_persona_adicional"],$request["th_estado"],$request["th_fecha_creacion"]),array("id_habitacion"));
+                    if($insert){
+                        $status = "success";
+                        $message = "Tipo de habitación registrado exitosamente.";
+                    }else{
+                        $status = "error";
+                        $message = "error guardando en base de datos.";
+                    }
                 }else{
                     $status = "error";
-                    $message = "error guardando en base de datos.";
+                    $message = "Por favor ingresa un precio válido en  el valor de la hora o persona adicional.";
                 }
             }else{
                 header('Internal server error', true, 500);
@@ -36,26 +41,37 @@ Class TipoHabitacionController{
         }
     }
     
-    function UpdateUser(){
+    function UpdateTypeRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
-            //validar si el usuario existe
-            $existeUsuario = $this->masterModel->sqlSelect("SELECT usu_id FROM usuario WHERE usu_id = ?",array($_POST["id"]));
-            if(!empty($existeUsuario)){
-                $request = $_POST;
-                $modificar = $this->masterModel->sql("UPDATE usuario SET usu_nombres = ?,usu_apellidos = ?,usu_numero_documento = ?,usu_fecha_nacimiento = ? ,usu_numero_contacto = ?, usu_correo = ?, usu_nombre_login = ? ,usu_rol = ? WHERE usu_id = ?",array($request["nombres"],$request["apellidos"],$request["numero_documento"],$request["fecha_nacimiento"],$request["numero_contacto"],$request["correo"],$request["nombre_login"],$request["rol"],$request["id"]));
-                if($modificar){
-                    $status = "success";
-                    $message = "usuario Modificado.";
+            $request = $_POST;
+            //validar si el tipo de habitacion  existe
+            $existeTipo = $this->masterModel->sqlSelect("SELECT id_habitacion FROM tipo_habitacion WHERE id_habitacion = ? ",array($request["id"]));
+            if(!empty($existeTipo)){
+                //saber si el estado es valido
+                if($request["estado"]==0 || $request["estado"] ==1){
+                    if($request["valor_hora"]>0 && $request["valor_persona_adicional"]>0){
+                        $insert = $this->masterModel->sql("UPDATE tipo_habitacion SET  th_nombre_tipo = ?, th_descripcion = ?,th_valor_hora = ?, th_valor_persona_adicional = ?, th_estado = ? WHERE id_habitacion = ? ",array($request["nombre_tipo"],$request["descripcion"],$request["valor_hora"],$request["valor_persona_adicional"],$request["estado"],$request["id"]));
+                        if($insert){
+                            $status = "success";
+                            $message = "Tipo de habitación modificada exitosamente.";
+                        }else{
+                            $status = "error";
+                            $message = "El nombre del tipo de habitación ya ha sido registrado.";
+                        }
+                    }else{
+                        $status = "error";
+                        $message = "Por favor ingresa un precio válido en  el valor de la hora o persona adicional.";
+                    }
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
-                    $message = "error en base de datos.";
+                    $message = "Por favor ingresa un estado válido.";
                 }
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este usuario no esta  registrado en el sistema.";
+                $message = "Este tipo de habitación no esta registrado en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -65,16 +81,17 @@ Class TipoHabitacionController{
         
     }
 
-    function deleteUser(){
+    function deleteTypeRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
-            //validar si el usuario existe
-            $existeUsuario = $this->masterModel->sqlSelect("SELECT usu_id FROM usuario WHERE usu_id = ? AND  usu_estado = ?",array($_POST["usu_id"],1));
-            if(!empty($existeUsuario)){
-                $eliminar = $this->masterModel->sql("UPDATE usuario SET usu_estado = ? WHERE usu_id = ?",array(0,$_POST["usu_id"]));
+            $request = $_POST;
+            //validar si el tipo existe
+            $existeTipo = $this->masterModel->sqlSelect("SELECT id_habitacion FROM tipo_habitacion WHERE id_habitacion = ?",array($request["id"]));
+            if(!empty($existeTipo)){
+                $eliminar = $this->masterModel->sql("UPDATE tipo_habitacion SET th_estado = ? WHERE id_habitacion = ?",array(0,$_POST["id"]));
                 if($eliminar){
                     $status = "success";
-                    $message = "usuario eliminado.";
+                    $message = "Tipo de usuario eliminado.";
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
@@ -83,7 +100,7 @@ Class TipoHabitacionController{
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este usuario no esta  registrado en el sistema.";
+                $message = "Este tipo de habitación no esta  registrado en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -92,15 +109,15 @@ Class TipoHabitacionController{
         }
     }
 
-    function readUsuBy(){
+    function readByTypeRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataUser = $this->masterModel->sqlSelect("SELECT * FROM usuario WHERE ".$request['columnDBSearch']." = ? AND usu_estado = ?",array($request["value"],1));
-            if(!empty($dataUser)){
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM tipo_habitacion WHERE ".$request['columnDBSearch']." = ? AND th_estado = ?",array($request["value"],1));
+            if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";
-                $data = $dataUser;
+                $data = $dataType;
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";

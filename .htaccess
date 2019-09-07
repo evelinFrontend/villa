@@ -26,5 +26,11 @@ RewriteRule ^cierre$ index.php?controller=views&a=closeEmployee
 
 #Tipo habitacion 
 RewriteRule ^createType$ index.php?controller=tipoHabitacion&a=createType
+RewriteRule ^UpdateTypeRoom$ index.php?controller=tipoHabitacion&a=UpdateTypeRoom
+RewriteRule ^deleteTypeRoom$ index.php?controller=tipoHabitacion&a=deleteTypeRoom
+RewriteRule ^readByTypeRoom$ index.php?controller=tipoHabitacion&a=readByTypeRoom
 
+
+#ERRORES
+ErrorDocument 404 /villa/views/modules/errors/error404.php
 
