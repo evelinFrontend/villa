@@ -1,6 +1,9 @@
 /* verde claro : 6eb639
     verde oscuro : #008b3e
 */
+p{
+    padding-bottom: 0 !important
+}
 
 .content-main{
     width: 100%;
@@ -25,3 +28,12 @@
 .title{
     color: #6eb639;
 }
+
+/* alerts */
+.alert{
+    display: none; 
+ } 
+.alert.show{
+    display: block;
+}
+

@@ -1,19 +1,20 @@
 
-$("#form-login").submit(function(e){
+$("#form-login").submit(function (e) {
+    $(".form-control").removeClass("is-invalid")
     e.preventDefault();
     var data = {
-        "nombre_login":"",
-        "contrasena":""
+        "nombre_login": "",
+        "contrasena": ""
     }
-    if ($("#user-name").val() != '' && $("#password").val() != '' ) {
+    if ($("#user-name").val() != '' && $("#password").val() != '') {
         data.nombre_login = $("#user-name").val();
-        data.contrasena =  $("#password").val()
+        data.contrasena = $("#password").val()
         $.ajax({
-            url:'logIn',
+            url: 'logIn',
             type: 'POST',
             dataType: 'json',
             data: (data),
-            success: function(success) {
+            success: function (success) {
                 console.log(success);
                 if (success.rol === 'ADMIN') {
                     location.href = 'home';
@@ -23,15 +24,16 @@ $("#form-login").submit(function(e){
 
                 }
             },
-            error: function(err) {
-                console.log(err);
-                
+            error: function (err) {
+                var message = err.responseJSON.message;
+                $(".alert").addClass("show");
+                $(".alert").empty();
+                $(".alert").append(message);
             }
         });
-       
+
     } else {
-        console.log("llenar los datos");
-        
+        $(".form-control").addClass("is-invalid")
     }
 
 })

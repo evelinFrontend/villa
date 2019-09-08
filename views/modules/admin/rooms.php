@@ -79,6 +79,9 @@
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Crear tipo de habitación</h4>
         <form id="form-type-room" class="border-bottom pb-4 mb-5">
+            <div class="alert alert-danger" role="alert">
+                Content
+            </div>
             <div class="row">
                 <div class="form-group col">
                     <label for="room-type-name">Nombre:</label>
@@ -89,15 +92,15 @@
                     <input id="room-type-detail" class="form-control" type="text" requiere>
                 </div>
                 <div class="form-group col-4">
-                    <label for="room-price">Valor por hora:</label>
-                    <input id="room-price" class="form-control" type="number">
+                    <label for="hour-value">Valor por hora:</label>
+                    <input id="hour-value" class="form-control" type="number" require>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-4">
-                    <label for="room-price">Valor por persona adicional :</label>
-                    <input id="room-price" class="form-control" type="number">
-                </div>>
+                    <label for="people">Valor por persona adicional :</label>
+                    <input id="people" class="form-control" type="number" require>
+                </div>
             <div class="form-group col-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary btn-block">Guardar</button>
             </div>

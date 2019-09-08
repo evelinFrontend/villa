@@ -13,7 +13,7 @@ $("#select-option").change(function(e) {
 });
 $("#form-search-invoice").submit(function(e) {
     e.preventDefault(); 
-    var data = []
+    data = [];
     const value = $("#select-option").val();
     if (value === "range") {
         data.push({
@@ -23,6 +23,8 @@ $("#form-search-invoice").submit(function(e) {
     } else if (value === "number") {
         data.push({"number":  $("#number-invoice").val()})
     }
+    console.log(data);
+    
     $.ajax({
         url: actionurl,
         type: 'POST',

@@ -39,16 +39,16 @@ Class HabitacionController{
                 header('Internal server error', true, 500);
                 $status = "error";
                 $numHabitacion = null;
-                $message = "No ha sido posible obtener el tipo de habitación, Intentalo de nuevo.";
+                $message = "No ha sido posible obtener el tipo de habitación,Intentalo de nuevo.";
             }
             $result = array("status"=>$status,"numero_habitacion"=>$numHabitacion,"message"=>$message);
-            echo json_encode($request);
+            echo json_encode($result);
         }else{
             header('405 Method Not Allowede', true, 405);
         }
     }
     
-    function UpdateTypeRoom(){
+    function UpdateRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;

@@ -33,6 +33,7 @@ RewriteRule ^readByTypeRoom$ index.php?controller=tipoHabitacion&a=readByTypeRoo
 #Habitaciones 
 RewriteRule ^newNumberOfRoom$ index.php?controller=habitacion&a=newNumberOfRoom
 RewriteRule ^createRoom$ index.php?controller=habitacion&a=createRoom
+RewriteRule ^UpdateRoom$ index.php?controller=habitacion&a=UpdateRoom
 
 
 #ERRORES

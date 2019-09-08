@@ -175,3 +175,11 @@ table.dataTable.no-footer {
 .user-content-table{
     margin-top: 100px
 }
+
+/* alerts */
+.alert{
+    display: none; 
+ } 
+.alert.show{
+    display: block;
+}

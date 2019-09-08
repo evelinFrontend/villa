@@ -1,8 +1,5 @@
 <div class="content-main">
     <div class="slide-menu">
-        <!-- <div class="slide-item w-50 border-slide" id="section-1">
-            <p>Crear factura</p>
-        </div> -->
         <div class="slide-item w-50" id="section-1">
             <p>Buscar facturas</p>
         </div>
@@ -10,79 +7,6 @@
             <p>Configuracion de facturas</p>
         </div>
     </div>
-    <!-- <div class="subcontent p-4" id="section-1-tab">
-        <h4 class="pricipal-title mb-4">Crear Facturas</h4>
-        <div class="row">
-            <div class="col-9">
-                <p class="title-form font-weight-bold">Datos de la Habitación</p>
-                <div class="row border-bottom">
-                    <div class="form-group col">
-                        <label for="user-name">Número de habitación:</label>
-                        <input id="user-name" class="form-control" type="text">
-                    </div>
-                    <div class="form-group col">
-                        <label for="doc">Tiempo:</label>
-                        <input id="doc" class="form-control" type="number">
-                    </div>
-                </div>
-                <p class="title-form font-weight-bold">Datos del usuario</p>
-                <div class="row border-bottom">
-                    <div class="form-group col">
-                        <label for="user-name">Nombre completo:</label>
-                        <input id="user-name" class="form-control" type="text">
-                    </div>
-                    <div class="form-group col">
-                        <label for="doc">Numero de documento:</label>
-                        <input id="doc" class="form-control" type="number">
-                    </div>
-                </div>
-                <p class="title-form font-weight-bold">Descuentos</p>
-                <div class="row border-bottom">
-                    <div class="form-group col">
-                        <label for="courtesy">Cortesia:</label>
-                        <select id="courtesy" class="form-control" name="">
-                            <option>1 hora</option>
-                            <option>2 horas</option>
-                        </select>
-                    </div>
-                    <div class="form-group col">
-                        <label for="additional-person">¿Persona adicional?</label>
-                        <select id="additional-person" class="form-control" name="">
-                            <option value="yes">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                    <div class="form-group col">
-                        <label for="additional-person">¿Cuantas?</label>
-                        <select id="additional-person" class="form-control" name="">
-                            <option value="yes">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                </div>
-                <p class="title-form font-weight-bold">Formas de pago</p>
-                <div class="row border-bottom">
-                    <div class="form-group col">
-                        <label for="payment-methods">Forma de pago:</label>
-                        <select id="payment-methods" class="form-control">
-                            <option>Text</option>
-                            <option>Text</option>
-                            <option>Text</option>
-                            <option>Text</option>
-                        </select>
-                    </div>
-                    <div class="form-group col">
-                        <label for="cant">Valor:</label>
-                        <input id="cant" class="form-control" type="number">
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-3 ">
-                <p>restan tan</p>
-            </div>
-        </div>
-    </div> -->
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Buscar facturas</h4>
         <div class="filter mb-4 border-bottom pb-4">
@@ -109,7 +33,6 @@
                     </div>
                     <div class="form-group col-2 d-flex align-items-end">
                         <button class="btn btn-primary" type="submit">Buscar</button>
-
                     </div>
                 </div>
             </form>

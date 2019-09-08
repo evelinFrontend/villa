@@ -15,19 +15,25 @@
         <div class="row content-login">
             <div class="login-form col-6 d-flex justify-content-center flex-column">
                 <h4 class="text-center mb-4 title">Inicia sesion</h4>
-                <form id="form-login" class="needs-validation" novalidate>
+                <div class="alert alert-danger" role="alert">
+                </div>
+                <form id="form-login">
                     <div class="form-group">
                         <label for="user-name">Nombre de usuario:</label>
-                        <input type="text" class="form-control" id="user-name" placeholder="Maria123#" required>
-                        <div class="valid-feedback">
-                            Looks good!
+                        <input type="text" class="form-control" id="user-name" placeholder="Maria123#">
+                        <div class="invalid-feedback" id="mss-err-username">
+                            Este campo es requerido
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <div class="invalid-feedback" id="mss-err-pass">
+                           Este campo es requerido
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-darkgreen text-white btn-block" id="submitLogin">Ingresar</button>
+                    <button type="submit" class="btn btn-darkgreen text-white btn-block"
+                        id="submitLogin">Ingresar</button>
                 </form>
             </div>
             <div class="login-img col-6 d-flex justify-content-center align-item-center">
