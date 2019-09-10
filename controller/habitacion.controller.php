@@ -116,11 +116,11 @@ Class HabitacionController{
         }
     }
 
-    function readByTypeRoom(){
+    function readByRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT * FROM tipo_habitacion WHERE ".$request['columnDBSearch']." = ? AND th_estado = ?",array($request["value"],1));
+            $dataType = $this->masterModel->sqlSelect("SELECT h.*,th.* FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE ".$request['columnDBSearch']." = ? AND h.hab_estado = ? ",array($request["value"],1));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";

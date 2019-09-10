@@ -34,6 +34,7 @@ RewriteRule ^readByTypeRoom$ index.php?controller=tipoHabitacion&a=readByTypeRoo
 RewriteRule ^newNumberOfRoom$ index.php?controller=habitacion&a=newNumberOfRoom
 RewriteRule ^createRoom$ index.php?controller=habitacion&a=createRoom
 RewriteRule ^UpdateRoom$ index.php?controller=habitacion&a=UpdateRoom
+RewriteRule ^readByRoom$ index.php?controller=habitacion&a=readByRoom
 
 
 #ERRORES
