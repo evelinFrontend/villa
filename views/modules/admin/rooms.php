@@ -10,38 +10,23 @@
             <p>Tipo de Habitación</p>
         </div>
     </div>
-    <!-- <div class="content-card row" id="section-1-tab">
-        <div class="cards room bg-success mb-3 col-2" onclick="openModal()">
-            <div class="card-header text-white text-center">Disponible</div>
-            <div class="card-body row">
-                <div class="card-number col-4 d-flex align-items-center justify-content-center">
-                    <h3 class="text-center text-white">1</h3>
-                </div>
-                <div class="col-8">
-                    <p class="card-text">Sencilla</p>
-                    <p class="card-text">1:00:00</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear habitación</h4>
         <form id="create-room" class="border-bottom pb-4 mb-4">
+            <div class="alert alert-success" role="alert"></div>
             <div class="row">
                 <div class="form-group col-4">
                     <label for="room-number">Numero de habitación:</label>
-                    <input id="room-number" class="form-control" type="number">
+                    <input id="room-number" class="form-control" type="number" disabled>
                 </div>
                 <div class="form-group col-4">
                     <label for="room-type">Tipo de Habitacion</label>
                     <select id="room-type" class="form-control">
-                        <option>normal</option>
-                        <option>chevere</option>
                     </select>
                 </div>
                 <div class="form-group col-4">
                     <label for="room-detail">Detalles de la habitación:</label>
-                    <textarea id="room-detail" class="form-control" name="" rows="1"></textarea>
+                    <textarea id="room-detail" class="form-control" rows="1"></textarea>
                 </div>
             </div>
             <div class="form-group col-12 d-flex justify-content-end ">
@@ -114,25 +99,12 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descrpción</th>
-                            <th>Opciones</th>
+                            <th>Valor por hora</th>
+                            <th>Valor persona adicional</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
+                    <tbody id="table-body-type">
+                        
                     </tbody>
                 </table>
             </div>

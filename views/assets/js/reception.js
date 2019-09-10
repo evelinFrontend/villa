@@ -1,5 +1,6 @@
 $("#reception").ready(function(){
-    $('#init-modal').modal('show')
+    $('#init-modal').modal('show');
+    
 });
 
 $('#value').keypress(function() {

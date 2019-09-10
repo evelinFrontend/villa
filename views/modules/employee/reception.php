@@ -3,7 +3,7 @@
 			<h4 class="pricipal-title mb-4">Crear Facturas</h4>
 	</div>
 </div>
-<div id="init-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<!-- <div id="init-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -20,5 +20,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <script src="views/assets/js/reception.js"></script>

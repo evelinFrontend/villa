@@ -43,10 +43,11 @@
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Listado de categorias</h4>
         <div class="content-crear pb-4 mb-4 border-bottom">
+        <div class="alert alert-danger" role="alert"></div>
             <form id="form-create-category" class="d-flex">
                 <div class="form-group col">
-                    <label for="name-product">Nombre de la categoria:</label>
-                    <input id="name-product" class="form-control" type="text" require>
+                    <label for="name-new-category">Nombre de la categoria:</label>
+                    <input id="name-new-category" class="form-control" type="text" require>
                 </div>
                 <div class="form-group col d-flex align-items-end ">
                     <button type="submit" class="btn btn-primary btn-block">Crear</button>
@@ -122,6 +123,7 @@
                 </button>
             </div>
             <div class="modal-body m-4">
+            <div class="alert alert-danger" role="alert"></div>
                 <form id="form-create-product">
                     <div class="form-group">
                         <label for="name-product">Nombre del producto:</label>
@@ -152,23 +154,6 @@
     </div>
 </div>
 
-<!-- modal crear categoria -->
-<div id="create-category" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="my-modal-title">Crear un nueva categoria</h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body m-4">
-
-            </div>
-        </div>
-    </div>
-</div>
 <!-- modal create provider -->
 <div id="create-provider" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
@@ -181,6 +166,8 @@
             </div>
             <div class="modal-body">
                 <form id="form-create-provider" class="m-4">
+                    <div class="alert alert-danger" role="alert">
+                    </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="name-incharge">Nombre del encargo:</label>
