@@ -1,8 +1,5 @@
 <div class="content-main">
     <div class="slide-menu">
-        <!-- <div class="slide-item w-50" id="section-1">
-            <p>Habitaciones</p>
-        </div> -->
         <div class="slide-item w-50 border-slide" id="section-1">
             <p>Crear Habitación</p>
         </div>
