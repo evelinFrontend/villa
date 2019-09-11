@@ -78,12 +78,15 @@
 					<input id="additional" class="form-control" type="number">
 				</div>
 				<div class="form-group col">
-					<label for="decorated-room">Persona adicional:</label>
+					<label for="decorated-room">habitación decorada:</label>
 					<select id="decorated-room" class="form-control">
 						<option value="si">Si</option>
 						<option value="no">No</option>
 					</select>
 				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary" type="submit">Reservar</button>
 			</div>
 		</form>
     </div>

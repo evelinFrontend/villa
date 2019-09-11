@@ -9,6 +9,9 @@
         <div class="slide-item w-50 border-slide" id="section-3">
             <p>Proveedores</p>
         </div>
+        <div class="slide-item w-50 border-slide" id="section-4">
+            <p>Movimientos</p>
+        </div>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Listado de productos</h4>
@@ -72,7 +75,7 @@
         </div>
     </div>
     <div class="subcontent p-4" id="section-3-tab">
-    <h4 class="pricipal-title mb-4">Proveedores</h4>
+        <h4 class="pricipal-title mb-4">Proveedores</h4>
         <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal"
             data-target="#create-provider">
             Nuevo proveedor
@@ -108,6 +111,9 @@
             </div>
         </div>
 
+    </div>
+    <div class="subcontent p-4" id="section-4-tab">
+    <h4 class="pricipal-title mb-4">Movimientos</h4>
     </div>
 </div>
 
