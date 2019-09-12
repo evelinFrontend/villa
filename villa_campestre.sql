@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 10, 2019 at 02:41 AM
+-- Generation Time: Sep 12, 2019 at 03:27 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -25,6 +25,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id_categoria` int(11) NOT NULL,
+  `cat_nombre` varchar(100) NOT NULL,
+  `cat_descripcion` longtext NOT NULL,
+  `cat_fecha_creacion` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categorias`
+--
+
+INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_fecha_creacion`) VALUES
+(4, 'Lubricantes', 'pa que entre derecho y rico', '2019-09-12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `estado_reserva`
+--
+
+CREATE TABLE `estado_reserva` (
+  `sr_estado_reserva` int(11) NOT NULL,
+  `sr_nombre` varchar(50) NOT NULL,
+  `sr_descripcion` longtext NOT NULL,
+  `sr_color` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `estado_reserva`
+--
+
+INSERT INTO `estado_reserva` (`sr_estado_reserva`, `sr_nombre`, `sr_descripcion`, `sr_color`) VALUES
+(1, 'Disponible', 'dsadsad', '0');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `habitacion`
 --
 
@@ -32,6 +72,7 @@ CREATE TABLE `habitacion` (
   `hab_numero` int(11) NOT NULL,
   `id_tipo_habitacion` int(11) NOT NULL,
   `hab_detalle` longtext NOT NULL,
+  `sr_estado_reserva` int(11) NOT NULL,
   `hab_fecha_creacion` date NOT NULL,
   `hab_estado` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,14 +81,45 @@ CREATE TABLE `habitacion` (
 -- Dumping data for table `habitacion`
 --
 
-INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `hab_fecha_creacion`, `hab_estado`) VALUES
-(1, 1, 'nada', '0000-00-00', 0),
-(2, 1, '', '2019-09-08', 1),
-(3, 1, '', '2019-09-08', 1),
-(4, 1, '', '2019-09-08', 1),
-(5, 1, '', '2019-09-08', 1),
-(6, 1, '', '2019-09-08', 1),
-(7, 1, '', '2019-09-08', 1);
+INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
+(1, 1, 'nada', 1, '0000-00-00', 0),
+(2, 1, '', 1, '2019-09-08', 1),
+(3, 1, '', 1, '2019-09-08', 1),
+(4, 1, '', 1, '2019-09-08', 1),
+(5, 1, '', 1, '2019-09-08', 1),
+(6, 1, '', 1, '2019-09-08', 1),
+(7, 1, '', 1, '2019-09-08', 1),
+(8, 1, 'kjh', 1, '2019-09-11', 1),
+(9, 1, 'sadasasd', 1, '2019-09-11', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `id_proveedor` int(11) NOT NULL,
+  `pr_nit` varchar(15) NOT NULL,
+  `pr_nombre` varchar(100) NOT NULL,
+  `pr_razon_social` varchar(100) NOT NULL,
+  `pr_telefono` bigint(20) NOT NULL,
+  `pr_direccion` varchar(60) NOT NULL,
+  `pr_email` varchar(100) NOT NULL,
+  `pr_numero_cuenta` varchar(50) NOT NULL,
+  `pr_tipo_cuenta` varchar(30) NOT NULL,
+  `pr_banco` varchar(70) NOT NULL,
+  `nombre_contacto` varchar(100) NOT NULL,
+  `pr_ultimo_aprovisionamiento` date NOT NULL,
+  `pr_fecha_registro` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `proveedores`
+--
+
+INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_social`, `pr_telefono`, `pr_direccion`, `pr_email`, `pr_numero_cuenta`, `pr_tipo_cuenta`, `pr_banco`, `nombre_contacto`, `pr_ultimo_aprovisionamiento`, `pr_fecha_registro`) VALUES
+(4, '78778782-1', 'Condoncito feliz', 'Dale Dale!!!', 32338889, 'calle 95', 'sinhijos@hotmail.com', '8000222222', 'Ahorros', 'BBVA', 'Javier', '2019-09-12', '2019-09-12');
 
 -- --------------------------------------------------------
 
@@ -128,11 +200,30 @@ INSERT INTO `usuario` (`usu_id`, `usu_nombres`, `usu_apellidos`, `usu_numero_doc
 --
 
 --
+-- Indexes for table `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Indexes for table `estado_reserva`
+--
+ALTER TABLE `estado_reserva`
+  ADD PRIMARY KEY (`sr_estado_reserva`);
+
+--
 -- Indexes for table `habitacion`
 --
 ALTER TABLE `habitacion`
   ADD PRIMARY KEY (`hab_numero`),
-  ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`);
+  ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`),
+  ADD KEY `sr_estado_reserva` (`sr_estado_reserva`);
+
+--
+-- Indexes for table `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`id_proveedor`);
 
 --
 -- Indexes for table `rol`
@@ -157,6 +248,24 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `estado_reserva`
+--
+ALTER TABLE `estado_reserva`
+  MODIFY `sr_estado_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -184,7 +293,8 @@ ALTER TABLE `usuario`
 -- Constraints for table `habitacion`
 --
 ALTER TABLE `habitacion`
-  ADD CONSTRAINT `habitacion_ibfk_1` FOREIGN KEY (`id_tipo_habitacion`) REFERENCES `tipo_habitacion` (`id_tipo_habitacion`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `habitacion_ibfk_1` FOREIGN KEY (`id_tipo_habitacion`) REFERENCES `tipo_habitacion` (`id_tipo_habitacion`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `habitacion_ibfk_2` FOREIGN KEY (`sr_estado_reserva`) REFERENCES `estado_reserva` (`sr_estado_reserva`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuario`
