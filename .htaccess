@@ -35,7 +35,13 @@ RewriteRule ^newNumberOfRoom$ index.php?controller=habitacion&a=newNumberOfRoom
 RewriteRule ^createRoom$ index.php?controller=habitacion&a=createRoom
 RewriteRule ^UpdateRoom$ index.php?controller=habitacion&a=UpdateRoom
 RewriteRule ^readByRoom$ index.php?controller=habitacion&a=readByRoom
+RewriteRule ^deleteRoom$ index.php?controller=habitacion&a=deleteRoom
 
+#Proveedores 
+RewriteRule ^createProvider$ index.php?controller=proveedor&a=createProvider
+RewriteRule ^UpdateProvider$ index.php?controller=proveedor&a=UpdateProvider
+RewriteRule ^deleteProvider$ index.php?controller=proveedor&a=deleteProvider
+RewriteRule ^readByProvider$ index.php?controller=proveedor&a=readByProvider
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php

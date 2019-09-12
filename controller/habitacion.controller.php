@@ -16,9 +16,10 @@ Class HabitacionController{
             if(!empty($numeroHabitacion)){
                 $request["hab_fecha_creacion"] = date("Y-m-d");
                 $request["hab_estado"] = 1;
+                $request["estado_reserva"] = 1;
                 $existe_tipo = $this->masterModel->sqlSelect("SELECT id_tipo_habitacion FROM tipo_habitacion WHERE id_tipo_habitacion = ? ",array($request["tipo_habitacion"]));
                 if(!empty($existe_tipo)){
-                    $insert = $this->masterModel->insert("habitacion",array($numeroHabitacion,$request["tipo_habitacion"],$request["detalles"],$request["hab_fecha_creacion"],$request["hab_estado"]),array(""));
+                    $insert = $this->masterModel->insert("habitacion",array($numeroHabitacion,$request["tipo_habitacion"],$request["detalles"],$request["estado_reserva"],$request["hab_fecha_creacion"],$request["hab_estado"]),array(""));
                     if($insert){
                         $status = "success";
                         $numHabitacion = $numeroHabitacion;
@@ -52,33 +53,36 @@ Class HabitacionController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            //validar si el tipo de habitacion  existe
-            $existeTipo = $this->masterModel->sqlSelect("SELECT id_habitacion FROM tipo_habitacion WHERE id_habitacion = ? ",array($request["id"]));
-            if(!empty($existeTipo)){
+            //validar si la habitacion  existe
+            $existeHabitacion = $this->masterModel->sqlSelect("SELECT hab_numero FROM habitacion WHERE hab_numero = ? ",array($request["id"]));
+            if(!empty($existeHabitacion)){
+                $existeTipo = $this->masterModel->sqlSelect("SELECT id_tipo_habitacion FROM tipo_habitacion WHERE id_tipo_habitacion = ? ",array($request["tipo_habitacion"]));
                 //saber si el estado es valido
-                if($request["estado"]==0 || $request["estado"] ==1){
-                    if($request["valor_hora"]>0 && $request["valor_persona_adicional"]>0){
-                        $insert = $this->masterModel->sql("UPDATE tipo_habitacion SET  th_nombre_tipo = ?, th_descripcion = ?,th_valor_hora = ?, th_valor_persona_adicional = ?, th_estado = ? WHERE id_habitacion = ? ",array($request["nombre_tipo"],$request["descripcion"],$request["valor_hora"],$request["valor_persona_adicional"],$request["estado"],$request["id"]));
+                if(!empty($existeTipo)){
+                    if($request["estado"]==0 || $request["estado"]==1){
+                        $insert = $this->masterModel->sql("UPDATE habitacion SET  id_tipo_habitacion = ?, hab_detalle = ?,hab_estado = ? WHERE hab_numero = ? ",array($request["tipo_habitacion"],$request["hab_detalle"],$request["estado"],$request["id"]));
                         if($insert){
                             $status = "success";
-                            $message = "Tipo de habitación modificada exitosamente.";
+                            $message = "Habitación modificada exitosamente.";
                         }else{
+                            header('Internal server error', true, 500);
                             $status = "error";
-                            $message = "El nombre del tipo de habitación ya ha sido registrado.";
+                            $message = "Error al realizar la modificación.";
                         }
                     }else{
+                        header('Internal server error', true, 500);
                         $status = "error";
-                        $message = "Por favor ingresa un precio válido en  el valor de la hora o persona adicional.";
+                        $message = "Por ingresa un estado válido.";
                     }
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
-                    $message = "Por favor ingresa un estado válido.";
+                    $message = "Este tipo de habitación no esta Registrada en el sistema.";
                 }
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este tipo de habitación no esta registrado en el sistema.";
+                $message = "Esta Habitación no esta registrado en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -88,17 +92,17 @@ Class HabitacionController{
         
     }
 
-    function deleteTypeRoom(){
+    function deleteRoom(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            //validar si el tipo existe
-            $existeTipo = $this->masterModel->sqlSelect("SELECT id_habitacion FROM tipo_habitacion WHERE id_habitacion = ?",array($request["id"]));
-            if(!empty($existeTipo)){
-                $eliminar = $this->masterModel->sql("UPDATE tipo_habitacion SET th_estado = ? WHERE id_habitacion = ?",array(0,$_POST["id"]));
+            //validar la habitacion
+            $existeHabitacion = $this->masterModel->sqlSelect("SELECT hab_numero FROM habitacion WHERE hab_numero = ? ",array($request["id"]));
+            if(!empty($existeHabitacion)){
+                $eliminar = $this->masterModel->sql("UPDATE habitacion SET hab_estado = ? WHERE hab_numero = ?",array(0,$_POST["id"]));
                 if($eliminar){
                     $status = "success";
-                    $message = "Tipo de usuario eliminado.";
+                    $message = "Habitacióm eliminada.";
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
@@ -107,7 +111,7 @@ Class HabitacionController{
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este tipo de habitación no esta  registrado en el sistema.";
+                $message = "Esta habitación no esta  registrado en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -138,26 +142,7 @@ Class HabitacionController{
         }
     }
 
-    function newNumberOfRoom($return = false){
-        header('Content-Type:application/json');
-        $numeroHabitacion = $this->masterModel->sqlSelect("SELECT MAX(hab_numero) as numero_actual FROM habitacion",array())[0];
-        if(!empty($numeroHabitacion)){
-            $status = "success";
-            $message = "Consultas realizada.";
-            $data = $numeroHabitacion->numero_actual+1;
-        }else{
-            header('Internal server error', true, 500);
-            $status = "error";
-            $message = "no hay información asociada a esta consulta verifica los parametros.";
-            $data = null;
-        }
-        $result = array("status"=>$status,"message"=>$message,"numero_nueva_habitacion"=>$data);
-        if($return){
-            return $data;
-        }else{
-            echo json_encode($result);
-        }
-    }
+
     
 }
 
