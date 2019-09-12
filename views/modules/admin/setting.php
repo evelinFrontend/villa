@@ -6,6 +6,9 @@
         <div class="slide-item w-50 border-slide" id="section-2">
             <p>Promociones</p>
         </div>
+        <div class="slide-item w-50 border-slide" id="section-2">
+            <p>Colores y estilos</p>
+        </div>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Personal del hotel</h4>
@@ -46,6 +49,14 @@
 
     </div>
     <div class="subcontent p-4" id="section-2-tab">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+    </div>
+    <div class="subcontent p-4" id="section-3-tab">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
         Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?

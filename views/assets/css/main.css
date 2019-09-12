@@ -45,7 +45,10 @@ p{
     border-image-slice: 1;
     border-bottom: 1px solid;
 }
-
+.icon-list{
+    width: 18px;
+    cursor: pointer;
+}
  
 /* nav-bar */
 .text-content-navbar{
@@ -96,7 +99,7 @@ p{
 .border-slide{
     border-left: 1px solid #dcdcdc
 }
-#section-2-tab , #section-3-tab { display: none}
+#section-2-tab , #section-3-tab, #section-4-tab { display: none}
 /* home-admin */
 .cards {
     background: white;

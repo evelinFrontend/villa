@@ -27,7 +27,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Proveedor</th>
-                        <th scope="col">Valor</th>
+                        <th scope="col">opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,10 @@
                         <td>coca-cola</td>
                         <td>bebidas</td>
                         <td>el man ese</td>
-                        <td>5.000</td>
+                        <td class="d-flex justify-content-around">
+                            <img src="views/assets/icons/print.png" class="icon-list">
+                            <img src="views/assets/icons/delete.png" class="icon-list">
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -45,12 +48,19 @@
     </div>
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Listado de categorias</h4>
+        <div class="alert alert-success" role="alert" id="alert-scc-category">
+            Content
+        </div>
         <div class="content-crear pb-4 mb-4 border-bottom">
         <div class="alert alert-danger" role="alert"></div>
             <form id="form-create-category" class="d-flex">
                 <div class="form-group col">
                     <label for="name-new-category">Nombre de la categoria:</label>
                     <input id="name-new-category" class="form-control" type="text" require>
+                </div>
+                <div class="form-group col">
+                    <label for="description-category">Descripción:</label>
+                    <input id="description-category" class="form-control" type="text" require>
                 </div>
                 <div class="form-group col d-flex align-items-end ">
                     <button type="submit" class="btn btn-primary btn-block">Crear</button>
@@ -63,12 +73,19 @@
                     <tr>
                         <th scope="col">Codigo</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>1233</th>
                         <td>bebidas</td>
+                        <td>bebisnvdfvndas</td>
+                        <td class="d-flex justify-content-around">
+                            <img src="views/assets/icons/print.png" class="icon-list">
+                            <img src="views/assets/icons/delete.png" class="icon-list">
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -85,8 +102,9 @@
                 <table class="table table-striped col" id="table-provider">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th></th>
+                            <th>Nombre del proveedor:</th>
+                            <th>Nombre del encargado:</th>
+                            <th>Telefono_</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -94,17 +112,11 @@
                         <tr>
                             <td>Normal</td>
                             <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
                             <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
+                            <td class="d-flex justify-content-around">
+                            <img src="views/assets/icons/print.png" class="icon-list">
+                            <img src="views/assets/icons/delete.png" class="icon-list">
+                        </td>
                         </tr>
                     </tbody>
                 </table>

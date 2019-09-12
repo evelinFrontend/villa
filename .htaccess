@@ -49,6 +49,20 @@ RewriteRule ^UptadeCategory$ index.php?controller=categorias&a=UptadeCategory
 RewriteRule ^deleteCategory$ index.php?controller=categorias&a=deleteCategory
 RewriteRule ^readByCategory$ index.php?controller=categorias&a=readByCategory
 
+#Productos
+RewriteRule ^createProduct$ index.php?controller=producto&a=createProduct
+RewriteRule ^UptadeProduct$ index.php?controller=producto&a=UptadeProduct
+RewriteRule ^deleteProduct$ index.php?controller=producto&a=deleteProduct
+RewriteRule ^readByProduct$ index.php?controller=producto&a=readByProduct
+
+#estado Reservas
+RewriteRule ^UptadeStateR$ index.php?controller=estadoReserva&a=UptadeStateR
+RewriteRule ^readBystateR$ index.php?controller=estadoReserva&a=readBystateR
+
+#Configuraciones facturas
+RewriteRule ^UptadeConf$ index.php?controller=configuracionFactura&a=UptadeConf
+RewriteRule ^readByConf$ index.php?controller=configuracionFactura&a=readByConf
+
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php

@@ -36,14 +36,20 @@ $("#form-create-category").submit(function (e) {
     e.preventDefault();
     if ($("#name-new-category").val() !== '') {
         $.ajax({
-            url: '',
+            url: 'createCategory',
             type: 'POST',
             dataType: 'json',
             data: ({
-
+                "nombre": $("#name-new-category").val(),
+                "descripcion": $("#description-category").val(),
             }),
             success: function (success) {
-                console.log(success);
+                $("#alert-scc-category").show();
+                $("#alert-scc-category").append('Categoria Creada exitosamente!');
+                setTimeout(() => {
+                    $("#alert-scc-category").hide();
+                }, 3000);
+                $("#form-create-category").trigger('reset')
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -67,19 +73,19 @@ $("#form-create-provider").submit(function (e) {
             type: 'POST',
             dataType: 'json',
             data: ({
-                    "nombre_contacto": $("#name-incharge").val(),
-                    "nombre": $("#name-provider").val(),
-                    "nit": $("#nit-provider").val(),
-                    "razon_social": $("#business-name-provider").val(),
-                    "telefono": $("#business-name-provider").val(),
-                    "direccion": $("#address-provider").val(),
-                    "correo": $("#email-provider").val(),
-                    "numero_cuenta": $("#account-provider").val(),
-                    "tipo_cuenta": $("#type-account-provider").val(),
-                    "banco": $("#bank-provider").val(),
-    
-                }
-            ),    
+                "nombre_contacto": $("#name-incharge").val(),
+                "nombre": $("#name-provider").val(),
+                "nit": $("#nit-provider").val(),
+                "razon_social": $("#business-name-provider").val(),
+                "telefono": $("#business-name-provider").val(),
+                "direccion": $("#address-provider").val(),
+                "correo": $("#email-provider").val(),
+                "numero_cuenta": $("#account-provider").val(),
+                "tipo_cuenta": $("#type-account-provider").val(),
+                "banco": $("#bank-provider").val(),
+
+            }
+            ),
             success: function (success) {
                 console.log(success, data);
             },
