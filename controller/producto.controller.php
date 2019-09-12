@@ -44,7 +44,7 @@ Class ProductoController{
                                     $request["pro_fecha_ultima_modificacion"]=date("Y-m-d");
                                     $request["pro_fecha_creacion"]=date("Y-m-d");
                                     $request["pro_estado"]=1;
-                                    $insert = $this->masterModel->insert("producto",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$img,$request["pro_fecha_ultima_modificacion"],$request["pro_fecha_creacion"],$request["pro_estado"]),array("id_producto"));
+                                    $insert = $this->masterModel->insert("producto",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$img,$request["cantidad_disponible"],$request["pro_fecha_ultima_modificacion"],$request["pro_fecha_creacion"],$request["pro_estado"]),array("id_producto"));
                                     if($insert){
                                         $status = "success";
                                         $message = "Producto registrado exitosamente.";
@@ -126,9 +126,9 @@ Class ProductoController{
                                     if(!empty($existe_proveedor)){
                                         $request["pro_fecha_ultima_modificacion"]=date("Y-m-d");
                                         if($img==false){
-                                            $update = $this->masterModel->sql("UPDATE producto SET pro_codigo = ?,pro_nombre = ?, pro_precio_compra = ?, pro_precio_venta = ?, id_categoria = ?, id_proveedor = ?, pro_fecha_ultima_modificacion = ?,pro_estado= ? WHERE id_producto = ?",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$request["pro_fecha_ultima_modificacion"],$request["estado"],$request["id"]));
+                                            $update = $this->masterModel->sql("UPDATE producto SET pro_codigo = ?,pro_nombre = ?, pro_precio_compra = ?, pro_precio_venta = ?, id_categoria = ?, id_proveedor = ?, pro_cantidad_disponible = ? ,pro_fecha_ultima_modificacion = ?,pro_estado= ? WHERE id_producto = ?",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$request["cantidad_disponible"],$request["pro_fecha_ultima_modificacion"],$request["estado"],$request["id"]));
                                         }else{
-                                            $update = $this->masterModel->sql("UPDATE producto SET pro_codigo = ?,pro_nombre = ?, pro_precio_compra = ?, pro_precio_venta = ?, id_categoria = ?, id_proveedor = ?, pro_imagen = ?, pro_fecha_ultima_modificacion = ?,pro_estado= ? WHERE id_producto = ?",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$img,$request["pro_fecha_ultima_modificacion"],$request["estado"],$request["id"]));
+                                            $update = $this->masterModel->sql("UPDATE producto SET pro_codigo = ?,pro_nombre = ?, pro_precio_compra = ?, pro_precio_venta = ?, id_categoria = ?, id_proveedor = ?, pro_imagen = ?, pro_cantidad_disponible = ?, pro_fecha_ultima_modificacion = ?,pro_estado= ? WHERE id_producto = ?",array($request["codigo"],$request["nombre"],$request["precio_compra"],$request["precio_venta"],$request["categoria"],$request["proveedor"],$img,$request["cantidad_disponible"],$request["pro_fecha_ultima_modificacion"],$request["estado"],$request["id"]));
                                         }
                                         if($update){
                                             if($img!=false){
