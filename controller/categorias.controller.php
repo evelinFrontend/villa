@@ -43,7 +43,7 @@ Class CategoriasController{
         }
     }
     
-    function UptadeProvider(){
+    function UptadeCategory(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
@@ -54,7 +54,7 @@ Class CategoriasController{
                         $delete = $this->masterModel->sql("UPDATE categorias SET cat_nombre = ?, cat_descripcion = ? WHERE id_categoria = ?",array($request["nombre"],$request["descripcion"],$request["id"]));
                         if($delete){
                             $status = "success";
-                            $message = "Categoria registrado exitosamente.";
+                            $message = "Categoria Modificada exitosamente.";
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
@@ -68,7 +68,7 @@ Class CategoriasController{
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este proveedor no esta registrado en el sistema.";
+                $message = "Esta Categoria no esta registrada en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -78,26 +78,26 @@ Class CategoriasController{
         
     }
 
-    function deleteProvider(){
+    function deleteCategory(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            //validar la proveedor
-            $existe_proveedor = $this->masterModel->sqlSelect("SELECT id_proveedor FROM proveedores WHERE id_proveedor = ?",array($request["id"]));
-            if(!empty($existe_proveedor)){
-                $eliminar = $this->masterModel->delete("proveedores",array("id_proveedor",$_POST["id"]));
+            //validar la categoria
+            $categoria = $this->masterModel->sqlSelect("SELECT id_categoria FROM categorias WHERE id_categoria = ? ",array($request["id"]));
+            if(!empty($categoria)){
+                $eliminar = $this->masterModel->delete("categorias",array("id_categoria",$_POST["id"]));
                 if($eliminar){
                     $status = "success";
-                    $message = "Proveedor eliminado.";
+                    $message = "Categoria eliminado.";
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
-                    $message = "Debido a que este proveedor tiene productos ralacionados no se puede eliminar.";
+                    $message = "Debido a que esta categoria tiene productos ralacionados no se puede eliminar.";
                 }
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Este proveerdor no esta  registrado en el sistema.";
+                $message = "Esta categoria no esta  registrada en el sistema.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -106,11 +106,11 @@ Class CategoriasController{
         }
     }
 
-    function readByProvider(){
+    function readByCategory(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT * FROM proveedores WHERE ".$request['columnDBSearch']." = ? ",array($request["value"]));
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM categorias WHERE ".$request['columnDBSearch']." = ? ",array($request["value"]));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";

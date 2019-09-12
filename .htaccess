@@ -45,6 +45,9 @@ RewriteRule ^readByProvider$ index.php?controller=proveedor&a=readByProvider
 
 #Categoria
 RewriteRule ^createCategory$ index.php?controller=categorias&a=createCategory
+RewriteRule ^UptadeCategory$ index.php?controller=categorias&a=UptadeCategory
+RewriteRule ^deleteCategory$ index.php?controller=categorias&a=deleteCategory
+RewriteRule ^readByCategory$ index.php?controller=categorias&a=readByCategory
 
 
 #ERRORES
