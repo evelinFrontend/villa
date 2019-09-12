@@ -49,6 +49,12 @@ RewriteRule ^UptadeCategory$ index.php?controller=categorias&a=UptadeCategory
 RewriteRule ^deleteCategory$ index.php?controller=categorias&a=deleteCategory
 RewriteRule ^readByCategory$ index.php?controller=categorias&a=readByCategory
 
+#Productos
+RewriteRule ^createProduct$ index.php?controller=producto&a=createProduct
+RewriteRule ^UptadeProduct$ index.php?controller=producto&a=UptadeProduct
+RewriteRule ^deleteProduct$ index.php?controller=producto&a=deleteProduct
+RewriteRule ^readByProduct$ index.php?controller=producto&a=readByProduct
+
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
