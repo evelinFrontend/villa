@@ -14,6 +14,7 @@ Class LoginController{
             if(!empty($existeUsuario)){
                 if(password_verify($request["contrasena"],$existeUsuario[0]->usu_contrasena)){
                     $_SESSION["DATA_USER"]["NAME"] = $existeUsuario[0]->usu_nombres;
+                    $_SESSION["DATA_USER"]["ID"] = $existeUsuario[0]->usu_id;
                     $_SESSION["DATA_USER"]["LAST_NAME"] = $existeUsuario[0]->usu_apellidos;
                     $_SESSION["DATA_USER"]["LOGIN_NAME"] = $existeUsuario[0]->usu_nombre_login;
                     $_SESSION["DATA_USER"]["ROL"] = $existeUsuario[0]->usu_rol;

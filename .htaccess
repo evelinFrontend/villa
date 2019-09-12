@@ -59,6 +59,10 @@ RewriteRule ^readByProduct$ index.php?controller=producto&a=readByProduct
 RewriteRule ^UptadeStateR$ index.php?controller=estadoReserva&a=UptadeStateR
 RewriteRule ^readBystateR$ index.php?controller=estadoReserva&a=readBystateR
 
+#Configuraciones facturas
+RewriteRule ^UptadeConf$ index.php?controller=configuracionFactura&a=UptadeConf
+RewriteRule ^readByConf$ index.php?controller=configuracionFactura&a=readByConf
+
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
