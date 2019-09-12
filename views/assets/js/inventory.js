@@ -59,18 +59,29 @@ $("#form-create-category").submit(function (e) {
     }
 });
 
-$("#form-create-provider").submit(function(e) {
+$("#form-create-provider").submit(function (e) {
     e.preventDefault();
-    if ($("#name-incharge").val() !== '' && $("#name-provider").val() !== '' && $("#nit-provider").val() !== '' && $("#business-name-provider").val() !== '' && $("#number-provider").val() !== '' && $("#address-provider").val() !== '' && $("#doc-employee").val() !== '') {
+    if ($("#name-incharge").val() !== '' && $("#name-provider").val() !== '' && $("#nit-provider").val() !== '' && $("#business-name-provider").val() !== '' && $("#address-provider").val() !== '' && $("#doc-employee").val() !== '') {
         $.ajax({
-            url: '',
+            url: 'createProvider',
             type: 'POST',
             dataType: 'json',
             data: ({
-
-            }),
+                    "nombre_contacto": $("#name-incharge").val(),
+                    "nombre": $("#name-provider").val(),
+                    "nit": $("#nit-provider").val(),
+                    "razon_social": $("#business-name-provider").val(),
+                    "telefono": $("#business-name-provider").val(),
+                    "direccion": $("#address-provider").val(),
+                    "correo": $("#email-provider").val(),
+                    "numero_cuenta": $("#account-provider").val(),
+                    "tipo_cuenta": $("#type-account-provider").val(),
+                    "banco": $("#bank-provider").val(),
+    
+                }
+            ),    
             success: function (success) {
-                console.log(success);
+                console.log(success, data);
             },
             error: function (err) {
                 var message = err.responseJSON.message;

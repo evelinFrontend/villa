@@ -206,8 +206,22 @@
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="doc-employee">correo eléctronico:</label>
-                            <input id="doc-employee" class="form-control" type="number" name="">
+                            <label for="email-provider">Correo eléctronico:</label>
+                            <input id="email-provider" class="form-control" type="email" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="account-provider">Numero de cuenta:</label>
+                            <input id="account-provider" class="form-control" type="number" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="type-account-provider">Tipo de cuenta:</label>
+                            <input id="type-account-provider" class="form-control" type="text" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="bank-provider">Banco:</label>
+                            <input id="bank-provider" class="form-control" type="number" name="">
                         </div>
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
