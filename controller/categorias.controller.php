@@ -1,53 +1,40 @@
 <?php 
-Class ProveedorController{
+Class CategoriasController{
     private  $masterModel;
     private $doizer;
-    function ProveedorController($masterModel,$doizer){
+    function CategoriasController($masterModel,$doizer){
         $this->masterModel = $masterModel;
         $this->doizer = $doizer;
     }
 
-    function createProvider(){
+    function createCategory(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            //validar si el tipo de habitacion  existe
-            $request["pr_fecha_creacion"] = date("Y-m-d");
-            $request["pr_ultimo_aprovisionamiento"] = date("Y-m-d");
+            //validar  si la categoris  existe
+            $request["fecha_creacion"] = date("Y-m-d");
 
-            if($request["nit"]!= ""){
-                if($request["nombre"]!= ""){
-                    if($request["telefono"]!= "" || $request["correo"]!= ""){
-                        $existe_proveedor = $this->masterModel->sqlSelect("SELECT id_proveedor FROM proveedores WHERE pr_nit = ? OR pr_nombre = ? or pr_email = ? ",array($request["nit"],$request["nombre"],$request["correo"]));
-                        if(empty($existe_proveedor)){
-                            $insert = $this->masterModel->insert("proveedores",array($request["nit"],$request["nombre"],$request["razon_social"],$request["telefono"],$request["direccion"],$request["correo"],$request["numero_cuenta"],$request["tipo_cuenta"],$request["banco"],$request["nombre_contacto"],$request["pr_ultimo_aprovisionamiento"],$request["pr_fecha_creacion"]),array("id_proveedor"));
-                            if($insert){
-                                $status = "success";
-                                $message = "Proveedor registrado exitosamente.";
-                            }else{
-                                header('Internal server error', true, 500);
-                                $status = "error";
-                                $message = "error guardando en base de datos.";
-                            }
+            if($request["nombre"]!= ""){
+                $categoria = $this->masterModel->sqlSelect("SELECT id_categoria FROM categorias WHERE cat_nombre = ? ",array($request["nombre"]));
+                if(empty($categoria)){
+                    $insert = $this->masterModel->insert("categorias",array($request["nombre"],$request["descripcion"],$request["fecha_creacion"]),array("id_categoria"));
+                    if($insert){
+                        $status = "success";
+                        $message = "Categoria registrado exitosamente.";
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
-                            $message = "Esta proveedor ya se encuentra registrado en el sistema.";
+                            $message = "error guardando en base de datos.";
                         }
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
-                        $message = "Por favor ingresa el correo o telefono.";
+                        $message = "Esta categoria ya se encuentra registrado en el sistema.";
                     }
-                }else{
-                    header('Internal server error', true, 500);
-                    $status = "error";
-                    $message = "Por favor ingresa el nombre.";
-                }
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Por favor ingresa el NIT.";
+                $message = "Por favor ingresa el nombre de  la categoria.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
@@ -56,39 +43,27 @@ Class ProveedorController{
         }
     }
     
-    function UpdateProvider(){
+    function UptadeProvider(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
             //validar si  el proveedor
-            $existe_proveedor = $this->masterModel->sqlSelect("SELECT id_proveedor FROM proveedores WHERE id_proveedor = ?",array($request["id"]));
-                if(!empty($existe_proveedor)){
-                    if($request["nit"]!= ""){
-                        if($request["nombre"]!= ""){
-                            if($request["telefono"]!= "" || $request["correo"]!= ""){
-                                $update = $this->masterModel->sql("UPDATE proveedores SET pr_nit = ?, pr_nombre = ?,pr_razon_social= ?, pr_telefono = ? ,pr_direccion =?,pr_email =  ?,pr_numero_cuenta = ?, pr_tipo_cuenta = ?, pr_banco = ? , nombre_contacto = ? WHERE id_proveedor = ?",array($request["nit"],$request["nombre"],$request["razon_social"],$request["telefono"],$request["direccion"],$request["correo"],$request["numero_cuenta"],$request["tipo_cuenta"],$request["banco"],$request["nombre_contacto"],$request["id"]));
-                                if($update){
-                                    $status = "success";
-                                    $message = "Proveedor Modificado exitosamente.";
-                                }else{
-                                    header('Internal server error', true, 500);
-                                    $status = "error";
-                                    $message = "error guardando en base de datos.";
-                                }
-                            }else{
-                                header('Internal server error', true, 500);
-                                $status = "error";
-                                $message = "Por favor ingresa el correo o telefono.";
-                            }
+            $categoria = $this->masterModel->sqlSelect("SELECT id_categoria FROM categorias WHERE id_categoria = ? ",array($request["id"]));
+                if(!empty($categoria)){
+                    if($request["nombre"]!= ""){
+                        $delete = $this->masterModel->sql("UPDATE categorias SET cat_nombre = ?, cat_descripcion = ? WHERE id_categoria = ?",array($request["nombre"],$request["descripcion"],$request["id"]));
+                        if($delete){
+                            $status = "success";
+                            $message = "Categoria registrado exitosamente.";
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
-                            $message = "Por favor ingresa el nombre.";
+                            $message = "error guardando en base de datos.";
                         }
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
-                        $message = "Por favor ingresa el NIT.";
+                        $message = "Por favor ingresa el nombre de  la categoria.";
                     }
             }else{
                 header('Internal server error', true, 500);

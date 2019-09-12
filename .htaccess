@@ -43,6 +43,10 @@ RewriteRule ^UpdateProvider$ index.php?controller=proveedor&a=UpdateProvider
 RewriteRule ^deleteProvider$ index.php?controller=proveedor&a=deleteProvider
 RewriteRule ^readByProvider$ index.php?controller=proveedor&a=readByProvider
 
+#Categoria
+RewriteRule ^createCategory$ index.php?controller=categorias&a=createCategory
+
+
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
 
