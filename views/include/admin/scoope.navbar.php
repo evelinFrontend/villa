@@ -1,6 +1,6 @@
 <nav class="navbar-container w-100 bg-white">
     <div class="text-content-navbar py-2 d-flex justify-content-between align-items-center">
-        <p class="font-weight-bold">Bienvenidos: </p>
+        <p class="font-weight-bold">Bienvenido: <?php echo $_SESSION["DATA_USER"]["NAME"]?> </p>
         <div class="singout-navbar" id="logOut">
             <a>Cerrar sesion</a>
         </div>

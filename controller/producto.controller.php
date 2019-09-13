@@ -216,7 +216,7 @@ Class ProductoController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE ".$request['columnDBSearch']." = ? AND pro_estado = ?  ",array($request["value"],1));
+            $dataType = $this->masterModel->sqlSelect("SELECT p.pro_codigo,p.pro_nombre,c.cat_nombre,pv.pr_nombre,p.id_producto,c.id_categoria,pv.id_proveedor FROM producto p INNER JOIN categorias c ON p.id_categoria = c.id_categoria INNER JOIN proveedores pv ON p.id_proveedor = pv.id_proveedor WHERE  ".$request['columnDBSearch']." = ? AND pro_estado = ?  ",array($request["value"],1));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";
@@ -228,10 +228,27 @@ Class ProductoController{
                 $data = null;
             }
             $result = array("status"=>$status,"message"=>$message,"data"=>$data);
-            echo json_encode($request);
+            echo json_encode($result);
         }else{
             header('405 Method Not Allowede', true, 405);
         }
+    }    
+    function readByCantProduct(){
+        header('Content-Type:application/json');
+        $request = $_POST;
+        $dataType = $this->masterModel->sqlSelect("SELECT COUNT(*) as cantidad FROM producto p ",array(""))[0];
+        if(!empty($dataType)){
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $dataType;
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+        }
+        $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+        echo json_encode($result);
     }    
 }
 ?>

@@ -31,16 +31,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1233</th>
-                        <td>coca-cola</td>
-                        <td>bebidas</td>
-                        <td>el man ese</td>
-                        <td class="d-flex justify-content-around">
-                            <img src="views/assets/icons/print.png" class="icon-list">
-                            <img src="views/assets/icons/delete.png" class="icon-list">
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -78,15 +68,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1233</th>
-                        <td>bebidas</td>
-                        <td>bebisnvdfvndas</td>
-                        <td class="d-flex justify-content-around">
-                            <img src="views/assets/icons/print.png" class="icon-list">
-                            <img src="views/assets/icons/delete.png" class="icon-list">
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -104,20 +85,11 @@
                         <tr>
                             <th>Nombre del proveedor:</th>
                             <th>Nombre del encargado:</th>
-                            <th>Telefono_</th>
+                            <th>Telefono</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>Pues es normal</td>
-                            <td class="d-flex justify-content-around">
-                            <img src="views/assets/icons/print.png" class="icon-list">
-                            <img src="views/assets/icons/delete.png" class="icon-list">
-                        </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

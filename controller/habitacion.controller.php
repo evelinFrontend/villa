@@ -141,6 +141,23 @@ Class HabitacionController{
             header('405 Method Not Allowede', true, 405);
         }
     }
+    function readByRoomCant(){
+        header('Content-Type:application/json');
+        $request = $_POST;
+        $dataType = $this->masterModel->sqlSelect("SELECT COUNT(*) AS cantidad FROM habitacion ",array(""))[0];
+        if(!empty($dataType)){
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $dataType;
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+        }
+        $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+        echo json_encode($result);
+    }
 
     function newNumberOfRoom($return = false){
         header('Content-Type:application/json');

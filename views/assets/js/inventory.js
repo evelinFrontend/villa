@@ -102,3 +102,95 @@ $("#form-create-provider").submit(function (e) {
         $(".alert").append("Todos campos son requeridos");
     }
 });
+
+//llenas tabla de productos
+$.ajax({
+    url:'readByProduct',
+    dataType:"json",
+    type:"POST",
+    data:({
+        "columnDBSearch":1,
+        "value": 1
+    }),
+    success:function(response){
+        console.log(response);
+        for(var i = 0; i<response.data.length;i++){
+            $('#table-product> tbody:last').append(`
+            <tr>
+                <th>${response.data[i].pro_codigo}</th>
+                <td>${response.data[i].pro_nombre}</td>
+                <td>${response.data[i].cat_nombre}</td>
+                <td>${response.data[i].pr_nombre}</td>
+                <td class="d-flex justify-content-around">
+                    <img src="views/assets/icons/print.png" class="icon-list">
+                    <img src="views/assets/icons/delete.png" class="icon-list">
+                </td>
+            </tr>
+            `);
+        }
+        $('#table-product').DataTable();
+    },
+    error:function(response){
+        console.log(response);
+    },
+});
+//llenas tabla de categorias
+$.ajax({
+    url:'readByCategory',
+    dataType:"json",
+    type:"POST",
+    data:({
+        "columnDBSearch":1,
+        "value": 1
+    }),
+    success:function(response){
+        console.log(response);
+        for(var i = 0; i<response.data.length;i++){
+            $('#table-category> tbody:last').append(`
+            <tr>
+                <th>${response.data[i].id_categoria}</th>
+                <td>${response.data[i].cat_nombre}</td>
+                <td>${response.data[i].cat_descripcion}</td>
+                <td class="d-flex justify-content-around">
+                    <img src="views/assets/icons/print.png" class="icon-list">
+                    <img src="views/assets/icons/delete.png" class="icon-list">
+                </td>
+            </tr>
+            `);
+        }
+        $('#table-category').DataTable();
+    },
+    error:function(response){
+        console.log(response);
+    },
+});
+//llenas tabla de proveedores
+$.ajax({
+    url:'readByProvider',
+    dataType:"json",
+    type:"POST",
+    data:({
+        "columnDBSearch":1,
+        "value": 1
+    }),
+    success:function(response){
+        console.log(response);
+        for(var i = 0; i<response.data.length;i++){
+            $('#table-provider> tbody:last').append(`
+            <tr>
+                <td>${response.data[i].pr_nombre}</td>
+                <td>${response.data[i].nombre_contacto}</td>
+                <td>${response.data[i].pr_telefono}</td>
+                <td class="d-flex justify-content-around">
+                    <img src="views/assets/icons/print.png" class="icon-list">
+                    <img src="views/assets/icons/delete.png" class="icon-list">
+                </td>
+            </tr>
+            `);
+        }
+        $('#table-provider').DataTable();
+    },
+    error:function(response){
+        console.log(response);
+    },
+});

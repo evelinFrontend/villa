@@ -1,3 +1,44 @@
+//productos Registrados
+$.ajax({
+    url:'readByCantProduct',
+    type:"GET",
+    data:({}),
+    success:function(response){
+        console.log(response);
+        $('#cantRegisterProducts').html(response.data.cantidad);
+    },
+    error:function(response){
+        console.log(response);
+    },
+});
+//Usuarios Registrados
+$.ajax({
+    url:'readUsuByCant',
+    type:"GET",
+    data:({}),
+    success:function(response){
+        console.log(response);
+        $('#cantRegisterUsers').html(response.data.cantidad);
+    },
+    error:function(response){
+        console.log(response);
+    },
+});
+//Habitaciones Registrados
+$.ajax({
+    url:'readByRoomCant',
+    type:"GET",
+    data:({}),
+    success:function(response){
+        console.log(response);
+        $('#cantRegisterRooms').html(response.data.cantidad);
+    },
+    error:function(response){
+        console.log(response);
+    },
+});
+
+
 var ctx = document.getElementById('chart');
 var myChart = new Chart(ctx, {
     type: 'pie',
