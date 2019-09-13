@@ -142,6 +142,26 @@ Class HabitacionController{
         }
     }
 
+    function newNumberOfRoom($return = false){
+        header('Content-Type:application/json');
+        $numeroHabitacion = $this->masterModel->sqlSelect("SELECT MAX(hab_numero) as numero_actual FROM habitacion",array())[0];
+        if(!empty($numeroHabitacion)){
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $numeroHabitacion->numero_actual+1;
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+        }
+        $result = array("status"=>$status,"message"=>$message,"numero_nueva_habitacion"=>$data);
+        if($return){
+            return $data;
+        }else{
+            echo json_encode($result);
+        }
+    }
 
     
 }
