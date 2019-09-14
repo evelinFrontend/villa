@@ -70,6 +70,12 @@ RewriteRule ^readByConf$ index.php?controller=configuracionFactura&a=readByConf
 RewriteRule ^UptadeConfig$ index.php?controller=configuracion&a=UptadeConfig
 RewriteRule ^readByConfig$ index.php?controller=configuracion&a=readByConfig
 
+#TURNOS
+RewriteRule ^mostrarAbrirTurno$ index.php?controller=turnos&a=mostrarAbrirTurno
+RewriteRule ^createTurn$ index.php?controller=turnos&a=createTurn
+RewriteRule ^UptadeTurn$ index.php?controller=turnos&a=UptadeTurn
+
+
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
 

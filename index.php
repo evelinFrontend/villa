@@ -1,5 +1,6 @@
 <?php
     session_start();
+    date_default_timezone_set('America/Bogota');
     require_once "model/conn.model.php";
     require_once "model/master.model.php";
     require_once "controller/doizer.controller.php";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 13, 2019 at 10:13 PM
+-- Generation Time: Sep 14, 2019 at 02:56 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -40,7 +40,27 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_fecha_creacion`) VALUES
-(4, 'Lubricantes', 'pa que entre derecho y rico', '2019-09-12');
+(4, 'Lubricantes', 'pa que entre derecho y rico', '2019-09-12'),
+(5, 'Jello', '', '2019-09-14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `control_turnos`
+--
+
+CREATE TABLE `control_turnos` (
+  `id_control` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `valor_inicial` int(11) NOT NULL,
+  `factura_inicio` int(11) DEFAULT NULL,
+  `factura_fin` int(11) DEFAULT NULL,
+  `fecha_turno` date NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time DEFAULT NULL,
+  `valor_total_cierre` bigint(20) DEFAULT NULL,
+  `total_facturas_realizadas` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -286,6 +306,13 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
+-- Indexes for table `control_turnos`
+--
+ALTER TABLE `control_turnos`
+  ADD PRIMARY KEY (`id_control`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indexes for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
@@ -355,7 +382,13 @@ ALTER TABLE `villa_conf_facturas`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `control_turnos`
+--
+ALTER TABLE `control_turnos`
+  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `estado_reserva`
@@ -402,6 +435,12 @@ ALTER TABLE `villa_config`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `control_turnos`
+--
+ALTER TABLE `control_turnos`
+  ADD CONSTRAINT `control_turnos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `habitacion`
