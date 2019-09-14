@@ -192,7 +192,9 @@ Class ProductoController{
             if(!empty($existeProducto)){
                 $eliminar = $this->masterModel->delete("producto",array("id_producto",$_POST["id"]));
                 if($eliminar){
-                    unlink("views/assets/img/products/".$existeProducto[0]->pro_imagen);
+                    if($existeProducto[0]->pro_imagen!="img_deafult_product.jpg"){
+                        unlink("views/assets/img/products/".$existeProducto[0]->pro_imagen);
+                    }
                     $status = "success";
                     $message = "Producto eliminado.";
                 }else{
