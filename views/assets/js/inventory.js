@@ -1,3 +1,8 @@
+$(document).ready(function(){
+     reloadProvider();
+     reloadCategory();
+     reloadProduct();
+});
 
 $("#form-create-product").submit(function (e) {
     e.preventDefault();
@@ -20,7 +25,8 @@ $("#form-create-product").submit(function (e) {
                 $(".alert-success").addClass("show");
                 $(".alert").append(success.message);
                 $('#create-product').modal('hide');
-                $("#form-create-product").trigger('reset')
+                $("#form-create-product").trigger('reset');
+                reloadProduct();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -53,10 +59,11 @@ $("#form-create-category").submit(function (e) {
             success: function (success) {
                 $("#alert-scc-category").show();
                 $("#alert-scc-category").append('Categoria Creada exitosamente!');
+                reloadCategory();
                 setTimeout(() => {
                     $("#alert-scc-category").hide();
                 }, 3000);
-                $("#form-create-category").trigger('reset')
+                $("#form-create-category").trigger('reset');
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -97,7 +104,8 @@ $("#form-create-provider").submit(function (e) {
                 $(".alert-success").addClass("show");
                 $(".alert").append(success.message);
                 $('#create-product').modal('hide');
-                $("#form-create-product").trigger('reset')
+                $("#form-create-product").trigger('reset');
+                reloadProvider();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -118,99 +126,106 @@ $("#form-create-provider").submit(function (e) {
 
 
 //llenas tabla de productos
-$.ajax({
-    url: 'readByProduct',
-    dataType: "json",
-    type: "POST",
-    data: ({
-        "columnDBSearch": 1,
-        "value": 1
-    }),
-    success: function (response) {
-        for (var i = 0; i < response.data.length; i++) {
-            $('#table-product> tbody:last').append(`
-            <tr>
-                <th>${response.data[i].pro_codigo}</th>
-                <td>${response.data[i].pro_nombre}</td>
-                <td>${response.data[i].cat_nombre}</td>
-                <td>${response.data[i].pr_nombre}</td>
-                <td class="d-flex justify-content-around">
-                    <img src="views/assets/icons/print.png" class="icon-list" >
-                    <img src="views/assets/icons/delete.png" class="icon-list" onclick="eliminarProducto(${response.data[i].pro_codigo})">
-                </td>
-            </tr>
-            `);
-        }
-        $('#table-product').DataTable();
-    },
-    error: function (response) {
-        console.log(response);
-    },
-});
+function reloadProduct(){
+    $.ajax({
+        url: 'readByProduct',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-product> tbody:last').append(`
+                <tr>
+                    <th>${response.data[i].pro_codigo}</th>
+                    <td>${response.data[i].pro_nombre}</td>
+                    <td>${response.data[i].cat_nombre}</td>
+                    <td>${response.data[i].pr_nombre}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/print.png" class="icon-list" >
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="eliminarProducto(${response.data[i].pro_codigo})">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-product').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
 //llenas tabla de categorias
-$.ajax({
-    url: 'readByCategory',
-    dataType: "json",
-    type: "POST",
-    data: ({
-        "columnDBSearch": 1,
-        "value": 1
-    }),
-    success: function (response) {
-        for (var i = 0; i < response.data.length; i++) {
-            $("#category-product").append(`
-                <option value="${response.data[i].id_categoria}">${response.data[i].cat_nombre}</option>
-            `);
-            $('#table-category> tbody:last').append(`
-            <tr>
-                <th>${response.data[i].id_categoria}</th>
-                <td>${response.data[i].cat_nombre}</td>
-                <td>${response.data[i].cat_descripcion}</td>
-                <td class="d-flex justify-content-around">
-                    <img src="views/assets/icons/print.png" class="icon-list">
-                    <img src="views/assets/icons/delete.png" class="icon-list delete-category">
-                </td>
-            </tr>
-            `);
-        }
-        $('#table-category').DataTable();
-    },
-    error: function (response) {
-        console.log(response);
-    },
-});
+function reloadCategory(){
+    $.ajax({
+        url: 'readByCategory',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            $('#table-category> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $("#category-product").append(`
+                    <option value="${response.data[i].id_categoria}">${response.data[i].cat_nombre}</option>
+                `);
+                $('#table-category> tbody:last').append(`
+                <tr>
+                    <th>${response.data[i].id_categoria}</th>
+                    <td>${response.data[i].cat_nombre}</td>
+                    <td>${response.data[i].cat_descripcion}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-category').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
 //llenas tabla de proveedores
-$.ajax({
-    url: 'readByProvider',
-    dataType: "json",
-    type: "POST",
-    data: ({
-        "columnDBSearch": 1,
-        "value": 1
-    }),
-    success: function (response) {
-        for (var i = 0; i < response.data.length; i++) {
-            $("#provider-product").append(`
-                <option value="${response.data[i].id_proveedor}">${response.data[i].pr_nombre}</option>
-            `);
-            $('#table-provider> tbody:last').append(`
-            <tr>
-                <td>${response.data[i].pr_nombre}</td>
-                <td>${response.data[i].nombre_contacto}</td>
-                <td>${response.data[i].pr_telefono}</td>
-                <td class="d-flex justify-content-around">
-                    <img src="views/assets/icons/print.png" class="icon-list">
-                    <img src="views/assets/icons/delete.png" class="icon-list delete-proveedor">
-                </td>
-            </tr>
-            `);
-        }
-        $('#table-provider').DataTable();
-    },
-    error: function (response) {
-        console.log(response);
-    },
-});
+function reloadProvider(){
+    $.ajax({
+        url: 'readByProvider',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                $("#provider-product").append(`
+                    <option value="${response.data[i].id_proveedor}">${response.data[i].pr_nombre}</option>
+                `);
+                $('#table-provider> tbody:last').append(`
+                <tr>
+                    <td>${response.data[i].pr_nombre}</td>
+                    <td>${response.data[i].nombre_contacto}</td>
+                    <td>${response.data[i].pr_telefono}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/delete.png" class="icon-list delete-proveedor">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-provider').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
 
 //delete category 
 $(".delete-category").click(function (e) {
