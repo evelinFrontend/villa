@@ -7,20 +7,23 @@ $(document).ready(function () {
 $("#form-create-product").submit(function (e) {
     e.preventDefault();
     if ($("#name-product").val() !== '' && $("#value-pay-product").val() !== '' && $("#value-buy-product").val() !== '' && $("#category-product").val()) {
+        var file = document.getElementById("img-product").files[0];
+        var data = new FormData();
+        data.append("imagen",file);
+        data.append("codigo",$("#code-product").val());
+        data.append("nombre",$("#name-product").val());
+        data.append("precio_compra",$("#value-pay-product").val());
+        data.append("precio_venta",$("#value-buy-product").val());
+        data.append("categoria",$("#category-product").val());
+        data.append("proveedor",$("#provider-product").val());
+        data.append("cantidad_disponible",$("#cant-product").val());
         $.ajax({
             url: 'createProduct',
             type: 'POST',
-            dataType: 'json',
-            data: ({
-                "codigo": $("#code-product").val(),
-                "nombre": $("#name-product").val(),
-                "precio_compra": $("#value-pay-product").val(),
-                "precio_venta": $("#value-buy-product").val(),
-                "categoria": $("#category-product").val(),
-                "proveedor": $("#provider-product").val(),
-                "imagen": $("#img-product").val(),
-                "cantidad_disponible": $("#cant-product").val()
-            }),
+            contentType:false,
+            data:data,
+            processData:false,
+            cache:false,
             success: function (success) {
                 $('#table-product> tbody>').empty();
                 $(".alert-success").addClass("show");

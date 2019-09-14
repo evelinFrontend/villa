@@ -115,7 +115,7 @@
             </div>
             <div class="modal-body m-4">
                 <div class="alert alert-danger" role="alert"></div>
-                <form id="form-create-product">
+                <form id="form-create-product" enctype="multipart/form-data">
                     <div class="row">
                         <div class="form-group col">
                             <label for="name-product">Nombre del producto:</label>
