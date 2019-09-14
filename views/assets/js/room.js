@@ -1,28 +1,7 @@
 $(document).ready(function () {
-    $('#table-type-room').DataTable();
     $('#table-create-room').DataTable();
-    $.ajax({
-        url: 'readByTypeRoom',
-        type: 'POST',
-        dataType: 'json',
-        data: ({
-            "columnDBSearch": 1,
-            "value": 1
-        }),
-        success: function (success) {
-            var options = success.data;
-            $.each(options, function (value, item) {
-                $("#room-type").append($("<option>",{
-                    value: item.id_tipo_habitacion,
-                    text: item.th_nombre_tipo
-                }));
-                   
-            })
-        },
-        error: function (err) {
-            var message = err.responseJSON.message;
-        }
-    });
+    reloadTypeRoom();
+    realoadRoom();
     $.ajax({
         url: 'newNumberOfRoom',
         type: 'GET',
@@ -36,10 +15,6 @@ $(document).ready(function () {
         }
     });
 });
-
-function getTyperoom() {
-    
-}
 
 function openModal() {
     $('#detail-modal').modal('show')
@@ -74,6 +49,7 @@ $("#create-room").submit(function(e) {
                 $(".alert-success").addClass("show");
                 $(".alert-success").empty();
                 $(".alert-success").append(success.message);
+                realoadRoom();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -103,6 +79,7 @@ $("#form-type-room").submit(function (e) {
             }),
             success: function (success) {
                 console.log(success);
+                reloadTypeRoom();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -120,4 +97,97 @@ $("#form-type-room").submit(function (e) {
 
 })
 
+function realoadRoom(){
+    $.ajax({
+        url: 'readByRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            console.log(response);
+            $('#table-create-room> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-create-room> tbody:last').append(`
+                <tr>
+                    <th>${response.data[i].hab_numero}</th>
+                    <td>${response.data[i].th_descripcion}</td>
+                    <td>${response.data[i].th_nombre_tipo}</td>
+                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_persona_adicional}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-create-room').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
+
+function reloadTypeRoom(){
+    //cargar el option de tipo de habitacion
+    $.ajax({
+        url: 'readByTypeRoom',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (success) {
+            var options = success.data;
+            $('#room-type').empty();
+            $.each(options, function (value, item) {
+                $("#room-type").append($("<option>",{
+                    value: item.id_tipo_habitacion,
+                    text: item.th_nombre_tipo
+                }));
+                   
+            })
+        },
+        error: function (err) {
+            var message = err.responseJSON.message;
+        }
+    });
+
+    //llenar la  tabla de tipos de habitacion
+    $.ajax({
+        url: 'readByTypeRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            $('#table-type-room> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-type-room> tbody:last').append(`
+                <tr>
+                    <th>${response.data[i].th_nombre_tipo}</th>
+                    <td>${response.data[i].th_descripcion}</td>
+                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_persona_adicional}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-type-room').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
 

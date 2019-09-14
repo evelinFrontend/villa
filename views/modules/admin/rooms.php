@@ -34,27 +34,15 @@
         <table class="table table-striped col" id="table-create-room">
             <thead>
                 <tr>
-                    <th>Nombre</th>
+                    <th>Numero</th>
                     <th>Descrpción</th>
+                    <th>Tipo</th>
+                    <th>Valor hora</th>
+                    <th>Valor persona Adicional</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Normal</td>
-                    <td>Pues es normal</td>
-                    <td>editar</td>
-                </tr>
-                <tr>
-                    <td>Normal</td>
-                    <td>Pues es normal</td>
-                    <td>editar</td>
-                </tr>
-                <tr>
-                    <td>Normal</td>
-                    <td>Pues es normal</td>
-                    <td>editar</td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -98,6 +86,7 @@
                             <th>Descrpción</th>
                             <th>Valor por hora</th>
                             <th>Valor persona adicional</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="table-body-type">
