@@ -7,10 +7,9 @@ $(document).ready(function () {
         success: function (success) {
             var values = success.data
             console.log(values);
-            $("#prefix").val(),
+                $("#name").val(values.conf_nombre_empresa)
                 $("#resolution").val(values.conf_resolucion),
-                $("#business-name").val(),
-                //nombre de la empresa?
+                $("#business-name").val(values.conf_razon_social),
                 $("#nit").val(values.conf_nit),
                 $("#adress").val(values.conf_direccion),
                 $("#phone").val(values.conf_telefono),
@@ -73,10 +72,9 @@ $("#config-invoce").submit(function (e) {
         dataType: "json",
         type: "POST",
         data: ({
-            "id": $("#prefix").val(),
             "resolucion": $("#resolution").val(),
             "razon_social": $("#business-name").val(),
-            "nombre_empresa": "INVESTMENTS GROUP S.A.S",
+            "nombre_empresa": $("#name").val(),
             "nit": $("#nit").val(),
             "direccion": $("#adress").val(),
             "telefono": $("#phone").val(),

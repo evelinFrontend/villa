@@ -72,8 +72,8 @@
         <form id="config-invoce">
             <div class="row">
                 <div class="form-group col">
-                    <label for="prefix">Prefifo:</label>
-                    <input id="prefix" class="form-control" type="text " required>
+                    <label for="name">Nombre de la empresa:</label>
+                    <input id="name" class="form-control" type="text" required>
                 </div>
                 <div class="form-group col">
                     <label for="resolution">Resolución:</label>
@@ -88,10 +88,6 @@
                 <div class="form-group col">
                     <label for="business-name">Razón social:</label>
                     <input id="business-name" class="form-control" type="text " required>
-                </div>
-                <div class="form-group col">
-                    <label for="description">Descripción:</label>
-                    <input id="description" class="form-control" type="text " required>
                 </div>
                 <div class="form-group col">
                     <label for="phone">Teléfono:</label>

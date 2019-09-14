@@ -80,7 +80,7 @@ class ViewsController{
     function homeEmployee(){
         if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==2){
             require_once "views/include/admin/scoope.header.php";
-            require_once "views/include/employee/scoope-menu-employee.php";
+            require_once "views/include/admin/scoope.menu.php";
             require_once "views/include/admin/scoope.navbar.php";
             require_once "views/modules/employee/reception.php";
             require_once "views/include/admin/scoope.footer.php";
@@ -91,7 +91,7 @@ class ViewsController{
     function invoicesEmployee(){
         if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==2){
             require_once "views/include/admin/scoope.header.php";
-            require_once "views/include/employee/scoope-menu-employee.php";
+            require_once "views/include/admin/scoope.menu.php";
             require_once "views/include/admin/scoope.navbar.php";
             require_once "views/modules/employee/invoices.php";
             require_once "views/include/admin/scoope.footer.php";
@@ -102,7 +102,7 @@ class ViewsController{
     function closeEmployee(){
         if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==2){
             require_once "views/include/admin/scoope.header.php";
-            require_once "views/include/employee/scoope-menu-employee.php";
+            require_once "views/include/admin/scoope.menu.php";
             require_once "views/include/admin/scoope.navbar.php";
             require_once "views/modules/employee/close.php";
             require_once "views/include/admin/scoope.footer.php";
