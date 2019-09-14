@@ -154,14 +154,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col">
-                            <label for="status-product">Estado:</label>
-                            <select id="status-product" class="custom-select" >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
-                        </div>
-                        <div class="custom-file col">
+                        <div class="custom-file col my-4 mx-3">
                             <input id="img-product" class="custom-file-input" type="file" accept="image/gif, image/jpeg, image/png">
                             <label for="img-product" class="custom-file-label">Imagen:</label>
                         </div>
@@ -200,11 +193,11 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="nit-provider">Nit:</label>
-                            <input id="nit-provider" class="form-control" type="number" name="">
+                            <input id="nit-provider" class="form-control" type="text">
                         </div>
                         <div class="form-group col">
                             <label for="business-name-provider">Razón social:</label>
-                            <input id="business-name-provider" class="form-control" type="text" name="">
+                            <input id="business-name-provider" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row">

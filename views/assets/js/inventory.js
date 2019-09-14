@@ -1,7 +1,7 @@
-$(document).ready(function(){
-     reloadProvider();
-     reloadCategory();
-     reloadProduct();
+$(document).ready(function () {
+    reloadProvider();
+    reloadCategory();
+    reloadProduct();
 });
 
 $("#form-create-product").submit(function (e) {
@@ -22,6 +22,7 @@ $("#form-create-product").submit(function (e) {
                 "cantidad_disponible": $("#cant-product").val()
             }),
             success: function (success) {
+                $('#table-product> tbody>').empty();
                 $(".alert-success").addClass("show");
                 $(".alert").append(success.message);
                 $('#create-product').modal('hide');
@@ -57,6 +58,7 @@ $("#form-create-category").submit(function (e) {
                 "descripcion": $("#description-category").val(),
             }),
             success: function (success) {
+                $('#table-category> tbody>').empty();
                 $("#alert-scc-category").show();
                 $("#alert-scc-category").append('Categoria Creada exitosamente!');
                 reloadCategory();
@@ -126,7 +128,7 @@ $("#form-create-provider").submit(function (e) {
 
 
 //llenas tabla de productos
-function reloadProduct(){
+function reloadProduct() {
     $.ajax({
         url: 'readByProduct',
         dataType: "json",
@@ -144,8 +146,8 @@ function reloadProduct(){
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].pr_nombre}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list" >
-                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="eliminarProducto(${response.data[i].pro_codigo})">
+                        <p onclick="viewsDetailProduct(${response.data})">ver</p>
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteProduct(${response.data[i].id_producto})">
                     </td>
                 </tr>
                 `);
@@ -158,7 +160,7 @@ function reloadProduct(){
     });
 }
 //llenas tabla de categorias
-function reloadCategory(){
+function reloadCategory() {
     $.ajax({
         url: 'readByCategory',
         dataType: "json",
@@ -193,7 +195,7 @@ function reloadCategory(){
     });
 }
 //llenas tabla de proveedores
-function reloadProvider(){
+function reloadProvider() {
     $.ajax({
         url: 'readByProvider',
         dataType: "json",
@@ -227,27 +229,28 @@ function reloadProvider(){
     });
 }
 
-//delete category 
-$(".delete-category").click(function (e) {
-    e.preventDefault()
+//delete product 
+function deleteProduct(value) {
     $.ajax({
-        url: 'deleteProvider',
+        url: 'deleteProduct',
         dataType: "json",
         type: "POST",
         data: ({
-            "id":""
+            "id": value
         }),
-        success: function(success) {
-            
+        success: function (success) {
+            $('#table-product> tbody>').empty();
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+            reloadProduct();
         },
         error: function (err) {
-            
+            console.log(err);
         }
     })
-    console.log(e);
-    alert("wkgndkfj")
+}
 
-});
+//update
 
 //delete proveedor
 $(".delete-proveedor").click(function (e) {
@@ -257,13 +260,13 @@ $(".delete-proveedor").click(function (e) {
         dataType: "json",
         type: "POST",
         data: ({
-            "id":""
+            "id": ""
         }),
-        success: function(success) {
-            
+        success: function (success) {
+
         },
         error: function (err) {
-            
+
         }
     })
 
