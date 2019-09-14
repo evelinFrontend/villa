@@ -72,7 +72,7 @@
         <form id="config-invoce">
             <div class="row">
                 <div class="form-group col">
-                    <label for="prefix">Prefiro:</label>
+                    <label for="prefix">Prefifo:</label>
                     <input id="prefix" class="form-control" type="text " required>
                 </div>
                 <div class="form-group col">
@@ -133,11 +133,14 @@
                     <label for="text">Leyenda:</label>
                     <textarea id="text" class="form-control" rows="3"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="logo">Logo:</label>
-                    <input id="logo" class="form-control-file" type="file" required>
+                <div class="custom-file col">
+                    <input id="img-product" class="custom-file-input" type="file"
+                        accept="image/gif, image/jpeg, image/png">
+                    <label for="img-product" class="custom-file-label">Imagen:</label>
                 </div>
             </div>
+            <div class="alert alert-danger" role="alert"></div>
+            <div class="alert alert-success" role="alert"></div>
             <button class="btn btn-primary" type="submit">Guardar Cambios</button>
         </form>
     </div>
@@ -146,15 +149,16 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="mb-4">El valor que definas aquí será el que se adicione en la factura, este valor sera en porcentaje.</p>
+                <p class="mb-4">El valor que definas aquí será el que se adicione en la factura, este valor sera en
+                    porcentaje.</p>
                 <form action="">
-                 <div class="form-group">
-                     <label for="value-iva">IVA:</label>
-                     <input id="value-iva" class="form-control" type="number" name="">
-                 </div>
-                 <div class="form-group">
-                     <button type="submit" class="btn btn-primary">Guardar</button>
-                 </div>
+                    <div class="form-group">
+                        <label for="value-iva">IVA:</label>
+                        <input id="value-iva" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
                 </form>
             </div>
         </div>

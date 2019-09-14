@@ -15,6 +15,8 @@
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Listado de productos</h4>
+        <div class="alert alert-success" role="alert"></div>
+        <div class="alert alert-danger" role="alert"></div>
         <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal"
             data-target="#create-product">
             Nuevo producto
@@ -39,10 +41,9 @@
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Listado de categorias</h4>
         <div class="alert alert-success" role="alert" id="alert-scc-category">
-            Content
         </div>
         <div class="content-crear pb-4 mb-4 border-bottom">
-        <div class="alert alert-danger" role="alert"></div>
+            <div class="alert alert-danger" role="alert"></div>
             <form id="form-create-category" class="d-flex">
                 <div class="form-group col">
                     <label for="name-new-category">Nombre de la categoria:</label>
@@ -97,14 +98,14 @@
 
     </div>
     <div class="subcontent p-4" id="section-4-tab">
-    <h4 class="pricipal-title mb-4">Movimientos</h4>
+        <h4 class="pricipal-title mb-4">Movimientos</h4>
     </div>
 </div>
 
 <!-- modal crear producto -->
 <div id="create-product" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="my-modal-title">Crear un nuevo producto</h5>
@@ -113,29 +114,57 @@
                 </button>
             </div>
             <div class="modal-body m-4">
-            <div class="alert alert-danger" role="alert"></div>
+                <div class="alert alert-danger" role="alert"></div>
                 <form id="form-create-product">
-                    <div class="form-group">
-                        <label for="name-product">Nombre del producto:</label>
-                        <input id="name-product" class="form-control" type="text" require>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="name-product">Nombre del producto:</label>
+                            <input id="name-product" class="form-control" type="text" require>
+                        </div>
+                        <div class="form-group col">
+                            <label for="code-product">Codigo:</label>
+                            <input id="code-product" class="form-control" type="text" require>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="value-product">Valor:</label>
-                        <input id="value-product" class="form-control" type="number" required>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="value-pay-product">Valor de compra:</label>
+                            <input id="value-pay-product" class="form-control" type="number" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="value-buy-product">Valor de venta:</label>
+                            <input id="value-buy-product" class="form-control" type="number" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="cant-product">Cant. disponible:</label>
+                            <input id="cant-product" class="form-control" type="number" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="category">Categoria:</label>
-                        <select id="category" class="form-control">
-                            <option>Text</option>
-                            <option>Text</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="category-product">Categoria:</label>
+                            <select id="category-product" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="provider-product">Proveedor:</label>
+                            <select id="provider-product" class="form-control">
+                                <option value="null">N/A
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="provider">Proveedor:</label>
-                        <select id="provider" class="form-control">
-                            <option>Text</option>
-                            <option>Text</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="status-product">Estado:</label>
+                            <select id="status-product" class="custom-select" >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="custom-file col">
+                            <input id="img-product" class="custom-file-input" type="file" accept="image/gif, image/jpeg, image/png">
+                            <label for="img-product" class="custom-file-label">Imagen:</label>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Crear</button>
                 </form>
@@ -191,21 +220,21 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="email-provider">Correo eléctronico:</label>
-                            <input id="email-provider" class="form-control" type="email" name="">
+                            <input id="email-provider" class="form-control" type="email">
                         </div>
                         <div class="form-group col">
                             <label for="account-provider">Numero de cuenta:</label>
-                            <input id="account-provider" class="form-control" type="number" name="">
+                            <input id="account-provider" class="form-control" type="number">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="type-account-provider">Tipo de cuenta:</label>
-                            <input id="type-account-provider" class="form-control" type="text" name="">
+                            <input id="type-account-provider" class="form-control" type="text">
                         </div>
                         <div class="form-group col">
                             <label for="bank-provider">Banco:</label>
-                            <input id="bank-provider" class="form-control" type="number" name="">
+                            <input id="bank-provider" class="form-control" type="text">
                         </div>
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>

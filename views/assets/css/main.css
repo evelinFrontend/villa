@@ -222,3 +222,8 @@ table.dataTable.no-footer {
 .alert.show{
     display: block;
 }
+
+/* shared */
+.custom-file {
+    margin-top: 32px
+}
