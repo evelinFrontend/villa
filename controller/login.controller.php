@@ -21,9 +21,9 @@ Class LoginController{
                     if($existeUsuario[0]->usu_rol == 1){
                         $rolIngresado = "ADMIN"; 
                     }else if($existeUsuario[0]->usu_rol == 2){
-                        $rolIngresado = "SECRET";
-                    }else{
                         $rolIngresado = "EMPLOYEE";
+                    }else if($existeUsuario[0]->usu_rol == 3){
+                        $rolIngresado = "SECRET";
                     }
                     $status = "success";
                     $message = "sesion iniciada.";

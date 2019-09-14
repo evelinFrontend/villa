@@ -21,7 +21,7 @@ RewriteRule ^readUsuByCant$ index.php?controller=user&a=readUsuByCant
 RewriteRule ^logIn$ index.php?controller=login&a=logIn
 RewriteRule ^logOut$ index.php?controller=login&a=logOut
 
-RewriteRule ^home-personal$ index.php?controller=views&a=homeEmployee
+RewriteRule ^recepcion$ index.php?controller=views&a=homeEmployee
 RewriteRule ^lista-facturas$ index.php?controller=views&a=invoicesEmployee
 RewriteRule ^cierre$ index.php?controller=views&a=closeEmployee
 

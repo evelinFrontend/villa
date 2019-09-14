@@ -19,7 +19,7 @@ $("#form-login").submit(function (e) {
                 if (success.rol === 'ADMIN') {
                     location.href = 'home';
                 } else if (success.rol == 'EMPLOYEE') {
-                    location.href = 'home-personal'
+                    location.href = 'recepcion'
                 } else {
 
                 }
