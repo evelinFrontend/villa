@@ -3,9 +3,11 @@
         <div class="slide-item w-50" id="section-1">
             <p>Buscar facturas</p>
         </div>
-        <div class="slide-item w-50 border-slide" id="section-2">
-            <p>Configuracion de facturas</p>
-        </div>
+        <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
+            <div class="slide-item w-50 border-slide" id="section-2">
+                <p>Configuracion de facturas</p>
+            </div>
+        <?php } ?>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Buscar facturas</h4>

@@ -135,8 +135,8 @@ $.ajax({
                 <td>${response.data[i].cat_nombre}</td>
                 <td>${response.data[i].pr_nombre}</td>
                 <td class="d-flex justify-content-around">
-                    <img src="views/assets/icons/print.png" class="icon-list">
-                    <img src="views/assets/icons/delete.png" class="icon-list">
+                    <img src="views/assets/icons/print.png" class="icon-list" >
+                    <img src="views/assets/icons/delete.png" class="icon-list" onclick="eliminarProducto(${response.data[i].pro_codigo})">
                 </td>
             </tr>
             `);

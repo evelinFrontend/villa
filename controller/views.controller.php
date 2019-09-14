@@ -18,7 +18,7 @@ class ViewsController{
         }
     }
     function invoices(){
-        if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==1){
+        if(isset($_SESSION["DATA_USER"]["ROL"])){
             require_once "views/include/admin/scoope.header.php";
             require_once "views/include/admin/scoope.menu.php";
             require_once "views/include/admin/scoope.navbar.php";
@@ -78,7 +78,7 @@ class ViewsController{
     // employee
     
     function homeEmployee(){
-        if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==2){
+        if(isset($_SESSION["DATA_USER"]["ROL"])){
             require_once "views/include/admin/scoope.header.php";
             require_once "views/include/admin/scoope.menu.php";
             require_once "views/include/admin/scoope.navbar.php";
