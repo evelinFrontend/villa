@@ -75,6 +75,10 @@
     </div>
     <div class="subcontent p-4" id="section-3-tab">
         <h4 class="pricipal-title mb-4">Proveedores</h4>
+        <div class="alert alert-success" role="alert">
+        </div>
+        <div class="alert alert-danger" role="alert">
+        </div>
         <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal"
             data-target="#create-provider">
             Nuevo proveedor
@@ -232,6 +236,27 @@
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal update product -->
+<div id="modal-pr-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id ="update-product-detail">
+                    <div class="row">
+                        <div class="update-pr-img col">
+                            <img src="">
+                        </div>
+                        <div class="update-pr-detail col">
+
+                        </div>
+                    </div>
+                </div>
+                <div id ="update-product-form"></div>
             </div>
         </div>
     </div>

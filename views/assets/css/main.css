@@ -223,3 +223,10 @@ table.dataTable.no-footer {
     display: block;
 }
 
+/* inventary */
+#update-product-form{
+    display: none
+}
+#update-product-form.show{
+    display: block
+}

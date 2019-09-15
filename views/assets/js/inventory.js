@@ -9,21 +9,21 @@ $("#form-create-product").submit(function (e) {
     if ($("#name-product").val() !== '' && $("#value-pay-product").val() !== '' && $("#value-buy-product").val() !== '' && $("#category-product").val()) {
         var file = document.getElementById("img-product").files[0];
         var data = new FormData();
-        data.append("imagen",file);
-        data.append("codigo",$("#code-product").val());
-        data.append("nombre",$("#name-product").val());
-        data.append("precio_compra",$("#value-pay-product").val());
-        data.append("precio_venta",$("#value-buy-product").val());
-        data.append("categoria",$("#category-product").val());
-        data.append("proveedor",$("#provider-product").val());
-        data.append("cantidad_disponible",$("#cant-product").val());
+        data.append("imagen", file);
+        data.append("codigo", $("#code-product").val());
+        data.append("nombre", $("#name-product").val());
+        data.append("precio_compra", $("#value-pay-product").val());
+        data.append("precio_venta", $("#value-buy-product").val());
+        data.append("categoria", $("#category-product").val());
+        data.append("proveedor", $("#provider-product").val());
+        data.append("cantidad_disponible", $("#cant-product").val());
         $.ajax({
             url: 'createProduct',
             type: 'POST',
-            contentType:false,
-            data:data,
-            processData:false,
-            cache:false,
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
             success: function (success) {
                 $('#table-product> tbody>').empty();
                 $(".alert-success").addClass("show");
@@ -78,9 +78,9 @@ $("#form-create-category").submit(function (e) {
             }
         });
     } else {
-        $(".alert").addClass("show");
+        $(".alert-danger").addClass("show");
         $(".alert").empty();
-        $(".alert").append("Todos los campos son requeridos");
+        $(".alert-danger").append("Todos los campos son requeridos");
     }
 });
 
@@ -106,9 +106,10 @@ $("#form-create-provider").submit(function (e) {
             }
             ),
             success: function (success) {
+                $('#table-provider> tbody>').empty();
                 $(".alert-success").addClass("show");
                 $(".alert").append(success.message);
-                $('#create-product').modal('hide');
+                $('#create-provider').modal('hide');
                 $("#form-create-product").trigger('reset');
                 reloadProvider();
             },
@@ -149,8 +150,8 @@ function reloadProduct() {
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].pr_nombre}</td>
                     <td class="d-flex justify-content-around">
-                        <p onclick="viewsDetailProduct(${response.data})">ver</p>
-                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteProduct(${response.data[i].id_producto})">
+                        <p onclick="updateProduct(${response.data[i].id_producto})">ver</p>
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_producto},'deleteProduct')">
                     </td>
                 </tr>
                 `);
@@ -173,6 +174,8 @@ function reloadCategory() {
             "value": 1
         }),
         success: function (response) {
+            console.log(response);
+
             $('#table-category> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $("#category-product").append(`
@@ -185,7 +188,7 @@ function reloadCategory() {
                     <td>${response.data[i].cat_descripcion}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/print.png" class="icon-list">
-                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_categoria}, 'deleteCategory')">
                     </td>
                 </tr>
                 `);
@@ -219,7 +222,7 @@ function reloadProvider() {
                     <td>${response.data[i].pr_telefono}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/print.png" class="icon-list">
-                        <img src="views/assets/icons/delete.png" class="icon-list delete-proveedor">
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_proveedor}, 'deleteProvider')">
                     </td>
                 </tr>
                 `);
@@ -232,45 +235,73 @@ function reloadProvider() {
     });
 }
 
-//delete product 
-function deleteProduct(value) {
+//delete
+function deleteData(value, url) {
+    console.log(value, url);
     $.ajax({
-        url: 'deleteProduct',
+        url: url,
         dataType: "json",
         type: "POST",
         data: ({
             "id": value
         }),
         success: function (success) {
-            $('#table-product> tbody>').empty();
             $(".alert-success").addClass("show");
             $(".alert-success").append(success.message);
+            $('#table-product> tbody>').empty();
+            $('#table-category> tbody>').empty();
+            $('#table-provider> tbody>').empty();
             reloadProduct();
+            reloadCategory();
+            reloadProvider();
         },
         error: function (err) {
-            console.log(err);
+            
+            var message = err.responseJSON.message;
+            console.log(message);
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(message);
         }
     })
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 4000);
 }
 
 //update
-
-//delete proveedor
-$(".delete-proveedor").click(function (e) {
-    e.preventDefault()
+function updateProduct(id) {
+    $('#modal-pr-update').modal('show')
     $.ajax({
-        url: 'deleteProvider',
+        url: 'readByProduct',
         dataType: "json",
         type: "POST",
         data: ({
-            "id": ""
+            "columnDBSearch": 'id_producto',
+            "value": id
         }),
-        success: function (success) {
-
+        success: function(success) {
+            console.log(success);
+            var data = success.data
+            $(".update-pr-img").append(
+            `<img src="${success}">`
+            )
+           $(".update-pr-detail").append(`
+                <h3>${data.pro_nombre}</h3>
+                <small>${data.pro_codigo}</small>
+                <p>${data}</p>
+                <p>${data}</p>
+                <p>${data}</p>
+           `)
+            
         },
         error: function (err) {
-
+            console.log(err);
+            
         }
     })
+  
+    
+}
 
-});
+
