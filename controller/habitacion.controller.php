@@ -1,10 +1,13 @@
 <?php 
+require_once "controller/tiempo.controller.php";
 Class HabitacionController{
     private  $masterModel;
     private $doizer;
+    private $tiempoController;
     function HabitacionController($masterModel,$doizer){
         $this->masterModel = $masterModel;
         $this->doizer = $doizer;
+        $this->tiempoController = new TiempoController($masterModel,$doizer);
     }
 
     function createRoom(){
@@ -124,10 +127,27 @@ Class HabitacionController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT h.*,th.* FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE ".$request['columnDBSearch']." = ? AND h.hab_estado = ? ",array($request["value"],1));
+            $dataType = $this->masterModel->sqlSelect("SELECT h.hab_numero,h.hab_detalle,sr.sr_estado_reserva,h.hab_estado,th.th_nombre_tipo,th.th_valor_hora,th.th_valor_persona_adicional,sr.sr_nombre,sr.sr_color FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion INNER JOIN estado_reserva sr ON sr.sr_estado_reserva = h.sr_estado_reserva WHERE ".$request['columnDBSearch']." = ? AND h.hab_estado = ? ORDER BY h.hab_numero ASC ",array($request["value"],1));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";
+                foreach($dataType as $row){
+                    //si tiene una reserva activa
+                    $datosReserva = $this->masterModel->selectBy("reserva_activa",array("hab_numero",$row->hab_numero));
+                    if( $row->sr_estado_reserva!=1){
+                        if($datosReserva->ra_inicio_tiempo_parcial==null){
+                            $row->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));
+                        }else{
+                            //validar el tiempo parcial
+                            if($datosReserva->ra_fin_tiempo_parcial==null){
+                                $row->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,$datosReserva->ra_inicio_tiempo_parcial);
+                            }else{
+                                $tiempo_transcurido = date("Y-m-d")." ".$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));
+                                $row->tiempo_transcurido=$this->tiempoController->restarTiempoParcial($datosReserva->ra_inicio_tiempo_parcial,$datosReserva->ra_fin_tiempo_parcial,$tiempo_transcurido);
+                            }
+                        }
+                    }
+                }
                 $data = $dataType;
             }else{
                 header('Internal server error', true, 500);
