@@ -43,7 +43,7 @@
         <div class="alert alert-success" role="alert" id="alert-scc-category">
         </div>
         <div class="content-crear pb-4 mb-4 border-bottom">
-            <div class="alert alert-danger" role="alert"></div>
+            <div class="alert alert-danger alert-category" role="alert"></div>
             <form id="form-create-category" class="d-flex">
                 <div class="form-group col">
                     <label for="name-new-category">Nombre de la categoria:</label>
@@ -159,7 +159,8 @@
                     </div>
                     <div class="row">
                         <div class="custom-file col my-4 mx-3">
-                            <input id="img-product" class="custom-file-input" type="file" accept="image/gif, image/jpeg, image/png">
+                            <input id="img-product" class="custom-file-input" type="file"
+                                accept="image/gif, image/jpeg, image/png">
                             <label for="img-product" class="custom-file-label">Imagen:</label>
                         </div>
                     </div>
@@ -243,20 +244,110 @@
 
 <!-- modal update product -->
 <div id="modal-pr-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles del producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-                <div id ="update-product-detail">
+            <div class="alert alert-danger alert-update" role="alert"></div>
+                <div id="update-product-detail">
                     <div class="row">
-                        <div class="update-pr-img col">
-                            <img src="">
-                        </div>
+                        <div class="update-pr-img col"></div>
                         <div class="update-pr-detail col">
-
                         </div>
                     </div>
                 </div>
-                <div id ="update-product-form"></div>
+                <div id="update-product-form" class="border-top mt-4">
+                    <h5 class="modal-title my-3" id="my-modal-title">Editar Producto</h5>
+                    <form id="form-update-product">
+                        <div class="row">
+                            <div class="form-group col-2">
+                                <label for="id-product-up">id:</label>
+                                <input id="id-product-up" class="form-control" type="text" disabled>
+                            </div>
+                            <div class="form-group col">
+                                <label for="name-product-up">Nombre del producto:</label>
+                                <input id="name-product-up" class="form-control" type="text" require>
+                            </div>
+                            <div class="form-group col">
+                                <label for="code-product-up">Codigo:</label>
+                                <input id="code-product-up" class="form-control" type="text" require>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="value-pay-product-up">Valor de compra:</label>
+                                <input id="value-pay-product-up" class="form-control" type="number" required>
+                            </div>
+                            <div class="form-group col">
+                                <label for="value-buy-product-up">Valor de venta:</label>
+                                <input id="value-buy-product-up" class="form-control" type="number" required>
+                            </div>
+                            <div class="form-group col">
+                                <label for="cant-product-up">Cant. disponible:</label>
+                                <input id="cant-product-up" class="form-control" type="number" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="category-product-up">Categoria:</label>
+                                <select id="category-product-up" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="provider-product-up">Proveedor:</label>
+                                <select id="provider-product-up" class="form-control">
+                                    <option value="null">N/A
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="custom-file col my-4 mx-3">
+                                <input id="img-product" class="custom-file-input" type="file"
+                                    accept="image/gif, image/jpeg, image/png">
+                                <label for="img-product" class="custom-file-label">Imagen:</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal update category -->
+<div id="modal-ct-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+                <h5 class="modal-title">Editar categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="alert alert-danger modal-up-category" role="alert"></div>
+            <form id="form-update-category">
+                <div class="form-group col">
+                    <label for="id-new-category-up">Id de la categoria:</label>
+                    <input id="id-new-category-up" class="form-control" type="text" disabled>
+                </div>
+                <div class="form-group col">
+                    <label for="name-new-category-up">Nombre de la categoria:</label>
+                    <input id="name-new-category-up" class="form-control" type="text" require>
+                </div>
+                <div class="form-group col">
+                    <label for="description-category-up">Descripción:</label>
+                    <input id="description-category-up" class="form-control" type="text" require>
+                </div>
+                <div class="form-group col d-flex align-items-end ">
+                    <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                </div>
+            </form>
             </div>
         </div>
     </div>

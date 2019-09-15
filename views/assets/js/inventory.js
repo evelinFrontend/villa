@@ -82,6 +82,10 @@ $("#form-create-category").submit(function (e) {
         $(".alert").empty();
         $(".alert-danger").append("Todos los campos son requeridos");
     }
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 5000);
 });
 
 $("#form-create-provider").submit(function (e) {
@@ -130,6 +134,89 @@ $("#form-create-provider").submit(function (e) {
     }, 4000);
 });
 
+//forms update
+$("#form-update-product").submit(function(e) {
+    e.preventDefault();
+    if ($("#name-product-up").val() !== '' && $("#value-pay-product-up").val() !== '' && $("#value-buy-product-up").val() !== '' && $("#category-product-up").val() !== '' && $("#provider-product-up").val() !== '') {
+        var file = document.getElementById("img-product").files[0];
+        var data = new FormData();
+        data.append("imagen", file);
+        data.append("id", $("#id-product-up").val());
+        data.append("codigo", $("#code-product-up").val());
+        data.append("nombre", $("#name-product-up").val());
+        data.append("precio_compra", $("#value-pay-product-up").val());
+        data.append("precio_venta", $("#value-buy-product-up").val());
+        data.append("categoria", $("#category-product-up").val());
+        data.append("proveedor", $("#provider-product-up").val());
+        data.append("cantidad_disponible", $("#cant-product-up").val());
+        $.ajax({
+            url: 'UptadeProduct',
+            type: 'POST',
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
+            success: function (success) {
+                $(".alert-success").addClass("show");
+                $(".alert-success").append(success.message);
+                // $('#table-product> tbody>').empty();
+                $('#modal-pr-update').modal('hide');
+                $("#form-update-product").trigger('reset');
+                // reloadProduct();
+            },
+            error: function (err) {
+                console.log(err);
+                $(".alert-update").addClass("show");
+                $(".alert-update").append(err.message);
+            }
+        });
+    } else {
+        $(".alert").addClass("show");
+        $(".alert").empty();
+        $(".alert").append("Todos los campos son obligatorios");
+    }
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 4000);
+})
+
+$("#form-update-category").submit(function(e) {
+    e.preventDefault();
+    if ($("#name-new-category-up").val() !== '') {
+        $.ajax({
+            url: 'UptadeCategory',
+            type: 'POST',
+            dataType: 'json',
+            data: ({
+                "id": $("#id-new-category-up").val(),
+                "nombre": $("#name-new-category-up").val(),
+                "descripcion": $("#description-category-up").val(),
+            }),
+            success: function (success) {
+                $('#table-category> tbody>').empty();
+                reloadCategory();
+                $("#alert-scc-category").show();
+                $("#alert-scc-category").append(success.message);
+                $("#modal-ct-update").modal("hide");
+            },
+            error: function (err) {
+                var message = err.responseJSON.message;
+                $(".modal-up-category").addClass("show");
+                $(".modal-up-category").append(message);
+            }
+        });
+    } else {
+        $(".modal-up-category").addClass("show");
+        $(".modal-up-category").append("Todos los campos son requeridos");
+    }
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").hide();
+        $(".alert").empty();
+    }, 5000);
+})
+
 
 //llenas tabla de productos
 function reloadProduct() {
@@ -174,11 +261,12 @@ function reloadCategory() {
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
-
             $('#table-category> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $("#category-product").append(`
+                    <option value="${response.data[i].id_categoria}">${response.data[i].cat_nombre}</option>
+                `);
+                $("#category-product-up").append(`
                     <option value="${response.data[i].id_categoria}">${response.data[i].cat_nombre}</option>
                 `);
                 $('#table-category> tbody:last').append(`
@@ -187,7 +275,7 @@ function reloadCategory() {
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].cat_descripcion}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/print.png" class="icon-list" onclick="updateCategory(${response.data[i].id_categoria})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_categoria}, 'deleteCategory')">
                     </td>
                 </tr>
@@ -215,13 +303,16 @@ function reloadProvider() {
                 $("#provider-product").append(`
                     <option value="${response.data[i].id_proveedor}">${response.data[i].pr_nombre}</option>
                 `);
+                $("#provider-product-up").append(`
+                    <option value="${response.data[i].id_proveedor}">${response.data[i].pr_nombre}</option>
+                `);
                 $('#table-provider> tbody:last').append(`
                 <tr>
                     <td>${response.data[i].pr_nombre}</td>
                     <td>${response.data[i].nombre_contacto}</td>
                     <td>${response.data[i].pr_telefono}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/print.png" class="icon-list" onclick="updateProvider(${response.data[i].id_proveedor})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_proveedor}, 'deleteProvider')">
                     </td>
                 </tr>
@@ -281,18 +372,75 @@ function updateProduct(id) {
             "value": id
         }),
         success: function(success) {
-            console.log(success);
             var data = success.data
+            console.log(data);
+            $(".update-pr-img").empty()
+            $(".update-pr-detail").empty()
             $(".update-pr-img").append(
-            `<img src="${success}">`
+            `<img src="views/assets/img/products/${data[0].pro_imagen}" class="update-img">`
             )
+            var valuepay = new Intl.NumberFormat().format(data[0].pro_precio_compra);
+            var valuebuy= new Intl.NumberFormat().format(data[0].pro_precio_venta);
            $(".update-pr-detail").append(`
-                <h3>${data.pro_nombre}</h3>
-                <small>${data.pro_codigo}</small>
-                <p>${data}</p>
-                <p>${data}</p>
-                <p>${data}</p>
-           `)
+                <h3>${data[0].pro_nombre}</h3>
+                <small class="font-weight-bold">Codigo: ${data[0].pro_codigo}</small>
+                <p>Precio de compra: ${valuepay}COP</p>
+                <p>Precio de venta: ${valuebuy}COP</p>
+                <p>Cantidad: ${data[0].pro_cantidad_disponible}</p>
+                <p>Categoria: ${data[0].cat_nombre}</p>
+                <p>proveedor: ${data[0].pr_nombre}</p>
+           `); 
+           $("#name-product-up").val(data[0].pro_nombre)
+           $("#id-product-up").val(data[0].id_producto)
+           $("#code-product-up").val(data[0].pro_codigo)
+           $("#value-pay-product-up").val(data[0].pro_precio_compra)
+           $("#value-buy-product-up").val(data[0].pro_precio_venta)
+           $("#cant-product-up").val(data[0].pro_cantidad_disponible)
+           $("#category-product-up").val(data[0].cat_nombre)
+           $("#provider-product-up").val(data[0].pr_nombre)  
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
+
+}
+
+function updateCategory(id) {
+    $.ajax({
+        url: 'readByCategory',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "id_categoria",
+            "value": id
+        }),
+        success: function(success) {
+            console.log(success);
+            data = success.data[0];
+            $("#modal-ct-update").modal('show');
+            $("#name-new-category-up").val(data.cat_nombre);
+            $("#id-new-category-up").val(data.id_categoria);
+            $("#description-category-up").val(data.cat_descripcion);       
+        },
+        error: function (err) {
+            
+        }
+    })
+}
+
+function updateProvider(id) {
+    $.ajax({
+        url: 'UpdateProvider',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "id_proveedor",
+            "value": id
+        }),
+        success: function(success) {
+            console.log(success);
             
         },
         error: function (err) {
@@ -300,8 +448,6 @@ function updateProduct(id) {
             
         }
     })
-  
-    
 }
 
 

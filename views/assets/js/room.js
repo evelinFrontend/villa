@@ -32,7 +32,6 @@ $("#create-room").submit(function(e) {
                 "detalles": $("#room-detail").val()
             }),
             success: function (success) {
-                console.log(success);
                 $("#create-room").trigger("reset");
                 $.ajax({
                     url: 'newNumberOfRoom',
@@ -78,8 +77,10 @@ $("#form-type-room").submit(function (e) {
                 "valor_persona_adicional": $('#people').val()
             }),
             success: function (success) {
-                console.log(success);
                 reloadTypeRoom();
+                $("#alert-success").addClass('show')
+                $("#alert-success").empty()
+                $("#alert-success").append(success.message)
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -107,7 +108,6 @@ function realoadRoom(){
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
             $('#table-create-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-create-room> tbody:last').append(`
@@ -119,7 +119,7 @@ function realoadRoom(){
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/print.png" class="icon-list">
-                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].hab_numero}, 'deleteRoom')">
                     </td>
                 </tr>
                 `);
@@ -177,8 +177,7 @@ function reloadTypeRoom(){
                     <td>${response.data[i].th_valor_hora}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list">
-                        <img src="views/assets/icons/delete.png" class="icon-list delete-category">
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
                     </td>
                 </tr>
                 `);
@@ -191,3 +190,32 @@ function reloadTypeRoom(){
     });
 }
 
+function deleteRoom(id, url) {
+    $.ajax({
+        url: url,
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": id,
+        }),
+        success: function(success) {
+            console.log(success);
+            reloadTypeRoom();
+            realoadRoom();
+            $(".alert-success").addClass('show');
+            $(".alert-success").empty();
+            $(".alert-success").append(success.message)
+            
+        },
+        error: function (err) {
+            console.log(err);
+            $(".alert-alert-danger").addClass('show')
+            $(".alert-alert-danger").empty();
+            $(".alert-alert-danger").append(success.message)
+        }
+    })
+    setTimeout(() => {
+        $(".alert").removeClass('show')
+        $(".alert").empty()
+    }, 5000);
+}

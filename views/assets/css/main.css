@@ -224,9 +224,7 @@ table.dataTable.no-footer {
 }
 
 /* inventary */
-#update-product-form{
-    display: none
-}
-#update-product-form.show{
-    display: block
+
+.update-img{
+    width: 300px
 }

@@ -10,7 +10,8 @@
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear habitación</h4>
         <form id="create-room" class="border-bottom pb-4 mb-4">
-            <div class="alert alert-success" role="alert"></div>
+        <div class="alert alert-success" role="alert"></div>
+        <div class="alert alert-danger" role="alert"></div>
             <div class="row">
                 <div class="form-group col-4">
                     <label for="room-number">Numero de habitación:</label>
@@ -49,9 +50,6 @@
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Crear tipo de habitación</h4>
         <form id="form-type-room" class="border-bottom pb-4 mb-5">
-            <div class="alert alert-danger" role="alert">
-                Content
-            </div>
             <div class="row">
                 <div class="form-group col">
                     <label for="room-type-name">Nombre:</label>
@@ -71,26 +69,28 @@
                     <label for="people">Valor por persona adicional :</label>
                     <input id="people" class="form-control" type="number" require>
                 </div>
-            <div class="form-group col-2 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-            </div>
+                <div class="form-group col-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                </div>
             </div>
         </form>
         <h4 class="pricipal-title mb-4">Lista de tipo de habitaciones</h4>
+        <div class="alert alert-danger" role="alert"></div>
+        <div class="alert alert-success" role="alert"></div>
         <div class="row">
             <div class="col-12">
                 <table class="table table-striped col" id="table-type-room">
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descrpción</th>
+                            <th>Detalles</th>
                             <th>Valor por hora</th>
                             <th>Valor persona adicional</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="table-body-type">
-                        
+
                     </tbody>
                 </table>
             </div>
