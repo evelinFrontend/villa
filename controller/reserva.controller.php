@@ -12,22 +12,52 @@ Class ReservaController{
         if(!empty($_POST)){
             $request = $_POST;
             //validar  si la habitacion tiene una reserva
+            $a = $this->masterModel->delete("reserva_activa",array(1,1));
+            $a = $this->masterModel->delete("reserva_activa_detalle",array(1,1));
             if($request["hab_numero"]!= "" && $request["tipo_reserva"]!= "" ){
                 $request["fecha_ingreso"] =date('Y-m-d H:i:s');
                 $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]));
                 if(empty($existeReserva)){
                     $existeTipoReserva = $this->masterModel->sqlSelect("SELECT sr_estado_reserva FROM estado_reserva WHERE sr_estado_reserva = ? ",array($request["tipo_reserva"]));
                     if(!empty($existeTipoReserva)){
+                        //comentar 
+                        $products = json_decode($request["productos"],true);
+                        //validar productos
+                        $i = 0;
+                        foreach($products as $product){
+                            if($product["cantidad"]<1 ){
+                                header('Internal server error', true, 500);
+                                $status = "error";
+                                $message = "Valor  no valido en el pruducto N(".$i.").";
+                                $result = array("status"=>$status,"message"=>$message);
+                                echo json_encode($result);
+                                return;
+                            }
+                            $i++;
+                        }
                         if($request["promocion"]==""){
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
+                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
                         }else{
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
+                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
                         }
                         if($insert){
                             $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($request["tipo_reserva"],$request["hab_numero"]));
                             if($update){
-                                $status = "success";
-                                $message = "Reserva creada exitosamente.";
+                                //insertar productos
+                                $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]))[0];
+                                foreach($products as $product){
+                                    $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
+                                    $totalProduct = $dataProduct->pro_precio_venta*$product["cantidad"] ;
+                                    $insertProducts = $this->masterModel->insert("reserva_activa_detalle",array($existeReserva->id_reserva,$product["id"],$product["cantidad"],$dataProduct->pro_precio_venta,$totalProduct),array("id_detalle"));
+                                }
+                                if($insertProducts){
+                                    $status = "success";
+                                    $message = "Reserva creada exitosamente.";
+                                }else{
+                                    header('Internal server error', true, 500);
+                                    $status = "error";
+                                    $message = "error guardando en base de datos al momento de registrar los productos.";
+                                }
                             }else{
                                 header('Internal server error', true, 500);
                                 $status = "error";

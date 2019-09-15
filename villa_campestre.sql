@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2019 at 02:56 AM
+-- Generation Time: Sep 16, 2019 at 12:34 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -41,7 +41,15 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_fecha_creacion`) VALUES
 (4, 'Lubricantes', 'pa que entre derecho y rico', '2019-09-12'),
-(5, 'Jello', '', '2019-09-14');
+(5, 'Jello', '', '2019-09-14'),
+(6, 'prueba', 'nn', '2019-09-14'),
+(7, 'test', 'nn', '2019-09-14'),
+(8, 'wdsf', '234324', '2019-09-14'),
+(9, 'asdas', 'asd', '2019-09-14'),
+(10, 'asdasd', 'sada', '2019-09-14'),
+(11, 'asd', 'asd', '2019-09-14'),
+(12, 'ewq', 'wer', '2019-09-14'),
+(13, 'daasd', 'dsad', '2019-09-14');
 
 -- --------------------------------------------------------
 
@@ -80,7 +88,12 @@ CREATE TABLE `estado_reserva` (
 --
 
 INSERT INTO `estado_reserva` (`sr_estado_reserva`, `sr_nombre`, `sr_descripcion`, `sr_color`) VALUES
-(1, 'Disponible', 'Esta disponible', '#fff');
+(1, 'Disponible', 'Esta disponible', '#fff'),
+(2, 'Reservada', '', '#000'),
+(3, 'Tiempo Parcial', '', '#ddff00'),
+(4, 'Cortesia', '', '#lkjhg8'),
+(5, 'Promoción', '', '#dsasf'),
+(6, 'Limpieza', '', '#ppppss');
 
 -- --------------------------------------------------------
 
@@ -102,15 +115,16 @@ CREATE TABLE `habitacion` (
 --
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
-(1, 1, 'nada', 1, '0000-00-00', 0),
-(2, 1, '', 1, '2019-09-08', 1),
+(1, 1, 'nada', 1, '0000-00-00', 1),
+(2, 1, '', 2, '2019-09-08', 1),
 (3, 1, '', 1, '2019-09-08', 1),
 (4, 1, '', 1, '2019-09-08', 1),
 (5, 1, '', 1, '2019-09-08', 1),
 (6, 1, '', 1, '2019-09-08', 1),
 (7, 1, '', 1, '2019-09-08', 1),
 (8, 1, 'kjh', 1, '2019-09-11', 1),
-(9, 1, 'sadasasd', 1, '2019-09-11', 0);
+(9, 1, 'sadasasd', 1, '2019-09-11', 0),
+(10, 11, 'mm', 1, '2019-09-14', 1);
 
 -- --------------------------------------------------------
 
@@ -139,7 +153,10 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
 (8, 'PNE-001', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 4, '2019-09-12', '2019-09-12', 1),
-(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 1, '2019-09-13', '2019-09-13', 1);
+(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 1, '2019-09-13', '2019-09-13', 1),
+(12, '78678', '8976', 78678, 6786, 4, 5, 'img_deafult_product.jpg', 786, '2019-09-14', '2019-09-14', 1),
+(13, '89765', '9876', 98765, 789765, 4, 5, '7d507038e0e25a8b24aedb992a7e98ea.JPG', 789087, '2019-09-14', '2019-09-14', 1),
+(14, '567890', '67890', 9876544567890, 987654345678, 4, 5, '0df42219dd71b6ed6fd5e4010acf8c06.JPG', 90987, '2019-09-14', '2019-09-14', 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +185,49 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_social`, `pr_telefono`, `pr_direccion`, `pr_email`, `pr_numero_cuenta`, `pr_tipo_cuenta`, `pr_banco`, `nombre_contacto`, `pr_ultimo_aprovisionamiento`, `pr_fecha_registro`) VALUES
-(4, '78778782-1', 'Condoncito feliz', 'Dale Dale!!!', 32338889, 'calle 95', 'sinhijos@hotmail.com', '8000222222', 'Ahorros', 'BBVA', 'Javier', '2019-09-12', '2019-09-12');
+(4, '78778782-1', 'Condoncito feliz', 'Dale Dale!!!', 32338889, 'calle 95', 'sinhijos@hotmail.com', '8000222222', 'Ahorros', 'BBVA', 'Javier', '2019-09-12', '2019-09-12'),
+(5, '3987633', 'jkhhkj', '23432', 23432, '234', '32432@gmail.com', '324', '234', '324', 'jknjkhjk', '2019-09-14', '2019-09-14'),
+(6, '213123', '21312', '123', 123, '123', '324322@gmail.com', '123', '123', '123', '123123', '2019-09-14', '2019-09-14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reserva_activa`
+--
+
+CREATE TABLE `reserva_activa` (
+  `id_reserva` int(11) NOT NULL,
+  `hab_numero` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `promo_id` int(11) DEFAULT NULL,
+  `ra_fecha_hora_ingreso` datetime NOT NULL DEFAULT current_timestamp(),
+  `ra_inicio_tiempo_parcial` datetime DEFAULT NULL,
+  `ra_fin_tiempo_parcial` datetime DEFAULT NULL,
+  `ra_numero_personas_adicionales` int(11) NOT NULL,
+  `ra_habitacion_decorada` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reserva_activa`
+--
+
+INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`) VALUES
+(25, 2, 6, NULL, '2019-09-15 16:19:17', NULL, NULL, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reserva_activa_detalle`
+--
+
+CREATE TABLE `reserva_activa_detalle` (
+  `id_detalle` int(11) NOT NULL,
+  `id_reserva` int(11) NOT NULL,
+  `re_det_id_producto` int(11) NOT NULL,
+  `re_det_cantidad` bigint(20) NOT NULL,
+  `re_det_valor_unidad` bigint(20) NOT NULL,
+  `re_det_valor_total` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -187,8 +246,8 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`rol_id`, `rol_nombre`, `rol_descripcion`) VALUES
-(1, 'empleado', 'caja'),
-(2, 'administrador', 'admin');
+(1, 'administrador', 'admin'),
+(2, 'empleado', 'caja');
 
 -- --------------------------------------------------------
 
@@ -214,7 +273,14 @@ INSERT INTO `tipo_habitacion` (`id_tipo_habitacion`, `th_nombre_tipo`, `th_descr
 (1, 'Premium', 'Cama doble para tiki tiki', 20000, 12000, 1, '2019-09-07'),
 (2, 'Premium2', 'des', 23232, 12000, 1, '2019-09-07'),
 (3, 'Premium3', 'des', 23232, 1, 1, '2019-09-07'),
-(4, 'Premium4', 'des', 23232, 1, 1, '2019-09-07');
+(4, 'Premium4', 'des', 23232, 1, 1, '2019-09-07'),
+(5, 'Basico', 'cama', 2000, 12000, 1, '2019-09-14'),
+(6, 'Prueba', 'sadfds', 30000, 3000, 1, '2019-09-14'),
+(7, '324', '2344', 234, 234, 1, '2019-09-14'),
+(8, '234', '234', 234, 324, 1, '2019-09-14'),
+(9, 'ttt', '4324', 324, 234234, 1, '2019-09-14'),
+(10, 'fdsfsd', 'sdf', 324324, 23432, 1, '2019-09-14'),
+(11, 'tyt', '2434', 34243, 23423, 1, '2019-09-14');
 
 -- --------------------------------------------------------
 
@@ -242,7 +308,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usu_id`, `usu_nombres`, `usu_apellidos`, `usu_numero_documento`, `usu_fecha_nacimiento`, `usu_numero_contacto`, `usu_correo`, `usu_nombre_login`, `usu_rol`, `usu_contrasena`, `usu_fecha_creacion`, `usu_estado`) VALUES
-(6, 'Cristian Alexis', 'Lopera Bedoya', 1214746318, '1999-04-20', 3233557660, 'cristian1020011@gmail.com', 'dompi', 1, '$2y$10$rvr2xtuecn1WfoIew5fbLefP6nxQBhNCKdgBfWE7occUsqSVRra0u', '2019-09-05', 1);
+(2, 'Caja', 'Caja', 0, '2019-09-14', 0, '0', 'caja', 2, '$2y$10$rvr2xtuecn1WfoIew5fbLefP6nxQBhNCKdgBfWE7occUsqSVRra0u', '2019-09-14', 1),
+(6, 'Cristian Alexis', 'Lopera Bedoya', 1214746318, '1999-04-20', 3233557660, 'cristian1020011@gmail.com', 'admin', 1, '$2y$10$rvr2xtuecn1WfoIew5fbLefP6nxQBhNCKdgBfWE7occUsqSVRra0u', '2019-09-05', 1);
 
 -- --------------------------------------------------------
 
@@ -341,6 +408,22 @@ ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
 
 --
+-- Indexes for table `reserva_activa`
+--
+ALTER TABLE `reserva_activa`
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `hab_numero` (`hab_numero`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `promo_id` (`promo_id`);
+
+--
+-- Indexes for table `reserva_activa_detalle`
+--
+ALTER TABLE `reserva_activa_detalle`
+  ADD PRIMARY KEY (`id_detalle`),
+  ADD KEY `hab_numero` (`id_reserva`);
+
+--
 -- Indexes for table `rol`
 --
 ALTER TABLE `rol`
@@ -382,7 +465,7 @@ ALTER TABLE `villa_conf_facturas`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `control_turnos`
@@ -394,19 +477,31 @@ ALTER TABLE `control_turnos`
 -- AUTO_INCREMENT for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
-  MODIFY `sr_estado_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sr_estado_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `reserva_activa`
+--
+ALTER TABLE `reserva_activa`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `reserva_activa_detalle`
+--
+ALTER TABLE `reserva_activa_detalle`
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -418,7 +513,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT for table `tipo_habitacion`
 --
 ALTER TABLE `tipo_habitacion`
-  MODIFY `id_tipo_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tipo_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `usuario`
@@ -455,6 +550,19 @@ ALTER TABLE `habitacion`
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`) ON UPDATE CASCADE,
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reserva_activa`
+--
+ALTER TABLE `reserva_activa`
+  ADD CONSTRAINT `reserva_activa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reserva_activa_ibfk_2` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reserva_activa_detalle`
+--
+ALTER TABLE `reserva_activa_detalle`
+  ADD CONSTRAINT `reserva_activa_detalle_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reserva_activa` (`id_reserva`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuario`
