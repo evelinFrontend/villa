@@ -223,3 +223,8 @@ table.dataTable.no-footer {
     display: block;
 }
 
+/* inventary */
+
+.update-img{
+    width: 300px
+}
