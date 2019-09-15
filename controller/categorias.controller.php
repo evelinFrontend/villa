@@ -92,7 +92,7 @@ Class CategoriasController{
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
-                    $message = "Debido a que esta categoria tiene productos ralacionados no se puede eliminar.";
+                    $message = "Debido a que esta categoria tiene productos relacionados no se puede eliminar.";
                 }
             }else{
                 header('Internal server error', true, 500);

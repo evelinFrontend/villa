@@ -75,6 +75,9 @@ RewriteRule ^mostrarAbrirTurno$ index.php?controller=turnos&a=mostrarAbrirTurno
 RewriteRule ^createTurn$ index.php?controller=turnos&a=createTurn
 RewriteRule ^UptadeTurn$ index.php?controller=turnos&a=UptadeTurn
 
+#DESARROLLO
+RewriteRule ^tiempoTranscurridoFechas$ index.php?controller=tiempo&a=tiempoTranscurridoFechas
+RewriteRule ^restarTiempoParcial$ index.php?controller=tiempo&a=restarTiempoParcial
 
 #ERRORES
 ErrorDocument 404 /villa/views/modules/errors/error404.php
