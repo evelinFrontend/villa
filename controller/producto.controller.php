@@ -218,7 +218,7 @@ Class ProductoController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT p.*,c.cat_nombre,pv.pr_nombre,c.id_categoria,pv.id_proveedor FROM producto p INNER JOIN categorias c ON p.id_categoria = c.id_categoria INNER JOIN proveedores pv ON p.id_proveedor = pv.id_proveedor WHERE  ".$request['columnDBSearch']." = ? AND pro_estado = ?  ",array($request["value"],1));
+            $dataType = $this->masterModel->sqlSelect("SELECT p.*,c.*,pv.* FROM producto p INNER JOIN categorias c ON p.id_categoria = c.id_categoria INNER JOIN proveedores pv ON p.id_proveedor = pv.id_proveedor WHERE  ".$request['columnDBSearch']." = ? AND pro_estado = ?  ",array($request["value"],1));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";
