@@ -210,7 +210,7 @@ Class ReservaController{
         }
     }
 
-    function readByCategory(){
+    function detallesReserva(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
