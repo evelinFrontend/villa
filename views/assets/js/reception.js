@@ -16,11 +16,9 @@ $("#reception").ready(function () {
             "value": 1
         }),
         success: function (success) {
-            
-            
+            console.log(success);
             var rooms = success.data;
             $.each(rooms, function (value, item) {
-                console.log(item);
                 if (item.id_tipo_habitacion == 1) {
                     // var card = (
                     //     '<div class="card cards room bg-success mb-4 ml-4" style="max-width: 10rem;">' +

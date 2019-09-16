@@ -12,6 +12,7 @@
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Personal del hotel</h4>
+        <div class="alert alert-success" role="alert"></div>
         <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal"
             data-target="#create-employee">
             Nuevo empleado
@@ -21,27 +22,14 @@
                 <table class="table table-striped col" id="table-employee">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th></th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>numero de contacto</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
-                        <tr>
-                            <td>Normal</td>
-                            <td>Pues es normal</td>
-                            <td>editar</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -49,12 +37,25 @@
 
     </div>
     <div class="subcontent p-4" id="section-2-tab">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+    <div class="row user-content-table">
+    <h4 class="pricipal-title mb-4">Promociones</h4>
+        <div class="alert alert-success" role="alert"></div>
+            <div class="col-12">
+                <table class="table table-striped col" id="table-promo">
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>numero de contacto</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="subcontent p-4" id="section-3-tab">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
@@ -134,6 +135,98 @@
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal update employee -->
+<div id="update-employee" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Datos de usuario</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-user-data row justify-content-center border-bottom pb-3"></div>
+                <h5 class="modal-title mt-3 mb-3">Actualizar contraseña</h5>
+                <div class="change-password border-bottom border-top py-4 ">
+                    <form id="form-change-pass">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="actual">Contraseña actual:</label>
+                                <input id="actual" class="form-control" type="password">
+                            </div>
+                            <div class="form-group col">
+                                <label for="new">Nueva contraseña:</label>
+                                <input id="new" class="form-control" type="password">
+                            </div>
+                            <div class="form-group col">
+                                <label for="repeat">Repetir contraseña:</label>
+                                <input id="repeat" class="form-control" type="password">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Cambiar
+                        </button>
+                    </form>
+                </div>
+                <h5 class="modal-title mt-3 mb-3">Actualizar datos</h5>
+                <div class="change-data border-bottom border-top pb-3">
+                <form id="form-update-employee" class="m-4">
+                    <div class="row">
+                        <div class="form-group col-2">
+                            <label for="name-employee-up">Codigo:</label>
+                            <input id="code-up" class="form-control" type="text" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="name-employee-up">Nombres:</label>
+                            <input id="name-employee-up" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col">
+                            <label for="lastname-employee-up">Apellidos:</label>
+                            <input id="lastname-employee-up" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="doc-employee-up">Número de documento:</label>
+                            <input id="doc-employee-up" class="form-control" type="number" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="birthdate-up">Fecha de nacimiento:</label>
+                            <input id="birthdate-up" class="form-control" type="date" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="email-up">Correo electronico:</label>
+                            <input id="email-up" class="form-control" type="email" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="number-up">Número de contacto:</label>
+                            <input id="number-up" class="form-control" type="number" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="rol-up">Rol</label>
+                            <select id="rol-up" class="form-control" name="">
+                                <option value="1">Administrador</option>
+                                <option value="2">Caja</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="user-name-employee-up">Nombre de usuario:</label>
+                            <input id="user-name-employee-up" class="form-control" type="text" name="">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary float-right mb-4" type="submit">Actualizar</button>
+                </form>
+                </div>
             </div>
         </div>
     </div>
