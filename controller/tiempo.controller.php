@@ -7,10 +7,10 @@ Class TiempoController{
         $this->masterModel = $masterModel;
         $this->doizer = $doizer;
     }
-    function tiempoTranscurridoFechas(){
-        $fecha1 = new DateTime("2019-08-02 00:01:00");
-        $fecha2 = new DateTime("2019-08-03 07:01:00");
-        $fecha = $fecha1->diff($fecha2);
+    function tiempoTranscurridoFechas($fechaInicio,$fechaFin){
+        $fechaInicio = new DateTime($fechaInicio);
+        $fechaFin = new DateTime($fechaFin);
+        $fecha = $fechaInicio->diff($fechaFin);
         $tiempo = "";
         //Dias
         if($fecha->d > 0){
@@ -34,17 +34,25 @@ Class TiempoController{
         }else{
             $tiempo .="00";
         }
-        echo json_encode($tiempo);
+        // echo json_encode($tiempo);
         return $tiempo;
     }
 
-    function restarTiempoParcial(){
-        $horaInicio = new DateTime("2019-08-03 00:01:00");
-        $horaTermino = new DateTime("2019-08-03 07:01:00");
-
-        $interval = $horaInicio->diff($horaTermino);
-        // echo $interval->format('%H-%i-%s');
-        echo json_encode($interval);
+    function restarTiempoParcial($fecha_hora_inicio = null,$fecha_hora_fin = null,$fecha_hora_tiempo_transcurrido= null){
+        if(isset($_POST["fecha_hora_inicio"])){
+            $fecha_hora_inicio= $_POST["fecha_hora_inicio"];
+            $fecha_hora_fin= $_POST["fecha_hora_fin"];
+            $fecha_hora_tiempo_transcurrido= $_POST["fecha_hora_tiempo_transcurrido"];
+        }
+        $horaInicioInterval  = new DateTime($fecha_hora_inicio);
+        $horaTerminoInterval = new DateTime($fecha_hora_fin);
+        $interval = $horaInicioInterval->diff($horaTerminoInterval);
+        $timpoReal = new DateTime($fecha_hora_tiempo_transcurrido); 
+        $timpoReal->modify('-'.$interval->h.' hours'); 
+        $timpoReal->modify('-'.$interval->i.' minute' ); 
+        $timpoReal->modify('-'.$interval->s.' second'); 
+        // echo json_encode($timpoReal->format('H:i:s'));
+        return $timpoReal->format('H:i:s');
     }
 }
 ?>
