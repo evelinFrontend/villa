@@ -34,12 +34,14 @@
                 </table>
             </div>
         </div>
-
     </div>
     <div class="subcontent p-4" id="section-2-tab">
-    <div class="row user-content-table">
-    <h4 class="pricipal-title mb-4">Promociones</h4>
+        <h4 class="pricipal-title mb-4">Promociones</h4>
         <div class="alert alert-success" role="alert"></div>
+        <button type="button" class="btn btn-primary float-right mb-4" data-toggle="modal" data-target="#create-promo">
+            Nueva promoción
+        </button>
+        <div class="row user-content-table">
             <div class="col-12">
                 <table class="table table-striped col" id="table-promo">
                     <thead>
@@ -57,14 +59,15 @@
             </div>
         </div>
     </div>
-    <div class="subcontent p-4" id="section-3-tab">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-        Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-    </div>
+</div>
+<div class="subcontent p-4" id="section-3-tab">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
+    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+</div>
 </div>
 <!-- modal create employee -->
 <div id="create-employee" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -151,6 +154,8 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                </div>
                 <div class="modal-user-data row justify-content-center border-bottom pb-3"></div>
                 <h5 class="modal-title mt-3 mb-3">Actualizar contraseña</h5>
                 <div class="change-password border-bottom border-top py-4 ">
@@ -176,57 +181,123 @@
                 </div>
                 <h5 class="modal-title mt-3 mb-3">Actualizar datos</h5>
                 <div class="change-data border-bottom border-top pb-3">
-                <form id="form-update-employee" class="m-4">
-                    <div class="row">
-                        <div class="form-group col-2">
-                            <label for="name-employee-up">Codigo:</label>
-                            <input id="code-up" class="form-control" type="text" disabled>
+                    <form id="form-update-employee" class="m-4">
+                        <div class="row">
+                            <div class="form-group col-2">
+                                <label for="name-employee-up">Codigo:</label>
+                                <input id="code-up" class="form-control" type="text" disabled>
+                            </div>
+                            <div class="form-group col">
+                                <label for="name-employee-up">Nombres:</label>
+                                <input id="name-employee-up" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col">
+                                <label for="lastname-employee-up">Apellidos:</label>
+                                <input id="lastname-employee-up" class="form-control" type="text">
+                            </div>
                         </div>
-                        <div class="form-group col">
-                            <label for="name-employee-up">Nombres:</label>
-                            <input id="name-employee-up" class="form-control" type="text">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="doc-employee-up">Número de documento:</label>
+                                <input id="doc-employee-up" class="form-control" type="number" name="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="birthdate-up">Fecha de nacimiento:</label>
+                                <input id="birthdate-up" class="form-control" type="date" name="">
+                            </div>
                         </div>
-                        <div class="form-group col">
-                            <label for="lastname-employee-up">Apellidos:</label>
-                            <input id="lastname-employee-up" class="form-control" type="text">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="email-up">Correo electronico:</label>
+                                <input id="email-up" class="form-control" type="email" name="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="number-up">Número de contacto:</label>
+                                <input id="number-up" class="form-control" type="number" name="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="doc-employee-up">Número de documento:</label>
-                            <input id="doc-employee-up" class="form-control" type="number" name="">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="rol-up">Rol</label>
+                                <select id="rol-up" class="form-control" name="">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Caja</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="user-name-employee-up">Nombre de usuario:</label>
+                                <input id="user-name-employee-up" class="form-control" type="text" name="">
+                            </div>
                         </div>
-                        <div class="form-group col">
-                            <label for="birthdate-up">Fecha de nacimiento:</label>
-                            <input id="birthdate-up" class="form-control" type="date" name="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="email-up">Correo electronico:</label>
-                            <input id="email-up" class="form-control" type="email" name="">
-                        </div>
-                        <div class="form-group col">
-                            <label for="number-up">Número de contacto:</label>
-                            <input id="number-up" class="form-control" type="number" name="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="rol-up">Rol</label>
-                            <select id="rol-up" class="form-control" name="">
-                                <option value="1">Administrador</option>
-                                <option value="2">Caja</option>
-                            </select>
-                        </div>
-                        <div class="form-group col">
-                            <label for="user-name-employee-up">Nombre de usuario:</label>
-                            <input id="user-name-employee-up" class="form-control" type="text" name="">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary float-right mb-4" type="submit">Actualizar</button>
-                </form>
+                        <button class="btn btn-primary float-right mb-4" type="submit">Actualizar</button>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal create promo -->
+<div id="create-promo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear promoción</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-create-promo">
+                    <div class="form-group">
+                        <label for="promo-name">Nombre:</label>
+                        <input id="promo-name" class="form-control" type="text" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="promo-time">Tiempo</label>
+                        <input id="promo-time" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="promo-value">Valor</label>
+                        <input id="promo-value" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal update promo -->
+<div id="update-promo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actualizar promoción</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-update-promo">
+                    <div class="form-group">
+                        <label for="update-promo-name">Nombre:</label>
+                        <input id="update-promo-name" class="form-control" type="text" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-promo-time">Tiempo:</label>
+                        <input id="update-promo-time" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-promo-value">Valor:</label>
+                        <input id="update-promo-value" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Actualizar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

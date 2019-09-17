@@ -91,12 +91,14 @@
 		</form>
     </div>
 </div>
-<!-- <div id="init-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+<?php if($_SESSION["DATA_USER"]["ROL"]==2){?>
+<div id="init-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
 				<p class="text-center">Ingresa el cantidad de dinero que se encuentra en caja en este momento</p>
-				<form id="box">
+				<form id="turn">
 					<div class="form-group">
 						<label for="value">Valor en caja</label>
 						<input id="value" class="form-control" type="number">
@@ -108,5 +110,6 @@
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
+<?php } ?>
 <script src="views/assets/js/reception.js"></script>

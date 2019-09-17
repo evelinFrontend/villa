@@ -1,5 +1,6 @@
 $(document).ready(function () {
     realoanUser();
+    $("#table-promo").DataTable();
 
 });
 
@@ -207,4 +208,30 @@ $('#form-update-employee').submit(function (e) {
 
     }
     closeAlerts();
+})
+
+$("#form-create-promo").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'readByProvider',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function(success) {
+          $("#create-promo").modal('hide');
+          $("#alert-success").addClass('show')
+          $("#alert-success").append(success.message)
+        },
+        error: function (err) {
+            $("#alert-danger").addClass('show')
+            $("#alert-danger").append(success.message)
+        }
+    });
+    setTimeout(() => {
+        $("#alert").removeClass("show");
+        $("#alert").empty();
+    }, 6000);
 })

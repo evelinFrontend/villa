@@ -1,12 +1,7 @@
-$(".goInvoices").click(function(e) {
-    console.log(e);
-    $("#invoices").addClass('active');
-    $("#reception").hide();
-})
 
 $("#reception").ready(function () {
     $("#content-additional").hide();
-    $('#init-modal').modal('show');
+   
     $.ajax({
         url: 'readByRoom',
         type: 'POST',
@@ -55,7 +50,51 @@ $("#reception").ready(function () {
             var message = err.responseJSON.message;
         }
     });
+    getTurno();
 });
+function getTurno() {
+    $.ajax({
+        url: 'mostrarAbrirTurno',
+        dataType: "json",
+        type: "GET",
+        success: function(success) { 
+        },
+        error: function (err) {
+            $('#init-modal').modal('show');
+        }
+    }) 
+}
+
+$("#turn").submit(function(e) {
+    e.preventDefault();
+    if ($("#value").val() !== '') {
+        $.ajax({
+            url: 'createTurn',
+            dataType: "json",
+            type: "POST",
+            data: ({
+                "usuario": 1,
+                "valor_inicial": $("#value").val()
+            }),
+            success: function(success) {
+                console.log(success);
+                
+            },
+            error: function (err) {
+                
+            }
+        })
+    } else {
+        console.log("llenar");
+        
+    }
+})
+
+$(".goInvoices").click(function(e) {
+    console.log(e);
+    $("#invoices").addClass('active');
+    $("#reception").hide();
+})
 
 $("#select-person").change(function () {
     if ($("#select-person").val() === 'si') {
@@ -71,10 +110,3 @@ $('#value').keypress(function () {
     var result = data.replace(/(?=(\d{3})+(?!\d))/g, '$1,');
     console.log(result);
 });
-$('#box').submit(function (e) {
-    e.preventDefault();
-    var value = $('#value').val();
-    if (value !== '') {
-        $('#init-modal').modal('hide')
-    }
-})
