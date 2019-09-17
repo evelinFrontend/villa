@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2019 at 12:34 AM
+-- Generation Time: Sep 17, 2019 at 03:12 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -70,6 +70,13 @@ CREATE TABLE `control_turnos` (
   `total_facturas_realizadas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `control_turnos`
+--
+
+INSERT INTO `control_turnos` (`id_control`, `id_usuario`, `valor_inicial`, `factura_inicio`, `factura_fin`, `fecha_turno`, `hora_inicio`, `hora_fin`, `valor_total_cierre`, `total_facturas_realizadas`) VALUES
+(12, 6, 2000, NULL, 0, '2019-09-15', '10:54:32', '10:54:37', 2000, 20);
+
 -- --------------------------------------------------------
 
 --
@@ -115,9 +122,9 @@ CREATE TABLE `habitacion` (
 --
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
-(1, 1, 'nada', 1, '0000-00-00', 1),
+(1, 1, 'nada', 2, '0000-00-00', 1),
 (2, 1, '', 2, '2019-09-08', 1),
-(3, 1, '', 1, '2019-09-08', 1),
+(3, 1, '', 3, '2019-09-08', 1),
 (4, 1, '', 1, '2019-09-08', 1),
 (5, 1, '', 1, '2019-09-08', 1),
 (6, 1, '', 1, '2019-09-08', 1),
@@ -152,11 +159,32 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
-(8, 'PNE-001', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 4, '2019-09-12', '2019-09-12', 1),
-(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 1, '2019-09-13', '2019-09-13', 1),
-(12, '78678', '8976', 78678, 6786, 4, 5, 'img_deafult_product.jpg', 786, '2019-09-14', '2019-09-14', 1),
+(8, 'PNE-001', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -3, '2019-09-12', '2019-09-12', 1),
+(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -35, '2019-09-13', '2019-09-13', 1),
+(12, '78678', '8976', 78678, 6786, 4, 5, 'img_deafult_product.jpg', 10, '2019-09-14', '2019-09-14', 1),
 (13, '89765', '9876', 98765, 789765, 4, 5, '7d507038e0e25a8b24aedb992a7e98ea.JPG', 789087, '2019-09-14', '2019-09-14', 1),
 (14, '567890', '67890', 9876544567890, 987654345678, 4, 5, '0df42219dd71b6ed6fd5e4010acf8c06.JPG', 90987, '2019-09-14', '2019-09-14', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promocion`
+--
+
+CREATE TABLE `promocion` (
+  `id_promocion` int(11) NOT NULL,
+  `promo_tiempo` time NOT NULL,
+  `promo_valor` bigint(20) NOT NULL,
+  `promo_fecha_registro` date NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `promocion`
+--
+
+INSERT INTO `promocion` (`id_promocion`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`) VALUES
+(1, '04:00:00', 30000, '2019-09-05', 6);
 
 -- --------------------------------------------------------
 
@@ -204,15 +232,18 @@ CREATE TABLE `reserva_activa` (
   `ra_inicio_tiempo_parcial` datetime DEFAULT NULL,
   `ra_fin_tiempo_parcial` datetime DEFAULT NULL,
   `ra_numero_personas_adicionales` int(11) NOT NULL,
-  `ra_habitacion_decorada` int(1) NOT NULL
+  `ra_habitacion_decorada` int(1) NOT NULL,
+  `ra_tipo_reserva_inicio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reserva_activa`
 --
 
-INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`) VALUES
-(25, 2, 6, NULL, '2019-09-15 16:19:17', NULL, NULL, 0, 1);
+INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`, `ra_tipo_reserva_inicio`) VALUES
+(41, 3, 6, 1, '2019-09-16 16:21:39', '2019-09-16 19:17:11', NULL, 1, 1, 5),
+(42, 1, 6, 1, '2019-09-16 16:21:53', '2019-09-16 16:29:32', '2019-09-16 16:29:48', 1, 1, 2),
+(43, 2, 6, NULL, '2019-09-16 16:25:35', NULL, NULL, 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -225,9 +256,22 @@ CREATE TABLE `reserva_activa_detalle` (
   `id_reserva` int(11) NOT NULL,
   `re_det_id_producto` int(11) NOT NULL,
   `re_det_cantidad` bigint(20) NOT NULL,
+  `re_precio_compra` bigint(20) NOT NULL,
   `re_det_valor_unidad` bigint(20) NOT NULL,
   `re_det_valor_total` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reserva_activa_detalle`
+--
+
+INSERT INTO `reserva_activa_detalle` (`id_detalle`, `id_reserva`, `re_det_id_producto`, `re_det_cantidad`, `re_precio_compra`, `re_det_valor_unidad`, `re_det_valor_total`) VALUES
+(137, 42, 8, 1, 19000, 20000, 20000),
+(138, 42, 9, 5, 19000, 20000, 100000),
+(141, 41, 8, 1, 19000, 20000, 20000),
+(142, 41, 9, 5, 19000, 20000, 100000),
+(143, 43, 8, 1, 19000, 20000, 20000),
+(144, 43, 9, 5, 19000, 20000, 100000);
 
 -- --------------------------------------------------------
 
@@ -402,6 +446,13 @@ ALTER TABLE `producto`
   ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
+-- Indexes for table `promocion`
+--
+ALTER TABLE `promocion`
+  ADD PRIMARY KEY (`id_promocion`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indexes for table `proveedores`
 --
 ALTER TABLE `proveedores`
@@ -471,7 +522,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT for table `control_turnos`
 --
 ALTER TABLE `control_turnos`
-  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `estado_reserva`
@@ -486,6 +537,12 @@ ALTER TABLE `producto`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `promocion`
+--
+ALTER TABLE `promocion`
+  MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `proveedores`
 --
 ALTER TABLE `proveedores`
@@ -495,13 +552,13 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -552,11 +609,18 @@ ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `promocion`
+--
+ALTER TABLE `promocion`
+  ADD CONSTRAINT `promocion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
   ADD CONSTRAINT `reserva_activa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `reserva_activa_ibfk_2` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `reserva_activa_ibfk_2` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reserva_activa_ibfk_3` FOREIGN KEY (`promo_id`) REFERENCES `promocion` (`id_promocion`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reserva_activa_detalle`
