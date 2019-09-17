@@ -78,6 +78,8 @@ RewriteRule ^UptadeTurn$ index.php?controller=turnos&a=UptadeTurn
 #Reservas 
 RewriteRule ^CrearReserva$ index.php?controller=reserva&a=CrearReserva
 RewriteRule ^ModificarReserva$ index.php?controller=reserva&a=ModificarReserva
+RewriteRule ^detallesReserva$ index.php?controller=reserva&a=detallesReserva
+RewriteRule ^cambiarEstadoReserva$ index.php?controller=reserva&a=cambiarEstadoReserva
 
 
 #DESARROLLO

@@ -1,10 +1,13 @@
 <?php 
+require_once "controller/tiempo.controller.php";
 Class ReservaController{
     private  $masterModel;
     private $doizer;
+    private $tiempoController;
     function ReservaController($masterModel,$doizer){
         $this->masterModel = $masterModel;
         $this->doizer = $doizer;
+        $this->tiempoController = new TiempoController($masterModel,$doizer);
     }
 
     function CrearReserva(){
@@ -45,10 +48,13 @@ Class ReservaController{
                             $i++;
                         }
                         //validar si existe promocion
+                        if($request["promocion"]!=5){
+                            $request["promocion"] = "";
+                        }
                         if($request["promocion"]==""){
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
+                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
                         }else{
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
+                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
                         }
                         if($insert){
                             $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($request["tipo_reserva"],$request["hab_numero"]));
@@ -214,15 +220,38 @@ Class ReservaController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT * FROM categorias WHERE ".$request['columnDBSearch']." = ? ",array($request["value"]));
+            $dataType = $this->masterModel->sqlSelect("SELECT h.*,sr.*,th.*,ra.* FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion INNER JOIN estado_reserva sr ON sr.sr_estado_reserva = h.sr_estado_reserva INNER JOIN reserva_activa ra ON h.hab_numero = ra.hab_numero WHERE h.hab_numero = ? AND h.sr_estado_reserva != ? ",array($request["habitacion"],1))[0];
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";
-                $data = $dataType;
+                //si tiene una reserva activa
+                $datosReserva = $this->masterModel->selectBy("reserva_activa",array("hab_numero",$dataType->hab_numero));
+                if( $dataType->sr_estado_reserva!=1){
+                    if($datosReserva->ra_inicio_tiempo_parcial==null){
+                        $dataType->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));
+                    }else{
+                        //validar el tiempo parcial
+                        if($datosReserva->ra_fin_tiempo_parcial==null){
+                            $dataType->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,$datosReserva->ra_inicio_tiempo_parcial);
+                        }else{
+                            $tiempo_transcurido = date("Y-m-d")." ".$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));
+                            $dataType->tiempo_transcurido=$this->tiempoController->restarTiempoParcial($datosReserva->ra_inicio_tiempo_parcial,$datosReserva->ra_fin_tiempo_parcial,$tiempo_transcurido);
+                        }
+                    }
+                }
+                //datos productos
+                $products = $this->masterModel->selectAllBy("reserva_activa_detalle",array("id_reserva",$dataType->id_reserva));
+                //datos promocion
+                $promocion =null;
+                if(isset($dataType->promo_id)){
+                    $promocion = $this->masterModel->selectBy("promocion",array("id_promocion",$dataType->promo_id));
+                }
+                $toltalDineroTiempo = $this->tiempoController->timeToMoney($dataType->id_reserva,$dataType->tiempo_transcurido);
+                $data = array("reserva"=>$dataType,"productos"=>$products,"financieros"=>$toltalDineroTiempo,"promocion"=>$promocion);
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "no hay información asociada a esta consulta verifica los parametros.";
+                $message = "no hay información asociada a esta consulta verifica si la habitación esta reservada.";
                 $data = null;
             }
             $result = array("status"=>$status,"message"=>$message,"data"=>$data);
@@ -231,5 +260,125 @@ Class ReservaController{
             header('405 Method Not Allowede', true, 405);
         }
     }    
+
+    function cambiarEstadoReserva(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $dataType = $this->masterModel->sqlSelect("SELECT ra.*,h.* FROM  reserva_activa ra INNER JOIN habitacion h ON h.hab_numero = ra.hab_numero WHERE ra.hab_numero = ?",array($request["habitacion"]))[0];
+            if(!empty($dataType)){
+                $dataTipoReserva = $this->masterModel->sqlSelect("SELECT er.* FROM  estado_reserva er  WHERE er.sr_estado_reserva = ?",array($request["estado_reserva"]))[0];
+                if(!empty($dataTipoReserva)){
+                    if($request["estado_reserva"]==1){
+                        $result = $this->cambiarEstadoDisponible($dataType->id_reserva,$request["estado_reserva"],$dataType->sr_estado_reserva,$request["habitacion"]);
+                    }else if($request["estado_reserva"]==3){
+                        $result = $this->cambiarEstadTiempoParcial($dataType->id_reserva,$request["estado_reserva"],$dataType->sr_estado_reserva,$request["habitacion"],$dataType->ra_inicio_tiempo_parcial,$dataType->ra_fin_tiempo_parcial,$dataType->ra_tipo_reserva_inicio);
+                    }else{
+                        $result["status"] = "error";
+                        $result["message"] = "Estado no disponible para cambiar.";
+                        $result["error"] = true;
+                    }
+                    $status = $result["status"];
+                    $message = $result["message"];
+                    if($result["error"]){
+                        header('Internal server error', true, 500);
+                    }
+                }else{
+                    header('Internal server error', true, 500);
+                    $status = "error";
+                    $message = "Este estado de reserva no existe en nuestro sistema.";
+                }
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica si la habitación esta reservada.";
+            }
+            $result = array("status"=>$status,"message"=>$message);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }
+
+    function cambiarEstadoDisponible($id_reserva,$nuevo_estado,$estadoActualReserva,$numeroHabitacion){
+        //si esta en limpieza y va a pasar a disponible
+        if($estadoActualReserva==6 && $nuevo_estado==1){
+            $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array(1,$numeroHabitacion));
+            if($update){
+                $status = "success";
+                $message = "estado Cambiado";
+                $error = false;
+            }else{
+                $status = "error";
+                $message = "Error al momento de modificar.";
+                $error = true;
+            }
+        }else{
+            $status = "error";
+            $message = "No puedes cambiar de tu estado Actual a disponible,intenta facturando o cuando este en limpieza.";
+            $error = true;
+        }
+        $result = array("status"=>$status,"message"=>$message,"error"=>$error);
+        return $result;
+    }
+    function cambiarEstadTiempoParcial($id_reserva,$nuevo_estado,$estadoActualReserva,$numeroHabitacion,$inicioTiempo,$finTiempo,$tipoReserva){
+        //si esta en reserva o promocion  y va a pasar a timpo parcial
+        if(($estadoActualReserva==2 || $estadoActualReserva==5 || $nuevo_estado==3) && $nuevo_estado==3){
+            //cambiar el estado de la habitacion
+            $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array(3,$numeroHabitacion));
+            if($update){
+                //validar si es abrir o cerrar el tiempo parcial
+                if($inicioTiempo==null && $finTiempo == null ){
+                    //Inicializar el inicio del tiempo parcial
+                    $iniciarTiempoParcial =  $this->masterModel->sql("UPDATE reserva_activa SET ra_inicio_tiempo_parcial = ? WHERE id_reserva = ?",array(date('Y-m-d H:i:s'),$id_reserva));
+                    if($iniciarTiempoParcial){
+                        $status = "success";
+                        $message = "Tiempo parcial Iniciado";
+                        $error = false;
+                    }else{
+                        $status = "error";
+                        $message = "Error al momento de modificar.";
+                        $error = true;
+                    }
+                }else if(!$inicioTiempo==null && $finTiempo == null){
+                    //reestablecer tipo de reserva a el valor original
+                    $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($tipoReserva,$numeroHabitacion));
+                    //finaliar tiempo parcial
+                    $finalizarTiempoParcial =  $this->masterModel->sql("UPDATE reserva_activa SET ra_fin_tiempo_parcial = ? WHERE id_reserva = ?",array(date('Y-m-d H:i:s'),$id_reserva));
+                    if($finalizarTiempoParcial && $update){
+                        $status = "success";
+                        $message = "Tiempo parcial Finalizado";
+                        $error = false;
+                    }else{
+                        $status = "error";
+                        $message = "Error al momento de modificar.";
+                        $error = true;
+                    }
+                }else{
+                    //reiniciar el ciclo
+                    $reiniciarTiempoParcial =  $this->masterModel->sql("UPDATE reserva_activa SET ra_inicio_tiempo_parcial = ? , ra_fin_tiempo_parcial = ? WHERE id_reserva = ?",array(date('Y-m-d H:i:s'),null,$id_reserva));
+                    if($reiniciarTiempoParcial){
+                        $status = "success";
+                        $message = "Tiempo parcial Iniciado";
+                        $error = false;
+                    }else{
+                        $status = "error";
+                        $message = "Error al momento de modificar.";
+                        $error = true;
+                    }
+                }
+            }else{
+                $status = "error";
+                $message = "Error al momento de modificar.";
+                $error = true;
+            }
+        }else{
+            $status = "error";
+            $message = "No puedes cambiar de tu estado a tiempo parcial,intenta en una habitación reservada.";
+            $error = true;
+        }
+        $result = array("status"=>$status,"message"=>$message,"error"=>$error);
+        return $result;
+    }
 }
 ?>
