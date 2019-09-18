@@ -67,17 +67,22 @@ Class TiempoController{
         
     }
 
-    function timeToMoney($id_reserva,$tiempoTrancurrido){
+    function timeToMoney($id_reserva,$tiempoTrancurrido,$products){
         $datosReserva = $this->masterModel->sqlSelect("SELECT * FROM reserva_activa ra INNER JOIN habitacion  h ON ra.hab_numero = h.hab_numero INNER JOIN tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE id_reserva = ?",array($id_reserva))[0];
         $minutosDeCortesia = intval($this->masterModel->selectAll("villa_config")[0]->conf_minutos_cortesia);
         $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
         $total = 0;
+        $totalProductos = 0;
         $precioDecoracionFactura = 0;
         //habitacion decorada 
         if($datosReserva->ra_habitacion_decorada==1){
             $total +=  $precioDecoracionDB;
             $precioDecoracionFactura = $precioDecoracionDB;
         }
+        foreach($products as $product){
+            $totalProductos += $product->re_det_cantidad*$product->re_det_valor_unidad;
+        }
+        $total += $totalProductos;
         //si es promocion
         if(isset($datosReserva->promo_id)){
             $infoPromocion = $this->masterModel->selectAllBy("promocion",array("id_promocion",$datosReserva->promo_id))[0];
@@ -120,7 +125,7 @@ Class TiempoController{
             if($hmsInt[1]>$minutosDeCortesia){
                 $total += $valorHora;
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"tiempoTranscurridoFueraPromo"=>$timpoRealTranscurrido,"valorPromocion"=>$valorPromocion);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"tiempoTranscurridoFueraPromo"=>$timpoRealTranscurrido,"valorPromocion"=>$valorPromocion,"productos"=>$totalProductos);
         }else{
             $valorHora = intval($datosReserva->th_valor_hora);
             $hms = explode(":",$tiempoTrancurrido);
@@ -136,9 +141,11 @@ Class TiempoController{
             if($hmsInt[1]>$minutosDeCortesia){
                 $total += $valorHora;
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos);
         }   
         return $result;
     }
 }
+
+
 ?>

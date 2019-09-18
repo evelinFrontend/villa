@@ -246,7 +246,7 @@ Class ReservaController{
                 if(isset($dataType->promo_id)){
                     $promocion = $this->masterModel->selectBy("promocion",array("id_promocion",$dataType->promo_id));
                 }
-                $toltalDineroTiempo = $this->tiempoController->timeToMoney($dataType->id_reserva,$dataType->tiempo_transcurido);
+                $toltalDineroTiempo = $this->tiempoController->timeToMoney($dataType->id_reserva,$dataType->tiempo_transcurido,$products);
                 $data = array("reserva"=>$dataType,"productos"=>$products,"financieros"=>$toltalDineroTiempo,"promocion"=>$promocion);
             }else{
                 header('Internal server error', true, 500);
