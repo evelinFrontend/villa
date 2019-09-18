@@ -217,7 +217,6 @@ $("#form-update-category").submit(function(e) {
     }, 5000);
 })
 
-
 //llenas tabla de productos
 function reloadProduct() {
     $.ajax({

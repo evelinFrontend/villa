@@ -1,7 +1,23 @@
 
 $("#reception").ready(function () {
     $("#content-additional").hide();
-   
+    getTurno();
+    getRooms();
+});
+function getTurno() {
+    $.ajax({
+        url: 'mostrarAbrirTurno',
+        dataType: "json",
+        type: "GET",
+        success: function (success) {
+        },
+        error: function (err) {
+            $('#init-modal').modal('show');
+        }
+    })
+}
+
+function getRooms() {
     $.ajax({
         url: 'readByRoom',
         type: 'POST',
@@ -12,60 +28,40 @@ $("#reception").ready(function () {
         }),
         success: function (success) {
             console.log(success);
-            var rooms = success.data;
-            $.each(rooms, function (value, item) {
-                if (item.id_tipo_habitacion == 1) {
-                    // var card = (
-                    //     '<div class="card cards room bg-success mb-4 ml-4" style="max-width: 10rem;">' +
-                    //     '<div class="card-header">' + 'DISPONIBLE' + '</div>' +
-                    //     '<div class="card-body">' +
-                    //     '<div class="card-number d-flex justify-content-center align-items-center text-white" id="content-number-rooms">' +
-                    //     '<h4 class="text-white">'+
-                    //     item.hab_numero +
-                    //     '</h4>'+
-                    //     '</div>' +
-                    //     '</div>' +
-                    //     '</div>'
-                    // );
+            for (var i = 0; i < success.data.length; i++) {
+                console.log(success.data[i]);
+                var data = success.data[i]
+                var time;
+                if (data.tiempo_transcurido) {
+                 var time = data.tiempo_transcurido
                 } else {
-                    // var card = (
-                    //     '<div class="card cards room bg-info mb-4 ml-4" style="max-width: 10rem;">' +
-                    //     '<div class="card-header">' + 'DISPONIBLE' + '</div>' +
-                    //     '<div class="card-body">' +
-                    //     '<div class="card-number d-flex justify-content-center align-items-center text-white" id="content-number-rooms">' +
-                    //     '<h4 class="text-white">'+
-                    //     item.hab_numero +
-                    //     '</h4>'+
-                    //     '</div>' +
-                    //     '</div>' +
-                    //     '</div>'
-                    // );
+                  var time = '';   
                 }
-                
-                $("#content-card").append(card);
+                $("#content-card").append(`
+                <div class="cards room mb-2" onclick="reserva(${data.sr_estado_reserva}, ${data.hab_numero})">
+                    <div class="linear-room" style="background:${data.sr_color};"></div>
+                    <div class="body-room-card d-flex">
+                        <div>
+                            <h1 class="card-number" style="color:${data.sr_color};">${data.hab_numero}</h1>
+                        </div>
+                    <div>
+                        <p id="type-room">${data.sr_nombre}</p>
+                        <small id="type-room">${data.th_nombre_tipo}</small>
+                        <p id="time-room">${time}</p>
+                    </div>
+                    </div>
+                </div>
+                `)
 
-            })
+            }
         },
         error: function (err) {
-            var message = err.responseJSON.message;
+            // var message = err.responseJSON.message;
         }
     });
-    getTurno();
-});
-function getTurno() {
-    $.ajax({
-        url: 'mostrarAbrirTurno',
-        dataType: "json",
-        type: "GET",
-        success: function(success) { 
-        },
-        error: function (err) {
-            $('#init-modal').modal('show');
-        }
-    }) 
 }
 
-$("#turn").submit(function(e) {
+$("#turn").submit(function (e) {
     e.preventDefault();
     if ($("#value").val() !== '') {
         $.ajax({
@@ -73,24 +69,22 @@ $("#turn").submit(function(e) {
             dataType: "json",
             type: "POST",
             data: ({
-                "usuario": 1,
                 "valor_inicial": $("#value").val()
             }),
-            success: function(success) {
-                console.log(success);
-                
+            success: function (success) {
+                $("#init-modal").modal(hide);
             },
             error: function (err) {
-                
+
             }
         })
     } else {
         console.log("llenar");
-        
+
     }
 })
 
-$(".goInvoices").click(function(e) {
+$(".goInvoices").click(function (e) {
     console.log(e);
     $("#invoices").addClass('active');
     $("#reception").hide();
@@ -102,7 +96,7 @@ $("#select-person").change(function () {
     } else {
         $("#content-additional").hide()
     }
-    
+
 })
 
 $('#value').keypress(function () {
@@ -110,3 +104,57 @@ $('#value').keypress(function () {
     var result = data.replace(/(?=(\d{3})+(?!\d))/g, '$1,');
     console.log(result);
 });
+function reloadProduct() {
+    $.ajax({
+        url: 'readByProduct',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        },
+    });
+}
+
+function reserva(data, id) {
+    console.log(data ,id);
+    $.ajax({
+        url: 'readByRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "hab_numero",
+            "value": id
+        }),
+        success: function(success) {
+            var data = success.data[0];
+            console.log(data);
+            
+        },
+        error: function (err) {
+            
+        }
+    });
+    
+    switch (data) {
+        case 1:
+            $("#invoices").addClass('active');
+            $("#content-card").hide()
+            $("#reception").hide()
+            break;
+    
+        default:
+            break;
+    }
+    
+}
+
+    

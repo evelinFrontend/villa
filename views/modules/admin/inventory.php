@@ -384,7 +384,7 @@
                                 <label for="img-product" class="custom-file-label">Imagen:</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
                     </form>
                 </div>
             </div>
@@ -417,7 +417,7 @@
                         <input id="description-category-up" class="form-control" type="text" require>
                     </div>
                     <div class="form-group col d-flex align-items-end ">
-                        <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
                     </div>
                 </form>
             </div>
