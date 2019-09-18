@@ -57,6 +57,7 @@ Class TiempoController{
     function timeToMoney($id_reserva,$tiempoTrancurrido){
         $datosReserva = $this->masterModel->sqlSelect("SELECT * FROM reserva_activa ra INNER JOIN habitacion  h ON ra.hab_numero = h.hab_numero INNER JOIN tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE id_reserva = ?",array($id_reserva))[0];
         $minutosDeCortesia = intval($this->masterModel->selectAll("villa_config")[0]->conf_minutos_cortesia);
+        $precioDecoracion = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
         $total = 0;
         if(isset($datosReserva->promo_id)){
             $result =  "precio con promo";
@@ -76,7 +77,10 @@ Class TiempoController{
                 $total += $valorHora;
             }
         }   
-
+        //habitacion decorada 
+        if($datosReserva->ra_habitacion_decorada==1){
+            $total +=  $precioDecoracion;
+        }
         return $total;
     }
 }

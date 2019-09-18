@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 17, 2019 at 03:12 AM
+-- Generation Time: Sep 18, 2019 at 02:52 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -124,7 +124,7 @@ CREATE TABLE `habitacion` (
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
 (1, 1, 'nada', 2, '0000-00-00', 1),
 (2, 1, '', 2, '2019-09-08', 1),
-(3, 1, '', 3, '2019-09-08', 1),
+(3, 1, '', 5, '2019-09-08', 1),
 (4, 1, '', 1, '2019-09-08', 1),
 (5, 1, '', 1, '2019-09-08', 1),
 (6, 1, '', 1, '2019-09-08', 1),
@@ -241,9 +241,9 @@ CREATE TABLE `reserva_activa` (
 --
 
 INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`, `ra_tipo_reserva_inicio`) VALUES
-(41, 3, 6, 1, '2019-09-16 16:21:39', '2019-09-16 19:17:11', NULL, 1, 1, 5),
-(42, 1, 6, 1, '2019-09-16 16:21:53', '2019-09-16 16:29:32', '2019-09-16 16:29:48', 1, 1, 2),
-(43, 2, 6, NULL, '2019-09-16 16:25:35', NULL, NULL, 0, 1, 2);
+(41, 3, 6, 1, '2019-09-16 16:21:39', '2019-09-16 19:17:11', '2019-09-17 10:52:01', 1, 1, 5),
+(42, 1, 6, 1, '2019-09-16 16:47:53', '2019-09-16 16:29:32', '2019-09-16 16:29:48', 1, 1, 2),
+(43, 2, 6, NULL, '2019-09-16 15:00:35', NULL, NULL, 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -365,6 +365,7 @@ CREATE TABLE `villa_config` (
   `id_conf` int(11) NOT NULL,
   `conf_iva` int(11) NOT NULL,
   `conf_minutos_cortesia` int(11) NOT NULL,
+  `conf_precio_decoracion` bigint(20) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -372,8 +373,8 @@ CREATE TABLE `villa_config` (
 -- Dumping data for table `villa_config`
 --
 
-INSERT INTO `villa_config` (`id_conf`, `conf_iva`, `conf_minutos_cortesia`, `id_usuario`) VALUES
-(1, 19, 7, 6);
+INSERT INTO `villa_config` (`id_conf`, `conf_iva`, `conf_minutos_cortesia`, `conf_precio_decoracion`, `id_usuario`) VALUES
+(1, 19, 7, 2000, 6);
 
 -- --------------------------------------------------------
 
