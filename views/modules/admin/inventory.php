@@ -424,6 +424,79 @@
         </div>
     </div>
 </div>
-
+<!-- modal update provider -->
+<div id="update-provider" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="my-modal-title">Actualizar proveedor</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-update-provider" class="m-4">
+                    <div class="alert alert-danger" role="alert">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-2">
+                            <label for="id-incharge-up">Id:</label>
+                            <input id="id-incharge-up" class="form-control" type="text" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="name-incharge-up">Nombre del encargo:</label>
+                            <input id="name-incharge-up" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col">
+                            <label for="name-provider-up">Nombre del proveedor:</label>
+                            <input id="name-provider-up" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="nit-provider-up">Nit:</label>
+                            <input id="nit-provider-up" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col">
+                            <label for="business-name-provider-up">Razón social:</label>
+                            <input id="business-name-provider-up" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="number-provider-up">Telefono:</label>
+                            <input id="number-provider-up" class="form-control" type="number" name="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="address-provider-up">Direccion:</label>
+                            <input id="address-provider-up" class="form-control" type="text" name="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="email-provider-up">Correo eléctronico:</label>
+                            <input id="email-provider-up" class="form-control" type="email">
+                        </div>
+                        <div class="form-group col">
+                            <label for="account-provider-up">Numero de cuenta:</label>
+                            <input id="account-provider-up" class="form-control" type="number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="type-account-provider-up">Tipo de cuenta:</label>
+                            <input id="type-account-provider-up" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col">
+                            <label for="bank-provider-up">Banco:</label>
+                            <input id="bank-provider-up" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary float-right mb-4" type="submit">Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="views/assets/js/data-tables.min.js"></script>
 <script src="views/assets/js/inventory.js"></script>

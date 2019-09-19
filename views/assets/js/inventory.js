@@ -100,7 +100,7 @@ $("#form-create-provider").submit(function (e) {
                 "nombre": $("#name-provider").val(),
                 "nit": $("#nit-provider").val(),
                 "razon_social": $("#business-name-provider").val(),
-                "telefono": $("#business-name-provider").val(),
+                "telefono": $("#number-provider").val(),
                 "direccion": $("#address-provider").val(),
                 "correo": $("#email-provider").val(),
                 "numero_cuenta": $("#account-provider").val(),
@@ -217,6 +217,55 @@ $("#form-update-category").submit(function(e) {
     }, 5000);
 })
 
+$("#form-update-provider").submit(function(e) {
+    e.preventDefault();
+    if ($("#name-incharge-up").val() !== '' && $("#name-provider-up").val() !== '' && $("#nit-provider-up").val() !== '' && $("#business-name-provider-up").val() !== '' && $("#address-provider-up").val() !== '' && $("#doc-employee-up").val() !== '') {
+        $.ajax({
+            url: 'UpdateProvider',
+            type: 'POST',
+            dataType: 'json',
+            data: ({
+                "id": $("#id-incharge-up").val(),
+                "nombre_contacto": $("#name-incharge-up").val(),
+                "nombre": $("#name-provider-up").val(),
+                "nit": $("#nit-provider-up").val(),
+                "razon_social": $("#business-name-provider-up").val(),
+                "telefono": $("#number-provider-up").val(),
+                "direccion": $("#address-provider-up").val(),
+                "correo": $("#email-provider-up").val(),
+                "numero_cuenta": $("#account-provider-up").val(),
+                "tipo_cuenta": $("#type-account-provider-up").val(),
+                "banco": $("#bank-provider-up").val(),
+
+            }
+            ),
+            success: function (success) {
+                $('#table-provider> tbody>').empty();
+                $(".alert-success").addClass("show");
+                $(".alert").append(success.message);
+                $('#update-provider').modal('hide');
+                $("#form-create-product").trigger('reset');
+                reloadProvider();
+            },
+            error: function (err) {
+                console.log(err);
+                
+                // var message = err.responseJSON.message;
+                $(".alert-danger").addClass("show");
+                $(".alert-danger").append(message);
+            }
+        });
+    } else {
+        $(".alert").addClass("show");
+        $(".alert").empty();
+        $(".alert").append("Todos campos son requeridos");
+    }
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 4000);
+})
+
 //llenas tabla de productos
 function reloadProduct() {
     $.ajax({
@@ -236,7 +285,7 @@ function reloadProduct() {
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].pr_nombre}</td>
                     <td class="d-flex justify-content-around">
-                        <p onclick="updateProduct(${response.data[i].id_producto})">ver</p>
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateProduct(${response.data[i].id_producto})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_producto},'deleteProduct')">
                     </td>
                 </tr>
@@ -274,7 +323,7 @@ function reloadCategory() {
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].cat_descripcion}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list" onclick="updateCategory(${response.data[i].id_categoria})">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateCategory(${response.data[i].id_categoria})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_categoria}, 'deleteCategory')">
                     </td>
                 </tr>
@@ -311,7 +360,7 @@ function reloadProvider() {
                     <td>${response.data[i].nombre_contacto}</td>
                     <td>${response.data[i].pr_telefono}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list" onclick="updateProvider(${response.data[i].id_proveedor})">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateProvider(${response.data[i].id_proveedor})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_proveedor}, 'deleteProvider')">
                     </td>
                 </tr>
@@ -431,7 +480,7 @@ function updateCategory(id) {
 
 function updateProvider(id) {
     $.ajax({
-        url: 'UpdateProvider',
+        url: 'readByProvider',
         dataType: "json",
         type: "POST",
         data: ({
@@ -439,7 +488,20 @@ function updateProvider(id) {
             "value": id
         }),
         success: function(success) {
+            var data = success.data[0];
             console.log(success);
+            $("#update-provider").modal('show');
+            $("#id-incharge-up").val(data.id_proveedor);
+            $("#name-incharge-up").val(data.nombre_contacto);
+            $("#name-provider-up").val(data.pr_nombre);
+            $("#nit-provider-up").val(data.pr_nit);
+            $("#number-provider-up").val(data.pr_telefono);
+            $("#business-name-provider-up").val(data.pr_razon_social);
+            $("#address-provider-up").val(data.pr_direccion);
+            $("#email-provider-up").val(data.pr_email);
+            $("#account-provider-up").val(data.pr_numero_cuenta);
+            $("#type-account-provider-up").val(data.pr_tipo_cuenta);
+            $("#bank-provider-up").val(data.pr_banco);
             
         },
         error: function (err) {

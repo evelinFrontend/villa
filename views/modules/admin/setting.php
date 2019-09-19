@@ -82,6 +82,7 @@
             <div class="modal-body">
                 <p>Recuerda asignar el rol y el horario de trabajo propios del empleado, estos se pobrán editar luego.
                 </p>
+                <div class="alert alert-danger" role="alert"></div>
                 <form id="form-create-employee" class="m-4">
                     <div class="row">
                         <div class="form-group col">
@@ -134,6 +135,9 @@
                         <div class="form-group col">
                             <label for="password-repet-employee">Contraseña</label>
                             <input id="password-repet-employee" class="form-control" type="password" name="">
+                            <div class="invalid-feedback" id="mss-err-pass">
+                                Las contraseñas no coinciden
+                            </div>
                         </div>
                     </div>
                     <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>

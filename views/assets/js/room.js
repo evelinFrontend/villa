@@ -94,8 +94,74 @@ $("#form-type-room").submit(function (e) {
         $(".alert").empty();
         $(".alert").append("Todos los campos son obligatorios");
     }
+setTimeout(() => {
+    $(".alert").removeClass("show");
+    $(".alert").empty();
+}, 6000);
 
+})
 
+$("#form-update-type-room").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UpdateTypeRoom',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+            "id": $('#room-type-id-up').val(),
+            "estado": $('#room-type-status-up').val(),
+            "nombre_tipo": $('#room-type-name-up').val(),
+            "descripcion": $('#room-type-detail-up').val(),
+            "valor_hora": $('#hour-value-up').val(),
+            "valor_persona_adicional": $('#people-up').val()
+        }),
+        success: function (success) {
+            reloadTypeRoom();
+            $("#alert-success").addClass('show');
+            $("#alert-success").append(success.message);
+        },
+        error: function (err) {
+            var message = err.responseJSON.message;
+            $(".danger-modal").addClass("show");
+            $(".danger-modal").append(message);
+        }
+    });
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 6000);
+})
+
+$("#form-update-room").submit(function(e) {
+    e.preventDefault()
+    $.ajax({
+        url: 'UpdateRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "tipo_habitacion": $("#room-type-up").val(),
+            "hab_detalle": $("#room-detail-up").val(),
+            "id": $("#room-number-up").val(),
+            "estado": $("#room-status-up").val()
+        }),
+        success: function(success) {
+            console.log(success);
+            
+            $("#update-room").modal('hide');
+            $("#alert-success").addClass('show');
+            $("#alert-success").append(success.message);
+        },
+        error: function (err) {
+           console.log(err);
+           
+            $(".danger-modal").addClass("show");
+            $(".danger-modal").append(err.message)
+        }
+    });
+    setTimeout(() => {
+        $(".alert").removeClass("show");
+        $(".alert").empty();
+    }, 6000);
 })
 
 function realoadRoom(){
@@ -118,7 +184,7 @@ function realoadRoom(){
                     <td>${response.data[i].th_valor_hora}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateRoom(${response.data[i].hab_numero})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].hab_numero}, 'deleteRoom')">
                     </td>
                 </tr>
@@ -144,9 +210,9 @@ function reloadTypeRoom(){
         }),
         success: function (success) {
             var options = success.data;
-            $('#room-type').empty();
+            $('#room-type, #room-type-up').empty();
             $.each(options, function (value, item) {
-                $("#room-type").append($("<option>",{
+                $("#room-type, #room-type-up").append($("<option>",{
                     value: item.id_tipo_habitacion,
                     text: item.th_nombre_tipo
                 }));
@@ -177,6 +243,7 @@ function reloadTypeRoom(){
                     <td>${response.data[i].th_valor_hora}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateType(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
                     </td>
                 </tr>
@@ -218,4 +285,53 @@ function deleteRoom(id, url) {
         $(".alert").removeClass('show')
         $(".alert").empty()
     }, 5000);
+}
+function updateType(id) {
+    $.ajax({
+        url: 'readByTypeRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "id_tipo_habitacion",
+            "value": id
+        }),
+        success: function(success) {
+            var data = success.data[0];
+            $("#update-type").modal('show');
+            $('#room-type-id-up').val(data.id_tipo_habitacion),
+            $('#room-type-status-up').val(data.th_estado),
+            $('#room-type-name-up').val(data.th_nombre_tipo),
+            $('#room-type-detail-up').val(data.th_descripcion),
+            $('#hour-value-up').val(data.th_valor_hora),
+            $('#people-up').val(data.th_valor_persona_adicional)
+        },
+        error: function (err) {
+            
+        }
+    })
+
+}
+
+function updateRoom(id) {
+    $.ajax({
+        url: 'readByRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "hab_numero",
+            "value": id
+        }),
+        success: function(success) {
+            data= success.data[0];
+            $("#update-room").modal("show");
+            $("#room-status-up").val(data.hab_estado),
+            $("#room-number-up").val(data.hab_numero),
+            $("#room-type-up").val(data.th_nombre_tipo),
+            $("#room-detail-up").val(data.hab_detalle)
+            
+        },
+        error: function (err) {
+            
+        }
+    })   
 }
