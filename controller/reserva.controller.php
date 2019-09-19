@@ -216,7 +216,12 @@ Class ReservaController{
         }
     }
 
-    function detallesReserva(){
+    function detallesReserva($numero_habitacion = null){
+        $return = false;
+        if(isset($numero_habitacion)){
+            $return = true;
+            $request["habitacion"] = $numero_habitacion;
+        }
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
@@ -255,7 +260,11 @@ Class ReservaController{
                 $data = null;
             }
             $result = array("status"=>$status,"message"=>$message,"data"=>$data);
-            echo json_encode($result);
+            if($return){
+                return $result;
+            }else{
+                echo json_encode($result);
+            }
         }else{
             header('405 Method Not Allowede', true, 405);
         }
@@ -309,11 +318,13 @@ Class ReservaController{
                 $message = "estado Cambiado";
                 $error = false;
             }else{
+                header('Internal server error', true, 500);
                 $status = "error";
                 $message = "Error al momento de modificar.";
                 $error = true;
             }
         }else{
+            header('Internal server error', true, 500);
             $status = "error";
             $message = "No puedes cambiar de tu estado Actual a disponible,intenta facturando o cuando este en limpieza.";
             $error = true;
@@ -336,6 +347,7 @@ Class ReservaController{
                         $message = "Tiempo parcial Iniciado";
                         $error = false;
                     }else{
+                        header('Internal server error', true, 500);
                         $status = "error";
                         $message = "Error al momento de modificar.";
                         $error = true;
@@ -350,6 +362,7 @@ Class ReservaController{
                         $message = "Tiempo parcial Finalizado";
                         $error = false;
                     }else{
+                        header('Internal server error', true, 500);
                         $status = "error";
                         $message = "Error al momento de modificar.";
                         $error = true;
@@ -362,23 +375,88 @@ Class ReservaController{
                         $message = "Tiempo parcial Iniciado";
                         $error = false;
                     }else{
+                        header('Internal server error', true, 500);
                         $status = "error";
                         $message = "Error al momento de modificar.";
                         $error = true;
                     }
                 }
             }else{
+                header('Internal server error', true, 500);
                 $status = "error";
                 $message = "Error al momento de modificar.";
                 $error = true;
             }
         }else{
+            header('Internal server error', true, 500);
             $status = "error";
             $message = "No puedes cambiar de tu estado a tiempo parcial,intenta en una habitación reservada.";
             $error = true;
         }
         $result = array("status"=>$status,"message"=>$message,"error"=>$error);
         return $result;
+    }
+
+    function cancelarReserva(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            if($request["id_reserva"]!=""){
+                if($request["motivo"]!=""){
+                    //validar si exite la reserva
+                    $existeReserva = $this->masterModel->sqlSelect("SELECT * FROM reserva_activa WHERE id_reserva = ? ",array($request["id_reserva"]))[0];
+                    if(!empty($existeReserva)){
+                        //validar si la reserva tiene productos
+                        $existenProductos = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa_detalle WHERE id_reserva = ? ",array($request["id_reserva"]));
+                        if(empty($existenProductos)){
+                            //validar promocion
+                            if(isset($existeReserva->promo_id)){
+                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$existeReserva->id_usuario,$existeReserva->promo_id,$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion"));
+                            }else{
+                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$existeReserva->id_usuario,$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion","promo_id"));
+                            }
+                            if($insert){
+                                $delete = $this->masterModel->delete("reserva_activa",array("id_reserva",$request["id_reserva"]));
+                                if($delete){
+                                    $status = "success";
+                                    $message = "Reserva cancelada";
+                                }else{
+                                    header('Internal server error', true, 500);
+                                    $status = "error";
+                                    $message = "error al eliminar reserva.";
+                                }
+                            }else{
+                                header('Internal server error', true, 500);
+                                $status = "error";
+                                $message = "error en base de datos.";
+                            }
+                        }else{
+                            header('Internal server error', true, 500);
+                            $status = "error";
+                            $message = "Esta reserva no se puede cancelar debido a que tiene productos Registrados.";
+                        }
+                    }else{
+                        header('Internal server error', true, 500);
+                        $status = "error";
+                        $message = "Este id de reserva no esta registrado.";
+                    }
+                }else{
+                    header('Internal server error', true, 500);
+                    $status = "error";
+                    $message = "Ingresa el motivo de la cancelación.";
+                }
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "ingresa el numero de la reserva.";
+            }
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica si la habitación esta reservada.";
+        }
+        $result = array("status"=>$status,"message"=>$message);
+        echo  json_encode($result);
     }
 }
 ?>
