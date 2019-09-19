@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 18, 2019 at 02:52 AM
+-- Generation Time: Sep 19, 2019 at 03:23 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -80,6 +80,53 @@ INSERT INTO `control_turnos` (`id_control`, `id_usuario`, `valor_inicial`, `fact
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detalle_factura`
+--
+
+CREATE TABLE `detalle_factura` (
+  `id_detalle` int(11) NOT NULL,
+  `fac_consecutivo` int(11) NOT NULL,
+  `det_id_producto` int(11) NOT NULL,
+  `det_cantidad` int(11) NOT NULL,
+  `det_pro_precio_compra` bigint(20) NOT NULL,
+  `det_valor_unidad` bigint(20) NOT NULL,
+  `det_valor_total` bigint(20) NOT NULL,
+  `det_fecha_venta` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detalle_factura`
+--
+
+INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto`, `det_cantidad`, `det_pro_precio_compra`, `det_valor_unidad`, `det_valor_total`, `det_fecha_venta`) VALUES
+(3, 3, 8, 1, 19000, 20000, 20000, '2019-09-18 20:02:53'),
+(4, 3, 9, 5, 19000, 20000, 100000, '2019-09-18 20:02:53'),
+(5, 4, 8, 1, 19000, 20000, 20000, '2019-09-18 20:03:41'),
+(6, 4, 9, 5, 19000, 20000, 100000, '2019-09-18 20:03:41'),
+(7, 5, 8, 1, 19000, 20000, 20000, '2019-09-18 20:04:51'),
+(8, 5, 9, 5, 19000, 20000, 100000, '2019-09-18 20:04:51'),
+(9, 6, 8, 1, 19000, 20000, 20000, '2019-09-18 20:06:34'),
+(10, 6, 9, 5, 19000, 20000, 100000, '2019-09-18 20:06:34'),
+(11, 7, 8, 1, 19000, 20000, 20000, '2019-09-18 20:06:37'),
+(12, 7, 9, 5, 19000, 20000, 100000, '2019-09-18 20:06:37'),
+(13, 8, 8, 1, 19000, 20000, 20000, '2019-09-18 20:07:14'),
+(14, 8, 9, 5, 19000, 20000, 100000, '2019-09-18 20:07:14'),
+(15, 9, 8, 1, 19000, 20000, 20000, '2019-09-18 20:07:58'),
+(16, 9, 9, 5, 19000, 20000, 100000, '2019-09-18 20:07:58'),
+(17, 10, 8, 1, 19000, 20000, 20000, '2019-09-18 20:08:09'),
+(18, 10, 9, 5, 19000, 20000, 100000, '2019-09-18 20:08:09'),
+(19, 11, 8, 1, 19000, 20000, 20000, '2019-09-18 20:08:36'),
+(20, 11, 9, 5, 19000, 20000, 100000, '2019-09-18 20:08:36'),
+(21, 12, 8, 1, 19000, 20000, 20000, '2019-09-18 20:10:56'),
+(22, 12, 9, 5, 19000, 20000, 100000, '2019-09-18 20:10:56'),
+(23, 13, 8, 1, 19000, 20000, 20000, '2019-09-18 20:11:11'),
+(24, 13, 9, 5, 19000, 20000, 100000, '2019-09-18 20:11:11'),
+(25, 14, 8, 1, 19000, 20000, 20000, '2019-09-18 20:16:10'),
+(26, 14, 9, 5, 19000, 20000, 100000, '2019-09-18 20:16:10');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `estado_reserva`
 --
 
@@ -105,6 +152,50 @@ INSERT INTO `estado_reserva` (`sr_estado_reserva`, `sr_nombre`, `sr_descripcion`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `facturas`
+--
+
+CREATE TABLE `facturas` (
+  `fac_consecutivo` int(11) NOT NULL,
+  `id_reserva` int(11) NOT NULL,
+  `hab_numero` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `promo_id` int(11) DEFAULT NULL,
+  `fac_fecha_hora_ingreso` datetime NOT NULL,
+  `fac_inicio_tiempo_parcial` varchar(70) DEFAULT NULL,
+  `fac_fin_tiempo_parcial` varchar(70) DEFAULT NULL,
+  `fac_numero_personas_adicionales` int(11) NOT NULL,
+  `fac_habitacion_decorada` int(1) NOT NULL,
+  `fac_hora_salida` datetime NOT NULL,
+  `tipo_pago` varchar(20) NOT NULL,
+  `tiempo_total` time NOT NULL,
+  `valor_factura` bigint(20) NOT NULL,
+  `tipo_reserva` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `facturas`
+--
+
+INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `fac_fecha_hora_ingreso`, `fac_inicio_tiempo_parcial`, `fac_fin_tiempo_parcial`, `fac_numero_personas_adicionales`, `fac_habitacion_decorada`, `fac_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_factura`, `tipo_reserva`) VALUES
+(1, 1, 1, 2, 2, '2019-09-06 00:00:00', '2019-09-06 00:00:00', '2019-09-19 00:00:00', 1, 1, '2019-09-19 00:00:00', '1', '21:00:00', 1000, 1),
+(2, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 19:48:11', 'tipo_pago', '00:28:00', 142000, 2),
+(3, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 20:02:53', 'tipo_pago', '00:42:00', 142000, 2),
+(4, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:03:41', 'tipo_pago', '00:42:58', 142000, 2),
+(5, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:04:51', 'tipo_pago', '00:43:58', 142000, 2),
+(6, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:34', 'tipo_pago', '00:45:58', 142000, 2),
+(7, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:37', 'tipo_pago', '00:45:58', 142000, 2),
+(8, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:14', 'tipo_pago', '00:46:58', 142000, 2),
+(9, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:58', 'tipo_pago', '00:47:58', 142000, 2),
+(10, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:09', 'tipo_pago', '00:47:58', 142000, 2),
+(11, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:36', 'tipo_pago', '00:47:58', 142000, 2),
+(12, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:10:56', 'tipo_pago', '00:50:58', 142000, 2),
+(13, 44, 1, 6, NULL, '2019-09-18 18:55:20', '', '', 0, 1, '2019-09-18 20:11:11', 'tipo_pago', '01:15:00', 162000, 2),
+(14, 43, 2, 6, NULL, '2019-09-16 15:00:35', '', '', 0, 1, '2019-09-18 20:16:10', 'tipo_pago', '53:15:00', 1202000, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `habitacion`
 --
 
@@ -124,14 +215,15 @@ CREATE TABLE `habitacion` (
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
 (1, 1, 'nada', 2, '0000-00-00', 1),
 (2, 1, '', 2, '2019-09-08', 1),
-(3, 1, '', 5, '2019-09-08', 1),
+(3, 1, '', 2, '2019-09-08', 1),
 (4, 1, '', 1, '2019-09-08', 1),
 (5, 1, '', 1, '2019-09-08', 1),
 (6, 1, '', 1, '2019-09-08', 1),
 (7, 1, '', 1, '2019-09-08', 1),
 (8, 1, 'kjh', 1, '2019-09-11', 1),
-(9, 1, 'sadasasd', 1, '2019-09-11', 0),
-(10, 11, 'mm', 1, '2019-09-14', 1);
+(9, 1, 'sadasasd', 1, '2019-09-11', 1),
+(10, 11, 'mm', 1, '2019-09-14', 1),
+(11, 5, '', 1, '2019-09-18', 1);
 
 -- --------------------------------------------------------
 
@@ -159,8 +251,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
-(8, 'PNE-001', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -3, '2019-09-12', '2019-09-12', 1),
-(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -35, '2019-09-13', '2019-09-13', 1),
+(8, 'PNE-001', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -7, '2019-09-12', '2019-09-12', 1),
+(9, 'PNE-002', 'cosito', 19000, 20000, 4, 4, 'img_deafult_product.jpg', -50, '2019-09-13', '2019-09-13', 1),
 (12, '78678', '8976', 78678, 6786, 4, 5, 'img_deafult_product.jpg', 10, '2019-09-14', '2019-09-14', 1),
 (13, '89765', '9876', 98765, 789765, 4, 5, '7d507038e0e25a8b24aedb992a7e98ea.JPG', 789087, '2019-09-14', '2019-09-14', 1),
 (14, '567890', '67890', 9876544567890, 987654345678, 4, 5, '0df42219dd71b6ed6fd5e4010acf8c06.JPG', 90987, '2019-09-14', '2019-09-14', 1);
@@ -173,18 +265,22 @@ INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_c
 
 CREATE TABLE `promocion` (
   `id_promocion` int(11) NOT NULL,
+  `promo_nombre` varchar(80) NOT NULL,
   `promo_tiempo` time NOT NULL,
   `promo_valor` bigint(20) NOT NULL,
   `promo_fecha_registro` date NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) NOT NULL,
+  `promo_estado` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `promocion`
 --
 
-INSERT INTO `promocion` (`id_promocion`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`) VALUES
-(1, '04:00:00', 30000, '2019-09-05', 6);
+INSERT INTO `promocion` (`id_promocion`, `promo_nombre`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`, `promo_estado`) VALUES
+(1, '3x1', '04:00:00', 30000, '2019-09-05', 6, 0),
+(2, '2x1', '03:00:00', 100000, '2019-09-18', 6, 0),
+(5, '2x 1000 mil', '03:00:00', 100000, '2019-09-18', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -220,6 +316,31 @@ INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_soci
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reservas_anuladas`
+--
+
+CREATE TABLE `reservas_anuladas` (
+  `id_anulacion` int(11) NOT NULL,
+  `hab_numero` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `promo_id` int(11) DEFAULT NULL,
+  `ranula_fecha_hora_ingreso` datetime NOT NULL,
+  `ranula_habitacion_decorada` int(1) NOT NULL,
+  `ranula_motivo` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservas_anuladas`
+--
+
+INSERT INTO `reservas_anuladas` (`id_anulacion`, `hab_numero`, `id_usuario`, `promo_id`, `ranula_fecha_hora_ingreso`, `ranula_habitacion_decorada`, `ranula_motivo`) VALUES
+(1, 3, 6, 1, '2019-09-16 16:21:39', 1, '1'),
+(2, 3, 6, 1, '2019-09-16 16:21:39', 1, 'Por que si '),
+(3, 1, 6, NULL, '2019-09-18 20:17:28', 1, 'Por que si ');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reserva_activa`
 --
 
@@ -236,15 +357,6 @@ CREATE TABLE `reserva_activa` (
   `ra_tipo_reserva_inicio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `reserva_activa`
---
-
-INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`, `ra_tipo_reserva_inicio`) VALUES
-(41, 3, 6, 1, '2019-09-16 16:21:39', '2019-09-16 19:17:11', '2019-09-17 10:52:01', 1, 1, 5),
-(42, 1, 6, 1, '2019-09-16 16:47:53', '2019-09-16 16:29:32', '2019-09-16 16:29:48', 1, 1, 2),
-(43, 2, 6, NULL, '2019-09-16 15:00:35', NULL, NULL, 0, 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -260,18 +372,6 @@ CREATE TABLE `reserva_activa_detalle` (
   `re_det_valor_unidad` bigint(20) NOT NULL,
   `re_det_valor_total` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `reserva_activa_detalle`
---
-
-INSERT INTO `reserva_activa_detalle` (`id_detalle`, `id_reserva`, `re_det_id_producto`, `re_det_cantidad`, `re_precio_compra`, `re_det_valor_unidad`, `re_det_valor_total`) VALUES
-(137, 42, 8, 1, 19000, 20000, 20000),
-(138, 42, 9, 5, 19000, 20000, 100000),
-(141, 41, 8, 1, 19000, 20000, 20000),
-(142, 41, 9, 5, 19000, 20000, 100000),
-(143, 43, 8, 1, 19000, 20000, 20000),
-(144, 43, 9, 5, 19000, 20000, 100000);
 
 -- --------------------------------------------------------
 
@@ -425,10 +525,29 @@ ALTER TABLE `control_turnos`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
+-- Indexes for table `detalle_factura`
+--
+ALTER TABLE `detalle_factura`
+  ADD PRIMARY KEY (`id_detalle`),
+  ADD KEY `fac_consecutivo` (`fac_consecutivo`),
+  ADD KEY `det_id_producto` (`det_id_producto`);
+
+--
 -- Indexes for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
   ADD PRIMARY KEY (`sr_estado_reserva`);
+
+--
+-- Indexes for table `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`fac_consecutivo`),
+  ADD KEY `id_reserva` (`id_reserva`),
+  ADD KEY `hab_numero` (`hab_numero`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `promo_id` (`promo_id`),
+  ADD KEY `tipo_reserva` (`tipo_reserva`);
 
 --
 -- Indexes for table `habitacion`
@@ -451,6 +570,7 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `promocion`
   ADD PRIMARY KEY (`id_promocion`),
+  ADD UNIQUE KEY `promo_nombre` (`promo_nombre`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
@@ -458,6 +578,15 @@ ALTER TABLE `promocion`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
+
+--
+-- Indexes for table `reservas_anuladas`
+--
+ALTER TABLE `reservas_anuladas`
+  ADD PRIMARY KEY (`id_anulacion`),
+  ADD KEY `hab_numero` (`hab_numero`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `promo_id` (`promo_id`);
 
 --
 -- Indexes for table `reserva_activa`
@@ -526,6 +655,12 @@ ALTER TABLE `control_turnos`
   MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `detalle_factura`
+--
+ALTER TABLE `detalle_factura`
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
@@ -541,7 +676,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT for table `promocion`
 --
 ALTER TABLE `promocion`
-  MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `proveedores`
@@ -550,16 +685,22 @@ ALTER TABLE `proveedores`
   MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `reservas_anuladas`
+--
+ALTER TABLE `reservas_anuladas`
+  MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -596,6 +737,22 @@ ALTER TABLE `control_turnos`
   ADD CONSTRAINT `control_turnos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `detalle_factura`
+--
+ALTER TABLE `detalle_factura`
+  ADD CONSTRAINT `detalle_factura_ibfk_1` FOREIGN KEY (`fac_consecutivo`) REFERENCES `facturas` (`fac_consecutivo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_factura_ibfk_2` FOREIGN KEY (`det_id_producto`) REFERENCES `producto` (`id_producto`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `facturas_ibfk_2` FOREIGN KEY (`promo_id`) REFERENCES `promocion` (`id_promocion`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `facturas_ibfk_3` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `facturas_ibfk_4` FOREIGN KEY (`tipo_reserva`) REFERENCES `estado_reserva` (`sr_estado_reserva`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `habitacion`
 --
 ALTER TABLE `habitacion`
@@ -614,6 +771,14 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `promocion`
   ADD CONSTRAINT `promocion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reservas_anuladas`
+--
+ALTER TABLE `reservas_anuladas`
+  ADD CONSTRAINT `reservas_anuladas_ibfk_1` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservas_anuladas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservas_anuladas_ibfk_3` FOREIGN KEY (`promo_id`) REFERENCES `promocion` (`id_promocion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reserva_activa`
