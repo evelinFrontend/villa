@@ -10,8 +10,8 @@
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear habitación</h4>
         <form id="create-room" class="border-bottom pb-4 mb-4">
-        <div class="alert alert-success" role="alert"></div>
-        <div class="alert alert-danger" role="alert"></div>
+            <div class="alert alert-success" role="alert"></div>
+            <div class="alert alert-danger" role="alert"></div>
             <div class="row">
                 <div class="form-group col-4">
                     <label for="room-number">Numero de habitación:</label>
@@ -98,74 +98,99 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- update type room -->
+<div id="update-type" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="status">Estados</h5>
+                <h5 class="modal-title" id="status">Actualizar tipo de habitación</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <b>Número de habitación:</b>
-                        <p>1</p>
-                    </div>
-                    <div class="col">
-                        <b>Tipo de habitacion:</b>
-                        <p>2</p>
-                    </div>
+                <div class="alert alert-danger danger-modal" role="alert">
                 </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <b>Estado:</b>
-                        <p>disponible</p>
-                    </div>
-                    <div class="col">
-                        <b>Detalles:</b>
-                        <p>habitacion tal porque ajam</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <b>Hora de entrada:</b>
-                        <p>7:00pm</p>
-                    </div>
-                    <div class="col">
-                        <b>Hora Actual:</b>
-                        <p>1:00hr</p>
-                    </div>
-                    <div class="col">
-                        <b>Tiempo transcurrido:</b>
-                        <p>1:00hr</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <form id="status-form" class="col">
-                        <div class="form-group">
-                            <label for="status-room">Cambiar de estado:</label>
-                            <select id="status-room" class="form-control">
-                                <option value="available">Disponible</option>
-                                <option value="busy">En uso</option>
-                                <option value="clean">Limpieza</option>
-                                <option value="courtesy">Cortesia</option>
-                            </select>
+                <form id="form-update-type-room">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="room-type-id-up">Id:</label>
+                            <input id="room-type-id-up" class="form-control" type="text" disabled>
                         </div>
-                    </form>
-                </div>
-                <div class="row">
-                    <button type="submit" class="btn btn-primary">Guarda estado</button>
-                    <button type="button" class="btn btn-primary">Imprimir tiempo parcial</button>
-                    <button type="button" class="btn btn-primary">Facturar</button>
-                </div>
+                        <div class="form-group col">
+                            <label for="room-type-status-up">Estado:</label>
+                            <input id="room-type-status-up" class="form-control" type="text" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="room-type-name-up">Nombre:</label>
+                            <input id="room-type-name-up" class="form-control" type="text" require>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="hour-value-up">Valor por hora:</label>
+                            <input id="hour-value-up" class="form-control" type="number" require>
+                        </div>
+                        <div class="form-group col">
+                            <label for="people-up">Valor por persona adicional :</label>
+                            <input id="people-up" class="form-control" type="number" require>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="room-type-detail-up">Detalles:</label>
+                            <input id="room-type-detail-up" class="form-control" type="text" requiere>
+                        </div>
+                        <div class="form-group col-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>
-
+<!-- update room -->
+<div id="update-room" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="status">Actualizar Habitaciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-update-room">
+                    <div class="alert alert-danger danger-modal" role="alert"></div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="room-status-up">Estado:</label>
+                            <input id="room-status-up" class="form-control" type="number" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="room-number-up">Numero de habitación:</label>
+                            <input id="room-number-up" class="form-control" type="number" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="room-type-up">Tipo de Habitacion</label>
+                            <select id="room-type-up" class="form-control" require>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="room-detail-up">Detalles de la habitación:</label>
+                            <textarea id="room-detail-up" class="form-control" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 d-flex justify-content-end ">
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="views/assets/js/data-tables.min.js"></script>
 <script src="views/assets/js/room.js"></script>

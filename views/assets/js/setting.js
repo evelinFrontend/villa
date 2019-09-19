@@ -115,7 +115,7 @@ function closeAlerts() {
     }, 5000);
 }
 
-$('#create-employee').submit(function (e) {
+$('#form-create-employee').submit(function (e) {
     e.preventDefault();
     if (
         $('#name-employee').val() !== '' &&
@@ -148,17 +148,24 @@ $('#create-employee').submit(function (e) {
                 success: function (success) {
                     $('#create-employee').modal('hide')
                     $(".alert-success").addClass('show')
-                    $(".alert-success").append(success.message)
+                    $(".alert-success").append(success.message);
+                    $("#table-employee").empty()
+                    realoanUser();
                 },
                 error: function (err) {
+                    $(".alert-danger").addClass('show')
+                    $(".alert-danger").append(err.responseJSON.message)
                     console.log(err);
                 }
             });
         } else {
-            console.log('no coinci');
+            $("#password-employee, #password-repet-employee").addClass("is-invalid")
         }
     } else {
         console.log('buu');
+        $("#alert-danger").addClass("show");
+        $("#alert-danger").append("Todos los datos son obligatorios");
+        realoanUser();
 
     }
     closeAlerts();
