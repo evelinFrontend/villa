@@ -4,6 +4,13 @@ $("#reception").ready(function () {
     getTurno();
     getRooms();
 });
+function closeAlerts() {
+    setTimeout(() => {
+        $(".alert").removeClass('show')
+        $(".alert").empty()
+    }, 5000);
+}
+
 function getTurno() {
     $.ajax({
         url: 'mostrarAbrirTurno',
@@ -16,7 +23,6 @@ function getTurno() {
         }
     })
 }
-
 function getRooms() {
     $.ajax({
         url: 'readByRoom',
@@ -56,6 +62,8 @@ function getRooms() {
             }
         },
         error: function (err) {
+            console.log(err);
+            
             // var message = err.responseJSON.message;
         }
     });
@@ -72,15 +80,15 @@ $("#turn").submit(function (e) {
                 "valor_inicial": $("#value").val()
             }),
             success: function (success) {
-                $("#init-modal").modal(hide);
+                $("#init-modal").modal('hide');
             },
             error: function (err) {
-
+                $(".alert-danger").addClass("show")
+                $(".alert-danger").append(err)
             }
         })
     } else {
-        console.log("llenar");
-
+        $("#value").addClass("is-invalid")
     }
 })
 

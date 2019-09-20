@@ -2,10 +2,10 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 19, 2019 at 03:23 AM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.2.20
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-09-2019 a las 03:31:11
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `villa_campestre`
+-- Base de datos: `villa_campestre`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estructura de tabla para la tabla `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -36,7 +36,7 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `categorias`
+-- Volcado de datos para la tabla `categorias`
 --
 
 INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_fecha_creacion`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `control_turnos`
+-- Estructura de tabla para la tabla `control_turnos`
 --
 
 CREATE TABLE `control_turnos` (
@@ -71,16 +71,18 @@ CREATE TABLE `control_turnos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `control_turnos`
+-- Volcado de datos para la tabla `control_turnos`
 --
 
 INSERT INTO `control_turnos` (`id_control`, `id_usuario`, `valor_inicial`, `factura_inicio`, `factura_fin`, `fecha_turno`, `hora_inicio`, `hora_fin`, `valor_total_cierre`, `total_facturas_realizadas`) VALUES
-(12, 6, 2000, NULL, 0, '2019-09-15', '10:54:32', '10:54:37', 2000, 20);
+(12, 6, 2000, NULL, 0, '2019-09-15', '10:54:32', '10:54:37', 2000, 20),
+(13, 2, 12000, NULL, NULL, '2019-09-18', '11:59:36', NULL, NULL, NULL),
+(14, 2, 1, NULL, NULL, '2019-09-19', '12:05:24', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_factura`
+-- Estructura de tabla para la tabla `detalle_factura`
 --
 
 CREATE TABLE `detalle_factura` (
@@ -95,7 +97,7 @@ CREATE TABLE `detalle_factura` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `detalle_factura`
+-- Volcado de datos para la tabla `detalle_factura`
 --
 
 INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto`, `det_cantidad`, `det_pro_precio_compra`, `det_valor_unidad`, `det_valor_total`, `det_fecha_venta`) VALUES
@@ -127,7 +129,7 @@ INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado_reserva`
+-- Estructura de tabla para la tabla `estado_reserva`
 --
 
 CREATE TABLE `estado_reserva` (
@@ -138,21 +140,21 @@ CREATE TABLE `estado_reserva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `estado_reserva`
+-- Volcado de datos para la tabla `estado_reserva`
 --
 
 INSERT INTO `estado_reserva` (`sr_estado_reserva`, `sr_nombre`, `sr_descripcion`, `sr_color`) VALUES
-(1, 'Disponible', 'Esta disponible', '#fff'),
-(2, 'Reservada', '', '#000'),
-(3, 'Tiempo Parcial', '', '#ddff00'),
-(4, 'Cortesia', '', '#lkjhg8'),
-(5, 'Promoción', '', '#dsasf'),
-(6, 'Limpieza', '', '#ppppss');
+(1, 'Disponible', 'Esta disponible', '#28a745'),
+(2, 'Reservada', '', '#ffc107'),
+(3, 'Tiempo Parcial', '', '#dc3545'),
+(4, 'Cortesia', '', '#6f42c1'),
+(5, 'Promoción', '', '#343a40'),
+(6, 'Limpieza', '', '#17a2b8');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `facturas`
+-- Estructura de tabla para la tabla `facturas`
 --
 
 CREATE TABLE `facturas` (
@@ -174,7 +176,7 @@ CREATE TABLE `facturas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `facturas`
+-- Volcado de datos para la tabla `facturas`
 --
 
 INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `fac_fecha_hora_ingreso`, `fac_inicio_tiempo_parcial`, `fac_fin_tiempo_parcial`, `fac_numero_personas_adicionales`, `fac_habitacion_decorada`, `fac_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_factura`, `tipo_reserva`) VALUES
@@ -196,7 +198,7 @@ INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `habitacion`
+-- Estructura de tabla para la tabla `habitacion`
 --
 
 CREATE TABLE `habitacion` (
@@ -209,7 +211,7 @@ CREATE TABLE `habitacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `habitacion`
+-- Volcado de datos para la tabla `habitacion`
 --
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
@@ -228,7 +230,7 @@ INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `producto`
+-- Estructura de tabla para la tabla `producto`
 --
 
 CREATE TABLE `producto` (
@@ -247,7 +249,7 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `producto`
+-- Volcado de datos para la tabla `producto`
 --
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
@@ -260,7 +262,7 @@ INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promocion`
+-- Estructura de tabla para la tabla `promocion`
 --
 
 CREATE TABLE `promocion` (
@@ -274,7 +276,7 @@ CREATE TABLE `promocion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `promocion`
+-- Volcado de datos para la tabla `promocion`
 --
 
 INSERT INTO `promocion` (`id_promocion`, `promo_nombre`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`, `promo_estado`) VALUES
@@ -285,7 +287,7 @@ INSERT INTO `promocion` (`id_promocion`, `promo_nombre`, `promo_tiempo`, `promo_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedores`
+-- Estructura de tabla para la tabla `proveedores`
 --
 
 CREATE TABLE `proveedores` (
@@ -305,7 +307,7 @@ CREATE TABLE `proveedores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `proveedores`
+-- Volcado de datos para la tabla `proveedores`
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_social`, `pr_telefono`, `pr_direccion`, `pr_email`, `pr_numero_cuenta`, `pr_tipo_cuenta`, `pr_banco`, `nombre_contacto`, `pr_ultimo_aprovisionamiento`, `pr_fecha_registro`) VALUES
@@ -316,7 +318,7 @@ INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_soci
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservas_anuladas`
+-- Estructura de tabla para la tabla `reservas_anuladas`
 --
 
 CREATE TABLE `reservas_anuladas` (
@@ -330,7 +332,7 @@ CREATE TABLE `reservas_anuladas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `reservas_anuladas`
+-- Volcado de datos para la tabla `reservas_anuladas`
 --
 
 INSERT INTO `reservas_anuladas` (`id_anulacion`, `hab_numero`, `id_usuario`, `promo_id`, `ranula_fecha_hora_ingreso`, `ranula_habitacion_decorada`, `ranula_motivo`) VALUES
@@ -341,7 +343,7 @@ INSERT INTO `reservas_anuladas` (`id_anulacion`, `hab_numero`, `id_usuario`, `pr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reserva_activa`
+-- Estructura de tabla para la tabla `reserva_activa`
 --
 
 CREATE TABLE `reserva_activa` (
@@ -360,7 +362,7 @@ CREATE TABLE `reserva_activa` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reserva_activa_detalle`
+-- Estructura de tabla para la tabla `reserva_activa_detalle`
 --
 
 CREATE TABLE `reserva_activa_detalle` (
@@ -376,7 +378,7 @@ CREATE TABLE `reserva_activa_detalle` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
 CREATE TABLE `rol` (
@@ -386,7 +388,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`rol_id`, `rol_nombre`, `rol_descripcion`) VALUES
@@ -396,7 +398,7 @@ INSERT INTO `rol` (`rol_id`, `rol_nombre`, `rol_descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_habitacion`
+-- Estructura de tabla para la tabla `tipo_habitacion`
 --
 
 CREATE TABLE `tipo_habitacion` (
@@ -410,7 +412,7 @@ CREATE TABLE `tipo_habitacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tipo_habitacion`
+-- Volcado de datos para la tabla `tipo_habitacion`
 --
 
 INSERT INTO `tipo_habitacion` (`id_tipo_habitacion`, `th_nombre_tipo`, `th_descripcion`, `th_valor_hora`, `th_valor_persona_adicional`, `th_estado`, `th_fecha_creacion`) VALUES
@@ -429,7 +431,7 @@ INSERT INTO `tipo_habitacion` (`id_tipo_habitacion`, `th_nombre_tipo`, `th_descr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -448,7 +450,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`usu_id`, `usu_nombres`, `usu_apellidos`, `usu_numero_documento`, `usu_fecha_nacimiento`, `usu_numero_contacto`, `usu_correo`, `usu_nombre_login`, `usu_rol`, `usu_contrasena`, `usu_fecha_creacion`, `usu_estado`) VALUES
@@ -458,7 +460,7 @@ INSERT INTO `usuario` (`usu_id`, `usu_nombres`, `usu_apellidos`, `usu_numero_doc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `villa_config`
+-- Estructura de tabla para la tabla `villa_config`
 --
 
 CREATE TABLE `villa_config` (
@@ -470,16 +472,16 @@ CREATE TABLE `villa_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `villa_config`
+-- Volcado de datos para la tabla `villa_config`
 --
 
 INSERT INTO `villa_config` (`id_conf`, `conf_iva`, `conf_minutos_cortesia`, `conf_precio_decoracion`, `id_usuario`) VALUES
-(1, 19, 7, 2000, 6);
+(1, 19, 4, 234, 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `villa_conf_facturas`
+-- Estructura de tabla para la tabla `villa_conf_facturas`
 --
 
 CREATE TABLE `villa_conf_facturas` (
@@ -501,31 +503,31 @@ CREATE TABLE `villa_conf_facturas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `villa_conf_facturas`
+-- Volcado de datos para la tabla `villa_conf_facturas`
 --
 
 INSERT INTO `villa_conf_facturas` (`conf_id_fac`, `conf_resolucion`, `conf_razon_social`, `conf_nombre_empresa`, `conf_nit`, `conf_direccion`, `conf_telefono`, `conf_ciudad`, `conf_fecha_inicio`, `conf_fecha_fin`, `conf_rango_inicio`, `conf_rango_fin`, `conf_mensaje`, `conf_logo`, `id_usuario`) VALUES
 (1, '1876201208237', 'APARTA HOTEL VILLA CAMPESTRE', 'INVESTMENTS GROUP S.A.S', '901233749-6', 'CARRETERA LA CORDIALIDAD N0 22-72', '(095)6632106', 'Cartagena, Bolivar (Colombia)', '2018-12-31', '2018-12-31', '000001', 'VC 200000', 'MUCHAS GRACIAS POR SU VISITA.', '930a77b34acfddeb24c47eeb2d92ff54.JPG', 6);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categorias`
+-- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Indexes for table `control_turnos`
+-- Indices de la tabla `control_turnos`
 --
 ALTER TABLE `control_turnos`
   ADD PRIMARY KEY (`id_control`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Indexes for table `detalle_factura`
+-- Indices de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   ADD PRIMARY KEY (`id_detalle`),
@@ -533,13 +535,13 @@ ALTER TABLE `detalle_factura`
   ADD KEY `det_id_producto` (`det_id_producto`);
 
 --
--- Indexes for table `estado_reserva`
+-- Indices de la tabla `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
   ADD PRIMARY KEY (`sr_estado_reserva`);
 
 --
--- Indexes for table `facturas`
+-- Indices de la tabla `facturas`
 --
 ALTER TABLE `facturas`
   ADD PRIMARY KEY (`fac_consecutivo`),
@@ -550,7 +552,7 @@ ALTER TABLE `facturas`
   ADD KEY `tipo_reserva` (`tipo_reserva`);
 
 --
--- Indexes for table `habitacion`
+-- Indices de la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
   ADD PRIMARY KEY (`hab_numero`),
@@ -558,7 +560,7 @@ ALTER TABLE `habitacion`
   ADD KEY `sr_estado_reserva` (`sr_estado_reserva`);
 
 --
--- Indexes for table `producto`
+-- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`),
@@ -566,7 +568,7 @@ ALTER TABLE `producto`
   ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
--- Indexes for table `promocion`
+-- Indices de la tabla `promocion`
 --
 ALTER TABLE `promocion`
   ADD PRIMARY KEY (`id_promocion`),
@@ -574,13 +576,13 @@ ALTER TABLE `promocion`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Indexes for table `proveedores`
+-- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
 
 --
--- Indexes for table `reservas_anuladas`
+-- Indices de la tabla `reservas_anuladas`
 --
 ALTER TABLE `reservas_anuladas`
   ADD PRIMARY KEY (`id_anulacion`),
@@ -589,7 +591,7 @@ ALTER TABLE `reservas_anuladas`
   ADD KEY `promo_id` (`promo_id`);
 
 --
--- Indexes for table `reserva_activa`
+-- Indices de la tabla `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
   ADD PRIMARY KEY (`id_reserva`),
@@ -598,153 +600,153 @@ ALTER TABLE `reserva_activa`
   ADD KEY `promo_id` (`promo_id`);
 
 --
--- Indexes for table `reserva_activa_detalle`
+-- Indices de la tabla `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
   ADD PRIMARY KEY (`id_detalle`),
   ADD KEY `hab_numero` (`id_reserva`);
 
 --
--- Indexes for table `rol`
+-- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`rol_id`);
 
 --
--- Indexes for table `tipo_habitacion`
+-- Indices de la tabla `tipo_habitacion`
 --
 ALTER TABLE `tipo_habitacion`
   ADD PRIMARY KEY (`id_tipo_habitacion`),
   ADD UNIQUE KEY `th_nombre_tipo` (`th_nombre_tipo`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`usu_id`),
   ADD KEY `usu_rol` (`usu_rol`);
 
 --
--- Indexes for table `villa_config`
+-- Indices de la tabla `villa_config`
 --
 ALTER TABLE `villa_config`
   ADD PRIMARY KEY (`id_conf`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Indexes for table `villa_conf_facturas`
+-- Indices de la tabla `villa_conf_facturas`
 --
 ALTER TABLE `villa_conf_facturas`
   ADD PRIMARY KEY (`conf_id_fac`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categorias`
+-- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `control_turnos`
+-- AUTO_INCREMENT de la tabla `control_turnos`
 --
 ALTER TABLE `control_turnos`
-  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `detalle_factura`
+-- AUTO_INCREMENT de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `estado_reserva`
+-- AUTO_INCREMENT de la tabla `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
   MODIFY `sr_estado_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `producto`
+-- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `promocion`
+-- AUTO_INCREMENT de la tabla `promocion`
 --
 ALTER TABLE `promocion`
   MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `proveedores`
+-- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
   MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `reservas_anuladas`
+-- AUTO_INCREMENT de la tabla `reservas_anuladas`
 --
 ALTER TABLE `reservas_anuladas`
   MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `reserva_activa`
+-- AUTO_INCREMENT de la tabla `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
   MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT for table `reserva_activa_detalle`
+-- AUTO_INCREMENT de la tabla `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
   MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
--- AUTO_INCREMENT for table `rol`
+-- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `rol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tipo_habitacion`
+-- AUTO_INCREMENT de la tabla `tipo_habitacion`
 --
 ALTER TABLE `tipo_habitacion`
   MODIFY `id_tipo_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `villa_config`
+-- AUTO_INCREMENT de la tabla `villa_config`
 --
 ALTER TABLE `villa_config`
   MODIFY `id_conf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `control_turnos`
+-- Filtros para la tabla `control_turnos`
 --
 ALTER TABLE `control_turnos`
   ADD CONSTRAINT `control_turnos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `detalle_factura`
+-- Filtros para la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   ADD CONSTRAINT `detalle_factura_ibfk_1` FOREIGN KEY (`fac_consecutivo`) REFERENCES `facturas` (`fac_consecutivo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_factura_ibfk_2` FOREIGN KEY (`det_id_producto`) REFERENCES `producto` (`id_producto`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `facturas`
+-- Filtros para la tabla `facturas`
 --
 ALTER TABLE `facturas`
   ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE,
@@ -753,27 +755,27 @@ ALTER TABLE `facturas`
   ADD CONSTRAINT `facturas_ibfk_4` FOREIGN KEY (`tipo_reserva`) REFERENCES `estado_reserva` (`sr_estado_reserva`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `habitacion`
+-- Filtros para la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
   ADD CONSTRAINT `habitacion_ibfk_1` FOREIGN KEY (`id_tipo_habitacion`) REFERENCES `tipo_habitacion` (`id_tipo_habitacion`) ON UPDATE CASCADE,
   ADD CONSTRAINT `habitacion_ibfk_2` FOREIGN KEY (`sr_estado_reserva`) REFERENCES `estado_reserva` (`sr_estado_reserva`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `producto`
+-- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`) ON UPDATE CASCADE,
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `promocion`
+-- Filtros para la tabla `promocion`
 --
 ALTER TABLE `promocion`
   ADD CONSTRAINT `promocion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `reservas_anuladas`
+-- Filtros para la tabla `reservas_anuladas`
 --
 ALTER TABLE `reservas_anuladas`
   ADD CONSTRAINT `reservas_anuladas_ibfk_1` FOREIGN KEY (`hab_numero`) REFERENCES `habitacion` (`hab_numero`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -781,7 +783,7 @@ ALTER TABLE `reservas_anuladas`
   ADD CONSTRAINT `reservas_anuladas_ibfk_3` FOREIGN KEY (`promo_id`) REFERENCES `promocion` (`id_promocion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `reserva_activa`
+-- Filtros para la tabla `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
   ADD CONSTRAINT `reserva_activa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE,
@@ -789,25 +791,25 @@ ALTER TABLE `reserva_activa`
   ADD CONSTRAINT `reserva_activa_ibfk_3` FOREIGN KEY (`promo_id`) REFERENCES `promocion` (`id_promocion`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `reserva_activa_detalle`
+-- Filtros para la tabla `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
   ADD CONSTRAINT `reserva_activa_detalle_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reserva_activa` (`id_reserva`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario`
+-- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`usu_rol`) REFERENCES `rol` (`rol_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `villa_config`
+-- Filtros para la tabla `villa_config`
 --
 ALTER TABLE `villa_config`
   ADD CONSTRAINT `villa_config_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `villa_conf_facturas`
+-- Filtros para la tabla `villa_conf_facturas`
 --
 ALTER TABLE `villa_conf_facturas`
   ADD CONSTRAINT `villa_conf_facturas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;

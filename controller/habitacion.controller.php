@@ -134,12 +134,12 @@ Class HabitacionController{
                 foreach($dataType as $row){
                     //si tiene una reserva activa
                     $datosReserva = $this->masterModel->selectBy("reserva_activa",array("hab_numero",$row->hab_numero));
-                    if( $row->sr_estado_reserva!=1){
-                        if($datosReserva->ra_inicio_tiempo_parcial==null){
+                    if( $row->sr_estado_reserva!=1 && !empty($datosReserva)){
+                        if(!isset($datosReserva->ra_inicio_tiempo_parcial)){
                             $row->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));
                         }else{
                             //validar el tiempo parcial
-                            if($datosReserva->ra_fin_tiempo_parcial==null){
+                            if(!isset($datosReserva->ra_fin_tiempo_parcial)){
                                 $row->tiempo_transcurido=$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,$datosReserva->ra_inicio_tiempo_parcial);
                             }else{
                                 $tiempo_transcurido = date("Y-m-d")." ".$this->tiempoController->tiempoTranscurridoFechas($datosReserva->ra_fecha_hora_ingreso,date('Y-m-d H:i:s'));

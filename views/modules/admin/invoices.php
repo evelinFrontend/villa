@@ -66,6 +66,8 @@
     </div>
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Configurar Facturas</h4>
+        <div class="alert alert-success" role="alert">
+        </div>
         <div class="d-flex justify-content-end mb-4" role="group" aria-label="Vertical button group">
             <button type="button" class="btn btn-primary ml-4" data-toggle="modal" data-target="#modal-iva">
                 Definir IVA
@@ -149,10 +151,20 @@
             <div class="modal-body">
                 <p class="mb-4">El valor que definas aquí será el que se adicione en la factura, este valor sera en
                     porcentaje.</p>
-                <form action="">
+                <div class="alert alert-danger" role="alert">
+                </div>
+                <form id="update-config">
                     <div class="form-group">
                         <label for="value-iva">IVA:</label>
                         <input id="value-iva" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="min-cort">Minutos de cortesia:</label>
+                        <input id="min-cort" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
+                        <label for="dec-hab">Valor habitación decorada:</label>
+                        <input id="dec-hab" class="form-control" type="number" name="">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Guardar</button>

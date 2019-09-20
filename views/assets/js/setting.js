@@ -1,8 +1,27 @@
 $(document).ready(function () {
     realoanUser();
+    realoanPromo();
     $("#table-promo").DataTable();
 
 });
+
+// function getReserveStatus() {
+//     $.ajax({
+//         url: 'readByProvider',
+//         dataType: "json",
+//         type: "POST",
+//         data: ({
+//             "columnDBSearch": 1,
+//             "value": 1
+//         }),
+//         success: function(success) {
+            
+//         },
+//         error: function (err) {
+            
+//         }
+//     })
+// }
 
 function realoanUser() {
     $.ajax({
@@ -14,7 +33,6 @@ function realoanUser() {
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
             for (var i = 0; i < response.data.length; i++) {
                 $("#table-employee> tbody:last").append(`
                     <tr>
@@ -22,7 +40,7 @@ function realoanUser() {
                     <td>${response.data[i].usu_apellidos}</td>
                     <td>${response.data[i].usu_numero_contacto}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/print.png" class="icon-list" onclick="updateUser(${response.data[i].usu_id})">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateUser(${response.data[i].usu_id})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].usu_id}, 'deleteUser')">
                     </td>
                     </tr>
@@ -35,6 +53,37 @@ function realoanUser() {
         }
     });
     
+}
+function realoanPromo() {
+    $.ajax({
+        url: 'readByPromo',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function(response) {
+            console.log(response);
+            for (var i = 0; i < response.data.length; i++) {
+                $("#table-promo> tbody:last").append(`
+                    <tr>
+                    <td>${response.data[i].promo_nombre}</td>
+                    <td>${response.data[i].promo_tiempo}</td>
+                    <td>${response.data[i].promo_valor}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="updatePromo(${response.data[i].id_promocion})">
+                    </td>
+                    </tr>
+                `)
+            }
+            $('#table-promo').DataTable();
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
 }
 function deleteData(id, url) {
     $.ajax({
@@ -77,7 +126,7 @@ function updateUser(id) {
                 </div>
                 <div class="col-4">
                     <p>Celular: </p>
-                    <strong>${data.usu_numero_contacto}</strong>
+                    <strong>${data.promo_valor}</strong>
                 </div>
                 <div class="col-4">
                     <p>Correo: </p>
@@ -104,6 +153,30 @@ function updateUser(id) {
         },
         error: function (err) {
             console.log(err);
+            
+        }
+    })
+}
+function updatePromo(id) {
+    $.ajax({
+        url: 'readByPromo',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "id_promocion",
+            "value": id
+        }),
+        success: function(success) {
+            var data = success.data[0]
+            console.log(data.promo_tiempo);
+            $("#update-promo").modal("show");
+            $("#update-promo-times").val(data.promo_tiempo);
+            $("#update-promo-name").val(data.promo_nombre);
+            $("#update-promo-value").val(data.promo_valor);
+            $("#update-promo-id").val(data.id_promocion);
+            $("#update-promo-status").val(data.promo_estado);   
+        },
+        error: function (err) {
             
         }
     })
@@ -165,8 +238,6 @@ $('#form-create-employee').submit(function (e) {
         console.log('buu');
         $("#alert-danger").addClass("show");
         $("#alert-danger").append("Todos los datos son obligatorios");
-        realoanUser();
-
     }
     closeAlerts();
 })
@@ -217,24 +288,52 @@ $('#form-update-employee').submit(function (e) {
     closeAlerts();
 })
 
-$("#form-create-promo").submit(function(e) {
+// PENDIENTE!!!!!! MAPEAR EL ERROR
+$("#form-update-promo").submit(function(e) {
     e.preventDefault();
     $.ajax({
-        url: 'readByProvider',
+        url: 'UptadePromo',
         dataType: "json",
         type: "POST",
         data: ({
-            "columnDBSearch": 1,
-            "value": 1
+            "nombre": $("#update-promo-name").val(),
+            "duracion": $("#update-promo-time").val(),
+            "valor": $("#update-promo-value").val(),
+            "id": $("#update-promo-id").val(),
+            "estado": $("#update-promo-status").val()
         }),
         success: function(success) {
           $("#create-promo").modal('hide');
-          $("#alert-success").addClass('show')
-          $("#alert-success").append(success.message)
+          $(".alert-success").addClass('show')
+          $(".alert-success").append(success.message)
         },
         error: function (err) {
-            $("#alert-danger").addClass('show')
-            $("#alert-danger").append(success.message)
+            console.log(err);
+            $(".alert-danger").addClass('show')
+            $(".alert-danger").append(err.responseJSON.message)
+        }
+    });
+    closeAlerts();
+})
+$("#form-create-promo").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'createPromo',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "nombre": $("#promo-name").val(),
+            "duracion": $("#promo-time").val(),
+            "valor": $("#promo-value").val()
+        }),
+        success: function(success) {
+          $("#create-promo").modal('hide');
+          $(".alert-success").addClass('show')
+          $(".alert-success").append(success.message)
+        },
+        error: function (err) {
+            $(".alert-danger").addClass('show')
+            $(".alert-danger").append(err.responseJSON.message)
         }
     });
     setTimeout(() => {

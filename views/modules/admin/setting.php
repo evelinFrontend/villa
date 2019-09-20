@@ -6,8 +6,8 @@
         <div class="slide-item w-50 border-slide" id="section-2">
             <p>Promociones</p>
         </div>
-        <div class="slide-item w-50 border-slide" id="section-2">
-            <p>Colores y estilos</p>
+        <div class="slide-item w-50 border-slide" id="section-3">
+            <p>Estados de reserva</p>
         </div>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
@@ -46,9 +46,9 @@
                 <table class="table table-striped col" id="table-promo">
                     <thead>
                         <tr>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>numero de contacto</th>
+                            <th>Nombre promo</th>
+                            <th>Tiempo</th>
+                            <th>Valor</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -59,14 +59,45 @@
             </div>
         </div>
     </div>
-</div>
-<div class="subcontent p-4" id="section-3-tab">
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum in nobis sed deleniti soluta at vero commodi?
-    Natus non soluta tenetur laboriosam accusantium minus consectetur unde placeat possimus, ut aut!
+    <div class="subcontent p-4" id="section-3-tab">
+    <h4 class="pricipal-title mb-4">Promociones</h4>
+    <p>Te recomendamos no usar el mismo color para varios estados</p>
+        <div class="row">
+            <div class="col">
+                <div class="shema-card">
+                    <div id="liner-shema"></div>
+                    <h3 class="text-center">X</h3>
+                </div>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+    </div>
 </div>
 </div>
 <!-- modal create employee -->
@@ -97,7 +128,7 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="doc-employee">Número de documento:</label>
-                            <input id="doc-employee" class="form-control" type="number" name="">
+                            <input id="doc-employee" class="form-control" type="number" >
                         </div>
                         <div class="form-group col">
                             <label for="birthdate">Fecha de nacimiento:</label>
@@ -253,17 +284,20 @@
             </div>
             <div class="modal-body">
                 <form id="form-create-promo">
+                    <div class="alert alert-danger" role="alert">
+                    </div>
                     <div class="form-group">
                         <label for="promo-name">Nombre:</label>
-                        <input id="promo-name" class="form-control" type="text" name="">
+                        <input id="promo-name" class="form-control" type="text">
                     </div>
                     <div class="form-group">
                         <label for="promo-time">Tiempo</label>
-                        <input id="promo-time" class="form-control" type="number" name="">
+                        <input id="promo-time" class="form-control" type="text">
+                        <small>Ejemplo 1:00:00</small>
                     </div>
                     <div class="form-group">
                         <label for="promo-value">Valor</label>
-                        <input id="promo-value" class="form-control" type="number" name="">
+                        <input id="promo-value" class="form-control" type="number">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Crear</button>
@@ -285,18 +319,33 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                </div>
                 <form id="form-update-promo">
-                    <div class="form-group">
-                        <label for="update-promo-name">Nombre:</label>
-                        <input id="update-promo-name" class="form-control" type="text" name="">
+                    <div class="row">
+                    <div class="form-group col">
+                        <label for="update-promo-id">Id:</label>
+                        <input id="update-promo-id" class="form-control" type="text" disabled>
+                    </div>
+                    <div class="form-group col">
+                        <label for="update-promo-status">estados:</label>
+                        <select id="update-promo-status" class="form-control">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
                     </div>
                     <div class="form-group">
-                        <label for="update-promo-time">Tiempo:</label>
-                        <input id="update-promo-time" class="form-control" type="number" name="">
+                        <label for="update-promo-name">Nombre:</label>
+                        <input id="update-promo-name" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-promo-times">Tiempo:</label>
+                        <input id="update-promo-times" class="form-control" type="text">
                     </div>
                     <div class="form-group">
                         <label for="update-promo-value">Valor:</label>
-                        <input id="update-promo-value" class="form-control" type="number" name="">
+                        <input id="update-promo-value" class="form-control" type="number" >
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Actualizar</button>

@@ -10,6 +10,7 @@
     </div>
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Cierre de turno</h4>
+        
     </div>
     <div class="subcontent p-4" id="section-2-tab">
         <h4 class="pricipal-title mb-4">Cierre de dia</h4>

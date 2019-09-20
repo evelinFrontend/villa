@@ -52,11 +52,16 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<p class="text-center">Ingresa el cantidad de dinero que se encuentra en caja en este momento</p>
+                <p class="text-center">Ingresa el cantidad de dinero que se encuentra en caja en este momento</p>
+                <div class="alert alert-danger" role="alert">
+                </div>
 				<form id="turn">
 					<div class="form-group">
 						<label for="value">Valor en caja</label>
-						<input id="value" class="form-control" type="number">
+                        <input id="value" class="form-control" type="number">
+                        <div class="invalid-feedback" id="mss-err-username">
+                            Llena este campo para continuar
+                        </div>
 					</div>
 					<div class="form-group">
 						<button class="btn btn-primary">Aceptar</button>

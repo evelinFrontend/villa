@@ -68,7 +68,7 @@
                 <div>
                     <img src="views/assets/icons/setting-gray.png" class="icon-menu">
                 </div>
-                <a href="">Cierres</a>
+                <a href="cierre">Cierres</a>
             </li>
             <div class="liner"></div>
         <?php  } ?>
