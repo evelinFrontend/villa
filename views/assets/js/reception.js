@@ -3,6 +3,8 @@ $("#reception").ready(function () {
     $("#content-additional").hide();
     getTurno();
     getRooms();
+    getProducts();
+    getPromo()
 });
 function closeAlerts() {
     setTimeout(() => {
@@ -10,7 +12,6 @@ function closeAlerts() {
         $(".alert").empty()
     }, 5000);
 }
-
 function getTurno() {
     $.ajax({
         url: 'mostrarAbrirTurno',
@@ -33,9 +34,7 @@ function getRooms() {
             "value": 1
         }),
         success: function (success) {
-            console.log(success);
             for (var i = 0; i < success.data.length; i++) {
-                console.log(success.data[i]);
                 var data = success.data[i]
                 var time;
                 if (data.tiempo_transcurido) {
@@ -63,12 +62,33 @@ function getRooms() {
         },
         error: function (err) {
             console.log(err);
-            
             // var message = err.responseJSON.message;
         }
     });
 }
-
+function getPromo() {
+    $.ajax({
+        url: 'readByPromo',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function(success) {
+            data = success.data
+            for (let i = 0; i < data.length; i++) {
+                const elt = data[i];
+                $("#courtesy").append(`
+                    <option value="${elt.id_promocion}">${elt.promo_nombre}</option>
+                `)     
+            }     
+        },
+        error: function (err) {
+            
+        }
+    })
+}
 $("#turn").submit(function (e) {
     e.preventDefault();
     if ($("#value").val() !== '') {
@@ -90,14 +110,13 @@ $("#turn").submit(function (e) {
     } else {
         $("#value").addClass("is-invalid")
     }
-})
+});
 
+//facturar 
 $(".goInvoices").click(function (e) {
-    console.log(e);
     $("#invoices").addClass('active');
     $("#reception").hide();
 })
-
 $("#select-person").change(function () {
     if ($("#select-person").val() === 'si') {
         $("#content-additional").show()
@@ -107,12 +126,7 @@ $("#select-person").change(function () {
 
 })
 
-$('#value').keypress(function () {
-    var data = this.value
-    var result = data.replace(/(?=(\d{3})+(?!\d))/g, '$1,');
-    console.log(result);
-});
-function reloadProduct() {
+function getProducts() {
     $.ajax({
         url: 'readByProduct',
         dataType: "json",
@@ -121,19 +135,39 @@ function reloadProduct() {
             "columnDBSearch": 1,
             "value": 1
         }),
-        success: function (response) {
-            for (var i = 0; i < response.data.length; i++) {
-                
+        success: function(success) {
+            for (var i = 0; i < success.data.length; i++) {             
+                var data = success.data[i];
+                $("#modal-content-products").append(`
+                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta})">
+                    <div class="col d-flex" id="img-product">
+                        <img src="views/assets/img/products/${data.pro_imagen}">
+                    </div>
+                    <div class="col" id="detail-product">
+                        <h6 class="name">${data.pro_nombre}</h6>
+                        <p>${data.pro_precio_venta}</p>
+                    </div>
+                 </div>
+                `) 
             }
         },
         error: function (err) {
-            console.log(err);
-        },
-    });
+            
+        }
+    })
 }
 
+// reservar
+var products = [];
+var productData = [];
+var monto;
+var canti = 0;
+var multi = 1;
+var input = 1
+var num_hab;
+
 function reserva(data, id) {
-    console.log(data ,id);
+    num_hab = id;
     $.ajax({
         url: 'readByRoom',
         dataType: "json",
@@ -143,26 +177,115 @@ function reserva(data, id) {
             "value": id
         }),
         success: function(success) {
-            var data = success.data[0];
-            console.log(data);
+            switch (data) {
+                case 1:
+                    monto = success.data[0].th_valor_hora;
+                    $("#invoices").addClass('active');
+                    $("#content-card").hide()
+                    $("#reception").hide()
+                    sumar();              
+                    break;
+                case 2:
+                        monto = success.data[0].th_valor_hora;
+                        $("#invoices").addClass('active');
+                        $("#content-card").hide();
+                        $("#reception").hide();
+                        sumar()
+                        verReserva(id)
+
+                default:
+                    break;
+            }
             
         },
         error: function (err) {
             
         }
     });
+
     
-    switch (data) {
-        case 1:
-            $("#invoices").addClass('active');
-            $("#content-card").hide()
-            $("#reception").hide()
-            break;
+}
+function sumar() {
+    $("#total").empty();
+    canti = canti*multi;
+    monto = parseInt(monto)+parseInt(canti)
+    $("#total").append(monto);
     
-        default:
-            break;
+}
+function addArray(id, idProd, name, value) {
+    $("#cant-products-table > tbody").empty();
+    $("#"+id).hide();  
+    products.push({'id':idProd, 'name':name});
+    canti = value;
+    for (let i = 0; i < products.length; i++) {
+        const element = products[i];
+        $("#cant-products-table > tbody").append(`
+            <tr>
+              <td>${element.name}</td>
+              <td>
+                <input class="form-control" type="number" id="${idProd}">
+              </td>
+            </tr>
+        `)
     }
+    sumar();  
+}
+$("#form-invoices").submit(function(e) {
+    console.log(this.id);
     
+    
+    e.preventDefault();
+    for (let i = 0; i < products.length; i++) {
+        const element = products[i];
+        input = $("#"+element.id).val();
+        productData.push({"id":element.id, "cantidad":input})
+        var data = {
+                "hab_numero": num_hab,
+                "promocion": $("#courtesy").val(),
+                "tipo_reserva": "2",
+                "numero_personas_adicionales": $("#additional").val(),
+                "habitacion_decorada": $("#decorated-room").val(),
+                "productos": JSON.stringify(productData)
+        }
+    }
+    $.ajax({
+        url: 'CrearReserva',
+        dataType: "json",
+        type: "POST",
+        data: data,
+        success: function(success) {
+            console.log(success); 
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
+    
+})
+
+function verReserva(hab) {
+    $("#btn-can-reserva, #btn-facturar").addClass("show");
+    $("#btn-reservar").hide()
+    var data = hab.toString()
+    $.ajax({
+        url: 'detallesReserva',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "habitacion": data
+        }),
+        success: function(success) {
+            console.log(success);
+            var financiero = success.data.financieros
+            var monto =  parseInt(financiero.valorHora)+parseInt(financiero.total)
+            $("#total").empty()
+            $("#total").append(monto)
+        },
+        error: function (err) {
+            
+        }
+    })
 }
 
     
