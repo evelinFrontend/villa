@@ -7,6 +7,8 @@
             <h4 class="pricipal-title">reservar</h4>
             <p class="mb-4">Para cambiar el estado de la habitación debes ingresar los que a continuación se muestran.
             </p>
+            <div class="alert alert-danger" role="alert">
+            </div>
             <form id="form-invoices">
                 <div class="row border-bottom">
                     <div class="form-group col">

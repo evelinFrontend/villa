@@ -251,14 +251,16 @@ $("#form-invoices").submit(function(e) {
         type: "POST",
         data: data,
         success: function(success) {
-            console.log(success); 
+            location.reload()
         },
         error: function (err) {
+            $(".alert-danger").addClass('show');
+            $(".alert-danger").append(err.message);
             console.log(err);
             
         }
     })
-    
+    closeAlerts();
 })
 
 function verReserva(hab) {
