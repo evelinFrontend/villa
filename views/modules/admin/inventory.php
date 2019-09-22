@@ -29,6 +29,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Proveedor</th>
+                        <th scope="col">Estado</th>
                         <th scope="col">opciones</th>
                     </tr>
                 </thead>
@@ -337,6 +338,13 @@
                     <h5 class="modal-title my-3" id="my-modal-title">Editar Producto</h5>
                     <form id="form-update-product">
                         <div class="row">
+                            <div class="form-group col-2">
+                                <label for="status-product-up">estado:</label>
+                                <select  id="status-product-up" class="form-control">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
                             <div class="form-group col-2">
                                 <label for="id-product-up">id:</label>
                                 <input id="id-product-up" class="form-control" type="text" disabled>

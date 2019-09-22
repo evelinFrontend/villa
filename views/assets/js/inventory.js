@@ -142,6 +142,7 @@ $("#form-update-product").submit(function(e) {
         var data = new FormData();
         data.append("imagen", file);
         data.append("id", $("#id-product-up").val());
+        data.append("estado", $("#status-product-up").val());
         data.append("codigo", $("#code-product-up").val());
         data.append("nombre", $("#name-product-up").val());
         data.append("precio_compra", $("#value-pay-product-up").val());
@@ -277,6 +278,8 @@ function reloadProduct() {
             "value": 1
         }),
         success: function (response) {
+            console.log(response);
+            
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product> tbody:last').append(`
                 <tr>
@@ -284,6 +287,7 @@ function reloadProduct() {
                     <td>${response.data[i].pro_nombre}</td>
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].pr_nombre}</td>
+                    <td>${response.data[i].pro_estado}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateProduct(${response.data[i].id_producto})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteData(${response.data[i].id_producto},'deleteProduct')">
@@ -439,6 +443,7 @@ function updateProduct(id) {
                 <p>proveedor: ${data[0].pr_nombre}</p>
            `); 
            $("#name-product-up").val(data[0].pro_nombre)
+           $("#status-product-up").val(data[0].pro_estado)
            $("#id-product-up").val(data[0].id_producto)
            $("#code-product-up").val(data[0].pro_codigo)
            $("#value-pay-product-up").val(data[0].pro_precio_compra)

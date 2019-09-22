@@ -255,7 +255,7 @@ $("#form-invoices").submit(function(e) {
         },
         error: function (err) {
             $(".alert-danger").addClass('show');
-            $(".alert-danger").append(err.message);
+            $(".alert-danger").append(err.responseJSON.message);
             console.log(err);
             
         }
