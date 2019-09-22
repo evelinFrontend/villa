@@ -223,7 +223,7 @@ function addArray(id, idProd, name, value) {
             <tr>
               <td>${element.name}</td>
               <td>
-                <input class="form-control" type="number" id="${idProd}">
+                <input class="form-control" type="number" id="${element.id}">
               </td>
             </tr>
         `)
@@ -237,12 +237,12 @@ $("#form-invoices").submit(function(e) {
         input = $("#"+element.id).val();
         productData.push({"id":element.id, "cantidad":input})
         var data = {
-                "hab_numero": num_hab,
-                "promocion": $("#courtesy").val(),
-                "tipo_reserva": "2",
-                "numero_personas_adicionales": $("#additional").val(),
-                "habitacion_decorada": $("#decorated-room").val(),
-                "productos": JSON.stringify(productData)
+            "hab_numero": num_hab,
+            "promocion": $("#courtesy").val(),
+            "tipo_reserva": "2",
+            "numero_personas_adicionales": $("#additional").val(),
+            "habitacion_decorada": $("#decorated-room").val(),
+            "productos": JSON.stringify(productData)
         }
     }
     $.ajax({
