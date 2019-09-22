@@ -262,7 +262,7 @@ Class ReservaController{
                     }
                 }
                 //datos productos
-                $products = $this->masterModel->selectAllBy("reserva_activa_detalle",array("id_reserva",$dataType->id_reserva));
+                $products = $this->masterModel->sqlSelect("SELECT dr.*,p.pro_nombre FROM reserva_activa_detalle  dr INNER JOIN producto p ON p.id_producto = dr.re_det_id_producto WHERE  dr.id_reserva = ? ",array($dataType->id_reserva));
                 //datos promocion
                 $promocion =null;
                 if(isset($dataType->promo_id)){
