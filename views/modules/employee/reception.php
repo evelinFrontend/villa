@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group col-2" id="content-additional">
                         <label for="additional">¿Cuantas?</label>
-                        <input id="additional" class="form-control" type="number">
+                        <input id="additional" class="form-control" type="number" value="0" required>
                     </div>
                     <div class="form-group col">
                         <label for="decorated-room">habitación decorada:</label>
