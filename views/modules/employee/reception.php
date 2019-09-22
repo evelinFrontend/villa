@@ -16,7 +16,7 @@
                         </select>
                     </div>
                     <div class="form-group col">
-                        <label for="select-person">Persona adicional:</label>
+                        <label for="select-person">Personas adicionales:</label>
                         <select id="select-person" class="form-control">
                             <option value="no">No</option>
                             <option value="si">Si</option>
