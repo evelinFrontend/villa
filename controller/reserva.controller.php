@@ -15,92 +15,109 @@ Class ReservaController{
         if(!empty($_POST)){
             $request = $_POST;
             //validar  si la habitacion tiene una reserva
-            // $a = $this->masterModel->delete("reserva_activa",array(1,1));
-            // $a = $this->masterModel->delete("reserva_activa_detalle",array(1,1));
-            if($request["hab_numero"]!= "" && $request["tipo_reserva"]!= "" ){
-                $request["fecha_ingreso"] =date('Y-m-d H:i:s');
-                $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]));
-                if(empty($existeReserva)){
-                    $existeTipoReserva = $this->masterModel->sqlSelect("SELECT sr_estado_reserva FROM estado_reserva WHERE sr_estado_reserva = ? ",array($request["tipo_reserva"]));
-                    if(!empty($existeTipoReserva)){
-                        //comentar 
-                        $products = json_decode($request["productos"],true);
-                        //validar productos
-                        $i = 0;
-                        foreach($products as $product){
-                            $existeProducto = $this->masterModel->sqlSelect("SELECT id_producto FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
-                            if(empty($existeProducto)){
-                                header('Internal server error', true, 500);
-                                $status = "error";
-                                $message = "El producto en la posición(".$i.") no existe.";
-                                $result = array("status"=>$status,"message"=>$message);
-                                echo json_encode($result);
-                                return;
-                            }
-                            if($product["cantidad"]<1 ){
-                                header('Internal server error', true, 500);
-                                $status = "error";
-                                $message = "Valor  no valido en el pruducto N(".$i.").";
-                                $result = array("status"=>$status,"message"=>$message);
-                                echo json_encode($result);
-                                return;
-                            }
-                            $i++;
-                        }
-                        //validar si existe promocion
-                        if($request["promocion"]!=5){
-                            $request["promocion"] = "";
-                        }
-                        if($request["promocion"]==""){
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
-                        }else{
-                            $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
-                        }
-                        if($insert){
-                            $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($request["tipo_reserva"],$request["hab_numero"]));
-                            if($update){
-                                //obtener el numero de reserva
-                                $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]))[0];
-                                //insertar productos
-                                foreach($products as $product){
-                                    $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
-                                    $totalProduct = $dataProduct->pro_precio_venta*$product["cantidad"] ;
-                                    $insertProducts = $this->masterModel->insert("reserva_activa_detalle",array($existeReserva->id_reserva,$product["id"],$product["cantidad"],$dataProduct->pro_precio_compra,$dataProduct->pro_precio_venta,$totalProduct),array("id_detalle"));
-                                    $nuevaCantidad = $dataProduct->pro_cantidad_disponible-$product["cantidad"];
-                                    $stock = $this->masterModel->sql("UPDATE producto SET pro_cantidad_disponible = ? WHERE id_producto = ?",array($nuevaCantidad,$product["id"]));
+            $a = $this->masterModel->delete("reserva_activa",array(1,1));
+            $a = $this->masterModel->delete("reserva_activa_detalle",array(1,1));
+            if($request["cortesia"]=="0" &&  $request["promocion"]!="" && $request["tipo_reserva"]!="2" || $request["cortesia"]!="0" &&  $request["promocion"]=="" && $request["tipo_reserva"]!="2" || $request["cortesia"]=="0" &&  $request["promocion"]=="" && $request["tipo_reserva"]=="2"  ){
+                if($request["hab_numero"]!= "" && $request["tipo_reserva"]!= "" ){
+                    $request["fecha_ingreso"] =date('Y-m-d H:i:s');
+                    $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]));
+                    if(empty($existeReserva)){
+                        $existeTipoReserva = $this->masterModel->sqlSelect("SELECT sr_estado_reserva FROM estado_reserva WHERE sr_estado_reserva = ? ",array($request["tipo_reserva"]));
+                        if(!empty($existeTipoReserva)){
+                            //comentar 
+                            $products = json_decode($request["productos"],true);
+                            //validar productos
+                            $i = 0;
+                            foreach($products as $product){
+                                $existeProducto = $this->masterModel->sqlSelect("SELECT id_producto FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
+                                if(empty($existeProducto)){
+                                    header('Internal server error', true, 500);
+                                    $status = "error";
+                                    $message = "El producto en la posición(".$i.") no existe.";
+                                    $result = array("status"=>$status,"message"=>$message);
+                                    echo json_encode($result);
+                                    return;
                                 }
-                                if($insertProducts && $stock){
-                                    $status = "success";
-                                    $message = "Reserva creada exitosamente.";
+                                if($product["cantidad"]<1 ){
+                                    header('Internal server error', true, 500);
+                                    $status = "error";
+                                    $message = "Valor  no valido en el pruducto N(".$i.").";
+                                    $result = array("status"=>$status,"message"=>$message);
+                                    echo json_encode($result);
+                                    return;
+                                }
+                                $i++;
+                            }
+                            //validar si existe promocion
+                            if($request["promocion"]=="" && $request["cortesia"]=="0"){
+                                $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial","ra_tipo_cortesia"));
+                            }else if($request["cortesia"]!="0"){
+                                $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"],$request["cortesia"]),array("id_reserva","promo_id","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial"));
+                            }else{
+                                //si existe la promoción
+                                $promo = $this->masterModel->selectBy("promocion",array("id_promocion",$request["promocion"]));
+                                if(!empty($promo)){
+                                    $insert = $this->masterModel->insert("reserva_activa",array($request["hab_numero"],$_SESSION["DATA_USER"]["ID"],$request["promocion"],$request["fecha_ingreso"],$request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["tipo_reserva"]),array("id_reserva","ra_inicio_tiempo_parcial","ra_fin_tiempo_parcial","ra_tipo_cortesia"));
                                 }else{
                                     header('Internal server error', true, 500);
                                     $status = "error";
-                                    $message = "error guardando en base de datos al momento de registrar los productos.";
+                                    $message = "Esta promoción no se encuentra registrada.";
+                                    $result = array("status"=>$status,"message"=>$message);
+                                    echo json_encode($result);
+                                    return;    
+                                }
+                            }
+                           
+                            if($insert){
+                                $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($request["tipo_reserva"],$request["hab_numero"]));
+                                if($update){
+                                    //obtener el numero de reserva
+                                    $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]))[0];
+                                    //insertar productos
+                                    foreach($products as $product){
+                                        $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
+                                        $totalProduct = $dataProduct->pro_precio_venta*$product["cantidad"] ;
+                                        $insertProducts = $this->masterModel->insert("reserva_activa_detalle",array($existeReserva->id_reserva,$product["id"],$product["cantidad"],$dataProduct->pro_precio_compra,$dataProduct->pro_precio_venta,$totalProduct),array("id_detalle"));
+                                        $nuevaCantidad = $dataProduct->pro_cantidad_disponible-$product["cantidad"];
+                                        $stock = $this->masterModel->sql("UPDATE producto SET pro_cantidad_disponible = ? WHERE id_producto = ?",array($nuevaCantidad,$product["id"]));
+                                    }
+                                    if($insertProducts && $stock){
+                                        $status = "success";
+                                        $message = "Reserva creada exitosamente.";
+                                    }else{
+                                        header('Internal server error', true, 500);
+                                        $status = "error";
+                                        $message = "error guardando en base de datos al momento de registrar los productos.";
+                                    }
+                                }else{
+                                    header('Internal server error', true, 500);
+                                    $status = "error";
+                                    $message = "error guardando en base de datos al momento de cambiar el estado de la reserva.";
                                 }
                             }else{
                                 header('Internal server error', true, 500);
                                 $status = "error";
-                                $message = "error guardando en base de datos al momento de cambiar el estado de la reserva.";
+                                $message = "error guardando en base de datos al momento de crear la reserva.";
                             }
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
-                            $message = "error guardando en base de datos al momento de crear la reserva.";
+                            $message = "Este tipo de reserva no existe.";
                         }
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
-                        $message = "Este tipo de reserva no existe.";
+                        $message = "Esta habitación ya se encuentra reservada.";
                     }
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
-                    $message = "Esta habitación ya se encuentra reservada.";
+                    $message = "Por favor ingresa numero de la habitación y tipo de reserva.";
                 }
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";
-                $message = "Por favor ingresa numero de la habitación y tipo de reserva.";
+                $message = "No puedes Usar una promoción y una cortesia al mismo tiempo, verifica el tipo de reserva.";
             }
             $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
