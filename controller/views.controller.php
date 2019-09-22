@@ -110,6 +110,17 @@ class ViewsController{
             header("Location: login");
         }
     }
+    function settingInvoices(){
+        if(isset($_SESSION["DATA_USER"]["ROL"]) && $_SESSION["DATA_USER"]["ROL"]==1){
+            require_once "views/include/admin/scoope.header.php";
+            require_once "views/include/admin/scoope.menu.php";
+            require_once "views/include/admin/scoope.navbar.php";
+            require_once "views/modules/admin/setting-invoices.php";
+            require_once "views/include/admin/scoope.footer.php";
+        }else{
+            header("Location: login");
+        }
+    }
     
 }
 

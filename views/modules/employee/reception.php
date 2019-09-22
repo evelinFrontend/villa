@@ -42,11 +42,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                        <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
-                        <button class="btn btn-primary" type="submit" id="btn-can-reserva">cancelar reserva</button>
-                        <button class="btn btn-primary" type="submit" id="btn-facturar">factuar</button>
+                    <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
+                    <button class="btn btn-primary" type="submit" id="btn-facturar">factuar</button>
                 </div>
             </form>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>>
             <button class="btn btn-primary" type="button" id="">Tiempo parcial</button>
         </div>
     </div>
@@ -62,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                 </tbody>
         </div>
     </div>
@@ -96,24 +98,23 @@
 </div>
 <?php } ?>
 
-<div id="modal-product" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-cancel" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="status">Lista de productos</h5>
+                <h5 class="modal-title" id="status">Cancelar reserva</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body row">
-                <div id="modal-content-products" class="col">
-                    <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
-                </div>
-                <div id="canti-products" class="col">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, exercitationem quam nesciunt nisi
-                    blanditiis et, tenetur sunt sed officiis doloribus quis nemo ipsam iure dolor excepturi? Molestiae
-                    temporibus saepe voluptatibus!
-                </div>
+                <form id="cancelar-reserva">
+                    <div class="form-group">
+                        <label for="my-textarea">Motivo</label>
+                        <textarea id="my-textarea" class="form-control" rows="3" require></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Cancelar reserva</button>
+                </form>
             </div>
         </div>
     </div>

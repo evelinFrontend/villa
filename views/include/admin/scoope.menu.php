@@ -45,7 +45,7 @@
             </li>
             <div class="liner"></div>
         <?php  } ?>
-        <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
+        <!-- <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
             <li class="main-item">
                 <div>
                     <img src="views/assets/icons/poll.png" class="icon-menu">
@@ -54,7 +54,7 @@
             </li>
             <div class="liner"></div>
         <?php  } ?>
-        <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
+        <?php if($_SESSION["DATA_USER"]["ROL"]==1){?> -->
             <li class="main-item">
                 <div>
                     <img src="views/assets/icons/setting-gray.png" class="icon-menu">
@@ -72,5 +72,12 @@
             </li>
             <div class="liner"></div>
         <?php  } ?>
+        <li class="main-item">
+                <div>
+                    <img src="views/assets/icons/setting-gray.png" class="icon-menu">
+                </div>
+                <a href="AjustarFacturas">Ajustar facturas</a>
+        </li>
+        <div class="liner"></div>
     </ul>
 </div>
