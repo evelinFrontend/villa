@@ -43,13 +43,12 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
-                    <button class="btn btn-primary" type="submit" id="btn-facturar">factuar</button>
                 </div>
             </form>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Launch demo modal
             </button>>
-            <button class="btn btn-primary" type="button" id="">Tiempo parcial</button>
+            <button class="btn btn-primary" type="button" id="">Tiempo parcial</button> -->
         </div>
     </div>
     <div class="content-main-recep col-4 ">

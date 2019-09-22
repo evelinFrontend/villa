@@ -231,9 +231,6 @@ function addArray(id, idProd, name, value) {
     sumar();  
 }
 $("#form-invoices").submit(function(e) {
-    console.log(this.id);
-    
-    
     e.preventDefault();
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
