@@ -229,22 +229,20 @@ function addArray(id, idProd, name, value) {
               <td>
                 <input class="form-control" type="number" id="${element.id}" value="1">
               </td>
-              <td onclick="deleteArray('${id}',${idProd})">X</td>
+              <td onclick="deleteArray('${id}',${element.id})">X</td>
             </tr>
         `)
     }
     sumar();
 }
 
-function deleteArray(id,idProd) {
-    $("#"+id).show(); 
+function deleteArray(idDiv,idProd) {
+    $("#"+idDiv).show(); 
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
-            const element = products[i];
-            if (element.id == idProd ) {
+            if (products[i].id == idProd ) {
+                console.log(products[i].id+" Eliminado.");
                 delete products[i];
-                console.log(products);
-                
             }
         }
     }
