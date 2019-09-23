@@ -16,6 +16,40 @@ Class FacturaController{
             $request = $_POST;
             $dataReserva = $this->reservasController->detallesReserva($request["habitacion"]);
             if($dataReserva["status"]=="success"){
+                //validar tipo de pago
+                if(isset($request["tipo_pago"]) && $request["tipo_pago"]!=""){
+                    if($request["tipo_pago"]=="efectivo"){
+                        if(!$request["cantidad_efectivo"]==$dataReserva["financieros"]["total"]){
+                            header('Internal server error', true, 500);
+                            $status = "error";
+                            $message = "Por favor ingresa el total adecuado.";
+                            $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                            echo json_encode($result);
+                            return ;
+                        }
+                    }else if($request["tipo_pago"]=="credito"){
+                        if($request["cantidad_efectivo"]>0){
+    
+                        }else{
+                            
+                        }
+                    }else if($request["tipo_pago"]=="transferencia"){
+                        if($request["cantidad_efectivo"]>0){
+    
+                        }else{
+                            
+                        }
+                    }else if($request["tipo_pago"]=="mixto"){
+    
+                    }
+                }else{
+                        header('Internal server error', true, 500);
+                        $status = "error";
+                        $message = "Por favor ingresa tu metodo de pago.";
+                        $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                        echo json_encode($result);
+                        return ;
+                }
                 $numeroDefactura = $this->masterModel->sqlSelect("SELECT MAX(fac_consecutivo) as ultimaFactura FROM facturas",array(""))[0]->ultimaFactura+1;
                 $excepciones = array();
                 //saber si existe promocion

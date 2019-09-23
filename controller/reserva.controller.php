@@ -15,8 +15,8 @@ Class ReservaController{
         if(!empty($_POST)){
             $request = $_POST;
             //validar  si la habitacion tiene una reserva
-            $a = $this->masterModel->delete("reserva_activa",array(1,1));
-            $a = $this->masterModel->delete("reserva_activa_detalle",array(1,1));
+            // $a = $this->masterModel->delete("reserva_activa",array(1,1));
+            // $a = $this->masterModel->delete("reserva_activa_detalle",array(1,1));
             if($request["cortesia"]=="0" &&  $request["promocion"]!="" && $request["tipo_reserva"]!="2" || $request["cortesia"]!="0" &&  $request["promocion"]=="" && $request["tipo_reserva"]!="2" || $request["cortesia"]=="0" &&  $request["promocion"]=="" && $request["tipo_reserva"]=="2"  ){
                 if($request["hab_numero"]!= "" && $request["tipo_reserva"]!= "" ){
                     $request["fecha_ingreso"] =date('Y-m-d H:i:s');
