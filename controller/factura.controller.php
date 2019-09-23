@@ -21,7 +21,7 @@ Class FacturaController{
                     if($request["tipo_pago"]=="efectivo"){
                         $request["cantidad_credito"] = 0;
                         $request["cantidad_transferencia"] = 0;
-                        if($request["cantidad_efectivo"]=="" ||  $request["cantidad_efectivo"]==$dataReserva["data"]["financieros"]["total"]){
+                        if($request["cantidad_efectivo"]=="" ||  $request["cantidad_efectivo"]!=$dataReserva["data"]["financieros"]["total"]){
                             header('Internal server error', true, 500);
                             $status = "error";
                             $message = "Por favor ingresa el total adecuado en efectivo.";
@@ -32,7 +32,7 @@ Class FacturaController{
                     }else if($request["tipo_pago"]=="credito"){
                         $request["cantidad_efectivo"] =0;
                         $request["cantidad_transferencia"] = 0;
-                        if( $request["cantidad_credito"]=="" ||  $request["cantidad_credito"]==$dataReserva["data"]["financieros"]["total"]){
+                        if( $request["cantidad_credito"]=="" ||  $request["cantidad_credito"]!=$dataReserva["data"]["financieros"]["total"]){
                             header('Internal server error', true, 500);
                             $status = "error";
                             $message = "Por favor ingresa el total adecuado en credito.";
@@ -43,7 +43,7 @@ Class FacturaController{
                     }else if($request["tipo_pago"]=="transferencia"){
                         $request["cantidad_efectivo"] =0;
                         $request["cantidad_credito"] = 0;
-                        if($request["cantidad_transferencia"]=="" || $request["cantidad_transferencia"]==$dataReserva["data"]["financieros"]["total"]){
+                        if($request["cantidad_transferencia"]=="" || $request["cantidad_transferencia"]!=$dataReserva["data"]["financieros"]["total"]){
                             header('Internal server error', true, 500);
                             $status = "error";
                             $message = "Por favor ingresa el total adecuado en transferencia.";
