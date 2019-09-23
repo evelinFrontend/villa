@@ -10,13 +10,23 @@
             <div class="alert alert-danger" role="alert">
             </div>
             <form id="form-invoices">
-                <div class="row border-bottom">
+                <div class="row">
                     <div class="form-group col">
-                        <label for="courtesy">Cortesías:</label>
+                        <label for="courtesy">Promociones:</label>
                         <select id="courtesy" class="form-control">
-                            <option value="n/a">N/A</option>
+                            <option value="">N/A</option>
                         </select>
                     </div>
+                    <div class="form-group col">
+                        <label for="cortesia">Cortesia:</label>
+                        <select id="cortesia" class="form-control">
+                            <option value="0">N/A</option>
+                            <option value="1">1 Hora</option>
+                            <option value="2">2 Horas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="form-group col">
                         <label for="select-person">Persona adicional:</label>
                         <select id="select-person" class="form-control">
@@ -24,7 +34,7 @@
                             <option value="si">Si</option>
                         </select>
                     </div>
-                    <div class="form-group col-2" id="content-additional">
+                    <div class="form-group col" id="content-additional">
                         <label for="additional">¿Cuantas?</label>
                         <input id="additional" class="form-control" type="number" value="0" required>
                     </div>
@@ -44,7 +54,87 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <button class="btn btn-primary" type="submit" id="btn-reservar" >Reservar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-facturar" >Facturar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="content-main-recep col-4 ">
+        <div class="subcontent p-4">
+            <h5>TOTAL: <strong id="total"></strong></h5>
+            <div id="select-products"></div>
+            <table class="table table-striped table-sm " id="cant-products-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+        </div>
+    </div>
+
+</div>
+<div class="row" id="reserva">
+    <div class="content-main-recep left col-8">
+        <div class="subcontent p-4">
+            <h4 class="pricipal-title">Facturar</h4>
+            <div class="alert alert-danger" role="alert">
+            </div>
+            <form id="form-reserva">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="courtesy">Promociones:</label>
+                        <select id="courtesy" class="form-control">
+                            <option value="">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="cortesia">Cortesia:</label>
+                        <select id="cortesia" class="form-control">
+                            <option value="0">N/A</option>
+                            <option value="1">1 Hora</option>
+                            <option value="2">2 Horas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="select-person">Persona adicional:</label>
+                        <select id="select-person" class="form-control">
+                            <option value="no">No</option>
+                            <option value="si">Si</option>
+                        </select>
+                    </div>
+                    <div class="form-group col" id="content-additional">
+                        <label for="additional">¿Cuantas?</label>
+                        <input id="additional" class="form-control" type="number" value="0" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="decorated-room">habitación decorada:</label>
+                        <select id="decorated-room" class="form-control">
+                            <option value="0">No</option>
+                            <option value="1">Si</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="m-4 border-bottom">
+                    <h5>Seleccionar productos</h5>
+                    <div id="modal-content-products" class="col">
+                        <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <button class="btn btn-primary" type="submit" id="btn-reservar" >Reservar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-facturar" >Facturar</button>
+                    </div>
                 </div>
             </form>
             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">

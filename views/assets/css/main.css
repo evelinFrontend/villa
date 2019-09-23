@@ -175,10 +175,10 @@ p{
 
 /* room */
 
-#invoices{
+#invoices, #reserva{
     display: none;
 }
-#invoices.active{
+#invoices.active, #reserva.active{
     display: flex;
     margin-left: 0;
     margin-right: 0

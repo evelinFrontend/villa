@@ -38,9 +38,9 @@ function getRooms() {
                 var data = success.data[i]
                 var time;
                 if (data.tiempo_transcurido) {
-                 var time = data.tiempo_transcurido
+                    var time = data.tiempo_transcurido
                 } else {
-                  var time = '';   
+                    var time = '';
                 }
                 $("#content-card").append(`
                 <div class="cards room mb-2" onclick="reserva(${data.sr_estado_reserva}, ${data.hab_numero})">
@@ -75,17 +75,17 @@ function getPromo() {
             "columnDBSearch": 1,
             "value": 1
         }),
-        success: function(success) {
+        success: function (success) {
             data = success.data
             for (let i = 0; i < data.length; i++) {
                 const elt = data[i];
                 $("#courtesy").append(`
                     <option value="${elt.id_promocion}">${elt.promo_nombre}</option>
-                `)     
-            }     
+                `)
+            }
         },
         error: function (err) {
-            
+
         }
     })
 }
@@ -135,8 +135,8 @@ function getProducts() {
             "columnDBSearch": 1,
             "value": 1
         }),
-        success: function(success) {
-            for (var i = 0; i < success.data.length; i++) {             
+        success: function (success) {
+            for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
                 $("#modal-content-products").append(`
                 <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta})">
@@ -148,11 +148,11 @@ function getProducts() {
                         <p>${data.pro_precio_venta}</p>
                     </div>
                  </div>
-                `) 
+                `)
             }
         },
         error: function (err) {
-            
+
         }
     })
 }
@@ -167,6 +167,8 @@ var input = 1
 var num_hab;
 
 function reserva(data, id) {
+    console.log(data, id);
+    
     num_hab = id;
     $.ajax({
         url: 'readByRoom',
@@ -176,46 +178,48 @@ function reserva(data, id) {
             "columnDBSearch": "hab_numero",
             "value": id
         }),
-        success: function(success) {
+        success: function (success) {
             switch (data) {
                 case 1:
                     monto = success.data[0].th_valor_hora;
                     $("#invoices").addClass('active');
                     $("#content-card").hide()
                     $("#reception").hide()
-                    sumar();              
+                    sumar();
                     break;
                 case 2:
-                        monto = success.data[0].th_valor_hora;
-                        $("#invoices").addClass('active');
-                        $("#content-card").hide();
-                        $("#reception").hide();
-                        sumar()
-                        verReserva(id)
+                    console.log("rntro");
+                    
+                    monto = success.data[0].th_valor_hora;
+                    $("#reserva").addClass('active');
+                    $("#content-card").hide();
+                    $("#reception").hide();
+                    sumar()
+                    verReserva(id)
 
                 default:
                     break;
             }
-            
+
         },
         error: function (err) {
-            
+
         }
     });
 
-    
+
 }
 function sumar() {
     $("#total").empty();
-    canti = canti*multi;
-    monto = parseInt(monto)+parseInt(canti)
+    canti = canti * multi;
+    monto = parseInt(monto) + parseInt(canti)
     $("#total").append(monto);
-    
+
 }
 function addArray(id, idProd, name, value) {
     $("#cant-products-table > tbody").empty();
-    $("#"+id).hide();  
-    products.push({'id':idProd, 'name':name});
+    $("#" + id).hide();
+    products.push({ 'id': idProd, 'name': name });
     canti = value;
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
@@ -223,22 +227,39 @@ function addArray(id, idProd, name, value) {
             <tr>
               <td>${element.name}</td>
               <td>
-                <input class="form-control" type="number" id="${element.id}">
+                <input class="form-control" type="number" id="${element.id}" value="1">
               </td>
+              <td onclick="deleteArray('${id}',${idProd})">X</td>
             </tr>
         `)
     }
-    sumar();  
+    sumar();
 }
-$("#form-invoices").submit(function(e) {
+
+function deleteArray(id,idProd) {
+    $("#"+id).show(); 
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id != undefined) {
+            const element = products[i];
+            if (element.id == idProd ) {
+                delete products[i];
+                console.log(products);
+                
+            }
+        }
+    }
+}
+
+$("#form-invoices").submit(function (e) {
     e.preventDefault();
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
-        input = $("#"+element.id).val();
-        productData.push({"id":element.id, "cantidad":input})
+        input = $("#" + element.id).val();
+        productData.push({ "id": element.id, "cantidad": input })
         var data = {
             "hab_numero": num_hab,
             "promocion": $("#courtesy").val(),
+            "cortesia": $("#cortesia").val(),
             "tipo_reserva": "2",
             "numero_personas_adicionales": $("#additional").val(),
             "habitacion_decorada": $("#decorated-room").val(),
@@ -250,14 +271,14 @@ $("#form-invoices").submit(function(e) {
         dataType: "json",
         type: "POST",
         data: data,
-        success: function(success) {
+        success: function (success) {
             location.reload()
         },
         error: function (err) {
             $(".alert-danger").addClass('show');
             $(".alert-danger").append(err.responseJSON.message);
             console.log(err);
-            
+
         }
     })
     closeAlerts();
@@ -274,17 +295,30 @@ function verReserva(hab) {
         data: ({
             "habitacion": data
         }),
-        success: function(success) {
-            console.log(success);
-            var financiero = success.data.financieros
-            var monto =  parseInt(financiero.valorHora)+parseInt(financiero.total)
+        success: function (success) {
+            var financiero = success.data.financieros;
+            var product = success.data.productos;
+
+            console.log(product);
             $("#total").empty()
-            $("#total").append(monto)
+            $("#total").append(monto);
+            for (let i = 0; i < product.length; i++) {
+                const element = product[i];
+                $("#cant-products-table > tbody").append(`
+                    <tr>
+                      <td>${element.pro_nombre}</td>
+                      <td>
+                        <input class="form-control" type="number" id="${element.id}" value="${element.re_det_cantidad}">
+                      </td>
+                      <td onclick="deleteArray()">X</td>
+                    </tr>
+                `)
+
+            }
         },
         error: function (err) {
-            
+
         }
     })
 }
 
-    
