@@ -143,13 +143,21 @@ Class FacturaController{
                     if($insertProducts){
                         $deleteReserva=$this->masterModel->delete("reserva_activa",array("id_reserva",$dataReserva["data"]["reserva"]->id_reserva));
                         if($deleteReserva){
-                            $status = "success";
-                            $message = "Factura creada.";
-                            $dataReserva["data"]["reserva"]->fecha= date('Y-m-d H:i:s');
-                            $dataReserva["data"]["reserva"]->tipo_pago= $request["tipo_pago"];
-                            $dataReserva["data"]["reserva"]->valor_pago_efectivo= $request["cantidad_efectivo"];
-                            $dataReserva["data"]["reserva"]->valor_pago_credito= $request["cantidad_credito"];
-                            $dataReserva["data"]["reserva"]->valor_pago_transferencia= $request["cantidad_transferencia"];
+                            //cambiar habitacion a limpieza
+                            $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(6,$dataReserva["data"]["reserva"]->hab_numero));
+                            if($update){
+                                $status = "success";
+                                $message = "Factura creada.";
+                                $dataReserva["data"]["reserva"]->fecha= date('Y-m-d H:i:s');
+                                $dataReserva["data"]["reserva"]->tipo_pago= $request["tipo_pago"];
+                                $dataReserva["data"]["reserva"]->valor_pago_efectivo= $request["cantidad_efectivo"];
+                                $dataReserva["data"]["reserva"]->valor_pago_credito= $request["cantidad_credito"];
+                                $dataReserva["data"]["reserva"]->valor_pago_transferencia= $request["cantidad_transferencia"];
+                            }else{
+                                header('Internal server error', true, 500);
+                                $status = "error";
+                                $message = "Error al momento de cambiar el estado de la habitación.";
+                            }
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
