@@ -177,6 +177,8 @@ function reserva(data, id) {
             "value": id
         }),
         success: function (success) {
+            console.log(data);
+            
             switch (data) {
                 case 1:
                     monto = success.data[0].th_valor_hora;
@@ -186,7 +188,14 @@ function reserva(data, id) {
                     sumar();
                     break;
                 case 2:
-                    console.log("rntro");
+                    monto = success.data[0].th_valor_hora;
+                    $("#reserva").addClass('active');
+                    $(".input-form-reserva").hide()
+                    $("#content-card").hide();
+                    $("#reception").hide();
+                    verReserva(id)
+                    break;
+                case 5:
                     monto = success.data[0].th_valor_hora;
                     $("#reserva").addClass('active');
                     $(".input-form-reserva").hide()
@@ -272,15 +281,22 @@ $("#form-invoices").submit(function (e) {
         const element = products[i];
         input = $("#" + element.id).val();
         productData.push({ "id": element.id, "cantidad": input })
-        var data = {
-            "hab_numero": num_hab,
-            "promocion": $("#courtesy").val(),
-            "cortesia": $("#cortesia").val(),
-            "tipo_reserva": "2",
-            "numero_personas_adicionales": $("#additional").val(),
-            "habitacion_decorada": $("#decorated-room").val(),
-            "productos": JSON.stringify(productData)
+        var tipoReserva = 2;
+        if ($("#courtesy").val() != '') {
+            tipoReserva = 5;
+        } else if($("#cortesia").val() != 0){
+            tipoReserva = 4;
         }
+        
+    }
+    var data = {
+        "hab_numero": num_hab,
+        "promocion": $("#courtesy").val(),
+        "cortesia": $("#cortesia").val(),
+        "tipo_reserva": tipoReserva,
+        "numero_personas_adicionales": $("#additional").val(),
+        "habitacion_decorada": $("#decorated-room").val(),
+        "productos": JSON.stringify(productData)
     }
     $.ajax({
         url: 'CrearReserva',
@@ -301,8 +317,6 @@ $("#form-invoices").submit(function (e) {
 })
 
 function verReserva(hab) {
-    $("#btn-can-reserva, #btn-facturar").addClass("show");
-    $("#btn-reservar").hide()
     var data = hab.toString()
     $.ajax({
         url: 'detallesReserva',
@@ -314,7 +328,10 @@ function verReserva(hab) {
         success: function (success) {
             var financiero = success.data.financieros;
             var product = success.data.productos;
-            if (success.data.promocion != null) {
+            var reserva = success.data.reserva;
+            console.log(success);
+            if (success.data.promocion !== null) {
+                console.log(success.data.promocion);
                 $("#detail-reserva").append(`
                 <div class="col">
                     <p>Promoción:</p>
@@ -322,13 +339,24 @@ function verReserva(hab) {
                 </div>
             `) 
             }
-            console.log(success);
             $("#total").empty()
             $("#total").append(monto);
             $("#detail-reserva").append(`
                 <div class="col">
-                    <p>Promoción:</p>
+                    <p>Nro. habitación:</p>
+                    <h6>${reserva.hab_numero}</h6>
+                </div>
+                <div class="col">
+                    <p>Cortesia:</p>
                     <h6></h6>
+                </div>
+                <div class="col">
+                    <p>persona adicional:</p>
+                    <h6>${reserva.ra_numero_personas_adicionales}</h6>
+                </div>
+                <div class="col">
+                    <p>Tiempo transcurrido:</p>
+                    <h6>${reserva.tiempo_transcurido}</h6>
                 </div>
             `)
             for (let i = 0; i < product.length; i++) {

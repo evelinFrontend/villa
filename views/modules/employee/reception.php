@@ -81,9 +81,7 @@
         <div class="subcontent p-4">
             <h4 class="pricipal-title">Facturar</h4>
             <div class="alert alert-danger" role="alert"></div>
-            <div class="row" id="detail-reserva">
-                
-            </div>
+            <div class="row" id="detail-reserva"></div>
             <form id="form-reserva">
                 <div class="row input-form-reserva">
                     <div class="form-group col">
@@ -128,7 +126,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                    <div class="btn-group" role="group" aria-label="Vertical button group">
                         <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
                         <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
@@ -151,7 +149,7 @@
             </table>
         </div>
     </div>
-</div
+</div>
 <?php if($_SESSION["DATA_USER"]["ROL"]==2){?>
 <div id="init-modal" class="modal ade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
     data-keyboard="false">
