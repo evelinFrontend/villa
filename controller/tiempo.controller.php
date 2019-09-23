@@ -74,6 +74,7 @@ Class TiempoController{
         $total = 0;
         $totalProductos = 0;
         $precioDecoracionFactura = 0;
+        $totalTiempo =0;
         //habitacion decorada 
         if($datosReserva->ra_habitacion_decorada==1){
             $total +=  $precioDecoracionDB;
@@ -136,12 +137,14 @@ Class TiempoController{
             //valor horas
             if($hmsInt[0]>0){
                 $total += $valorHora*$hmsInt[0];
+                $totalTiempo += $valorHora*$hmsInt[0];
             }
             //valor minutos 
             if($hmsInt[1]>$minutosDeCortesia){
                 $total += $valorHora;
+                $totalTiempo += $valorHora;
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos);
         }   
         return $result;
     }
