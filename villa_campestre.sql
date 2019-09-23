@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 23, 2019 at 03:45 AM
+-- Generation Time: Sep 23, 2019 at 05:31 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -124,7 +124,19 @@ INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto
 (23, 13, 8, 1, 19000, 20000, 20000, '2019-09-18 20:11:11'),
 (24, 13, 9, 5, 19000, 20000, 100000, '2019-09-18 20:11:11'),
 (25, 14, 8, 1, 19000, 20000, 20000, '2019-09-18 20:16:10'),
-(26, 14, 9, 5, 19000, 20000, 100000, '2019-09-18 20:16:10');
+(26, 14, 9, 5, 19000, 20000, 100000, '2019-09-18 20:16:10'),
+(27, 15, 12, 1, 78678, 10000, 10000, '2019-09-22 21:33:20'),
+(28, 16, 12, 1, 78678, 10000, 10000, '2019-09-22 21:53:32'),
+(29, 17, 8, 1, 19000, 20000, 20000, '2019-09-22 21:56:48'),
+(30, 17, 9, 5, 19000, 20000, 100000, '2019-09-22 21:56:48'),
+(31, 18, 8, 1, 19000, 20000, 20000, '2019-09-22 22:08:56'),
+(32, 18, 9, 5, 19000, 20000, 100000, '2019-09-22 22:08:56'),
+(33, 19, 8, 1, 19000, 20000, 20000, '2019-09-22 22:09:37'),
+(34, 19, 9, 5, 19000, 20000, 100000, '2019-09-22 22:09:37'),
+(35, 20, 8, 1, 19000, 20000, 20000, '2019-09-22 22:16:04'),
+(36, 20, 9, 5, 19000, 20000, 100000, '2019-09-22 22:16:04'),
+(37, 21, 8, 1, 19000, 20000, 20000, '2019-09-22 22:29:31'),
+(38, 21, 9, 5, 19000, 20000, 100000, '2019-09-22 22:29:31');
 
 -- --------------------------------------------------------
 
@@ -172,28 +184,38 @@ CREATE TABLE `facturas` (
   `tipo_pago` varchar(20) NOT NULL,
   `tiempo_total` time NOT NULL,
   `valor_factura` bigint(20) NOT NULL,
-  `tipo_reserva` int(11) NOT NULL
+  `tipo_reserva` int(11) NOT NULL,
+  `fac_valor_efectivo` bigint(20) NOT NULL,
+  `fac_valor_credito` bigint(20) NOT NULL,
+  `fac_valor_transferencia` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `facturas`
 --
 
-INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `fac_fecha_hora_ingreso`, `fac_inicio_tiempo_parcial`, `fac_fin_tiempo_parcial`, `fac_numero_personas_adicionales`, `fac_habitacion_decorada`, `fac_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_factura`, `tipo_reserva`) VALUES
-(1, 1, 1, 2, 2, '2019-09-06 00:00:00', '2019-09-06 00:00:00', '2019-09-19 00:00:00', 1, 1, '2019-09-19 00:00:00', '1', '21:00:00', 1000, 1),
-(2, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 19:48:11', 'tipo_pago', '00:28:00', 142000, 2),
-(3, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 20:02:53', 'tipo_pago', '00:42:00', 142000, 2),
-(4, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:03:41', 'tipo_pago', '00:42:58', 142000, 2),
-(5, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:04:51', 'tipo_pago', '00:43:58', 142000, 2),
-(6, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:34', 'tipo_pago', '00:45:58', 142000, 2),
-(7, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:37', 'tipo_pago', '00:45:58', 142000, 2),
-(8, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:14', 'tipo_pago', '00:46:58', 142000, 2),
-(9, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:58', 'tipo_pago', '00:47:58', 142000, 2),
-(10, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:09', 'tipo_pago', '00:47:58', 142000, 2),
-(11, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:36', 'tipo_pago', '00:47:58', 142000, 2),
-(12, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:10:56', 'tipo_pago', '00:50:58', 142000, 2),
-(13, 44, 1, 6, NULL, '2019-09-18 18:55:20', '', '', 0, 1, '2019-09-18 20:11:11', 'tipo_pago', '01:15:00', 162000, 2),
-(14, 43, 2, 6, NULL, '2019-09-16 15:00:35', '', '', 0, 1, '2019-09-18 20:16:10', 'tipo_pago', '53:15:00', 1202000, 2);
+INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `fac_fecha_hora_ingreso`, `fac_inicio_tiempo_parcial`, `fac_fin_tiempo_parcial`, `fac_numero_personas_adicionales`, `fac_habitacion_decorada`, `fac_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_factura`, `tipo_reserva`, `fac_valor_efectivo`, `fac_valor_credito`, `fac_valor_transferencia`) VALUES
+(1, 1, 1, 2, 2, '2019-09-06 00:00:00', '2019-09-06 00:00:00', '2019-09-19 00:00:00', 1, 1, '2019-09-19 00:00:00', '1', '21:00:00', 1000, 1, 0, 0, 0),
+(2, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 19:48:11', 'tipo_pago', '00:28:00', 142000, 2, 0, 0, 0),
+(3, 45, 3, 6, NULL, '2019-09-18 19:19:56', '', '', 0, 1, '2019-09-18 20:02:53', 'tipo_pago', '00:42:00', 142000, 2, 0, 0, 0),
+(4, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:03:41', 'tipo_pago', '00:42:58', 142000, 2, 0, 0, 0),
+(5, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:04:51', 'tipo_pago', '00:43:58', 142000, 2, 0, 0, 0),
+(6, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:34', 'tipo_pago', '00:45:58', 142000, 2, 0, 0, 0),
+(7, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:06:37', 'tipo_pago', '00:45:58', 142000, 2, 0, 0, 0),
+(8, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:14', 'tipo_pago', '00:46:58', 142000, 2, 0, 0, 0),
+(9, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:07:58', 'tipo_pago', '00:47:58', 142000, 2, 0, 0, 0),
+(10, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:09', 'tipo_pago', '00:47:58', 142000, 2, 0, 0, 0),
+(11, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:08:36', 'tipo_pago', '00:47:58', 142000, 2, 0, 0, 0),
+(12, 45, 3, 6, NULL, '2019-09-18 19:19:56', '2019-09-18 20:03:30', '2019-09-18 20:03:32', 0, 1, '2019-09-18 20:10:56', 'tipo_pago', '00:50:58', 142000, 2, 0, 0, 0),
+(13, 44, 1, 6, NULL, '2019-09-18 18:55:20', '', '', 0, 1, '2019-09-18 20:11:11', 'tipo_pago', '01:15:00', 162000, 2, 0, 0, 0),
+(14, 43, 2, 6, NULL, '2019-09-16 15:00:35', '', '', 0, 1, '2019-09-18 20:16:10', 'tipo_pago', '53:15:00', 1202000, 2, 0, 0, 0),
+(15, 67, 1, 6, NULL, '2019-09-22 21:09:11', '', '', 0, 0, '2019-09-22 21:33:20', 'tipo_pago', '00:24:00', 30000, 2, 0, 0, 0),
+(16, 69, 1, 6, NULL, '2019-09-22 21:41:36', '', '', 0, 0, '2019-09-22 21:53:32', 'tipo_pago', '00:11:00', 30000, 2, 0, 0, 0),
+(17, 70, 1, 6, NULL, '2019-09-22 21:53:59', '', '', 0, 1, '2019-09-22 21:56:48', 'tipo_pago', '00:02:00', 125000, 2, 0, 0, 0),
+(18, 71, 1, 6, NULL, '2019-09-22 22:04:03', '', '', 0, 1, '2019-09-22 22:08:56', 'tipo_pago', '00:04:00', 125000, 2, 0, 0, 0),
+(19, 72, 1, 6, NULL, '2019-09-22 22:09:18', '', '', 0, 1, '2019-09-22 22:09:37', 'tipo_pago', '00:00:19', 125000, 2, 0, 0, 0),
+(20, 73, 1, 6, NULL, '2019-09-22 22:15:53', '', '', 0, 1, '2019-09-22 22:16:04', 'mixto', '00:00:11', 125000, 2, 124000, 500, 500),
+(21, 74, 1, 6, NULL, '2019-09-22 22:18:43', '', '', 0, 1, '2019-09-22 22:29:31', 'credito', '00:10:00', 145000, 2, 0, 125000, 0);
 
 -- --------------------------------------------------------
 
@@ -215,8 +237,8 @@ CREATE TABLE `habitacion` (
 --
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
-(1, 1, 'nada', 1, '0000-00-00', 1),
-(2, 1, '', 2, '2019-09-08', 1),
+(1, 1, 'nada', 2, '0000-00-00', 1),
+(2, 1, '', 1, '2019-09-08', 1),
 (3, 1, '', 1, '2019-09-08', 1),
 (4, 1, '', 1, '2019-09-08', 1),
 (5, 1, '', 1, '2019-09-08', 1),
@@ -253,9 +275,9 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
-(8, 'PNE-001', 'Prod 1', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 188, '2019-09-12', '2019-09-12', 1),
-(9, 'PNE-002', 'Prod 2', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 140, '2019-09-13', '2019-09-13', 1),
-(12, '78678', 'Prod 3', 78678, 10000, 4, 5, 'img_deafult_product.jpg', 5, '2019-09-14', '2019-09-14', 1),
+(8, 'PNE-001', 'Prod 1', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 183, '2019-09-12', '2019-09-12', 1),
+(9, 'PNE-002', 'Prod 2', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 115, '2019-09-13', '2019-09-13', 1),
+(12, '78678', 'Prod 3', 78678, 10000, 4, 5, 'img_deafult_product.jpg', 2, '2019-09-14', '2019-09-14', 1),
 (13, '89765', 'Prod 4', 98765, 15000, 4, 5, 'img_deafult_product.jpg', 789087, '2019-09-14', '2019-09-14', 1),
 (14, '567890', 'Prod 5', 9876544567890, 30000, 4, 5, 'img_deafult_product.jpg', 90987, '2019-09-14', '2019-09-14', 1);
 
@@ -360,13 +382,6 @@ CREATE TABLE `reserva_activa` (
   `ra_tipo_cortesia` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `reserva_activa`
---
-
-INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`, `ra_tipo_reserva_inicio`, `ra_tipo_cortesia`) VALUES
-(66, 2, 6, NULL, '2019-09-22 20:42:08', NULL, NULL, 0, 1, 2, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -382,14 +397,6 @@ CREATE TABLE `reserva_activa_detalle` (
   `re_det_valor_unidad` bigint(20) NOT NULL,
   `re_det_valor_total` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `reserva_activa_detalle`
---
-
-INSERT INTO `reserva_activa_detalle` (`id_detalle`, `id_reserva`, `re_det_id_producto`, `re_det_cantidad`, `re_precio_compra`, `re_det_valor_unidad`, `re_det_valor_total`) VALUES
-(184, 66, 8, 1, 19000, 20000, 20000),
-(185, 66, 9, 5, 19000, 20000, 100000);
 
 -- --------------------------------------------------------
 
@@ -676,7 +683,7 @@ ALTER TABLE `control_turnos`
 -- AUTO_INCREMENT for table `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `estado_reserva`
@@ -712,13 +719,13 @@ ALTER TABLE `reservas_anuladas`
 -- AUTO_INCREMENT for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
 
 --
 -- AUTO_INCREMENT for table `rol`

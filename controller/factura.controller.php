@@ -19,28 +19,57 @@ Class FacturaController{
                 //validar tipo de pago
                 if(isset($request["tipo_pago"]) && $request["tipo_pago"]!=""){
                     if($request["tipo_pago"]=="efectivo"){
-                        if(!$request["cantidad_efectivo"]==$dataReserva["financieros"]["total"]){
+                        $request["cantidad_credito"] = 0;
+                        $request["cantidad_transferencia"] = 0;
+                        if($request["cantidad_efectivo"]=="" ||  $request["cantidad_efectivo"]==$dataReserva["data"]["financieros"]["total"]){
                             header('Internal server error', true, 500);
                             $status = "error";
-                            $message = "Por favor ingresa el total adecuado.";
+                            $message = "Por favor ingresa el total adecuado en efectivo.";
                             $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
                             echo json_encode($result);
                             return ;
                         }
                     }else if($request["tipo_pago"]=="credito"){
-                        if($request["cantidad_efectivo"]>0){
-    
-                        }else{
-                            
+                        $request["cantidad_efectivo"] =0;
+                        $request["cantidad_transferencia"] = 0;
+                        if( $request["cantidad_credito"]=="" ||  $request["cantidad_credito"]==$dataReserva["data"]["financieros"]["total"]){
+                            header('Internal server error', true, 500);
+                            $status = "error";
+                            $message = "Por favor ingresa el total adecuado en credito.";
+                            $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                            echo json_encode($result);
+                            return ;
                         }
                     }else if($request["tipo_pago"]=="transferencia"){
-                        if($request["cantidad_efectivo"]>0){
-    
-                        }else{
-                            
+                        $request["cantidad_efectivo"] =0;
+                        $request["cantidad_credito"] = 0;
+                        if($request["cantidad_transferencia"]=="" || $request["cantidad_transferencia"]==$dataReserva["data"]["financieros"]["total"]){
+                            header('Internal server error', true, 500);
+                            $status = "error";
+                            $message = "Por favor ingresa el total adecuado en transferencia.";
+                            $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                            echo json_encode($result);
+                            return ;
                         }
                     }else if($request["tipo_pago"]=="mixto"){
-    
+                        if($request["cantidad_efectivo"]>=0 && $request["cantidad_efectivo"]>=0 && $request["cantidad_efectivo"] >= 0){
+                            $totalIngresadoPagoMixto = intval($request["cantidad_efectivo"])+intval($request["cantidad_credito"])+intval($request["cantidad_transferencia"]);
+                            if($totalIngresadoPagoMixto!=$dataReserva["data"]["financieros"]["total"]){
+                                header('Internal server error', true, 500);
+                                $status = "error";
+                                $message = "Por favor ingresa el total adecuado  para el pago mixto.";
+                                $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                                echo json_encode($result);
+                                return ;
+                            }
+                        }else{
+                            header('Internal server error', true, 500);
+                            $status = "error";
+                            $message = "Por favor ingresa las cantidades válidas.";
+                            $result = array("status"=>$status,"message"=>$message,"factura"=>null,"data"=>null);
+                            echo json_encode($result);
+                            return ;
+                        }
                     }
                 }else{
                         header('Internal server error', true, 500);
@@ -50,6 +79,7 @@ Class FacturaController{
                         echo json_encode($result);
                         return ;
                 }
+                // --------fin validaciones tipo de pago------
                 $numeroDefactura = $this->masterModel->sqlSelect("SELECT MAX(fac_consecutivo) as ultimaFactura FROM facturas",array(""))[0]->ultimaFactura+1;
                 $excepciones = array();
                 //saber si existe promocion
@@ -66,10 +96,13 @@ Class FacturaController{
                         $dataReserva["data"]["reserva"]->ra_numero_personas_adicionales,
                         $dataReserva["data"]["reserva"]->ra_habitacion_decorada,
                         date('Y-m-d H:i:s'),
-                        "tipo_pago",
+                        $request["tipo_pago"],
                         $dataReserva["data"]["reserva"]->tiempo_transcurido,
                         $dataReserva["data"]["financieros"]["total"],
-                        $dataReserva["data"]["reserva"]->ra_tipo_reserva_inicio
+                        $dataReserva["data"]["reserva"]->ra_tipo_reserva_inicio,
+                        $request["cantidad_efectivo"],
+                        $request["cantidad_credito"],
+                        $request["cantidad_transferencia"]
                      ),array(""));
                 }else{
                     $insert = $this->masterModel->insert("facturas",array(
@@ -83,10 +116,13 @@ Class FacturaController{
                         $dataReserva["data"]["reserva"]->ra_numero_personas_adicionales,
                         $dataReserva["data"]["reserva"]->ra_habitacion_decorada,
                         date('Y-m-d H:i:s'),
-                        "tipo_pago",
+                        $request["tipo_pago"],
                         $dataReserva["data"]["reserva"]->tiempo_transcurido,
                         $dataReserva["data"]["financieros"]["total"],
-                        $dataReserva["data"]["reserva"]->ra_tipo_reserva_inicio
+                        $dataReserva["data"]["reserva"]->ra_tipo_reserva_inicio,
+                        $request["cantidad_efectivo"],
+                        $request["cantidad_credito"],
+                        $request["cantidad_transferencia"]
                      ),array("promo_id"));
                 }
                 //si los productos esta en 0 entrara al if
@@ -110,6 +146,10 @@ Class FacturaController{
                             $status = "success";
                             $message = "Factura creada.";
                             $dataReserva["data"]["reserva"]->fecha= date('Y-m-d H:i:s');
+                            $dataReserva["data"]["reserva"]->tipo_pago= $request["tipo_pago"];
+                            $dataReserva["data"]["reserva"]->valor_pago_efectivo= $request["cantidad_efectivo"];
+                            $dataReserva["data"]["reserva"]->valor_pago_credito= $request["cantidad_credito"];
+                            $dataReserva["data"]["reserva"]->valor_pago_transferencia= $request["cantidad_transferencia"];
                         }else{
                             header('Internal server error', true, 500);
                             $status = "error";
