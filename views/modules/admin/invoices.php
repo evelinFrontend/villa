@@ -167,6 +167,10 @@
                         <input id="dec-hab" class="form-control" type="number" name="">
                     </div>
                     <div class="form-group">
+                        <label for="minutosCobrar">Minutos despues del cual se cobrara otra hora:</label>
+                        <input id="minutosCobrar" class="form-control" type="number" name="">
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>

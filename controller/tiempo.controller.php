@@ -70,6 +70,7 @@ Class TiempoController{
     function timeToMoney($id_reserva,$tiempoTrancurrido,$products){
         $datosReserva = $this->masterModel->sqlSelect("SELECT * FROM reserva_activa ra INNER JOIN habitacion  h ON ra.hab_numero = h.hab_numero INNER JOIN tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE id_reserva = ?",array($id_reserva))[0];
         $minutosDeCortesia = intval($this->masterModel->selectAll("villa_config")[0]->conf_minutos_cortesia);
+        $minutosContarHora = intval($this->masterModel->selectAll("villa_config")[0]->minutos_contar_hora);
         $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
         $total = 0;
         $totalProductos = 0;
@@ -112,7 +113,7 @@ Class TiempoController{
             $timpoRealTranscurrido->modify('-'.$explode[2].' second'); 
             $timpoRealTranscurrido =  $timpoRealTranscurrido->format('H:i:s');
             //realizar calculos 
-            $valorHora = intval($datosReserva->th_valor_hora);
+            $valorHora = intval($datosReserva->th_valor_hora_despues24);
             $hms = explode(":",$timpoRealTranscurrido);
             $hmsInt=array();
             foreach($hms as $item){
@@ -128,7 +129,8 @@ Class TiempoController{
             }
             $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"tiempoTranscurridoFueraPromo"=>$timpoRealTranscurrido,"valorPromocion"=>$valorPromocion,"productos"=>$totalProductos);
         }else{
-            $valorHora = intval($datosReserva->th_valor_hora);
+            $totalHorasCobrar = 0;
+            $valorHora = intval($datosReserva->th_valor_hora_despues24);
             $hms = explode(":",$tiempoTrancurrido);
             $hmsInt=array();
             foreach($hms as $item){
@@ -136,15 +138,97 @@ Class TiempoController{
             }
             //valor horas
             if($hmsInt[0]>0){
-                $total += $valorHora*$hmsInt[0];
-                $totalTiempo += $valorHora*$hmsInt[0];
+                // $total += $valorHora*$hmsInt[0];
+                // $totalTiempo += $valorHora*$hmsInt[0];
+                $totalHorasCobrar+=$hmsInt[0];
             }
-            //valor minutos 
-            if($hmsInt[1]>$minutosDeCortesia){
-                $total += $valorHora;
-                $totalTiempo += $valorHora;
+            //valor minutos  de cortesia para la primera hora y el  tiempo  de cortesia despues de la hora
+            if($hmsInt[0]<1 && $hmsInt[1]>$minutosDeCortesia || $hmsInt[1]>$minutosContarHora){
+                // $total += $valorHora;
+                // $totalTiempo += $valorHora;
+                $totalHorasCobrar+=1;
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos);
+            switch ($totalHorasCobrar) {
+                case 1:
+                    $totalTiempo += intval($datosReserva->th_valor_hora1);
+                    break;
+                case 2:
+                    $totalTiempo += intval($datosReserva->th_valor_hora2);
+                    break;
+                case 3:
+                    $totalTiempo += intval($datosReserva->th_valor_hora3);
+                    break;
+                case 4:
+                    $totalTiempo += intval($datosReserva->th_valor_hora4);
+                    break;
+                case 5:
+                    $totalTiempo += intval($datosReserva->th_valor_hora5);
+                    break;
+                case 6:
+                    $totalTiempo += intval($datosReserva->th_valor_hora6);
+                    break;
+                case 7:
+                    $totalTiempo += intval($datosReserva->th_valor_hora7);
+                    break;
+                case 8:
+                    $totalTiempo += intval($datosReserva->th_valor_hora8);
+                    break;
+                case 9:
+                    $totalTiempo += intval($datosReserva->th_valor_hora9);
+                    break;
+                case 10:
+                    $totalTiempo += intval($datosReserva->th_valor_hora10);
+                    break;
+                case 11:
+                    $totalTiempo += intval($datosReserva->th_valor_hora11);
+                    break;
+                case 12:
+                    $totalTiempo += intval($datosReserva->th_valor_hora12);
+                    break;
+                case 13:
+                    $totalTiempo += intval($datosReserva->th_valor_hora13);
+                    break;
+                case 14:
+                    $totalTiempo += intval($datosReserva->th_valor_hora14);
+                    break;
+                case 15:
+                    $totalTiempo += intval($datosReserva->th_valor_hora15);
+                    break;
+                case 16:
+                    $totalTiempo += intval($datosReserva->th_valor_hora16);
+                    break;
+                case 17:
+                    $totalTiempo += intval($datosReserva->th_valor_hora17);
+                    break;
+                case 18:
+                    $totalTiempo += intval($datosReserva->th_valor_hora18);
+                    break;
+                case 19:
+                    $totalTiempo += intval($datosReserva->th_valor_hora19);
+                    break;
+                case 20:
+                    $totalTiempo += intval($datosReserva->th_valor_hora20);
+                    break;
+                case 21:
+                    $totalTiempo += intval($datosReserva->th_valor_hora21);
+                    break;
+                case 22:
+                    $totalTiempo += intval($datosReserva->th_valor_hora22);
+                    break;
+                case 23:
+                    $totalTiempo += intval($datosReserva->th_valor_hora23);
+                    break;
+                case 24:
+                    $totalTiempo += intval($datosReserva->th_valor_hora24);
+                    break;
+            }
+            $total+=$totalTiempo; 
+            //si supera las 24 horas
+            if($totalHorasCobrar>24){
+                $totalTiempo += intval($datosReserva->th_valor_hora24);
+                $totalTiempo += $valorHora*($totalHorasCobra-24);
+            }
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar);
         }   
         return $result;
     }
