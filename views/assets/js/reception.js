@@ -220,6 +220,7 @@ function addArray(id, idProd, name, value) {
     $("#cant-products-table > tbody").empty();
     $("#" + id).hide();
     products.push({ 'id': idProd, 'name': name });
+    console.log(products);
     canti = value;
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
@@ -242,8 +243,28 @@ function deleteArray(idDiv,idProd) {
         if (products[i].id != undefined) {
             if (products[i].id == idProd ) {
                 console.log(products[i].id+" Eliminado.");
-                delete products[i];
+                console.log(products);
+                products.splice(i, 1);
             }
+        }
+    }
+    refrescarVistaProductos();
+}
+
+function refrescarVistaProductos(){
+    $("#cant-products-table > tbody").empty();
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id != undefined) {
+            const element = products[i];
+            $("#cant-products-table > tbody").append(`
+                <tr>
+                  <td>${element.name}</td>
+                  <td>
+                    <input class="form-control" type="number" id="${element.id}" value="1">
+                  </td>
+                  <td onclick="deleteArray('prod-${element.id}',${element.id})">X</td>
+                </tr>
+            `)
         }
     }
 }
