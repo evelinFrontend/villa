@@ -80,19 +80,21 @@
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
             <h4 class="pricipal-title">Facturar</h4>
+            <button class="btn btn-primary float-right mb-4" id="edit">Editar</button>
+            <button class="btn btn-primary float-right mb-4" id="cancel-edit">Cancelar edicion</button>
             <div class="alert alert-danger" role="alert"></div>
             <div class="row" id="detail-reserva"></div>
             <form id="form-reserva">
                 <div class="row input-form-reserva">
                     <div class="form-group col">
-                        <label for="courtesy">Promociones:</label>
-                        <select id="courtesy" class="form-control">
+                        <label for="courtesy-re">Promociones:</label>
+                        <select id="courtesy-re" class="form-control">
                             <option value="">N/A</option>
                         </select>
                     </div>
-                    <div class="form-group col">
-                        <label for="cortesia">Cortesia:</label>
-                        <select id="cortesia" class="form-control">
+                    <div class="form-group col cortesia-re">
+                        <label for="cortesia-re">Cortesia:</label>
+                        <select id="cortesia-re" class="form-control">
                             <option value="0">N/A</option>
                             <option value="1">1 Hora</option>
                             <option value="2">2 Horas</option>
@@ -101,13 +103,13 @@
                 </div>
                 <div class="row input-form-reserva">
                     <div class="form-group col">
-                        <label for="select-person">Persona adicional:</label>
-                        <select id="select-person" class="form-control">
+                        <label for="select-person-re">Persona adicional:</label>
+                        <select id="select-person-re" class="form-control">
                             <option value="no">No</option>
                             <option value="si">Si</option>
                         </select>
                     </div>
-                    <div class="form-group col" id="content-additional">
+                    <div class="form-group col" id="content-additional-re">
                         <label for="additional">¿Cuantas?</label>
                         <input id="additional" class="form-control" type="number" value="0" required>
                     </div>
@@ -126,8 +128,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="btn-group" role="group" aria-label="Vertical button group">
-                        <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
+                    <div class="d-flex" role="group" >
+                        <button class="btn btn-primary" type="button" id="btn-reservar">Cancelar</button>
                         <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>

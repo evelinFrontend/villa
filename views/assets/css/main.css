@@ -107,10 +107,9 @@ p{
     display: flex;
     justify-content: center;
 }
-#btn-can-reserva, #btn-facturar{
-    display: none
+#cancel-edit{
+    display: none;
 }
-#btn-can-reserva.show, #btn-facturar.show{display: block}
 
 
 /* slide-menu */

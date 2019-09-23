@@ -1,6 +1,7 @@
 
 $("#reception").ready(function () {
     $("#content-additional").hide();
+    $("#content-additional-re").hide();
     getTurno();
     getRooms();
     getProducts();
@@ -79,7 +80,7 @@ function getPromo() {
             data = success.data
             for (let i = 0; i < data.length; i++) {
                 const elt = data[i];
-                $("#courtesy").append(`
+                $("#courtesy, #courtesy-re").append(`
                     <option value="${elt.id_promocion}">${elt.promo_nombre}</option>
                 `)
             }
@@ -117,13 +118,21 @@ $(".goInvoices").click(function (e) {
     $("#invoices").addClass('active');
     $("#reception").hide();
 })
-$("#select-person").change(function () {
+$("#select-person, #select-person-re").change(function () {
     if ($("#select-person").val() === 'si') {
         $("#content-additional").show()
     } else {
         $("#content-additional").hide()
     }
-
+})
+$("#select-person-re").change(function () {
+    if ($("#select-person-re").val() === 'si') {
+        $("#content-additional-re").show()
+        console.log("sdkocmsdn");
+        
+    } else {
+        $("#content-additional-re").hide()
+    }
 })
 
 function getProducts() {
@@ -287,7 +296,6 @@ $("#form-invoices").submit(function (e) {
         } else if($("#cortesia").val() != 0){
             tipoReserva = 4;
         }
-        
     }
     var data = {
         "hab_numero": num_hab,
@@ -315,7 +323,6 @@ $("#form-invoices").submit(function (e) {
     })
     closeAlerts();
 })
-
 function verReserva(hab) {
     var data = hab.toString()
     $.ajax({
@@ -331,14 +338,24 @@ function verReserva(hab) {
             var reserva = success.data.reserva;
             console.log(success);
             if (success.data.promocion !== null) {
-                console.log(success.data.promocion);
                 $("#detail-reserva").append(`
                 <div class="col">
                     <p>Promoción:</p>
-                    <h6>${success.data.promocion }</h6>
+                    <h6>${success.data.promocion.promo_nombre}</h6>
                 </div>
-            `) 
+               `);
+               $("#courtesy").val(success.data.promocion.id_promocion);
+               $(".cortesia-re").hide();
+
+             } else {
+                $("#detail-reserva").append(`
+                    <div class="col">
+                        <p>Cortesia:</p>
+                        <h6></h6>
+                    </div>
+                `)
             }
+            
             $("#total").empty()
             $("#total").append(monto);
             $("#detail-reserva").append(`
@@ -346,10 +363,7 @@ function verReserva(hab) {
                     <p>Nro. habitación:</p>
                     <h6>${reserva.hab_numero}</h6>
                 </div>
-                <div class="col">
-                    <p>Cortesia:</p>
-                    <h6></h6>
-                </div>
+               
                 <div class="col">
                     <p>persona adicional:</p>
                     <h6>${reserva.ra_numero_personas_adicionales}</h6>
@@ -379,3 +393,47 @@ function verReserva(hab) {
     })
 }
 
+ var isform;
+
+$("#edit").click(function name() {
+    $("#edit").hide();
+    $("#cancel-edit").show()
+    $("#detail-reserva").hide();
+    $(".input-form-reserva").show();
+    isform = false
+
+})
+$("#cancel-edit").click(function() {
+    $("#edit").show();
+    $("#cancel-edit").hide()
+    $("#detail-reserva").show();
+    $(".input-form-reserva").hide();
+    isform = true;
+})
+
+
+$("#form-reserva").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'reservaAfactura',
+        dataType: "json",
+        type: "POST",
+        data: (
+            {
+                "habitacion": "5",
+                "tipo_pago": "efectivo",
+                "cantidad_efectivo": "40000",
+                "cantidad_credito": "0",
+                "cantidad_transferencia": "0"
+            }
+        ),
+        success: function(success) {
+            alert("bieeeenn", success)
+        },
+        error: function (err) {
+            
+        }
+    })
+
+    
+})
