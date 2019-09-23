@@ -217,6 +217,7 @@ function addArray(id, idProd, name, value) {
     $("#cant-products-table > tbody").empty();
     $("#" + id).hide();
     products.push({ 'id': idProd, 'name': name });
+    console.log(products);
     canti = value;
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
@@ -226,23 +227,41 @@ function addArray(id, idProd, name, value) {
               <td>
                 <input class="form-control" type="number" id="${element.id}" value="1">
               </td>
-              <td onclick="deleteArray('${id}',${idProd})">X</td>
+              <td onclick="deleteArray('${id}',${element.id})">X</td>
             </tr>
         `)
     }
     sumar();
 }
 
-function deleteArray(id, idProd) {
-    $("#" + id).show();
+function deleteArray(idDiv,idProd) {
+    $("#"+idDiv).show(); 
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id != undefined) {
+            if (products[i].id == idProd ) {
+                console.log(products[i].id+" Eliminado.");
+                console.log(products);
+                products.splice(i, 1);
+            }
+        }
+    }
+    refrescarVistaProductos();
+}
+
+function refrescarVistaProductos(){
+    $("#cant-products-table > tbody").empty();
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
             const element = products[i];
-            if (element.id == idProd) {
-                delete products[i];
-                console.log(products);
-
-            }
+            $("#cant-products-table > tbody").append(`
+                <tr>
+                  <td>${element.name}</td>
+                  <td>
+                    <input class="form-control" type="number" id="${element.id}" value="1">
+                  </td>
+                  <td onclick="deleteArray('prod-${element.id}',${element.id})">X</td>
+                </tr>
+            `)
         }
     }
 }
