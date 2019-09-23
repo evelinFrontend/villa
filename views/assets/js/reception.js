@@ -138,7 +138,7 @@ function getProducts() {
         success: function (success) {
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
-                $("#modal-content-products").append(`
+                $("#modal-content-products, #modal-content-products-re").append(`
                 <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta})">
                     <div class="col d-flex" id="img-product">
                         <img src="views/assets/img/products/${data.pro_imagen}">
@@ -167,8 +167,6 @@ var input = 1
 var num_hab;
 
 function reserva(data, id) {
-    console.log(data, id);
-    
     num_hab = id;
     $.ajax({
         url: 'readByRoom',
@@ -189,14 +187,13 @@ function reserva(data, id) {
                     break;
                 case 2:
                     console.log("rntro");
-                    
                     monto = success.data[0].th_valor_hora;
                     $("#reserva").addClass('active');
+                    $(".input-form-reserva").hide()
                     $("#content-card").hide();
                     $("#reception").hide();
-                    sumar()
                     verReserva(id)
-
+                    break;
                 default:
                     break;
             }
@@ -236,15 +233,15 @@ function addArray(id, idProd, name, value) {
     sumar();
 }
 
-function deleteArray(id,idProd) {
-    $("#"+id).show(); 
+function deleteArray(id, idProd) {
+    $("#" + id).show();
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
             const element = products[i];
-            if (element.id == idProd ) {
+            if (element.id == idProd) {
                 delete products[i];
                 console.log(products);
-                
+
             }
         }
     }
@@ -298,10 +295,23 @@ function verReserva(hab) {
         success: function (success) {
             var financiero = success.data.financieros;
             var product = success.data.productos;
-
-            console.log(product);
+            if (success.data.promocion != null) {
+                $("#detail-reserva").append(`
+                <div class="col">
+                    <p>Promoción:</p>
+                    <h6>${success.data.promocion }</h6>
+                </div>
+            `) 
+            }
+            console.log(success);
             $("#total").empty()
             $("#total").append(monto);
+            $("#detail-reserva").append(`
+                <div class="col">
+                    <p>Promoción:</p>
+                    <h6></h6>
+                </div>
+            `)
             for (let i = 0; i < product.length; i++) {
                 const element = product[i];
                 $("#cant-products-table > tbody").append(`

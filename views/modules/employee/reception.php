@@ -7,8 +7,7 @@
             <h4 class="pricipal-title">reservar</h4>
             <p class="mb-4">Para cambiar el estado de la habitación debes ingresar los que a continuación se muestran.
             </p>
-            <div class="alert alert-danger" role="alert">
-            </div>
+            <div class="alert alert-danger" role="alert"></div>
             <form id="form-invoices">
                 <div class="row">
                     <div class="form-group col">
@@ -46,7 +45,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="m-4 border-bottom">
                     <h5>Seleccionar productos</h5>
                     <div id="modal-content-products" class="col">
@@ -55,8 +53,8 @@
                 </div>
                 <div class="form-group">
                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <button class="btn btn-primary" type="submit" id="btn-reservar" >Reservar</button>
-                        <button class="btn btn-primary" type="submit" id="btn-facturar" >Facturar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>
             </form>
@@ -73,21 +71,21 @@
                         <th scope="col">cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
-
 </div>
 <div class="row" id="reserva">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
             <h4 class="pricipal-title">Facturar</h4>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert"></div>
+            <div class="row" id="detail-reserva">
+                
             </div>
             <form id="form-reserva">
-                <div class="row">
+                <div class="row input-form-reserva">
                     <div class="form-group col">
                         <label for="courtesy">Promociones:</label>
                         <select id="courtesy" class="form-control">
@@ -103,7 +101,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row input-form-reserva">
                     <div class="form-group col">
                         <label for="select-person">Persona adicional:</label>
                         <select id="select-person" class="form-control">
@@ -123,24 +121,19 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="m-4 border-bottom">
                     <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products" class="col">
+                    <div id="modal-content-products-re" class="col">
                         <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <button class="btn btn-primary" type="submit" id="btn-reservar" >Reservar</button>
-                        <button class="btn btn-primary" type="submit" id="btn-facturar" >Facturar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
+                        <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>
             </form>
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
-            </button>>
-            <button class="btn btn-primary" type="button" id="">Tiempo parcial</button> -->
         </div>
     </div>
     <div class="content-main-recep col-4 ">
@@ -154,16 +147,13 @@
                         <th scope="col">cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
-
-</div>
-
+</div
 <?php if($_SESSION["DATA_USER"]["ROL"]==2){?>
-<div id="init-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+<div id="init-modal" class="modal ade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
     data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -210,4 +200,6 @@
         </div>
     </div>
 </div>
+
+
 <script src="views/assets/js/reception.js"></script>
