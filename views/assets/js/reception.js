@@ -212,6 +212,8 @@ function reserva(data, id) {
                     $("#reception").hide();
                     verReserva(id)
                     break;
+                case 6:
+                        cambiarEstadoReserva(num_hab);
                 default:
                     break;
             }
@@ -223,6 +225,27 @@ function reserva(data, id) {
     });
 
 
+}
+//cambiar estado de la reserva
+function cambiarEstadoReserva(habitacion){
+    if(confirm("¿Cambiar estado a disponible?")){
+        $.ajax({
+            url: 'cambiarEstadoReservaLimpieza',
+            dataType: "json",
+            type: "POST",
+            data: (
+                {
+                    "habitacion": habitacion
+                }
+            ),
+            success: function(success) {
+                location.reload();
+            },
+            error: function (err) {
+                alert("error", err)
+            }
+        })
+    }
 }
 function sumar() {
     $("#total").empty();
