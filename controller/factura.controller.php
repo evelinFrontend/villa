@@ -260,34 +260,41 @@ Class FacturaController{
         return ;
     }
 
-    // function deleteCategory(){
-    //     header('Content-Type:application/json');
-    //     if(!empty($_POST)){
-    //         $request = $_POST;
-    //         //validar la categoria
-    //         $categoria = $this->masterModel->sqlSelect("SELECT id_categoria FROM categorias WHERE id_categoria = ? ",array($request["id"]));
-    //         if(!empty($categoria)){
-    //             $eliminar = $this->masterModel->delete("categorias",array("id_categoria",$_POST["id"]));
-    //             if($eliminar){
-    //                 $status = "success";
-    //                 $message = "Categoria eliminado.";
-    //             }else{
-    //                 header('Internal server error', true, 500);
-    //                 $status = "error";
-    //                 $message = "Debido a que esta categoria tiene productos relacionados no se puede eliminar.";
-    //             }
-    //         }else{
-    //             header('Internal server error', true, 500);
-    //             $status = "error";
-    //             $message = "Esta categoria no esta  registrada en el sistema.";
-    //         }
-    //         $result = array("status"=>$status,"message"=>$message);
-    //         echo json_encode($result);
-    //     }else{
-    //         header('405 Method Not Allowede', true, 405);
-    //     }
-    // }
-
+    function readByInvoice(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            if(isset($request["fechaInicial"]) && isset($request["fechaFinal"])){
+                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? ",array($request["fechaInicial"],$request["fechaFinal"]));
+            }else if(isset($request["fac_consecutivo"])){
+                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_consecutivo = ? ",array($request["fac_consecutivo"]));
+            }else if(isset($request["id_reserva"])){
+                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE id_reserva = ? ",array($request["id_reserva"]));
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "Parametro de busqueda no válido.";
+                $data = null;
+                $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+                echo json_encode($result);
+                return ;
+            }
+            if(!empty($dataType)){
+                $status = "success";
+                $message = "Consultas realizada.";
+                $data = $dataType;
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica los parametros.";
+                $data = null;
+            }
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }  
     
 }
 ?>

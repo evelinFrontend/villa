@@ -12,18 +12,19 @@
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Buscar facturas</h4>
         <div class="filter mb-4 border-bottom pb-4">
-            <form id="form-search-invoice " required>
-                <div class="form-row " required>
+            <form id="form-search-invoice">
+                <div class="form-row ">
                     <div class="form-group col">
                         <label for="select-option">Buscar por:</label>
                         <select id="select-option" class="form-control">
-                            <option value="number">Número de factura</option>
+                            <option value="fac_consecutivo">Número de factura</option>
+                            <option value="id_reserva">Número de Reserva</option>
                             <option value="range">Rango de fecha</option>
                         </select>
                     </div>
                     <div class="form-group col number">
-                        <label for="number-invoice">Numero de factura:</label>
-                        <input id="number-invoice" class="form-control" type="number " required>
+                        <label for="number-invoice">Valor a buscar:</label>
+                        <input id="number-invoice" class="form-control" type="number">
                     </div>
                     <div class="form-group col range">
                         <label for="date-init">Desde:</label>

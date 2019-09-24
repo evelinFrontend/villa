@@ -91,6 +91,7 @@ RewriteRule ^readByPromo$ index.php?controller=promocion&a=readByPromo
 #FACTURAS 
 RewriteRule ^reservaAfactura$ index.php?controller=factura&a=reservaAfactura
 RewriteRule ^AjustarFacturas$ index.php?controller=views&a=settingInvoices
+RewriteRule ^readByInvoice$ index.php?controller=factura&a=readByInvoice
 
 #Reportes
 RewriteRule ^readByCountCortesia$ index.php?controller=reporte&a=readByCountCortesia
