@@ -117,7 +117,7 @@ Class TipoHabitacionController{
                 $eliminar = $this->masterModel->sql("UPDATE tipo_habitacion SET th_estado = ? WHERE id_tipo_habitacion = ?",array(0,$_POST["id"]));
                 if($eliminar){
                     $status = "success";
-                    $message = "Tipo de usuario eliminado.";
+                    $message = "Tipo de habitacion eliminada.";
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";

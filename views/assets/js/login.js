@@ -20,8 +20,8 @@ $("#form-login").submit(function (e) {
                     location.href = 'home';
                 } else if (success.rol == 'EMPLOYEE') {
                     location.href = 'recepcion'
-                } else {
-
+                } else if(success.rol == 'SECRET'){
+                    location.href = 'AjustarFacturas';
                 }
             },
             error: function (err) {
