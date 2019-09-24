@@ -138,7 +138,7 @@
     </div>
     <div class="content-main-recep col-4 ">
         <div class="subcontent p-4">
-            <h5>TOTAL: <strong id="total"></strong></h5>
+            <h5>TOTAL: <strong id="TOTAL-INVOICE-SHOW"></strong></h5>
             <div id="select-products"></div>
             <table class="table table-striped table-sm " id="cant-products-table">
                 <thead>

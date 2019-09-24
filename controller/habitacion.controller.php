@@ -127,7 +127,7 @@ Class HabitacionController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT h.hab_numero,h.hab_detalle,sr.sr_estado_reserva,h.hab_estado,th.th_nombre_tipo,th.th_valor_hora_despues24,th.th_valor_persona_adicional,sr.sr_nombre,sr.sr_color FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion INNER JOIN estado_reserva sr ON sr.sr_estado_reserva = h.sr_estado_reserva WHERE ".$request['columnDBSearch']." = ? AND h.hab_estado = ? ORDER BY h.hab_numero ASC ",array($request["value"],1));
+            $dataType = $this->masterModel->sqlSelect("SELECT h.hab_numero,h.hab_detalle,sr.sr_estado_reserva,h.hab_estado,th.th_nombre_tipo,th.th_valor_hora_despues24,th.th_valor_persona_adicional,sr.sr_nombre,sr.sr_color,th.th_valor_hora1 FROM habitacion  h INNER JOIN  tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion INNER JOIN estado_reserva sr ON sr.sr_estado_reserva = h.sr_estado_reserva WHERE ".$request['columnDBSearch']." = ? AND h.hab_estado = ? ORDER BY h.hab_numero ASC ",array($request["value"],1));
             if(!empty($dataType)){
                 $status = "success";
                 $message = "Consultas realizada.";

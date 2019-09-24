@@ -148,7 +148,7 @@ function getProducts() {
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
                 $("#modal-content-products, #modal-content-products-re").append(`
-                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta})">
+                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true})">
                     <div class="col d-flex" id="img-product">
                         <img src="views/assets/img/products/${data.pro_imagen}">
                     </div>
@@ -169,7 +169,7 @@ function getProducts() {
 // reservar
 var products = [];
 var productData = [];
-var monto;
+var valorTiempo;
 var canti = 0;
 var multi = 1;
 var input = 1
@@ -187,17 +187,16 @@ function reserva(data, id) {
         }),
         success: function (success) {
             console.log(data);
-            
             switch (data) {
                 case 1:
-                    monto = success.data[0].th_valor_hora;
+                    valorTiempo = success.data[0].th_valor_hora1;
                     $("#invoices").addClass('active');
                     $("#content-card").hide()
                     $("#reception").hide()
+                    $("#btn-facturar").hide()
                     sumar();
                     break;
                 case 2:
-                    monto = success.data[0].th_valor_hora;
                     $("#reserva").addClass('active');
                     $(".input-form-reserva").hide()
                     $("#content-card").hide();
@@ -205,7 +204,7 @@ function reserva(data, id) {
                     verReserva(id)
                     break;
                 case 5:
-                    monto = success.data[0].th_valor_hora;
+                    valorTiempo = success.data[0].th_valor_hora;
                     $("#reserva").addClass('active');
                     $(".input-form-reserva").hide()
                     $("#content-card").hide();
@@ -248,29 +247,31 @@ function cambiarEstadoReserva(habitacion){
     }
 }
 function sumar() {
-    $("#total").empty();
-    canti = canti * multi;
-    monto = parseInt(monto) + parseInt(canti)
-    $("#total").append(monto);
+    var valorProducts = 0;
+    products.forEach(element => {
+        valorProducts += (element.precio*parseInt($("#"+element.idProd).val()))
+    });
+    $("#total").html(parseInt(valorTiempo)+parseInt(valorProducts));
 
 }
-function addArray(id, idProd, name, value) {
+function addArray(id, idProd, name, value,show) {
     $("#cant-products-table > tbody").empty();
     $("#" + id).hide();
-    products.push({ 'id': idProd, 'name': name });
+    products.push({ 'id': idProd, 'name': name, 'precio':value});
     console.log(products);
-    canti = value;
-    for (let i = 0; i < products.length; i++) {
-        const element = products[i];
-        $("#cant-products-table > tbody").append(`
-            <tr>
-              <td>${element.name}</td>
-              <td>
-                <input class="form-control" type="number" id="${element.id}" value="1">
-              </td>
-              <td onclick="deleteArray('${id}',${element.id})">X</td>
-            </tr>
-        `)
+    if(show){
+        for (let i = 0; i < products.length; i++) {
+            const element = products[i];
+            $("#cant-products-table > tbody").append(`
+                <tr>
+                  <td>${element.name}</td>
+                  <td>
+                    <input class="form-control" type="number" id="${element.id}" value="1">
+                  </td>
+                  <td onclick="deleteArray('${id}',${element.id})">X</td>
+                </tr>
+            `)
+        }
     }
     sumar();
 }
@@ -364,9 +365,10 @@ function verReserva(hab) {
             var product = success.data.productos;
             var reserva = success.data.reserva;
             console.log(success);
+            valorTiempo = success.data.financieros.totalTiempo;
             reservaNumHab = reserva.hab_numero;
             reservaTotal = financiero.total
-
+            $("#TOTAL-INVOICE-SHOW").append(success.data.financieros.total);
             if (success.data.promocion !== null) {
                 $("#detail-reserva").append(`
                 <div class="col">
@@ -385,8 +387,7 @@ function verReserva(hab) {
                     </div>
                 `)
             }
-            $("#total").empty()
-            $("#total").append(monto);
+           
             $("#detail-reserva").append(`
                 <div class="col">
                     <p>Nro. habitación:</p>
@@ -403,13 +404,14 @@ function verReserva(hab) {
             `)
             for (let i = 0; i < product.length; i++) {
                 const element = product[i];
+                addArray("prod-"+element.re_det_id_producto, element.re_det_id_producto, element.pro_nombre,  element.re_det_valor_unidad,false);
                 $("#cant-products-table > tbody").append(`
                     <tr>
                       <td>${element.pro_nombre}</td>
                       <td>
-                        <input class="form-control" type="number" id="${element.id}" value="${element.re_det_cantidad}">
+                        <input class="form-control" type="number" id="${element.re_det_id_producto}" value="${element.re_det_cantidad}">
                       </td>
-                      <td onclick="deleteArray()">X</td>
+                      <td onclick="deleteArray("prod-${element.re_det_id_producto}","${element.re_det_id_producto}")">X</td>
                     </tr>
                 `)
 
@@ -483,6 +485,7 @@ $("#form-reserva").submit(function(e) {
             ),
             success: function(success) {
                 alert("bieeeenn", success)
+                location.reload();
             },
             error: function (err) {
                 
