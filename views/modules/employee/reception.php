@@ -200,6 +200,41 @@
         </div>
     </div>
 </div>
-
+<div id="modal-type-pay" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="my-modal-title">Forma de pago</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="type-pay">Selecciona un metodo de pago</label>
+                    <select id="type-pay" class="form-control" name="">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="credito">Credito</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="mixto">Mixto</option>
+                    </select>
+                </div>
+                <div class="form-group" id="efectivo">
+                    <label for="input-efectivo">Efectivo</label>
+                    <input id="input-efectivo" class="form-control" type="text" reuired>
+                </div>
+                <div class="form-group" id="credito">
+                    <label for="input-credito">Credito</label>
+                    <input id="input-credito" class="form-control" type="text" reuired>
+                </div>
+                <div class="form-group" id="transferencia">
+                    <label for="input-transferencia">Transferencia</label>
+                    <input id="input-transferencia" class="form-control" type="text" reuired>
+                </div>
+                <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="views/assets/js/reception.js"></script>

@@ -110,6 +110,9 @@ p{
 #cancel-edit{
     display: none;
 }
+#credito, #transferencia{
+    display: none;
+}
 
 
 /* slide-menu */

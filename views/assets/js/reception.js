@@ -323,6 +323,10 @@ $("#form-invoices").submit(function (e) {
     })
     closeAlerts();
 })
+
+var reservaNumHab;
+var reservaTotal;
+
 function verReserva(hab) {
     var data = hab.toString()
     $.ajax({
@@ -337,6 +341,9 @@ function verReserva(hab) {
             var product = success.data.productos;
             var reserva = success.data.reserva;
             console.log(success);
+            reservaNumHab = reserva.hab_numero;
+            reservaTotal = financiero.total
+
             if (success.data.promocion !== null) {
                 $("#detail-reserva").append(`
                 <div class="col">
@@ -355,7 +362,6 @@ function verReserva(hab) {
                     </div>
                 `)
             }
-            
             $("#total").empty()
             $("#total").append(monto);
             $("#detail-reserva").append(`
@@ -363,7 +369,6 @@ function verReserva(hab) {
                     <p>Nro. habitación:</p>
                     <h6>${reserva.hab_numero}</h6>
                 </div>
-               
                 <div class="col">
                     <p>persona adicional:</p>
                     <h6>${reserva.ra_numero_personas_adicionales}</h6>
@@ -411,28 +416,56 @@ $("#cancel-edit").click(function() {
     isform = true;
 })
 
-
+$("#type-pay").change(function() {
+    if ($("#type-pay").val() == "efectivo") {
+        $("#efectivo").show()
+        $("#credito").hide()
+        $("#transferencia").hide()
+    } else if ($("#type-pay").val() == "credito") {
+        $("#efectivo").hide()
+        $("#credito").show()
+        $("#transferencia").hide()
+    } else if ($("#type-pay").val() == "transferencia") {
+        $("#efectivo").hide()
+        $("#credito").hide()
+        $("#transferencia").show() 
+    } else {
+        $("#efectivo").show()
+        $("#credito").show()
+        $("#transferencia").hide() 
+    }
+})
 $("#form-reserva").submit(function(e) {
+    var valueTranferencia = 0;
+    var valueCredito = 0
+    var valueEfectivo = 0
     e.preventDefault();
-    $.ajax({
-        url: 'reservaAfactura',
-        dataType: "json",
-        type: "POST",
-        data: (
-            {
-                "habitacion": "5",
-                "tipo_pago": "efectivo",
-                "cantidad_efectivo": "40000",
-                "cantidad_credito": "0",
-                "cantidad_transferencia": "0"
+    $("#modal-type-pay").modal('show');
+    $("#btn-aceptar-metodo").click(function() {
+        valueTranferencia = $("#input-transferencia").val()
+        valueCredito = $("#input-credito").val()
+        valueEfectivo = $("#input-efectivo").val()
+        $.ajax({
+            url: 'reservaAfactura',
+            dataType: "json",
+            type: "POST",
+            data: (
+                {
+                    "habitacion": reservaNumHab,
+                    "tipo_pago": $("#type-pay").val(),
+                    "cantidad_efectivo": valueEfectivo,
+                    "cantidad_credito": valueCredito,
+                    "cantidad_transferencia": valueTranferencia
+                }
+            ),
+            success: function(success) {
+                alert("bieeeenn", success)
+            },
+            error: function (err) {
+                
             }
-        ),
-        success: function(success) {
-            alert("bieeeenn", success)
-        },
-        error: function (err) {
-            
-        }
+        })
+        
     })
 
     
