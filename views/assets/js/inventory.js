@@ -302,6 +302,54 @@ function reloadProduct() {
         },
     });
 }
+//LISTAR PRODUCTOS PARA MOVIMIENTOS
+reloadTableProductMoves();
+function reloadTableProductMoves() {
+    $.ajax({
+        url: 'readByProduct',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (response) {
+            console.log(response);
+            
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-product-moves> tbody:last').append(`
+                <tr>
+                    <th>${response.data[i].pro_codigo}</th>
+                    <td>${response.data[i].pro_nombre}</td>
+                    <td>${response.data[i].cat_nombre}</td>
+                    <td>${response.data[i].pr_nombre}</td>
+                    <td>${response.data[i].pro_cantidad_disponible}</td>
+                    <td><input  class="form-control col-m2" type="number" id="prod-${response.data[i].id_producto}" value="0" min="1"></td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/basket-duo.png" class="icon-list" onclick="AddProductMove(${response.data[i].id_producto})">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-product-moves').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
+//PRODUCTOS AFECTADOS EN EL MOVIENTO 
+function AddProductMove(id){
+    let valor = $("#prod-"+id).val();
+    if(valor>0){
+        console.log("se puede");
+        alert("Agregado");
+    }else{
+        alert("Inserta un valor valido");
+    }
+    
+}
+
 //llenas tabla de categorias
 function reloadCategory() {
     $.ajax({
