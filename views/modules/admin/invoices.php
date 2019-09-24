@@ -47,19 +47,11 @@
                         <th scope="col">Factura Nro.</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">valor</th>
-                        <th scope="col">opcioones</th>
+                        <th scope="col">Tipo de pago</th>
+                        <th scope="col">opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>123123</th>
-                        <td>12 jun. 2018</td>
-                        <td>20.000</td>
-                        <td>
-                            <p>ver</p>
-                            <p>imprimir</p>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

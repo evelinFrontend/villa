@@ -2,6 +2,7 @@ $(document).ready(function () {
     reloadProvider();
     reloadCategory();
     reloadProduct();
+    reloadMoves();
 });
 
 $("#form-create-product").submit(function (e) {
@@ -324,9 +325,9 @@ function reloadTableProductMoves() {
                     <td>${response.data[i].cat_nombre}</td>
                     <td>${response.data[i].pr_nombre}</td>
                     <td>${response.data[i].pro_cantidad_disponible}</td>
-                    <td><input  class="form-control col-m2" type="number" id="prod-${response.data[i].id_producto}" value="0" min="1"></td>
+                    <td><input  class="form-control col-m2" type="number" id="prod-${response.data[i].id_producto}" value="0" ></td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/basket-duo.png" class="icon-list" onclick="AddProductMove(${response.data[i].id_producto})">
+                        <img src="views/assets/icons/basket-duo.png" class="icon-list" id="func-${response.data[i].id_producto}" onclick="AddProductMove(${response.data[i].id_producto})">
                     </td>
                 </tr>
                 `);
@@ -339,17 +340,75 @@ function reloadTableProductMoves() {
     });
 }
 //PRODUCTOS AFECTADOS EN EL MOVIENTO 
+var dataMoves = [];
 function AddProductMove(id){
-    let valor = $("#prod-"+id).val();
-    if(valor>0){
-        console.log("se puede");
-        alert("Agregado");
+    let cantidad = $("#prod-"+id).val();
+    if(cantidad>0){
+        $("#prod-"+id).attr("disabled",true);
+        var element = document.getElementById("func-"+id);
+        element.setAttribute('onclick','deleteProductMove('+dataMoves.length+')') ;
+        element.setAttribute('src','X.png') ;
+        dataMoves.push({    
+            "id": id,
+            "cantidad": cantidad
+        });
     }else{
         alert("Inserta un valor valido");
     }
-    
+    console.log(dataMoves);
 }
+//eliminar productos del moviemiento
+function deleteProductMove(index){
+    $("#prod-"+dataMoves[index].id).attr("disabled",false);
+    $("#prod-"+dataMoves[index].id).val("0");
+    var element = document.getElementById("func-"+dataMoves[index].id);
+    element.setAttribute('onclick','AddProductMove('+dataMoves[index].id+')') ;
+    element.setAttribute('src','views/assets/icons/basket-duo.png') ;
+    // dataMoves.splice(index,1);
+    delete dataMoves[index];
+    console.log(dataMoves);
+}
+//guardar Movimiento
+$("#CrateMove").click(function(){
+    var dataMovesSent = [];
+    var fechaMove = $("#movement-date").val();
+    var typeMove = $("#movement-type").val();
+    var desc = $("#movement-description").val();
+    if(fechaMove!="" && typeMove!="" && desc != ""){
+        console.log(fechaMove);
+        console.log(typeMove);
+        console.log(desc);
+        dataMoves.forEach(element => {
+            dataMovesSent.push(element);
+        });
 
+        $.ajax({
+            url: 'createMove',
+            dataType: "json",
+            type: "POST",
+            data: ({
+                "fecha": fechaMove,
+                "typeMove": typeMove,
+                "descripcion":desc,
+                "productos":dataMovesSent
+            }),
+            success:function(response){
+                console.log(response);
+                if(response.status=="success"){
+                    location.reload();
+                }else{
+                    alert("error.");
+                }
+            } ,
+            error:function(response){
+                console.log(response);
+                alert(response.responseJSON.message);
+            } 
+        });         
+    }else{
+        alert("Inserta los datos para crear el movimiento.");
+    }
+});
 //llenas tabla de categorias
 function reloadCategory() {
     $.ajax({
@@ -388,6 +447,7 @@ function reloadCategory() {
         },
     });
 }
+
 //llenas tabla de proveedores
 function reloadProvider() {
     $.ajax({
@@ -425,7 +485,36 @@ function reloadProvider() {
         },
     });
 }
-
+//llenas tabla de movimientos
+function reloadMoves() {
+    $.ajax({
+        url: 'readByMoves',
+        dataType: "json",
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            $('#table-moviment> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-moviment > tbody:last').append(`
+                <tr>
+                    <td>${response.data[i].id_movimiento}</td>
+                    <td>${response.data[i].mov_tipo}</td>
+                    <td>${response.data[i].mov_observaciones}</td>
+                    <td>${response.data[i].mov_fecha}</td>
+                    <td>${response.data[i].total}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].id_movimiento})">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-moviment').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
 //delete
 function deleteData(value, url) {
     console.log(value, url);

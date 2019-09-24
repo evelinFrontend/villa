@@ -262,38 +262,28 @@ Class FacturaController{
 
     function readByInvoice(){
         header('Content-Type:application/json');
-        if(!empty($_POST)){
-            $request = $_POST;
-            if(isset($request["fechaInicial"]) && isset($request["fechaFinal"])){
-                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? ",array($request["fechaInicial"],$request["fechaFinal"]));
-            }else if(isset($request["fac_consecutivo"])){
-                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_consecutivo = ? ",array($request["fac_consecutivo"]));
-            }else if(isset($request["id_reserva"])){
-                $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE id_reserva = ? ",array($request["id_reserva"]));
-            }else{
-                header('Internal server error', true, 500);
-                $status = "error";
-                $message = "Parametro de busqueda no válido.";
-                $data = null;
-                $result = array("status"=>$status,"message"=>$message,"data"=>$data);
-                echo json_encode($result);
-                return ;
-            }
-            if(!empty($dataType)){
-                $status = "success";
-                $message = "Consultas realizada.";
-                $data = $dataType;
-            }else{
-                header('Internal server error', true, 500);
-                $status = "error";
-                $message = "no hay información asociada a esta consulta verifica los parametros.";
-                $data = null;
-            }
-            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
-            echo json_encode($result);
+        $request = $_POST;
+        if(isset($request["fechaInicial"]) && isset($request["fechaFinal"])){
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? ",array($request["fechaInicial"],$request["fechaFinal"]));
+        }else if(isset($request["fac_consecutivo"])){
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE fac_consecutivo = ? ",array($request["fac_consecutivo"]));
+        }else if(isset($request["id_reserva"])){
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE id_reserva = ? ",array($request["id_reserva"]));
         }else{
-            header('405 Method Not Allowede', true, 405);
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas ORDER BY fac_hora_salida DESC   LIMIT 300",array(""));
         }
+        if(!empty($dataType)){
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $dataType;
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+        }
+        $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+        echo json_encode($result);
     }  
     
 }

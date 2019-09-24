@@ -110,10 +110,10 @@
         </button>
         <div class="row user-content-table">
             <div class="col-12">
-                <table class="table table-striped col" id="table-provider">
+                <table class="table table-striped col" id="table-moviment">
                     <thead>
                         <tr>
-                            <th>Cpnsecutivo</th>
+                            <th>Consecutivo</th>
                             <th>Tipo</th>
                             <th>Observaciones</th>
                             <th>Fecha</th>
@@ -312,7 +312,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="btn btn-primary float-right mb-4" type="submit">Crear</button>
+                    <button class="btn btn-primary float-right mb-4" type="button" id="CrateMove">Crear</button>
                 </form>
             </div>
         </div>

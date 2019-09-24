@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#table-search-invoices').DataTable();
+    reloadInvoices();
     reloadDatoConfig();
     reloadValue();
 });
@@ -64,7 +64,7 @@ $("#select-option").change(function (e) {
     if (value === "range") {
         $('.range').show();
         $(".number").hide()
-    } else if (value === "number") {
+    } else {
         $(".number").show()
         $('.range').hide();
     }
@@ -74,26 +74,42 @@ $("#form-search-invoice").submit(function (e) {
     e.preventDefault();
     data = [];
     const value = $("#select-option").val();
-    if (value === "range") {
+    if (value =="range") {
         data.push({
-            "init": $("#date-init").val(),
-            "finish": $("#date-finish").val()
+            "fechaInicial": $("#date-init").val()+" 00:00:00",
+            "fechaFinal": $("#date-finish").val()+" 23:59:59"
         })
-    } else if (value === "number") {
-        data.push({ "number": $("#number-invoice").val() })
+    }else if(value =="fac_consecutivo"){
+        data.push({ "fac_consecutivo": $("#number-invoice").val() });
+    }else{
+        data.push({ "id_reserva": $("#number-invoice").val() });
     }
-    console.log(data);
-
+    
     $.ajax({
-        url: actionurl,
+        url: "readByInvoice",
         type: 'POST',
         dataType: 'json',
-        data: ({}),
+        data: (data[0]),
         success: function (response) {
-
+            console.log(response);
+            $('#table-search-invoices> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-search-invoices > tbody:last').append(`
+                <tr>
+                    <td>${response.data[i].fac_consecutivo}</td>
+                    <td>${response.data[i].fac_hora_salida}</td>
+                    <td>${response.data[i].valor_factura}</td>
+                    <td>${response.data[i].tipo_pago}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].fac_consecutivo})">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-search-invoices').DataTable();
         },
-        error: {
-
+        error: function (response){
+            alert(response.responseJSON.message);
         }
     });
 });
@@ -158,3 +174,31 @@ $("#update-config").submit(function(e) {
 
 })
 
+function reloadInvoices() {
+    $.ajax({
+        url: 'readByInvoice',
+        dataType: "json",
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            $('#table-search-invoices> tbody>').empty();
+            for (var i = 0; i < response.data.length; i++) {
+                $('#table-search-invoices > tbody:last').append(`
+                <tr>
+                    <td>${response.data[i].fac_consecutivo}</td>
+                    <td>${response.data[i].fac_hora_salida}</td>
+                    <td>${response.data[i].valor_factura}</td>
+                    <td>${response.data[i].tipo_pago}</td>
+                    <td class="d-flex justify-content-around">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].fac_consecutivo})">
+                    </td>
+                </tr>
+                `);
+            }
+            $('#table-search-invoices').DataTable();
+        },
+        error: function (response) {
+            console.log(response);
+        },
+    });
+}
