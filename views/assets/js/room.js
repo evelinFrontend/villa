@@ -161,6 +161,7 @@ $("#form-update-type-room").submit(function(e) {
             "price_hora_21":$("#update_price_hora_21").val(),
             "price_hora_22":$("#update_price_hora_22").val(),
             "price_hora_23":$("#update_price_hora_23").val(),
+            "price_hora_24":$("#update_price_hora_23").val()
         }),
         success: function (success) {
             reloadTypeRoom();
@@ -197,6 +198,7 @@ $("#form-update-room").submit(function(e) {
             $("#update-room").modal('hide');
             $("#alert-success").addClass('show');
             $("#alert-success").append(success.message);
+            realoadRoom();
         },
         error: function (err) {
            console.log(err);
@@ -221,14 +223,15 @@ function realoadRoom(){
             "value": 1
         }),
         success: function (response) {
+            console.log(response);
             $('#table-create-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-create-room> tbody:last').append(`
                 <tr>
                     <th>${response.data[i].hab_numero}</th>
-                    <td>${response.data[i].th_descripcion}</td>
+                    <td>${response.data[i].hab_detalle}</td>
                     <td>${response.data[i].th_nombre_tipo}</td>
-                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_hora_despues24}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateRoom(${response.data[i].hab_numero})">
@@ -287,7 +290,7 @@ function reloadTypeRoom(){
                 <tr>
                     <th>${response.data[i].th_nombre_tipo}</th>
                     <td>${response.data[i].th_descripcion}</td>
-                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_hora_despues24}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateType(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
@@ -350,33 +353,8 @@ function updateType(id) {
             $('#room-type-status-up').val(data.th_estado),
             $('#room-type-name-up').val(data.th_nombre_tipo),
             $('#room-type-detail-up').val(data.th_descripcion),
-            $('#hour-value-up').val(data.th_valor_hora),
-            $('#people-up').val(data.th_valor_persona_adicional)
-        },
-        error: function (err) {
-            
-        }
-    })
-
-}
-
-function updateRoom(id) {
-    $.ajax({
-        url: 'readByRoom',
-        dataType: "json",
-        type: "POST",
-        data: ({
-            "columnDBSearch": "hab_numero",
-            "value": id
-        }),
-        success: function(success) {
-            data= success.data[0];
-            $("#update-room").modal("show");
-            $("#room-status-up").val(data.hab_estado),
-            $("#room-number-up").val(data.hab_numero),
-            $("#room-type-up").val(data.th_nombre_tipo),
-            $("#room-detail-up").val(data.hab_detalle),
-            $("#hour-value-up").val(data.th_valor_hora_despues24),
+            $('#hour-value-up').val(data.th_valor_hora_despues24),
+            $('#people-up').val(data.th_valor_persona_adicional),
             $("#update_price_hora_1").val(data.th_valor_hora1),
             $("#update_price_hora_2").val(data.th_valor_hora2),
             $("#update_price_hora_3").val(data.th_valor_hora3),
@@ -401,7 +379,30 @@ function updateRoom(id) {
             $("#update_price_hora_22").val(data.th_valor_hora22),
             $("#update_price_hora_23").val(data.th_valor_hora23),
             $("#update_price_hora_24").val(data.th_valor_hora24)
+        },
+        error: function (err) {
             
+        }
+    })
+
+}
+
+function updateRoom(id) {
+    $.ajax({
+        url: 'readByRoom',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": "hab_numero",
+            "value": id
+        }),
+        success: function(success) {
+            data= success.data[0];
+            $("#update-room").modal("show");
+            $("#room-status-up").val(data.hab_estado);
+            $("#room-number-up").val(data.hab_numero);
+            $("#room-type-up").val(data.th_nombre_tipo);
+            $("#room-detail-up").val(data.hab_detalle);
         },
         error: function (err) {
             
