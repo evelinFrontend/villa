@@ -12,8 +12,8 @@ Class ConfiguracionController{
             $request = $_POST;
             //datos
             if($request["iva"]>0){
-                if($request["minutos_cortesia"]>0 && $request["precio_decoracion"]>0){
-                    $update = $this->masterModel->sql("UPDATE villa_config SET conf_iva = ?, conf_minutos_cortesia = ? ,conf_precio_decoracion = ? , id_usuario = ? WHERE id_conf = ?",array($request["iva"],$request["minutos_cortesia"],$request["precio_decoracion"],$_SESSION["DATA_USER"]["ID"],1));
+                if($request["minutos_cortesia"]>0 && $request["precio_decoracion"]>0 && $request["minutos_contar_hora"]>0){
+                    $update = $this->masterModel->sql("UPDATE villa_config SET conf_iva = ?, conf_minutos_cortesia = ? ,conf_precio_decoracion = ? ,minutos_contar_hora = ?, id_usuario = ? WHERE id_conf = ?",array($request["iva"],$request["minutos_cortesia"],$request["precio_decoracion"],$request["minutos_contar_hora"],$_SESSION["DATA_USER"]["ID"],1));
                     if($update){
                         $status = "success";
                         $message = "Configuración Modificada exitosamente.";

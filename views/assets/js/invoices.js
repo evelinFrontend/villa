@@ -50,6 +50,7 @@ function reloadValue() {
             $("#value-iva").val(data.conf_iva);
             $("#min-cort").val(data.conf_minutos_cortesia);
             $("#dec-hab").val(data.conf_precio_decoracion);
+            $("#minutosCobrar").val(data.minutos_contar_hora);
             
         },
         error: function (err) {
@@ -138,7 +139,8 @@ $("#update-config").submit(function(e) {
         data: ({
             "iva": $("#value-iva").val(),
             "minutos_cortesia": $("#min-cort").val(),
-            "precio_decoracion" : $("#dec-hab").val()
+            "precio_decoracion" : $("#dec-hab").val(),
+            "minutos_contar_hora" : $("#minutosCobrar").val()
         }),
         success: function(success) {
             $("#modal-iva").modal("hide");

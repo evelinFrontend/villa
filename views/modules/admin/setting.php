@@ -292,7 +292,7 @@
                     </div>
                     <div class="form-group">
                         <label for="promo-time">Tiempo</label>
-                        <input id="promo-time" class="form-control" type="text">
+                        <input id="promo-time" class="form-control" type="time">
                         <small>Ejemplo 1:00:00</small>
                     </div>
                     <div class="form-group">
@@ -341,7 +341,7 @@
                     </div>
                     <div class="form-group">
                         <label for="update-promo-times">Tiempo:</label>
-                        <input id="update-promo-times" class="form-control" type="text">
+                        <input id="update-promo-times" class="form-control" type="time">
                     </div>
                     <div class="form-group">
                         <label for="update-promo-value">Valor:</label>

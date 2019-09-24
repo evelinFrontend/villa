@@ -24,7 +24,7 @@
             </div>
             <div class="cards statistics p-4">
                 <h4 class="cards-title">Numero de cortesias en el mes</h4>
-                <h1 class="card-data text-center">123</h1>
+                <h1 class="card-data text-center" id="cantCortesias"></h1>
             </div>
         </div>
         <div class="row">

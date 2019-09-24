@@ -65,6 +65,7 @@ function realoanPromo() {
         }),
         success: function(response) {
             console.log(response);
+            $("#table-promo> tbody:last").empty();
             for (var i = 0; i < response.data.length; i++) {
                 $("#table-promo> tbody:last").append(`
                     <tr>
@@ -174,7 +175,8 @@ function updatePromo(id) {
             $("#update-promo-name").val(data.promo_nombre);
             $("#update-promo-value").val(data.promo_valor);
             $("#update-promo-id").val(data.id_promocion);
-            $("#update-promo-status").val(data.promo_estado);   
+            $("#update-promo-status").val(data.promo_estado); 
+            realoanPromo();  
         },
         error: function (err) {
             
@@ -305,7 +307,8 @@ $("#form-update-promo").submit(function(e) {
         success: function(success) {
           $("#create-promo").modal('hide');
           $(".alert-success").addClass('show')
-          $(".alert-success").append(success.message)
+          $(".alert-success").append(success.message);
+          realoanPromo();  
         },
         error: function (err) {
             console.log(err);
@@ -330,6 +333,7 @@ $("#form-create-promo").submit(function(e) {
           $("#create-promo").modal('hide');
           $(".alert-success").addClass('show')
           $(".alert-success").append(success.message)
+          realoanPromo();  
         },
         error: function (err) {
             $(".alert-danger").addClass('show')

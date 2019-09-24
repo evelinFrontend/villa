@@ -74,7 +74,31 @@ $("#form-type-room").submit(function (e) {
                 "nombre_tipo": $('#room-type-name').val(),
                 "descripcion": $('#room-type-detail').val(),
                 "valor_hora": $('#hour-value').val(),
-                "valor_persona_adicional": $('#people').val()
+                "valor_persona_adicional": $('#people').val(),
+                "price_hora_1":$("#price_hora_1").val(),
+                "price_hora_2":$("#price_hora_2").val(),
+                "price_hora_3":$("#price_hora_3").val(),
+                "price_hora_4":$("#price_hora_4").val(),
+                "price_hora_5":$("#price_hora_5").val(),
+                "price_hora_6":$("#price_hora_6").val(),
+                "price_hora_7":$("#price_hora_7").val(),
+                "price_hora_8":$("#price_hora_8").val(),
+                "price_hora_9":$("#price_hora_9").val(),
+                "price_hora_10":$("#price_hora_10").val(),
+                "price_hora_11":$("#price_hora_11").val(),
+                "price_hora_12":$("#price_hora_12").val(),
+                "price_hora_13":$("#price_hora_13").val(),
+                "price_hora_14":$("#price_hora_14").val(),
+                "price_hora_15":$("#price_hora_15").val(),
+                "price_hora_16":$("#price_hora_16").val(),
+                "price_hora_17":$("#price_hora_17").val(),
+                "price_hora_18":$("#price_hora_18").val(),
+                "price_hora_19":$("#price_hora_19").val(),
+                "price_hora_20":$("#price_hora_20").val(),
+                "price_hora_21":$("#price_hora_21").val(),
+                "price_hora_22":$("#price_hora_22").val(),
+                "price_hora_23":$("#price_hora_23").val(),
+                "price_hora_24":$("#price_hora_24").val()
             }),
             success: function (success) {
                 reloadTypeRoom();
@@ -113,7 +137,31 @@ $("#form-update-type-room").submit(function(e) {
             "nombre_tipo": $('#room-type-name-up').val(),
             "descripcion": $('#room-type-detail-up').val(),
             "valor_hora": $('#hour-value-up').val(),
-            "valor_persona_adicional": $('#people-up').val()
+            "valor_persona_adicional": $('#people-up').val(),
+            "price_hora_1":$("#update_price_hora_1").val(),
+            "price_hora_2":$("#update_price_hora_2").val(),
+            "price_hora_3":$("#update_price_hora_3").val(),
+            "price_hora_4":$("#update_price_hora_4").val(),
+            "price_hora_5":$("#update_price_hora_5").val(),
+            "price_hora_6":$("#update_price_hora_6").val(),
+            "price_hora_7":$("#update_price_hora_7").val(),
+            "price_hora_8":$("#update_price_hora_8").val(),
+            "price_hora_9":$("#update_price_hora_9").val(),
+            "price_hora_10":$("#update_price_hora_10").val(),
+            "price_hora_11":$("#update_price_hora_11").val(),
+            "price_hora_12":$("#update_price_hora_12").val(),
+            "price_hora_13":$("#update_price_hora_13").val(),
+            "price_hora_14":$("#update_price_hora_14").val(),
+            "price_hora_15":$("#update_price_hora_15").val(),
+            "price_hora_16":$("#update_price_hora_16").val(),
+            "price_hora_17":$("#update_price_hora_17").val(),
+            "price_hora_18":$("#update_price_hora_18").val(),
+            "price_hora_19":$("#update_price_hora_19").val(),
+            "price_hora_20":$("#update_price_hora_20").val(),
+            "price_hora_21":$("#update_price_hora_21").val(),
+            "price_hora_22":$("#update_price_hora_22").val(),
+            "price_hora_23":$("#update_price_hora_23").val(),
+            "price_hora_24":$("#update_price_hora_23").val()
         }),
         success: function (success) {
             reloadTypeRoom();
@@ -150,6 +198,7 @@ $("#form-update-room").submit(function(e) {
             $("#update-room").modal('hide');
             $("#alert-success").addClass('show');
             $("#alert-success").append(success.message);
+            realoadRoom();
         },
         error: function (err) {
            console.log(err);
@@ -174,14 +223,15 @@ function realoadRoom(){
             "value": 1
         }),
         success: function (response) {
+            console.log(response);
             $('#table-create-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-create-room> tbody:last').append(`
                 <tr>
                     <th>${response.data[i].hab_numero}</th>
-                    <td>${response.data[i].th_descripcion}</td>
+                    <td>${response.data[i].hab_detalle}</td>
                     <td>${response.data[i].th_nombre_tipo}</td>
-                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_hora_despues24}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateRoom(${response.data[i].hab_numero})">
@@ -240,7 +290,7 @@ function reloadTypeRoom(){
                 <tr>
                     <th>${response.data[i].th_nombre_tipo}</th>
                     <td>${response.data[i].th_descripcion}</td>
-                    <td>${response.data[i].th_valor_hora}</td>
+                    <td>${response.data[i].th_valor_hora_despues24}</td>
                     <td>${response.data[i].th_valor_persona_adicional}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateType(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
@@ -296,14 +346,39 @@ function updateType(id) {
             "value": id
         }),
         success: function(success) {
+            console.log(success);
             var data = success.data[0];
             $("#update-type").modal('show');
             $('#room-type-id-up').val(data.id_tipo_habitacion),
             $('#room-type-status-up').val(data.th_estado),
             $('#room-type-name-up').val(data.th_nombre_tipo),
             $('#room-type-detail-up').val(data.th_descripcion),
-            $('#hour-value-up').val(data.th_valor_hora),
-            $('#people-up').val(data.th_valor_persona_adicional)
+            $('#hour-value-up').val(data.th_valor_hora_despues24),
+            $('#people-up').val(data.th_valor_persona_adicional),
+            $("#update_price_hora_1").val(data.th_valor_hora1),
+            $("#update_price_hora_2").val(data.th_valor_hora2),
+            $("#update_price_hora_3").val(data.th_valor_hora3),
+            $("#update_price_hora_4").val(data.th_valor_hora4),
+            $("#update_price_hora_5").val(data.th_valor_hora5),
+            $("#update_price_hora_6").val(data.th_valor_hora6),
+            $("#update_price_hora_7").val(data.th_valor_hora7),
+            $("#update_price_hora_8").val(data.th_valor_hora8),
+            $("#update_price_hora_9").val(data.th_valor_hora9),
+            $("#update_price_hora_10").val(data.th_valor_hora10),
+            $("#update_price_hora_11").val(data.th_valor_hora11),
+            $("#update_price_hora_12").val(data.th_valor_hora12),
+            $("#update_price_hora_13").val(data.th_valor_hora13),
+            $("#update_price_hora_14").val(data.th_valor_hora14),
+            $("#update_price_hora_15").val(data.th_valor_hora14),
+            $("#update_price_hora_16").val(data.th_valor_hora16),
+            $("#update_price_hora_17").val(data.th_valor_hora17),
+            $("#update_price_hora_18").val(data.th_valor_hora18),
+            $("#update_price_hora_19").val(data.th_valor_hora19),
+            $("#update_price_hora_20").val(data.th_valor_hora20),
+            $("#update_price_hora_21").val(data.th_valor_hora21),
+            $("#update_price_hora_22").val(data.th_valor_hora22),
+            $("#update_price_hora_23").val(data.th_valor_hora23),
+            $("#update_price_hora_24").val(data.th_valor_hora24)
         },
         error: function (err) {
             
@@ -324,11 +399,10 @@ function updateRoom(id) {
         success: function(success) {
             data= success.data[0];
             $("#update-room").modal("show");
-            $("#room-status-up").val(data.hab_estado),
-            $("#room-number-up").val(data.hab_numero),
-            $("#room-type-up").val(data.th_nombre_tipo),
-            $("#room-detail-up").val(data.hab_detalle)
-            
+            $("#room-status-up").val(data.hab_estado);
+            $("#room-number-up").val(data.hab_numero);
+            $("#room-type-up").val(data.th_nombre_tipo);
+            $("#room-detail-up").val(data.hab_detalle);
         },
         error: function (err) {
             
