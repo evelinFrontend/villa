@@ -148,6 +148,11 @@ Class TiempoController{
                 // $totalTiempo += $valorHora;
                 $totalHorasCobrar+=1;
             }
+
+            //validar si existe una cortesia
+            if($datosReserva->ra_tipo_cortesia!=null){
+                $totalHorasCobrar = $totalHorasCobrar-$datosReserva->ra_tipo_cortesia;
+            }
             switch ($totalHorasCobrar) {
                 case 1:
                     $totalTiempo += intval($datosReserva->th_valor_hora1);
