@@ -47,7 +47,7 @@
                 </div>
                 <div class="m-4 border-bottom">
                     <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products" class="col">
+                    <div id="modal-content-products-re" class="col">
                         <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
 <div class="row" id="reserva">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
-            <h4 class="pricipal-title"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"> Facturar</h4>
+            <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"></a> Facturar</h4>
             <div class="row justify-content-end mb-4 mr-2">
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
                 <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
@@ -89,22 +89,6 @@
             <form id="form-reserva">
                 <div class="row input-form-reserva">
                     <div class="form-group col">
-                        <label for="courtesy-re">Promociones:</label>
-                        <select id="courtesy-re" class="form-control">
-                            <option value="">N/A</option>
-                        </select>
-                    </div>
-                    <div class="form-group col cortesia-re">
-                        <label for="cortesia-re">Cortesia:</label>
-                        <select id="cortesia-re" class="form-control">
-                            <option value="0">N/A</option>
-                            <option value="1">1 Hora</option>
-                            <option value="2">2 Horas</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row input-form-reserva">
-                    <div class="form-group col">
                         <label for="select-person-re">Persona adicional:</label>
                         <select id="select-person-re" class="form-control">
                             <option value="no">No</option>
@@ -112,12 +96,12 @@
                         </select>
                     </div>
                     <div class="form-group col" id="content-additional-re">
-                        <label for="additional">¿Cuantas?</label>
-                        <input id="additional" class="form-control" type="number" value="0" required>
+                        <label for="additional-invoice">¿Cuantas?</label>
+                        <input id="additional-invoice" class="form-control" type="number" value="0" required>
                     </div>
                     <div class="form-group col">
-                        <label for="decorated-room">habitación decorada:</label>
-                        <select id="decorated-room" class="form-control">
+                        <label for="decorated-room-invoice">habitación decorada:</label>
+                        <select id="decorated-room-invoice" class="form-control">
                             <option value="0">No</option>
                             <option value="1">Si</option>
                         </select>
@@ -125,13 +109,14 @@
                 </div>
                 <div class="m-4 border-bottom">
                     <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products-re" class="col">
+                    <div id="modal-content-products" class="col">
                         <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end" role="group">
-                        <button class="btn btn-primary" type="button" id="btn-reservar">Cancelar</button>
+                        <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
+                        <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar Reserva</button>
                         <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>

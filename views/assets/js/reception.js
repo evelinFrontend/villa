@@ -150,8 +150,19 @@ function getProducts() {
         success: function (success) {
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
-                $("#modal-content-products, #modal-content-products-re").append(`
-                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true})">
+                $("#modal-content-products").append(`
+                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                    <div class="col d-flex" id="img-product">
+                        <img src="views/assets/img/products/${data.pro_imagen}">
+                    </div>
+                    <div class="col" id="detail-product">
+                        <h6 class="name">${data.pro_nombre}</h6>
+                        <p>${data.pro_precio_venta}</p>
+                    </div>
+                 </div>
+                `)
+                $("#modal-content-products-re").append(`
+                <div class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${false},${false},1)">
                     <div class="col d-flex" id="img-product">
                         <img src="views/assets/img/products/${data.pro_imagen}">
                     </div>
@@ -204,6 +215,7 @@ function reserva(data, id) {
                     $(".input-form-reserva").hide()
                     $("#content-card").hide();
                     $("#reception").hide();
+                    $("#btn-cancel-changes").hide();
                     verReserva(id)
                     break;
                 case 5:
@@ -212,6 +224,8 @@ function reserva(data, id) {
                     $(".input-form-reserva").hide()
                     $("#content-card").hide();
                     $("#reception").hide();
+                    $("#btn-cancel-changes").hide();
+                    $("#btn-update-invoice").hide();
                     verReserva(id)
                     break;
                 case 6:
@@ -257,30 +271,41 @@ function sumar() {
     $("#total").html(parseInt(valorTiempo)+parseInt(valorProducts));
 
 }
-function addArray(id, idProd, name, value,show) {
+function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
     $("#cant-products-table > tbody").empty();
     $("#"+id).hide();
-    products.push({ 'id': idProd, 'name': name, 'precio':value});
+    products.push({ 'id': idProd, 'name': name, 'precio':value, 'cantidad':cantidad});
     // console.log(products);
-    if(show){
-        for (let i = 0; i < products.length; i++) {
-            const element = products[i];
-            $("#cant-products-table > tbody").append(`
-                <tr>
-                  <td>${element.name}<small>($${element.precio})</small></td>
-                  <td>
-                    <input class="form-control" type="number" id="${element.id}" value="1">
-                  </td>
-                  <td onclick="deleteArray('${id}',${element.id})">X</td>
-                </tr>
-            `)
-        }
+    if(facturar){
+        $("#btn-facturar").hide();
+        $("#btn-update-invoice").show();
+        $("#btn-cancel-changes").show();
+    }else{
+        $("#btn-update-invoice").hide();
     }
+    for (let i = 0; i < products.length; i++) {
+        const element = products[i];
+        if(invoice){
+            var deleteID = "prod-"+element.id;
+        }else{
+            var deleteID = "prod-re-"+element.id;
+        }
+        $("#cant-products-table > tbody").append(`
+            <tr>
+              <td>${element.name}<small>($${element.precio})</small></td>
+              <td>
+                <input class="form-control inputAddProduct" type="number"  id="cant-prod-add-${element.id}" value="${element.cantidad}" OnKeyUp="showButtons(this)">
+              </td>
+              <td onclick="deleteArray('${deleteID}',${element.id},${invoice})">X</td>
+            </tr>
+        `)
+    }
+    
     sumar();
 }
 
 
-function deleteArray(idDiv,idProd) {
+function deleteArray(idDiv,idProd,invoice) {
     $("#"+idDiv).show(); 
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
@@ -291,23 +316,36 @@ function deleteArray(idDiv,idProd) {
             }
         }
     }
-    refrescarVistaProductos();
+    refrescarVistaProductos(invoice);
 }
 
-function refrescarVistaProductos(){
+function refrescarVistaProductos(invoice){
     $("#cant-products-table > tbody").empty();
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
             const element = products[i];
-            $("#cant-products-table > tbody").append(`
-                <tr>
-                  <td>${element.name}</td>
-                  <td>
-                    <input class="form-control" type="number" id="${element.id}" value="1">
-                  </td>
-                  <td onclick="deleteArray('prod-${element.id}',${element.id})">X</td>
-                </tr>
-            `)
+            if(invoice){
+                $("#cant-products-table > tbody").append(`
+                    <tr>
+                      <td>${element.name}</td>
+                      <td>
+                        <input class="form-control" type="number" id="${element.id}" value="${element.cantidad}">
+                      </td>
+                      <td onclick="deleteArray('prod-${element.id}',${element.id},${true})">X</td>
+                    </tr>
+                `)
+            }else{
+                $("#cant-products-table > tbody").append(`
+                    <tr>
+                      <td>${element.name}</td>
+                      <td>
+                        <input class="form-control" type="number" id="${element.id}" value="${element.cantidad}">
+                      </td>
+                      <td onclick="deleteArray('prod-re-${element.id}',${element.id},${false})">X</td>
+                    </tr>
+                `)
+
+            }
         }
     }
 }
@@ -354,6 +392,9 @@ $("#form-invoices").submit(function (e) {
 
 var reservaNumHab;
 var reservaTotal;
+var personasAdicionales;
+var habitacionDecorada;
+var idReserva;
 
 function verReserva(hab) {
     var data = hab.toString()
@@ -372,6 +413,7 @@ function verReserva(hab) {
             valorTiempo = success.data.financieros.totalTiempo;
             reservaNumHab = reserva.hab_numero;
             reservaTotal = financiero.total
+            idReserva = success.data.reserva.id_reserva;
             $("#TOTAL-INVOICE-SHOW").append(success.data.financieros.total);
             if (success.data.promocion !== null) {
                 $("#detail-reserva").append(`
@@ -409,18 +451,11 @@ function verReserva(hab) {
             `)
             for (let i = 0; i < product.length; i++) {
                 const element = product[i];
-                addArray("prod-"+element.re_det_id_producto, element.re_det_id_producto, element.pro_nombre,  element.re_det_valor_unidad,false);
-                $("#cant-products-table > tbody").append(`
-                    <tr>
-                      <td>${element.pro_nombre}</td>
-                      <td>
-                        <input class="form-control" type="number" id="${element.re_det_id_producto}" value="${element.re_det_cantidad}">
-                      </td>
-                      <td onclick="deleteArray("prod-${element.re_det_id_producto}","${element.re_det_id_producto}")">X</td>
-                    </tr>
-                `)
+                addArray("prod-"+element.re_det_id_producto, element.re_det_id_producto, element.pro_nombre,  element.re_det_valor_unidad,true,false,element.re_det_cantidad);
             }
-           
+            //VALORES DE DETALLE
+            personasAdicionales = reserva.ra_numero_personas_adicionales;
+            habitacionDecorada = reserva.ra_habitacion_decorada;
         },
         error: function (err) {
 
@@ -428,22 +463,37 @@ function verReserva(hab) {
     })
 }
 
- var isform;
+var updateInvice = false;
 
 $("#edit").click(function name() {
     $("#edit").hide();
     $("#cancel-edit").show()
     $("#detail-reserva").hide();
     $(".input-form-reserva").show();
-    isform = false
-
+    updateInvice = true;
+    $("#btn-update-invoice").show();
+    $("#btn-facturar").hide();
+    $("#btn-cancel-changes").show();
+    if(parseInt(personasAdicionales)>0){
+        $("#additional-invoice").val(personasAdicionales);
+        $("#select-person-re").val("si");
+        $("#select-person-re").change();
+    }
+    if(parseInt(habitacionDecorada)==1){
+        $("#decorated-room-invoice").val("1");
+        $("#decorated-room-invoice").change();
+    }
+    $("#decorated-room").val(habitacionDecorada);
 })
 $("#cancel-edit").click(function() {
     $("#edit").show();
     $("#cancel-edit").hide()
     $("#detail-reserva").show();
     $(".input-form-reserva").hide();
-    isform = true;
+    updateInvice = false;
+    $("#btn-update-invoice").hide();
+    $("#btn-facturar").show();
+    $("#btn-cancel-changes").hide();
 })
 
 $("#type-pay").change(function() {
@@ -581,3 +631,60 @@ $("#print-parcial").click(function() {
     $("#content-print").addClass("show");
     window.print();
 })
+
+$("#btn-cancel-changes").click(function(){
+    location.reload();
+});
+
+//ACTUALIZAR RESERVA
+$("#btn-update-invoice").click(function(){
+    for (let i = 0; i < products.length; i++) {
+        const element = products[i];
+        input = $("#" + element.id).val();
+        productData.push({ "id": element.id, "cantidad": element.cantidad })
+    }
+    if(updateInvice){
+        var data = {
+            "id_reserva": idReserva,
+            "numero_personas_adicionales": $("#additional-invoice").val(),
+            "habitacion_decorada": $("#decorated-room-invoice").val(),
+            "productos": JSON.stringify(productData)
+        }
+    }else{
+        var data = {
+            "id_reserva": idReserva,
+            "numero_personas_adicionales": personasAdicionales,
+            "habitacion_decorada": habitacionDecorada,
+            "productos": JSON.stringify(productData)
+        }
+    }
+    $.ajax({
+        url: 'ModificarReserva',
+        dataType: "json",
+        type: "POST",
+        data: data,
+        success: function (success) {
+            location.reload()
+        },
+        error: function (err) {
+            $(".alert-danger").addClass('show');
+            $(".alert-danger").append(err.responseJSON.message);
+            console.log(err);
+
+        }
+    })
+    closeAlerts();
+});
+
+function showButtons(element){
+    
+    var idProducto = element.id.replace("cant-prod-add-","");
+    products.forEach((product)=>{
+        if(product.id==idProducto){
+            product.cantidad=element.value;
+        }
+    });
+    $("#btn-update-invoice").show();
+    $("#btn-facturar").hide();
+    console.log(products);
+}
