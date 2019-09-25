@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2019 at 04:06 AM
+-- Generation Time: Sep 25, 2019 at 02:06 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -205,7 +205,57 @@ INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto
 (42, 24, 8, 1, 19000, 20000, 20000, '2019-09-22 22:58:48'),
 (43, 24, 9, 5, 19000, 20000, 100000, '2019-09-22 22:58:48'),
 (44, 25, 8, 1, 19000, 20000, 20000, '2019-09-23 14:57:24'),
-(45, 25, 9, 5, 19000, 20000, 100000, '2019-09-23 14:57:24');
+(45, 25, 9, 5, 19000, 20000, 100000, '2019-09-23 14:57:24'),
+(46, 26, 8, 1, 19000, 20000, 20000, '2019-09-24 16:19:21'),
+(47, 27, 8, 1, 19000, 20000, 20000, '2019-09-24 16:40:40'),
+(48, 28, 8, 1, 19000, 20000, 20000, '2019-09-24 16:45:28'),
+(49, 29, 8, 1, 19000, 20000, 20000, '2019-09-24 16:46:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detalle_movimiento`
+--
+
+CREATE TABLE `detalle_movimiento` (
+  `id_det_mov` int(11) NOT NULL,
+  `id_movimiento` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `det_mov_cantidad` int(11) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detalle_movimiento`
+--
+
+INSERT INTO `detalle_movimiento` (`id_det_mov`, `id_movimiento`, `id_producto`, `det_mov_cantidad`, `fecha`) VALUES
+(1, 5, 14, 10, '2019-09-24'),
+(2, 13, 8, 1, '2019-09-24'),
+(3, 13, 9, 5, '2019-09-24'),
+(4, 14, 8, 1, '2019-09-24'),
+(5, 14, 9, 5, '2019-09-24'),
+(6, 15, 8, 1, '2019-09-24'),
+(7, 15, 9, 5, '2019-09-24'),
+(8, 16, 8, 1, '2019-09-24'),
+(9, 16, 9, 55, '2019-09-24'),
+(10, 19, 14, 10, '2019-09-24'),
+(11, 19, 12, 19, '2019-09-24'),
+(12, 20, 14, 1, '2019-09-24'),
+(13, 21, 14, 1, '2019-09-24'),
+(14, 22, 14, 1, '2019-09-24'),
+(15, 23, 14, 987, '2019-09-24'),
+(16, 25, 14, 1, '2019-09-24'),
+(17, 26, 14, 1, '2019-09-24'),
+(18, 27, 12, 2, '2019-09-24'),
+(19, 28, 13, 789087, '2019-09-24'),
+(20, 29, 14, 5, '2019-09-24'),
+(21, 29, 12, 6, '2019-09-24'),
+(22, 29, 13, 7, '2019-09-24'),
+(23, 30, 14, 1, '2019-09-24'),
+(24, 31, 14, 1, '2019-09-24'),
+(25, 32, 14, 2, '2019-09-24'),
+(26, 33, 14, 3, '2019-09-24');
 
 -- --------------------------------------------------------
 
@@ -288,7 +338,11 @@ INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuar
 (22, 75, 1, 6, NULL, '2019-09-22 22:36:14', '', '', 0, 0, '2019-09-22 22:51:34', 'credito', '00:15:00', 40000, 2, 0, 40000, 0),
 (23, 76, 1, 6, NULL, '2019-09-22 22:51:39', '', '', 0, 1, '2019-09-22 22:54:16', 'credito', '00:02:00', 125000, 2, 0, 125000, 0),
 (24, 77, 1, 6, NULL, '2019-09-22 22:58:37', '', '', 0, 1, '2019-09-22 22:58:48', 'credito', '00:00:11', 125000, 2, 0, 125000, 0),
-(25, 80, 2, 6, NULL, '2019-09-23 14:57:00', '', '', 0, 1, '2019-09-23 14:57:24', 'credito', '00:00:24', 122000, 2, 0, 122000, 0);
+(25, 80, 2, 6, NULL, '2019-09-23 14:57:00', '', '', 0, 1, '2019-09-23 14:57:24', 'credito', '00:00:24', 122000, 2, 0, 122000, 0),
+(26, 81, 3, 6, NULL, '2019-09-24 14:44:36', '', '', 0, 0, '2019-09-24 16:19:21', 'efectivo', '01:34:00', 40000, 2, 40000, 0, 0),
+(27, 82, 2, 6, NULL, '2019-09-24 16:21:22', '', '', 0, 0, '2019-09-24 16:40:40', 'efectivo', '00:19:00', 40000, 2, 40000, 0, 0),
+(28, 83, 3, 6, NULL, '2019-09-24 16:41:04', '', '', 0, 0, '2019-09-24 16:45:28', 'efectivo', '00:04:00', 40000, 2, 40000, 0, 0),
+(29, 84, 1, 6, NULL, '2019-09-24 16:45:57', '', '', 0, 0, '2019-09-24 16:46:09', 'efectivo', '00:00:12', 20000, 2, 20000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -310,8 +364,8 @@ CREATE TABLE `habitacion` (
 --
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
-(1, 1, 'nada', 6, '0000-00-00', 1),
-(2, 1, 'sad', 6, '2019-09-08', 1),
+(1, 1, 'nada', 1, '0000-00-00', 1),
+(2, 1, 'sad', 1, '2019-09-08', 1),
 (3, 2, '221', 1, '2019-09-08', 1),
 (4, 3, '213', 1, '2019-09-08', 1),
 (5, 2, '2121321321321', 1, '2019-09-08', 1),
@@ -322,6 +376,61 @@ INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr
 (10, 11, 'mm', 1, '2019-09-14', 1),
 (11, 5, '', 1, '2019-09-18', 1),
 (12, 4, '88', 1, '2019-09-23', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `movimientos`
+--
+
+CREATE TABLE `movimientos` (
+  `id_movimiento` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `mov_fecha` date NOT NULL,
+  `mov_tipo` varchar(20) NOT NULL,
+  `mov_observaciones` longtext NOT NULL,
+  `mov_fecha_realizacion` date NOT NULL,
+  `total` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `movimientos`
+--
+
+INSERT INTO `movimientos` (`id_movimiento`, `id_usuario`, `mov_fecha`, `mov_tipo`, `mov_observaciones`, `mov_fecha_realizacion`, `total`) VALUES
+(1, 6, '2019-09-17', 'sumar', '32', '2019-09-24', 0),
+(2, 6, '2019-09-17', 'descontar', '32', '2019-09-24', 0),
+(3, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(4, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(5, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(6, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(7, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(8, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(9, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(10, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(11, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(12, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(13, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(14, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(15, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(16, 6, '2019-08-20', 'sumar', 'jugyfdgh', '2019-09-24', 0),
+(17, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(18, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(19, 6, '2019-09-17', 'cortesia', '32', '2019-09-24', 0),
+(20, 6, '2019-09-27', 'descontar', '123', '2019-09-24', 0),
+(21, 6, '2019-09-13', 'cortesia', '1sda', '2019-09-24', 0),
+(22, 6, '2019-09-14', 'cortesia', '23432', '2019-09-24', 0),
+(23, 6, '2019-09-19', 'descontar', 'Descontar', '2019-09-24', 0),
+(24, 6, '2019-09-07', 'descontar', '21', '2019-09-24', 0),
+(25, 6, '2019-09-07', 'descontar', '21', '2019-09-24', 0),
+(26, 6, '2019-09-07', 'descontar', '21', '2019-09-24', 0),
+(27, 6, '2019-09-14', 'descontar', 'dsda', '2019-09-24', 0),
+(28, 6, '2019-09-19', 'descontar', 'dasda', '2019-09-24', 0),
+(29, 6, '2019-09-13', 'sumar', 'kjhg', '2019-09-24', 0),
+(30, 6, '2019-09-28', 'cortesia', 'sad', '2019-09-24', 0),
+(31, 6, '2019-09-12', 'descontar', '3423', '2019-09-24', 0),
+(32, 6, '2019-09-20', 'descontar', 'kl', '2019-09-24', 60000),
+(33, 6, '2019-09-17', 'sumar', 'Nada', '2019-09-24', 90000);
 
 -- --------------------------------------------------------
 
@@ -349,11 +458,11 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
-(8, 'PNE-001', 'Prod 1', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 178, '2019-09-12', '2019-09-12', 1),
+(8, 'PNE-001', 'Prod 1', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 174, '2019-09-12', '2019-09-12', 1),
 (9, 'PNE-002', 'Prod 2', 19000, 20000, 4, 4, 'img_deafult_product.jpg', 89, '2019-09-13', '2019-09-13', 1),
-(12, '78678', 'Prod 3', 78678, 10000, 4, 5, 'img_deafult_product.jpg', 2, '2019-09-14', '2019-09-14', 1),
-(13, '89765', 'Prod 4', 98765, 15000, 4, 5, 'img_deafult_product.jpg', 789087, '2019-09-14', '2019-09-14', 1),
-(14, '567890', 'Prod 5', 9876544567890, 30000, 4, 5, 'img_deafult_product.jpg', 90987, '2019-09-14', '2019-09-14', 1);
+(12, '78678', 'Prod 3', 78678, 10000, 4, 5, 'img_deafult_product.jpg', 6, '2019-09-14', '2019-09-14', 1),
+(13, '89765', 'Prod 4', 98765, 15000, 4, 5, 'img_deafult_product.jpg', 7, '2019-09-14', '2019-09-14', 1),
+(14, '567890', 'Prod 5', 9876544567890, 30000, 4, 5, 'img_deafult_product.jpg', 0, '2019-09-14', '2019-09-14', 1);
 
 -- --------------------------------------------------------
 
@@ -678,6 +787,14 @@ ALTER TABLE `detalle_factura`
   ADD KEY `det_id_producto` (`det_id_producto`);
 
 --
+-- Indexes for table `detalle_movimiento`
+--
+ALTER TABLE `detalle_movimiento`
+  ADD PRIMARY KEY (`id_det_mov`),
+  ADD KEY `id_movimiento` (`id_movimiento`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
 -- Indexes for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
@@ -701,6 +818,13 @@ ALTER TABLE `habitacion`
   ADD PRIMARY KEY (`hab_numero`),
   ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`),
   ADD KEY `sr_estado_reserva` (`sr_estado_reserva`);
+
+--
+-- Indexes for table `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD PRIMARY KEY (`id_movimiento`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indexes for table `producto`
@@ -809,13 +933,25 @@ ALTER TABLE `detalle_cortesia`
 -- AUTO_INCREMENT for table `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `detalle_movimiento`
+--
+ALTER TABLE `detalle_movimiento`
+  MODIFY `id_det_mov` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `estado_reserva`
 --
 ALTER TABLE `estado_reserva`
   MODIFY `sr_estado_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `movimientos`
+--
+ALTER TABLE `movimientos`
+  MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `producto`
@@ -845,13 +981,13 @@ ALTER TABLE `reservas_anuladas`
 -- AUTO_INCREMENT for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -908,6 +1044,13 @@ ALTER TABLE `detalle_factura`
   ADD CONSTRAINT `detalle_factura_ibfk_2` FOREIGN KEY (`det_id_producto`) REFERENCES `producto` (`id_producto`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `detalle_movimiento`
+--
+ALTER TABLE `detalle_movimiento`
+  ADD CONSTRAINT `detalle_movimiento_ibfk_1` FOREIGN KEY (`id_movimiento`) REFERENCES `movimientos` (`id_movimiento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_movimiento_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `facturas`
 --
 ALTER TABLE `facturas`
@@ -922,6 +1065,12 @@ ALTER TABLE `facturas`
 ALTER TABLE `habitacion`
   ADD CONSTRAINT `habitacion_ibfk_1` FOREIGN KEY (`id_tipo_habitacion`) REFERENCES `tipo_habitacion` (`id_tipo_habitacion`) ON UPDATE CASCADE,
   ADD CONSTRAINT `habitacion_ibfk_2` FOREIGN KEY (`sr_estado_reserva`) REFERENCES `estado_reserva` (`sr_estado_reserva`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`usu_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `producto`

@@ -291,8 +291,9 @@ Class ReservaController{
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
-            $dataType = $this->masterModel->sqlSelect("SELECT ra.*,h.* FROM  reserva_activa ra INNER JOIN habitacion h ON h.hab_numero = ra.hab_numero WHERE ra.hab_numero = ?",array($request["habitacion"]))[0];
+            $dataType = $this->masterModel->sqlSelect("SELECT ra.*,h.* FROM  reserva_activa ra INNER JOIN habitacion h ON h.hab_numero = ra.hab_numero WHERE ra.hab_numero = ?",array($request["habitacion"]));
             if(!empty($dataType)){
+                $dataType = $dataType[0];
                 $dataTipoReserva = $this->masterModel->sqlSelect("SELECT er.* FROM  estado_reserva er  WHERE er.sr_estado_reserva = ?",array($request["estado_reserva"]))[0];
                 if(!empty($dataTipoReserva)){
                     if($request["estado_reserva"]==1){
@@ -314,6 +315,25 @@ Class ReservaController{
                     $status = "error";
                     $message = "Este estado de reserva no existe en nuestro sistema.";
                 }
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica si la habitación esta reservada.";
+            }
+            $result = array("status"=>$status,"message"=>$message);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }
+    function cambiarEstadoReservaLimpieza(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $dataType = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ? ",array(1,$request["habitacion"]));
+            if($dataType){
+                $status = "success";
+                $message = "El estado ha sido cambiado exitosamente.";
             }else{
                 header('Internal server error', true, 500);
                 $status = "error";

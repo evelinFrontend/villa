@@ -110,10 +110,10 @@
         </button>
         <div class="row user-content-table">
             <div class="col-12">
-                <table class="table table-striped col" id="table-provider">
+                <table class="table table-striped col" id="table-moviment">
                     <thead>
                         <tr>
-                            <th>Cpnsecutivo</th>
+                            <th>Consecutivo</th>
                             <th>Tipo</th>
                             <th>Observaciones</th>
                             <th>Fecha</th>
@@ -295,21 +295,24 @@
                         </div>
                     </div>
                     <h6 class="text-center my-4">Productos</h6>
-                    <div class="row">
-                        <div class="form-group col-5">
-                            <label for="product">Selecciona un producto:</label>
-                            <select id="product" class="custom-select">
-                                <option>Text</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-5">
-                            <label for="cant">Cantidad</label>
-                            <input id="cant" class="form-control" type="number">
-                        </div>
-                        <div class="form-group col mt-4">
-                            <button class="btn btn-primary mt-2">Agregar</button>
-                        </div>
+                    <div class="content-table">
+                        <table class="table table-striped col" id="table-product-moves">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Codigo</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Proveedor</th>
+                                    <th scope="col">Cantidad </th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
+                    <button class="btn btn-primary float-right mb-4" type="button" id="CrateMove">Crear</button>
                 </form>
             </div>
         </div>
