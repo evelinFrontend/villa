@@ -54,7 +54,6 @@
                 <div class="form-group">
                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                         <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
-                        <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>
             </form>
@@ -128,7 +127,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="d-flex" role="group" >
+                    <div class="d-flex" role="group">
                         <button class="btn btn-primary" type="button" id="btn-reservar">Cancelar</button>
                         <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
                     </div>
@@ -138,7 +137,7 @@
     </div>
     <div class="content-main-recep col-4 ">
         <div class="subcontent p-4">
-            <h5>TOTAL: <strong id="total"></strong></h5>
+            <h5>TOTAL: <strong id="totalReserva"></strong></h5>
             <div id="select-products"></div>
             <table class="table table-striped table-sm " id="cant-products-table">
                 <thead>
@@ -200,15 +199,11 @@
         </div>
     </div>
 </div>
-<div id="modal-type-pay" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+<div id="modal-type-pay" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="my-modal-title">Forma de pago</h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <h3 class="text-center mt-3">Saldo total: <b id="modalTotal"></b></h3>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="type-pay">Selecciona un metodo de pago</label>
@@ -231,10 +226,55 @@
                     <label for="input-transferencia">Transferencia</label>
                     <input id="input-transferencia" class="form-control" type="text" reuired>
                 </div>
-                <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Aceptar</button>
+                <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Facturar</button>
             </div>
         </div>
     </div>
 </div>
 
+<div id="modal-printer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>¿Deseas imprimir la factura?</h4>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-dark">Ir a recepcion</button>
+                    <button type="button" class="btn btn-success" id="btn-print">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content-print">
+    <div class="text-center">
+        <h5></h5>
+        <p></p>
+        <p></p>
+        <p></p>
+        <small></small>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <h4></h4>
+    <div>
+        <strong>Factura de venta No:</strong>
+        <p></p>
+    </div>
+    <div>
+        <strong>Factura de venta No:</strong>
+        <p></p>
+    </div>
+    <div>
+        <strong>Factura de venta No:</strong>
+        <p></p>
+    </div>
+    <div>
+        <strong>Factura de venta No:</strong>
+        <p></p>
+    </div>
+    
+</div>
 <script src="views/assets/js/reception.js"></script>

@@ -362,8 +362,7 @@ function verReserva(hab) {
                     </div>
                 `)
             }
-            $("#total").empty()
-            $("#total").append(monto);
+            $("#modalTotal, #totalReserva").append(financiero.total);
             $("#detail-reserva").append(`
                 <div class="col">
                     <p>Nro. habitación:</p>
@@ -459,7 +458,8 @@ $("#form-reserva").submit(function(e) {
                 }
             ),
             success: function(success) {
-                alert("bieeeenn", success)
+               $("#modal-printer").modal("show");
+               $("#modal-type-pay").modal("hide");
             },
             error: function (err) {
                 
@@ -470,3 +470,4 @@ $("#form-reserva").submit(function(e) {
 
     
 })
+
