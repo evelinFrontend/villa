@@ -1,6 +1,6 @@
 <div id="content-print" class="text-center bg-success">
     <div>
-        <h6>Villa capmestre</h6>
+        <h6>Villa capmestre Parcial</h6>
         <p>Investo S.A.S</p>
         <p>NIT:234546789</p>
         <p>direccionv sdfds</p>

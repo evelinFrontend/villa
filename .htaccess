@@ -102,6 +102,9 @@ RewriteRule ^obtenerReporteGraficaInicio$ index.php?controller=reporte&a=obtener
 RewriteRule ^createMove$ index.php?controller=movimientos&a=createMove
 RewriteRule ^readByMoves$ index.php?controller=movimientos&a=readByMoves
 
+#PROCESO
+RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso
+
 #DESARROLLO
 RewriteRule ^tiempoTranscurridoFechas$ index.php?controller=tiempo&a=tiempoTranscurridoFechas
 RewriteRule ^restarTiempoParcial$ index.php?controller=tiempo&a=restarTiempoParcial

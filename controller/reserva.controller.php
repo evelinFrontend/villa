@@ -74,6 +74,8 @@ Class ReservaController{
                                     //obtener el numero de reserva
                                     $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["hab_numero"]))[0];
                                     //insertar productos
+                                    $insertProducts = true;
+                                    $stock = true;
                                     foreach($products as $product){
                                         $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
                                         $totalProduct = $dataProduct->pro_precio_venta*$product["cantidad"] ;

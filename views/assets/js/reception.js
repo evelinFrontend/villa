@@ -259,15 +259,15 @@ function sumar() {
 }
 function addArray(id, idProd, name, value,show) {
     $("#cant-products-table > tbody").empty();
-    $("#" + id).hide();
+    $("#"+id).hide();
     products.push({ 'id': idProd, 'name': name, 'precio':value});
-    console.log(products);
+    // console.log(products);
     if(show){
         for (let i = 0; i < products.length; i++) {
             const element = products[i];
             $("#cant-products-table > tbody").append(`
                 <tr>
-                  <td>${element.name}</td>
+                  <td>${element.name}<small>($${element.precio})</small></td>
                   <td>
                     <input class="form-control" type="number" id="${element.id}" value="1">
                   </td>
@@ -278,6 +278,7 @@ function addArray(id, idProd, name, value,show) {
     }
     sumar();
 }
+
 
 function deleteArray(idDiv,idProd) {
     $("#"+idDiv).show(); 
@@ -317,12 +318,12 @@ $("#form-invoices").submit(function (e) {
         const element = products[i];
         input = $("#" + element.id).val();
         productData.push({ "id": element.id, "cantidad": input })
-        var tipoReserva = 2;
-        if ($("#courtesy").val() != '') {
-            tipoReserva = 5;
-        } else if($("#cortesia").val() != 0){
-            tipoReserva = 4;
-        }
+    }
+    var tipoReserva = 2;
+    if ($("#courtesy").val() != '') {
+        tipoReserva = 5;
+    } else if($("#cortesia").val() != 0){
+        tipoReserva = 4;
     }
     var data = {
         "hab_numero": num_hab,
@@ -418,8 +419,8 @@ function verReserva(hab) {
                       <td onclick="deleteArray("prod-${element.re_det_id_producto}","${element.re_det_id_producto}")">X</td>
                     </tr>
                 `)
-
             }
+           
         },
         error: function (err) {
 
@@ -488,8 +489,73 @@ $("#form-reserva").submit(function(e) {
                 }
             ),
             success: function(success) {
+                console.log(success);
                $("#modal-printer").modal("show");
                $("#modal-type-pay").modal("hide");
+               //datos configuracion factura
+               $("#razonSocialFAC").html(success.data.configuracion_factura.conf_razon_social);
+               $("#nombreEmpresaFAC").html(success.data.configuracion_factura.conf_nombre_empresa);
+               $("#nitFAC").html("NIT "+success.data.configuracion_factura.conf_nit);
+               $("#direccionFAC").html(success.data.configuracion_factura.conf_direccion);
+               $("#numeroTelFac").html(success.data.configuracion_factura.conf_telefono);
+               $("#ciudadFAC").html(success.data.configuracion_factura.conf_ciudad);
+               $("#resolucionFAC").html("Resolución: "+success.data.configuracion_factura.conf_resolucion);
+               $("#mensajeFooterFAC").html(success.data.configuracion_factura.conf_mensaje);
+               //datos  factura
+               $("#numeroFacturaFAC").html(success.factura);
+               $("#numeroFacturaFAC").html(success.factura);
+               $("#habitacionNumFAC").html(success.data.reserva.hab_numero);
+               $("#horaEntradaFAC").html((success.data.reserva.ra_fecha_hora_ingreso).substr(0,11));
+               $("#horaSalidaFAC").html(success.data.reserva.hab_fecha_creacion);
+               
+               ///Detalles servicio
+               $("#descTiempoFAC").html("Tiempo: "+success.data.reserva.tiempo_transcurido);
+               $("#valorTiempoFAC").html(success.data.financieros.totalTiempo);
+               
+               //Productos 
+               if(success.data.productos.length<=0){
+                $("#DescProduct").hide();
+               }
+               for (var i = 0; i < success.data.productos.length; i++) {
+                   $('#tableProductsFAC > tbody:last').append(`
+                   <tr>
+                   <td>${success.data.productos[i].pro_nombre}</td>
+                   <td>${success.data.productos[i].re_det_cantidad}</td>
+                   <td>${success.data.productos[i].re_det_valor_total}</td>
+                   </tr>
+                   `);
+                }
+                $("#valorProductosTotalFAC").html(success.data.financieros.productos);
+                $("#valorBaseIvaFAC").html(success.data.financieros.baseIva);
+                $("#subtotalFAC").html(success.data.financieros.subtotal);
+                $("#valorIvaFAC").html(success.data.financieros.iva);
+                $("#valorTotalFAC").html(success.data.financieros.total);
+                //FORMAS DE PAGO
+                if(parseInt(success.data.financieros.valor_pago_efectivo)>0){
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Efectivo:</p>
+                            <p>${success.data.financieros.valor_pago_efectivo}</p>
+                        </div>
+                    `);
+                }
+                if(parseInt(success.data.financieros.valor_pago_credito)>0){
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Credito:</p>
+                            <p>${success.data.financieros.valor_pago_credito}</p>
+                        </div>
+                    `);
+                }
+                if(parseInt(success.data.financieros.valor_pago_transferencia)>0){
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Transferencia:</p>
+                            <p>${success.data.financieros.valor_pago_transferencia}</p>
+                        </div>
+                    `);
+                }
+            //    $("#").html(response.configuracion_factura.);
             },
             error: function (err) {
                 $(".a-modal-danger").empty();

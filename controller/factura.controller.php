@@ -79,6 +79,7 @@ Class FacturaController{
                         echo json_encode($result);
                         return ;
                 }
+                $valorIva = $this->masterModel->sqlSelect("SELECT  conf_iva FROM villa_config",array(""))[0]->conf_iva;
                 // --------fin validaciones tipo de pago------
                 if( $dataReserva["data"]["reserva"]->ra_tipo_reserva_inicio=="4"){
                     $cortesia = $this->crearCortesia($dataReserva,$request);
@@ -153,10 +154,14 @@ Class FacturaController{
                                     $status = "success";
                                     $message = "Factura creada.";
                                     $dataReserva["data"]["reserva"]->fecha= date('Y-m-d H:i:s');
-                                    $dataReserva["data"]["reserva"]->tipo_pago= $request["tipo_pago"];
-                                    $dataReserva["data"]["reserva"]->valor_pago_efectivo= $request["cantidad_efectivo"];
-                                    $dataReserva["data"]["reserva"]->valor_pago_credito= $request["cantidad_credito"];
-                                    $dataReserva["data"]["reserva"]->valor_pago_transferencia= $request["cantidad_transferencia"];
+                                    $dataReserva["data"]["financieros"]["tipo_pago"]= $request["tipo_pago"];
+                                    $dataReserva["data"]["financieros"]["valor_pago_efectivo"]= $request["cantidad_efectivo"];
+                                    $dataReserva["data"]["financieros"]["valor_pago_credito"]= $request["cantidad_credito"];
+                                    $dataReserva["data"]["financieros"]["valor_pago_transferencia"]= $request["cantidad_transferencia"];
+                                    $dataReserva["data"]["configuracion_factura"]= $this->masterModel->selectAll("villa_conf_facturas")[0];
+                                    $dataReserva["data"]["financieros"]["iva"]=  ($dataReserva["data"]["financieros"]["total"]*intval($valorIva))/100;
+                                    $dataReserva["data"]["financieros"]["baseIva"]=  number_format($dataReserva["data"]["financieros"]["total"]/119,2);
+                                    $dataReserva["data"]["financieros"]["subtotal"]=  $dataReserva["data"]["financieros"]["total"]-$dataReserva["data"]["financieros"]["iva"];
                                 }else{
                                     header('Internal server error', true, 500);
                                     $status = "error";
