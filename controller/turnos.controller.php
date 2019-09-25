@@ -19,7 +19,7 @@ Class TurnosController{
                 if(!empty($existeUsuario)){
                     $existeTurno = $this->masterModel->sqlSelect("SELECT id_control FROM control_turnos WHERE id_usuario = ? AND fecha_turno = ? ",array($_SESSION["DATA_USER"]["ID"],$request["fecha_ingreso"]));
                     if(empty($existeTurno)){
-                        $insert = $this->masterModel->insert("control_turnos",array($_SESSION["DATA_USER"]["ID"],$request["valor_inicial"],$request["fecha_ingreso"],$request["hora_ingreso"]),array("id_control","factura_inicio","factura_fin","hora_fin","valor_total_cierre","total_facturas_realizadas"));
+                        $insert = $this->masterModel->insert("control_turnos",array($_SESSION["DATA_USER"]["ID"],$request["valor_inicial"],$request["fecha_ingreso"],$request["hora_ingreso"]),array("id_control","factura_inicio","factura_fin","hora_fin","valor_total_cierre","total_facturas_realizadas","total_efectivo","total_credito","total_transferencia"));
                         if($insert){
                             $status = "success";
                             $message = "Turno registrado exitosamente.";
@@ -68,9 +68,13 @@ Class TurnosController{
             if(!empty($existeUsuario)){
                 $existeTurno = $this->masterModel->sqlSelect("SELECT id_control FROM control_turnos WHERE id_usuario = ? AND fecha_turno = ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")));
                 if(!empty($existeTurno)){
-                    $request["valor_total_cierre"] = 2000;
-                    $request["total_facturas_realizadas"] = 20;
-                    $insert = $this->masterModel->sql("UPDATE control_turnos SET factura_fin = ?,hora_fin = ?,valor_total_cierre = ?, total_facturas_realizadas = ?  WHERE id_usuario = ? AND fecha_turno = ?",array(0,$request["hora_fin"],$request["valor_total_cierre"],$request["total_facturas_realizadas"],$_SESSION["DATA_USER"]["ID"],date("Y-m-d")));
+                    $totalFacturasRealizadas = $this->masterModel->sqlSelect("SELECT COUNT(fac_consecutivo) as totalFacturas FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->totalFacturas;
+                    $facturaInicio = $this->masterModel->sqlSelect("SELECT MIN(fac_consecutivo) as facturaInicio FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ORDER BY fac_hora_salida DESC",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->facturaInicio;
+                    $facturaFin = $this->masterModel->sqlSelect("SELECT MAX(fac_consecutivo) as facturaFin FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ORDER BY fac_hora_salida DESC",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->facturaFin;
+                    $metodosPago = $this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo,SUM(fac_valor_credito) as totalCredito,SUM(fac_valor_transferencia) as totalTransferencia  FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0];
+                    $totalVentasTurno = intval($metodosPago->totalEfectivo)+intval($metodosPago->totalCredito)+intval($metodosPago->totalTransferencia);
+                    
+                    $insert = $this->masterModel->sql("UPDATE control_turnos SET factura_inicio = ?, factura_fin = ?,hora_fin = ?,valor_total_cierre = ?, total_facturas_realizadas = ?  ,total_efectivo = ?,total_credito = ?,total_transferencia = ? WHERE id_usuario = ? AND fecha_turno = ?",array($facturaInicio,$facturaFin,$request["hora_fin"],$totalVentasTurno,$totalFacturasRealizadas,$metodosPago->totalEfectivo,$metodosPago->totalCredito,$metodosPago->totalTransferencia,$_SESSION["DATA_USER"]["ID"],date("Y-m-d")));
                     if($insert){
                         $status = "success";
                         $message = "Turno modificado exitosamente.";
