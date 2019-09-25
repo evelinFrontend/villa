@@ -78,9 +78,12 @@
 <div class="row" id="reserva">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
-            <h4 class="pricipal-title">Facturar</h4>
-            <button class="btn btn-primary float-right mb-4" id="edit">Editar</button>
-            <button class="btn btn-primary float-right mb-4" id="cancel-edit">Cancelar edicion</button>
+            <h4 class="pricipal-title"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"> Facturar</h4>
+            <div class="row justify-content-end mb-4 mr-2">
+                <button class="btn btn-outline-dark" id="edit">Editar</button>
+                <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
+                <button class="btn btn-outline-dark ml-4" id="print-parcial">Imprimir tiempo parcial</button>
+            </div>
             <div class="alert alert-danger" role="alert"></div>
             <div class="row" id="detail-reserva"></div>
             <form id="form-reserva">
@@ -127,9 +130,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="d-flex" role="group">
+                    <div class="d-flex justify-content-end" role="group">
                         <button class="btn btn-primary" type="button" id="btn-reservar">Cancelar</button>
-                        <button class="btn btn-primary" type="submit" id="btn-facturar">Facturar</button>
+                        <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>
             </form>
@@ -205,6 +208,8 @@
         <div class="modal-content">
             <h3 class="text-center mt-3">Saldo total: <b id="modalTotal"></b></h3>
             <div class="modal-body">
+                <div class="alert alert-danger a-modal-danger" role="alert">
+                </div>
                 <div class="form-group">
                     <label for="type-pay">Selecciona un metodo de pago</label>
                     <select id="type-pay" class="form-control" name="">
@@ -216,15 +221,15 @@
                 </div>
                 <div class="form-group" id="efectivo">
                     <label for="input-efectivo">Efectivo</label>
-                    <input id="input-efectivo" class="form-control" type="text" reuired>
+                    <input id="input-efectivo" class="form-control" type="number" reuired>
                 </div>
                 <div class="form-group" id="credito">
                     <label for="input-credito">Credito</label>
-                    <input id="input-credito" class="form-control" type="text" reuired>
+                    <input id="input-credito" class="form-control" type="number" reuired>
                 </div>
                 <div class="form-group" id="transferencia">
                     <label for="input-transferencia">Transferencia</label>
-                    <input id="input-transferencia" class="form-control" type="text" reuired>
+                    <input id="input-transferencia" class="form-control" type="number" reuired>
                 </div>
                 <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Facturar</button>
             </div>
@@ -237,7 +242,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h4>¿Deseas imprimir la factura?</h4>
-                <div class="d-flex">
+                <div class="d-flex justify-content-between">
                     <button type="button" class="btn btn-dark">Ir a recepcion</button>
                     <button type="button" class="btn btn-success" id="btn-print">Imprimir</button>
                 </div>
@@ -246,35 +251,116 @@
     </div>
 </div>
 
-<div id="content-print">
-    <div class="text-center">
-        <h5></h5>
-        <p></p>
-        <p></p>
-        <p></p>
-        <small></small>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
+<div id="content-print" class="text-center">
+    <span id="close-print">cerrar X</span>
+    <div class="col-6">
+        <h6>Villa capmestre</h6>
+        <p>Investo S.A.S</p>
+        <p>NIT:234546789</p>
+        <p>direccionv sdfds</p>
+        <small>Numero345654</small>
+        <small>Cartagena, Bolivar</small>
+        <p>REGIMEN COMUN</p>
+        <p>reso 324564345</p>
+        <p>Autoriza des 000001 124124</p>
+        <p>vigencia 24meses</p>
     </div>
-    <h4></h4>
-    <div>
-        <strong>Factura de venta No:</strong>
-        <p></p>
+    <div class="col-6">
+        <h6 class="my-4 ">Caja unica de venta</h6>
+        <div class="d-flex justify-content-between">
+            <strong>Factura de venta No:</strong>
+            <p>3</p>
+        </div>
+        <div class="d-flex justify-content-between border-bottom pb-4">
+            <strong>Factura de venta No:</strong>
+            <p>4343</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>cliente No:</strong>
+            <p>HAB 1</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Entrada:</strong>
+            <p>12/12/12</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>salida:</strong>
+            <p>12/12/12</p>
+        </div>
+        <div class="tabla mt-4">
+            <table class="factura-tabla">
+                <thead>
+                    <tr>
+                        <th>descripcion del servicio</th>
+                        <th>valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiempo 7:00:00</td>
+                        <td>43.534</td>
+                    </tr>
+                    <tr>
+                        <td>Base de Iva</td>
+                        <td>43.534</td>
+                    </tr>
+                    <tr>
+                        <td>IVA</td>
+                        <td>8.000</td>
+                    </tr>
+                    <tr>
+                        <td>Total servicio $</td>
+                        <td>54.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 class="my-2">Descrpcion de producto</h6>
+        <div class="tabla mb-4">
+            <table class="factura-tabla">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cant.</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>coca-cola</td>
+                        <td>2</td>
+                        <td>43.534</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Valor productos:</strong>
+            <p>12.4343</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Base:</strong>
+            <p>23.233</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>iPconsumo:</strong>
+            <p>0</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Iva:</strong>
+            <strong>12.123</strong>
+        </div>
+        <h6>Forma de pago</h6>
+        <div class="d-flex justify-content-between">
+            <p>Efectivo:</p>
+            <p>12.4343</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p>Efectivo:</p>
+            <p>23.233</p>
+        </div>
+        <p>una frase bien chimba</p>
+
     </div>
-    <div>
-        <strong>Factura de venta No:</strong>
-        <p></p>
-    </div>
-    <div>
-        <strong>Factura de venta No:</strong>
-        <p></p>
-    </div>
-    <div>
-        <strong>Factura de venta No:</strong>
-        <p></p>
-    </div>
-    
 </div>
 <script src="views/assets/js/reception.js"></script>

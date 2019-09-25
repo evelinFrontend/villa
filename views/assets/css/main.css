@@ -34,6 +34,7 @@ p{
 .icon-menu{
     color: #8e8e8e;
     width: 20px;
+    cursor: pointer;
 }
 
 .main-item:hover{
@@ -75,6 +76,9 @@ p{
 }
 
 /* reception */
+#reception.hide, #invoices.hide{
+    display: none;
+}
 .content-main-recep{
     background: #f7f7f7;
     min-height: 90vh;
@@ -272,4 +276,31 @@ table.dataTable.no-footer {
     height: 5px;
     background: red
 }
-/*  */
+/* div imprimir */
+#content-print{
+    display: none;
+    line-height: 1;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 20px 270px;
+    background: white;
+    min-height: 100%;
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    align-items: center
+}
+#content-print.show{
+    display: flex;
+}
+.factura-tabla{
+    width: 100%;
+    text-align: left
+}
+#close-print{
+    position: absolute;
+    right: 100px;
+    cursor: pointer;
+}

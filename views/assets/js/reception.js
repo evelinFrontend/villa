@@ -63,7 +63,6 @@ function getRooms() {
         },
         error: function (err) {
             console.log(err);
-            // var message = err.responseJSON.message;
         }
     });
 }
@@ -114,10 +113,14 @@ $("#turn").submit(function (e) {
 });
 
 //facturar 
-$(".goInvoices").click(function (e) {
+$(".goInvoices").click(function () {
     $("#invoices").addClass('active');
     $("#reception").hide();
 })
+// $(".goReception").click(function() {
+//     $("#invoices").removeClass('active');
+//     $("#reception").show();
+// })
 $("#select-person, #select-person-re").change(function () {
     if ($("#select-person").val() === 'si') {
         $("#content-additional").show()
@@ -458,7 +461,7 @@ $("#type-pay").change(function() {
     } else {
         $("#efectivo").show()
         $("#credito").show()
-        $("#transferencia").hide() 
+        $("#transferencia").show() 
     }
 })
 $("#form-reserva").submit(function(e) {
@@ -487,15 +490,28 @@ $("#form-reserva").submit(function(e) {
             success: function(success) {
                $("#modal-printer").modal("show");
                $("#modal-type-pay").modal("hide");
-                location.reload();
             },
             error: function (err) {
+                $(".a-modal-danger").empty();
+                $(".a-modal-danger").addClass("show");
+                $(".a-modal-danger").append(err.responseJSON.message);
                 
             }
         })
-        
+        closeAlerts()
     })
-
-    
 })
 
+$("#btn-print").click(function() {
+    $("#content-print").addClass("show");
+    window.print();
+    location.reload();
+})
+$("#close-print").click(function() {
+    $("#content-print").removeClass("show");
+    
+})
+$("#print-parcial").click(function() {
+    $("#content-print").addClass("show");
+    window.print();
+})
