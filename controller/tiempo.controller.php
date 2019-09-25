@@ -88,46 +88,35 @@ Class TiempoController{
         //si es promocion
         if(isset($datosReserva->promo_id)){
             $infoPromocion = $this->masterModel->selectAllBy("promocion",array("id_promocion",$datosReserva->promo_id))[0];
-            $explode = explode(":",$infoPromocion->promo_tiempo);
+            $explodePromo = explode(":",$infoPromocion->promo_tiempo);
             $supera = false;
             $valorPromocion = 0;
             $explodeHora = explode(":",$tiempoTrancurrido);
+            $valorHora = intval($datosReserva->th_valor_hora_despues24);
+             
             //
-            if(intval($explodeHora[0])>0 || intval($explodeHora[1])>0){
+            if(intval($explodeHora[0])>0 || intval($explodeHora[1])>$minutosContarHora){
                 $total += $infoPromocion->promo_valor;
                 $valorPromocion = $infoPromocion->promo_valor;
             }
-            //saber si supera las 24 horas para poder formatearla en Datetime
-            if($explodeHora[0]>24){
-                $supera = true;
-                $nuevaHora= $explodeHora[0]-$explodeHora[0];
-                $tiempoTrancurrido = $nuevaHora.":".$explodeHora[1].":".$explodeHora[2];
+            if(intval($explodeHora[0])>intval($explodePromo[0]) && intval($explodeHora[1])>intval($explodePromo[1]) && intval($explodeHora[1])>$minutosContarHora ){
+                $diferenciaHoras = intval($explodeHora[0])-intval($explodePromo[0]) ;
+                $total += $valorHora*$diferenciaHoras;
             }
-            $timpoRealTranscurrido = new DateTime(date("Y-m-d")." ".$tiempoTrancurrido); 
-            //si supera las 24 horas restaurar el  tiempo transcurrido
-            if($supera){
-                $timpoRealTranscurrido->modify('+'.$explodeHora[0].' hours'); 
-            }
-            $timpoRealTranscurrido->modify('-'.$explode[0].' hours'); 
-            $timpoRealTranscurrido->modify('-'.$explode[1].' minute' ); 
-            $timpoRealTranscurrido->modify('-'.$explode[2].' second'); 
-            $timpoRealTranscurrido =  $timpoRealTranscurrido->format('H:i:s');
-            //realizar calculos 
-            $valorHora = intval($datosReserva->th_valor_hora_despues24);
-            $hms = explode(":",$timpoRealTranscurrido);
-            $hmsInt=array();
-            foreach($hms as $item){
-                $hmsInt[] = intval($item);
-            }
+            // $hmsInt=array();
+            // foreach($explodeHora as $item){
+            //     $hmsInt[] = intval($item);
+            // }
             //valor horas
-            if($hmsInt[0]>0){
-                $total += $valorHora*$hmsInt[0];
-            }
-            //valor minutos 
-            if($hmsInt[1]>$minutosDeCortesia){
-                $total += $valorHora;
-            }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"tiempoTranscurridoFueraPromo"=>$timpoRealTranscurrido,"valorPromocion"=>$valorPromocion,"productos"=>$totalProductos);
+            // if($hmsInt[0]>0){
+            //     $total += $valorHora*$hmsInt[0];
+            // }
+            // //valor minutos 
+            // if($hmsInt[1]>$minutosDeCortesia){
+            //     $total += $valorHora;
+            // }
+            // return $total;
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"totalTiempo"=>$valorPromocion,"productos"=>$totalProductos);
         }else{
             $totalHorasCobrar = 0;
             $valorHora = intval($datosReserva->th_valor_hora_despues24);

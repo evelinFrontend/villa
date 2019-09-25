@@ -115,6 +115,7 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end" role="group">
+                        <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar Reserva</button>
                         <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
                         <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar Reserva</button>
                         <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>

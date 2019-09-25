@@ -230,6 +230,15 @@ function reserva(data, id) {
                     break;
                 case 6:
                         cambiarEstadoReserva(num_hab);
+                        break;
+                case 3:
+                    $("#reserva").addClass('active');
+                    $(".input-form-reserva").hide()
+                    $("#content-card").hide();
+                    $("#reception").hide();
+                    $("#btn-cancel-changes").hide();
+                    verReserva(id)
+                    break;
                 default:
                     break;
             }
@@ -355,7 +364,7 @@ $("#form-invoices").submit(function (e) {
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
         input = $("#" + element.id).val();
-        productData.push({ "id": element.id, "cantidad": input })
+        productData.push({ "id": element.id, "cantidad": element.cantidad })
     }
     var tipoReserva = 2;
     if ($("#courtesy").val() != '') {
@@ -414,6 +423,12 @@ function verReserva(hab) {
             reservaNumHab = reserva.hab_numero;
             reservaTotal = financiero.total
             idReserva = success.data.reserva.id_reserva;
+
+            if(parseInt(success.data.financieros.totalTiempo)==0 && parseInt(success.data.financieros.productos)==0 ){
+                $("#btn-anular-reserva").show();
+            }else{
+                $("#btn-anular-reserva").hide();
+            }
             $("#TOTAL-INVOICE-SHOW").append(success.data.financieros.total);
             if (success.data.promocion !== null) {
                 $("#detail-reserva").append(`
@@ -464,7 +479,7 @@ function verReserva(hab) {
 }
 
 var updateInvice = false;
-
+$("#btn-update-invoice").hide();
 $("#edit").click(function name() {
     $("#edit").hide();
     $("#cancel-edit").show()
@@ -628,8 +643,25 @@ $("#close-print").click(function() {
     
 })
 $("#print-parcial").click(function() {
-    $("#content-print").addClass("show");
-    window.print();
+    // $("#content-print").addClass("show");
+    // window.print();
+    $.ajax({
+        url: 'cambiarEstadoReserva',
+        dataType: "json",
+        type: "POST",
+        data:({
+            "habitacion": reservaNumHab,
+            "estado_reserva":3
+        }),
+        success: function (success) {
+            alert("Aca llamar la impresion del tiempo parcial");
+            location.reload();
+        },
+        error: function (err) {
+            console.log(err);
+
+        }
+    }) 
 })
 
 $("#btn-cancel-changes").click(function(){
