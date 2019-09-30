@@ -4,7 +4,6 @@ $.ajax({
     type:"GET",
     data:({}),
     success:function(response){
-        console.log(response);
         $('#cantRegisterProducts').html(response.data.cantidad);
     },
     error:function(response){
@@ -17,7 +16,6 @@ $.ajax({
     type:"GET",
     data:({}),
     success:function(response){
-        console.log(response);
         $('#cantRegisterUsers').html(response.data.cantidad);
     },
     error:function(response){
@@ -30,7 +28,6 @@ $.ajax({
     type:"GET",
     data:({}),
     success:function(response){
-        console.log(response);
         $('#cantRegisterRooms').html(response.data.cantidad);
     },
     error:function(response){
@@ -43,7 +40,6 @@ $.ajax({
     type:"GET",
     data:({}),
     success:function(response){
-        console.log(response);
         $('#cantCortesias').html(response.data.cantidadCortesias);
     },
     error:function(response){

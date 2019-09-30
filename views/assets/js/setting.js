@@ -1,27 +1,78 @@
 $(document).ready(function () {
     realoanUser();
     realoanPromo();
+    getReserveStatus();
     $("#table-promo").DataTable();
 
 });
 
-// function getReserveStatus() {
-//     $.ajax({
-//         url: 'readByProvider',
-//         dataType: "json",
-//         type: "POST",
-//         data: ({
-//             "columnDBSearch": 1,
-//             "value": 1
-//         }),
-//         success: function(success) {
+function getReserveStatus() {
+    $.ajax({
+        url: 'readBystateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (success) {
+            for (let i = 0; i < success.data.length; i++) {
+                const elm = success.data[i];
+                console.log(elm.sr_color);
+                $("#content-shema").append(`
+                    <div class="row">
+                            <div class="col">
+                                <div class="shema-card">
+                                    <div class="liner-shema" id="shema-${elm.sr_estado_reserva}" style="background: ${elm.sr_color}"></div>
+                                    <h3 class="text-center" id="text-${elm.sr_estado_reserva}" style="color: ${elm.sr_color}">X</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="${elm.sr_estado_reserva}">${elm.sr_nombre}</label>
+                                    <select id="${elm.sr_estado_reserva}" class="form-control select-color">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+               `);
+
+            }
+            colors = [
+                {"value":"#17a2b8","label":"Azul"},
+                {"value":"#28a745","label":"Verde"},
+                {"value":"#ffc107","label":"Amarillo"},
+                {"value":"#6f42c1","label":"Violeta"},
+                {"value":"#dc3545","label":"Rojo"},
+                {"value":"#343a40","label":"Negro"},
+                {"value":"#fd7e14","label":"Naranja"},
+                {"value":"#6c757d","label":"gris"},
+                {"value":"#e83e8c","label":"rosado"}
+            ]
+            for (let i = 0; i < colors.length; i++) {
+                const color = colors[i];
+                $(".select-color").append($("<option>",{
+                    value: color.value,
+                    text: color.label
+                }));
+                   
+                
+            }
+
             
-//         },
-//         error: function (err) {
-            
-//         }
-//     })
-// }
+        },
+        error: function (err) {
+
+        }
+    })
+}
+
+$("#1").change(function() {
+    alert("afsdfsdf")
+    console.log("daojs");
+    
+})
+
 
 function realoanUser() {
     $.ajax({
@@ -49,10 +100,10 @@ function realoanUser() {
             $('#table-employee').DataTable();
         },
         error: function (err) {
-            console.log(err);    
+            console.log(err);
         }
     });
-    
+
 }
 function realoanPromo() {
     $.ajax({
@@ -63,7 +114,7 @@ function realoanPromo() {
             "columnDBSearch": 1,
             "value": 1
         }),
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             $("#table-promo> tbody:last").empty();
             for (var i = 0; i < response.data.length; i++) {
@@ -82,7 +133,7 @@ function realoanPromo() {
         },
         error: function (err) {
             console.log(err);
-            
+
         }
     })
 }
@@ -94,13 +145,13 @@ function deleteData(id, url) {
         data: ({
             "id": id,
         }),
-        success: function(success) {
+        success: function (success) {
             console.log(success);
-            
+
         },
         error: function (err) {
             console.log(err);
-            
+
         }
     })
 }
@@ -113,7 +164,7 @@ function updateUser(id) {
             "columnDBSearch": "usu_id",
             "value": id
         }),
-        success: function(success) {
+        success: function (success) {
             $("#update-employee").modal('show');
             var data = success.data[0];
             $(".modal-user-data").append(`
@@ -150,11 +201,11 @@ function updateUser(id) {
             $("#email-up").val(data.usu_correo)
             $("#number-up").val(data.usu_numero_contacto)
             $("#rol-up").val(data.usu_rol)
-            $("#user-name-employee-up").val(data.usu_nombre_login)  
+            $("#user-name-employee-up").val(data.usu_nombre_login)
         },
         error: function (err) {
             console.log(err);
-            
+
         }
     })
 }
@@ -167,19 +218,18 @@ function updatePromo(id) {
             "columnDBSearch": "id_promocion",
             "value": id
         }),
-        success: function(success) {
+        success: function (success) {
             var data = success.data[0]
-            console.log(data.promo_tiempo);
             $("#update-promo").modal("show");
             $("#update-promo-times").val(data.promo_tiempo);
             $("#update-promo-name").val(data.promo_nombre);
             $("#update-promo-value").val(data.promo_valor);
             $("#update-promo-id").val(data.id_promocion);
-            $("#update-promo-status").val(data.promo_estado); 
-            realoanPromo();  
+            $("#update-promo-status").val(data.promo_estado);
+            realoanPromo();
         },
         error: function (err) {
-            
+
         }
     })
 }
@@ -261,7 +311,7 @@ $('#form-update-employee').submit(function (e) {
             type: 'POST',
             dataType: 'json',
             data: ({
-                "id":$('#code-up').val(),
+                "id": $('#code-up').val(),
                 "nombres": $('#name-employee-up').val(),
                 "apellidos": $('#lastname-employee-up').val(),
                 "numero_documento": $('#doc-employee-up').val(),
@@ -282,7 +332,7 @@ $('#form-update-employee').submit(function (e) {
                 console.log(err);
             }
         });
-        
+
     } else {
         console.log('todos campos');
 
@@ -291,7 +341,7 @@ $('#form-update-employee').submit(function (e) {
 })
 
 // PENDIENTE!!!!!! MAPEAR EL ERROR
-$("#form-update-promo").submit(function(e) {
+$("#form-update-promo").submit(function (e) {
     e.preventDefault();
     $.ajax({
         url: 'UptadePromo',
@@ -304,11 +354,11 @@ $("#form-update-promo").submit(function(e) {
             "id": $("#update-promo-id").val(),
             "estado": $("#update-promo-status").val()
         }),
-        success: function(success) {
-          $("#create-promo").modal('hide');
-          $(".alert-success").addClass('show')
-          $(".alert-success").append(success.message);
-          realoanPromo();  
+        success: function (success) {
+            $("#create-promo").modal('hide');
+            $(".alert-success").addClass('show')
+            $(".alert-success").append(success.message);
+            realoanPromo();
         },
         error: function (err) {
             console.log(err);
@@ -318,7 +368,7 @@ $("#form-update-promo").submit(function(e) {
     });
     closeAlerts();
 })
-$("#form-create-promo").submit(function(e) {
+$("#form-create-promo").submit(function (e) {
     e.preventDefault();
     $.ajax({
         url: 'createPromo',
@@ -329,11 +379,11 @@ $("#form-create-promo").submit(function(e) {
             "duracion": $("#promo-time").val(),
             "valor": $("#promo-value").val()
         }),
-        success: function(success) {
-          $("#create-promo").modal('hide');
-          $(".alert-success").addClass('show')
-          $(".alert-success").append(success.message)
-          realoanPromo();  
+        success: function (success) {
+            $("#create-promo").modal('hide');
+            $(".alert-success").addClass('show')
+            $(".alert-success").append(success.message)
+            realoanPromo();
         },
         error: function (err) {
             $(".alert-danger").addClass('show')

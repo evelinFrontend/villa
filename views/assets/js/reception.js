@@ -117,10 +117,7 @@ $(".goInvoices").click(function () {
     $("#invoices").addClass('active');
     $("#reception").hide();
 })
-// $(".goReception").click(function() {
-//     $("#invoices").removeClass('active');
-//     $("#reception").show();
-// })
+
 $("#select-person, #select-person-re").change(function () {
     if ($("#select-person").val() === 'si') {
         $("#content-additional").show()
@@ -137,6 +134,7 @@ $("#select-person-re").change(function () {
         $("#content-additional-re").hide()
     }
 })
+var cosa = [];
 
 function getProducts() {
     $.ajax({
@@ -148,8 +146,11 @@ function getProducts() {
             "value": 1
         }),
         success: function (success) {
+            
+            // console.log(cosa);
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
+                cosa.push(data);
                 $("#modal-content-products").append(`
                 <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
                     <div class="col d-flex" id="img-product">
@@ -406,6 +407,7 @@ var habitacionDecorada;
 var idReserva;
 
 function verReserva(hab) {
+    //crear una funcion que consulte los datos de la factura ya tengo valor actuañ de la consulta 
     var data = hab.toString()
     $.ajax({
         url: 'detallesReserva',
@@ -415,14 +417,15 @@ function verReserva(hab) {
             "habitacion": data
         }),
         success: function (success) {
+            console.log(success);
             var financiero = success.data.financieros;
             var product = success.data.productos;
             var reserva = success.data.reserva;
-            console.log(success);
             valorTiempo = success.data.financieros.totalTiempo;
             reservaNumHab = reserva.hab_numero;
             reservaTotal = financiero.total
             idReserva = success.data.reserva.id_reserva;
+            consultFacturadata(financiero, product);
 
             if(parseInt(success.data.financieros.totalTiempo)==0 && parseInt(success.data.financieros.productos)==0 ){
                 $("#btn-anular-reserva").show();
@@ -477,7 +480,26 @@ function verReserva(hab) {
         }
     })
 }
-
+function consultFacturadata(data, product){
+    //falta datos de la factura
+    $("#timetrancurrido").append(data.tiempoTranscurrido);
+    $("#horavalor").append(data.valorHora);
+    $("#horatrancurrido").append(data.horasCobrar);
+    $("#totalTotal").append(data.total);
+    for (let i = 0; i < product.length; i++) {
+        const element = product[i];
+       $("#tableProductsTIME").append(`
+            <tr>
+                <td>${element.pro_nombre}</td>
+                <td>${element.re_det_cantidad}</td>
+                <td>${element.re_det_valor_unidad}</td>
+            </tr>
+       `)
+       
+   }
+   
+    
+}
 var updateInvice = false;
 $("#btn-update-invoice").hide();
 $("#edit").click(function name() {
@@ -530,6 +552,8 @@ $("#type-pay").change(function() {
         $("#transferencia").show() 
     }
 })
+
+
 $("#form-reserva").submit(function(e) {
     var valueTranferencia = 0;
     var valueCredito = 0
@@ -635,6 +659,7 @@ $("#form-reserva").submit(function(e) {
 
 $("#btn-print").click(function() {
     $("#content-print").addClass("show");
+    $(".data-invoces").addClass("show")
     window.print();
     location.reload();
 })
@@ -643,8 +668,9 @@ $("#close-print").click(function() {
     
 })
 $("#print-parcial").click(function() {
-    // $("#content-print").addClass("show");
-    // window.print();
+    $(".data-time").addClass("show")
+    $("#content-print").addClass("show");
+    window.print();
     $.ajax({
         url: 'cambiarEstadoReserva',
         dataType: "json",
@@ -654,8 +680,9 @@ $("#print-parcial").click(function() {
             "estado_reserva":3
         }),
         success: function (success) {
-            alert("Aca llamar la impresion del tiempo parcial");
-            location.reload();
+           console.log(success);
+           
+            // location.reload();
         },
         error: function (err) {
             console.log(err);

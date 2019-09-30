@@ -62,41 +62,11 @@
     <div class="subcontent p-4" id="section-3-tab">
     <h4 class="pricipal-title mb-4">Promociones</h4>
     <p>Te recomendamos no usar el mismo color para varios estados</p>
-        <div class="row">
-            <div class="col">
-                <div class="shema-card">
-                    <div id="liner-shema"></div>
-                    <h3 class="text-center">X</h3>
-                </div>
-            </div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
+        <form id="changeStatus">
+            <div id="content-shema"></div>
+            <button type="submit" class="btn btn-primary float-right">Cambiar</button>
+        </form>
+        
     </div>
 </div>
 </div>

@@ -27,7 +27,7 @@ p{
     color: #6d6e71
 }
 
-#section-1.active, #section-2.active, #section-3.active{
+#section-1.active, #section-2.active, #section-3.active,  #section-4.active{
     border: 3px solid #C9DF8A;
     border-radius: 8px
 }
@@ -76,8 +76,11 @@ p{
 }
 
 /* reception */
-#reception.hide, #invoices.hide{
+#reception.hide, #invoices.hide, .data-time, .data-invoces{
     display: none;
+}
+.data-time.show, .data-invoces.show{
+    display: block;
 }
 .content-main-recep{
     background: #f7f7f7;
@@ -137,10 +140,7 @@ p{
     cursor: pointer;
     transition: .2s all ease;
 }
-.slide-item.active{
-    border: 3px solid #6eb639;
-    border-radius: 8px;
-}
+
 .border-slide{
     border-left: 1px solid #dcdcdc
 }
@@ -157,6 +157,10 @@ p{
 }
 .cards.statistics{
     width: 23%;
+}
+.cards.reporte:hover{
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.47);
+    cursor: pointer;
 }
 .cards-title{
     color: #6eb639;
@@ -261,6 +265,20 @@ table.dataTable.no-footer {
 .update-img{
     width: 300px
 }
+
+.printMovenment{
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+    position: fixed;
+    top: 0;
+    display: none;
+    z-index: 10000;
+    padding: 30px 50px;
+}
+.printMovenment.show{
+    display: block;
+}
 /* settings */
 .shema-card{
     background: white;
@@ -270,11 +288,10 @@ table.dataTable.no-footer {
     width: 130px;  
     height: 80px;
 }
-#liner-shema{
+.liner-shema{
     margin-top:10px;
     width: 100%;
     height: 5px;
-    background: red
 }
 /* div imprimir */
 #content-print{
@@ -295,6 +312,7 @@ table.dataTable.no-footer {
 #content-print.show{
     display: flex;
 }
+
 .factura-tabla{
     width: 100%;
     text-align: left
@@ -303,4 +321,12 @@ table.dataTable.no-footer {
     position: absolute;
     right: 100px;
     cursor: pointer;
+}
+/* reportes */
+
+.ganancia, .pago, .search-reporte, #icon-back{
+    display: none;
+}
+.ganancia.show, .pago.show, .search-reporte.show, #icon-back.show, .items-repor.show{
+    display: block;
 }

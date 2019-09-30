@@ -279,8 +279,6 @@ function reloadProduct() {
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
-            
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product> tbody:last').append(`
                 <tr>
@@ -315,8 +313,6 @@ function reloadTableProductMoves() {
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
-            
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product-moves> tbody:last').append(`
                 <tr>
@@ -375,9 +371,6 @@ $("#CrateMove").click(function(){
     var typeMove = $("#movement-type").val();
     var desc = $("#movement-description").val();
     if(fechaMove!="" && typeMove!="" && desc != ""){
-        console.log(fechaMove);
-        console.log(typeMove);
-        console.log(desc);
         dataMoves.forEach(element => {
             dataMovesSent.push(element);
         });
@@ -503,7 +496,7 @@ function reloadMoves() {
                     <td>${response.data[i].mov_fecha}</td>
                     <td>${response.data[i].total}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].id_movimiento})">
+                        <img src="views/assets/icons/print.png" class="icon-list" onclick="printMove(${response.data[i].id_movimiento})">
                     </td>
                 </tr>
                 `);
@@ -514,6 +507,14 @@ function reloadMoves() {
             console.log(response);
         },
     });
+}
+
+//print movement
+function printMove(id) {
+    console.log(id);
+    $(".printMovenment").addClass("show");
+    // window.print();
+    // location.reload();
 }
 //delete
 function deleteData(value, url) {

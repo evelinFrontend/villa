@@ -27,7 +27,8 @@
                 <h1 class="card-data text-center" id="cantCortesias"></h1>
             </div>
         </div>
-        <div class="row">
+        <h4 class="pricipal-title m-4">Estados de reserva</h4>
+        <div class="row subcontent mt-4">
             <canvas id="chart"></canvas>
         </div>
     </div>

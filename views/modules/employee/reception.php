@@ -45,9 +45,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="m-4 border-bottom">
+                <div class="my-4 border-bottom">
                     <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products-re" class="col">
+                    <div id="modal-content-products-re" class="col d-flex align-items-center flex-column">
                         <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
                     </div>
                 </div>
@@ -78,7 +78,8 @@
 <div class="row" id="reserva">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
-            <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"></a> Facturar</h4>
+            <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
+                        class="icon-menu mr-3 goReception"></a> Facturar</h4>
             <div class="row justify-content-end mb-4 mr-2">
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
                 <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
@@ -107,7 +108,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="m-4 border-bottom">
+                <div class="my-4 border-bottom">
                     <h5>Seleccionar productos</h5>
                     <div id="modal-content-products" class="col">
                         <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
@@ -115,9 +116,11 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end" role="group">
-                        <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar Reserva</button>
+                        <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
+                            Reserva</button>
                         <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
-                        <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar Reserva</button>
+                        <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar
+                            Reserva</button>
                         <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
                     </div>
                 </div>
@@ -236,29 +239,62 @@
         </div>
     </div>
 </div>
-
 <div id="content-print" class="text-center">
     <span id="close-print">cerrar X</span>
     <div class="col-6">
-        <h6 id=razonSocialFAC"></h6>
+        <h6 id="razonSocialFAC"></h6>
         <p id="nombreEmpresaFAC"></p>
         <p id="nitFAC"></p>
         <p id="direccionFAC"></p>
         <small id="numeroTelFac"></small>
         <small id="ciudadFAC"></small>
         <p id="resolucionFAC"></p>
-        <p>vigencia 24meses</p>
     </div>
     <div class="col-6">
-        <h6 class="my-4 ">Caja unica de venta</h6>
+        <div class="data-time">
+            <h6 class="my-4" id=" title-parcial-time"> Imprimir Tiempo parcial</h6>
+            <div class="d-flex justify-content-between">
+                <strong>Horas:</strong>
+                <p id="horatrancurrido"></p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <strong>valor horas:</strong>
+                <p id="horavalor"></p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <strong>Tiempo transcurrido:</strong>
+                <p id="timetrancurrido"></p>
+            </div>
+            <div class="tabla mb-4">
+                <table class="factura-tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cant.</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableProductsTIME">
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h5>TOTAL:</h5>
+                <h5 id="totalTotal"></h5>
+            </div>
+
+        </div>
+    </div>
+    <div class="data-invoces">
+        <h6 class="my-4" id="title-unit-box">Caja unica de venta</h6>
         <div class="d-flex justify-content-between">
             <strong>Factura de venta No:</strong>
             <p id="numeroFacturaFAC"></p>
         </div>
         <!-- <div class="d-flex justify-content-between border-bottom pb-4">
-            <strong>Factura de venta No:</strong>
-            <p>4343</p>
-        </div> -->
+                <strong>Factura de venta No:</strong>
+                <p>4343</p>
+            </div> -->
         <div class="d-flex justify-content-between">
             <strong>habitación No:</strong>
             <p id="habitacionNumFAC"></p>
@@ -297,7 +333,7 @@
                         <th>Valor</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                 </tbody>
             </table>
         </div>
@@ -322,8 +358,12 @@
             <strong id="valorTotalFAC"></strong>
         </div>
         <h6 id="formasDePagoFAC">Forma de pago</h6>
-        <p id="mensajeFooterFAC"></p>
 
     </div>
+    <p id="mensajeFooterFAC"></p>
+
 </div>
+</div>
+
+
 <script src="views/assets/js/reception.js"></script>

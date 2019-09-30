@@ -4,7 +4,10 @@
             <p>Crear Habitación</p>
         </div>
         <div class="slide-item w-50 border-slide" id="section-2">
-            <p>Tipo de Habitación</p>
+            <p>Crear tipo de Habitación</p>
+        </div>
+        <div class="slide-item w-50 border-slide" id="section-3">
+            <p>Tipos de Habitación</p>
         </div>
     </div>
     <div class="subcontent p-4" id="section-1-tab">
@@ -187,7 +190,9 @@
                 </div>
             </div>
         </form>
-        <h4 class="pricipal-title mb-4">Lista de tipo de habitaciones</h4>
+    </div>
+    <div class="subcontent p-4" id="section-3-tab">
+    <h4 class="pricipal-title mb-4">Lista de tipo de habitaciones</h4>
         <div class="alert alert-danger" role="alert"></div>
         <div class="alert alert-success" role="alert"></div>
         <div class="row">
@@ -209,6 +214,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- update type room -->
@@ -390,7 +396,10 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="room-status-up">Estado:</label>
-                            <input id="room-status-up" class="form-control" type="number" disabled>
+                            <select id="room-status-up" class="form-control">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
                         </div>
                         <div class="form-group col">
                             <label for="room-number-up">Numero de habitación:</label>

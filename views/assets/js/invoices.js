@@ -45,7 +45,6 @@ function reloadValue() {
         dataType: "json",
         type: "GET",
         success: function(success) {
-            console.log(success);
             var data = success.data;
             $("#value-iva").val(data.conf_iva);
             $("#min-cort").val(data.conf_minutos_cortesia);
@@ -101,7 +100,7 @@ $("#form-search-invoice").submit(function (e) {
                     <td>${response.data[i].valor_factura}</td>
                     <td>${response.data[i].tipo_pago}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].fac_consecutivo})">
+                        <img src="views/assets/icons/print.png" class="icon-list" onclick="printInvoices(${response.data[i].fac_consecutivo})">
                     </td>
                 </tr>
                 `);
@@ -113,6 +112,7 @@ $("#form-search-invoice").submit(function (e) {
         }
     });
 });
+
 
 $("#config-invoce").submit(function (e) {
     e.preventDefault();
@@ -181,6 +181,7 @@ function reloadInvoices() {
         type: "POST",
         success: function (response) {
             console.log(response);
+            
             $('#table-search-invoices> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-search-invoices > tbody:last').append(`
@@ -190,7 +191,7 @@ function reloadInvoices() {
                     <td>${response.data[i].valor_factura}</td>
                     <td>${response.data[i].tipo_pago}</td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="viewMove(${response.data[i].fac_consecutivo})">
+                        <img src="views/assets/icons/print.png" class="icon-list" onclick="printInvoices(${response.data[i].fac_consecutivo})">
                     </td>
                 </tr>
                 `);
@@ -201,4 +202,14 @@ function reloadInvoices() {
             console.log(response);
         },
     });
+}
+
+function printInvoices(data) {
+    //la consulta de la factura no trae productos y muchos otras datos
+    console.log(data);
+    $("#content-print").addClass("show");
+    $(".data-invoces").addClass("show")
+    window.print();
+    location.reload();
+    
 }
