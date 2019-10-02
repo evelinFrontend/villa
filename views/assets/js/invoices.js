@@ -229,8 +229,11 @@ function printInvoices(data) {
             $("#horaEntradaFAC").append(data.fac_fecha_hora_ingreso);
             $("#horaSalidaFAC").append(data.fac_hora_salida);
             $("#descTiempoFAC").append(data.tiempo_total);
-            // $("#valorTiempoFAC").append(data.valor_factura);
+            $("#valorTiempoFAC").append(data.totalSoloTiempo);
             $("#valorTotalFAC").append(data.valor_factura);
+            $("#valorProductosTotalFAC").append(data.totalSoloProductos);
+            $("#valorIvaFAC").append(data.iva);
+            $("#subtotalFAC").append(data.subtotal);
             var array = data.productos;
             for (let i = 0; i < array.length; i++) {
                 const element = array[i];
@@ -242,11 +245,10 @@ function printInvoices(data) {
                 </tr>
                 `);                
             }
-            
             $("#content-print").addClass("show");
             $(".data-invoces").addClass("show")
-            // window.print();
-            // location.reload();
+            window.print();
+            location.reload();
         },
         error: function (err) {
             
