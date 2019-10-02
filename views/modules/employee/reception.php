@@ -293,10 +293,6 @@
             <strong>Factura de venta No:</strong>
             <p id="numeroFacturaFAC"></p>
         </div>
-        <!-- <div class="d-flex justify-content-between border-bottom pb-4">
-                <strong>Factura de venta No:</strong>
-                <p>4343</p>
-            </div> -->
         <div class="d-flex justify-content-between">
             <strong>habitación No:</strong>
             <p id="habitacionNumFAC"></p>

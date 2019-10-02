@@ -674,7 +674,6 @@ $("#close-print").click(function() {
     
 })
 $("#print-parcial").click(function() {
-   
     $.ajax({
         url: 'cambiarEstadoReserva',
         dataType: "json",
@@ -685,6 +684,7 @@ $("#print-parcial").click(function() {
         }),
         success: function (success) {
            console.log(success);
+           
            $("#reservaID").html(success.data.reserva.id_reserva);
            $("#numhab").html(success.data.reserva.hab_numero);
            $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
