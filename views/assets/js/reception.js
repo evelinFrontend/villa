@@ -650,7 +650,7 @@ $("#form-reserva").submit(function(e) {
                     `);
                 }
             //    $("#").html(response.configuracion_factura.);
-            location.reload();
+            // location.reload();
             },
             error: function (err) {
                 $(".a-modal-danger").empty();
