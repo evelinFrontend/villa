@@ -24,6 +24,8 @@ Class MovimientosController{
                             $cantidadActual = $dataProduct->pro_cantidad_disponible;
                             $nuevaCantidad = $cantidadActual-$product["cantidad"];
                             $updateProducts =  $this->masterModel->sql("UPDATE producto SET pro_cantidad_disponible = ? WHERE id_producto = ?",array($nuevaCantidad,$product["id"]));
+                            $ultimoMovimiento = $this->masterModel->sqlSelect("SELECT MAX(id_movimiento) as cantidad FROM movimientos",array(""))[0]->cantidad;
+                            $insertProducts =  $this->masterModel->insert("detalle_movimiento",array($ultimoMovimiento,$product["id"],$product["cantidad"],date("Y-m-d"),$cantidadActual,$nuevaCantidad),array("id_det_mov"));
                         }
                         break;
                     case 'sumar':
@@ -36,6 +38,8 @@ Class MovimientosController{
                             $cantidadActual = $dataProduct->pro_cantidad_disponible;
                             $nuevaCantidad = $cantidadActual+$product["cantidad"];
                             $updateProducts =  $this->masterModel->sql("UPDATE producto SET pro_cantidad_disponible = ? WHERE id_producto = ?",array($nuevaCantidad,$product["id"]));
+                            $ultimoMovimiento = $this->masterModel->sqlSelect("SELECT MAX(id_movimiento) as cantidad FROM movimientos",array(""))[0]->cantidad;
+                            $insertProducts =  $this->masterModel->insert("detalle_movimiento",array($ultimoMovimiento,$product["id"],$product["cantidad"],date("Y-m-d"),$cantidadActual,$nuevaCantidad),array("id_det_mov"));
                         }
                         break;
                     case 'cortesia':
@@ -48,16 +52,18 @@ Class MovimientosController{
                             $cantidadActual = $dataProduct->pro_cantidad_disponible;
                             $nuevaCantidad = $cantidadActual-$product["cantidad"];
                             $updateProducts =  $this->masterModel->sql("UPDATE producto SET pro_cantidad_disponible = ? WHERE id_producto = ?",array($nuevaCantidad,$product["id"]));
+                            $ultimoMovimiento = $this->masterModel->sqlSelect("SELECT MAX(id_movimiento) as cantidad FROM movimientos",array(""))[0]->cantidad;
+                            $insertProducts =  $this->masterModel->insert("detalle_movimiento",array($ultimoMovimiento,$product["id"],$product["cantidad"],date("Y-m-d"),$cantidadActual,$nuevaCantidad),array("id_det_mov"));
                         }
                         break;    
                 }
                 if($result){
-                    $ultimoMovimiento = $this->masterModel->sqlSelect("SELECT MAX(id_movimiento) as cantidad FROM movimientos",array(""))[0]->cantidad;
+                    // $ultimoMovimiento = $this->masterModel->sqlSelect("SELECT MAX(id_movimiento) as cantidad FROM movimientos",array(""))[0]->cantidad;
                     $updateMove = $this->masterModel->sql("UPDATE movimientos SET total = ? WHERE id_movimiento = ? ",array($total,$ultimoMovimiento));
                     // $products = json_decode($request["productos"],true);
-                    foreach($request["productos"]  as $product){
-                        $insertProducts =  $this->masterModel->insert("detalle_movimiento",array($ultimoMovimiento,$product["id"],$product["cantidad"],date("Y-m-d")),array("id_det_mov"));
-                    }
+                    // foreach($request["productos"]  as $product){
+                    //     $insertProducts =  $this->masterModel->insert("detalle_movimiento",array($ultimoMovimiento,$product["id"],$product["cantidad"],date("Y-m-d")),array("id_det_mov"));
+                    // }
                     if($insertProducts && $updateProducts && $updateMove){
                         $status = "success";
                         $message = "Movimiento registrado.";
