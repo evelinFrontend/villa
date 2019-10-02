@@ -76,6 +76,10 @@ p{
 }
 
 /* reception */
+.reception-table .dataTables_length, .reception-table .dataTables_info, .reception-table .dataTables_paginate{display: none}
+.reception-table table.dataTable thead th{display: none}
+.reception-table table.dataTable thead th{width: 100%}
+
 #reception.hide, #invoices.hide, .data-time, .data-invoces{
     display: none;
 }
@@ -97,7 +101,7 @@ p{
     height: 300px;
 }
 .product-card{
-    width: 100%;
+    width: 640px;
     height: 80px;
     background: white;
     border: 1px solid #dedede;
@@ -106,7 +110,7 @@ p{
     
 }
 #img-product img{
- width: 150px;
+  max-width: 150px;
  
 }
 #detail-product{

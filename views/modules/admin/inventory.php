@@ -558,9 +558,5 @@
 </div>
 
 
-
-
-
-
 <script src="views/assets/js/data-tables.min.js"></script>
 <script src="views/assets/js/inventory.js"></script>

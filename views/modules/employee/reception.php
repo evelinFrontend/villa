@@ -45,11 +45,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="my-4 border-bottom">
-                    <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products-re" class="col d-flex align-items-center flex-column">
-                        <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
-                    </div>
+                <h5>Seleccionar productos</h5>
+                <div class="reception-table">
+                    <table class="table-reception-product" id="modal-content-products-re">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="form-group">
                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
@@ -108,14 +115,20 @@
                         </select>
                     </div>
                 </div>
-                <div class="my-4 border-bottom">
-                    <h5>Seleccionar productos</h5>
-                    <div id="modal-content-products" class="col">
-                        <input class="form-control mb-2" type="search" placeholder="Buscar..." id="search">
-                    </div>
+                <h5>Seleccionar productos</h5>
+                <div class="reception-table">
+                    <table class="table-reception-product" id="modal-content-products">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <div class="d-flex justify-content-end" role="group">
+                <div class="d-flex justify-content-end" role="group">
                         <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
                             Reserva</button>
                         <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
@@ -123,7 +136,7 @@
                             Reserva</button>
                         <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
                     </div>
-                </div>
+
             </form>
         </div>
     </div>
@@ -363,5 +376,5 @@
 </div>
 </div>
 
-
+<script src="views/assets/js/data-tables.min.js"></script>
 <script src="views/assets/js/reception.js"></script>

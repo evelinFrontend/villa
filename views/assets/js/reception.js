@@ -5,7 +5,7 @@ $("#reception").ready(function () {
     getTurno();
     getRooms();
     getProducts();
-    getPromo()
+    getPromo();
 });
 function closeAlerts() {
     setTimeout(() => {
@@ -146,34 +146,31 @@ function getProducts() {
             "value": 1
         }),
         success: function (success) {
-            
-            // console.log(cosa);
+
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
                 cosa.push(data);
-                $("#modal-content-products").append(`
-                <div class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
-                    <div class="col d-flex" id="img-product">
-                        <img src="views/assets/img/products/${data.pro_imagen}">
-                    </div>
-                    <div class="col" id="detail-product">
+                $("#modal-content-products > tbody").append(`
+                <tr class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                    <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
+                    <td>
                         <h6 class="name">${data.pro_nombre}</h6>
                         <p>${data.pro_precio_venta}</p>
-                    </div>
-                 </div>
+                    </td>
+                </tr>
                 `)
                 $("#modal-content-products-re").append(`
-                <div class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${false},${false},1)">
-                    <div class="col d-flex" id="img-product">
-                        <img src="views/assets/img/products/${data.pro_imagen}">
-                    </div>
-                    <div class="col" id="detail-product">
+                <tr class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                    <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
+                    <td>
                         <h6 class="name">${data.pro_nombre}</h6>
                         <p>${data.pro_precio_venta}</p>
-                    </div>
-                 </div>
+                    </td>
+                </tr>
                 `)
             }
+            $('#modal-content-products').DataTable();
+            $('#modal-content-products-re').DataTable();
         },
         error: function (err) {
 
