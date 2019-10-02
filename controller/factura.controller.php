@@ -418,6 +418,7 @@ Class FacturaController{
             if(!empty($dataType)){
                 $dataType[0]->productos = $this->masterModel->sqlSelect("SELECT df.*,p.pro_nombre FROM detalle_factura df INNER JOIN  producto p ON p.id_producto = df.det_id_producto WHERE  fac_consecutivo =  ?",array($request["consecutivo"]));
                 $dataType[0]->caja = $this->masterModel->sqlSelect("SELECT usu_nombres FROM usuario  WHERE  usu_id =  ?",array($dataType[0]->id_usuario));
+                $dataType[0]->configuracionFatura = $this->masterModel->sqlSelect("SELECT * FROM villa_conf_facturas ",array(""))[0];
                 $status = "success";
                 $message = "Consultas realizada.";
                 $data = $dataType;
