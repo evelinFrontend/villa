@@ -35,11 +35,11 @@
                     <input id="init-date" class="form-control" type="date">
                 </div>
                 <div class="form-group col">
-                    <label for="init-date">Hasta</label>
-                    <input id="init-date" class="form-control" type="date">
+                    <label for="fin-date">Hasta</label>
+                    <input id="fin-date" class="form-control" type="date">
                 </div>
                 <div class="form-group col pt-2">
-                    <button class="btn btn-primary mt-4">Buscar</button>
+                    <input type="submit" value="Buscar" class="btn btn-primary mt-4">
                 </div>
             </div>
         </form>

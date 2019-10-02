@@ -160,7 +160,7 @@ function getProducts() {
                 </tr>
                 `)
                 $("#modal-content-products-re").append(`
-                <tr class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                <tr class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
                     <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
                     <td>
                         <h6 class="name">${data.pro_nombre}</h6>
