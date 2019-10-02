@@ -426,7 +426,7 @@ Class FacturaController{
 
                 $totalProdutos = 0;
                 foreach($dataType[0]->productos as $producto){
-                    $totalProduto += intval($producto->det_valor_total);
+                    $totalProdutos += intval($producto->det_valor_total);
                 }
                 $dataType[0]->totalSoloTiempo = intval($dataType[0]->valor_factura)- $totalProdutos ;
                 $dataType[0]->totalSoloProductos =$totalProdutos;
