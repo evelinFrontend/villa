@@ -251,10 +251,10 @@ function printInvoices(data) {
             location.reload();
         },
         error: function (err) {
+            console.log(data);
             
         }
     })
-    console.log(data);
 
 
 }

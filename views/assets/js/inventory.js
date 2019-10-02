@@ -323,7 +323,7 @@ function reloadTableProductMoves() {
                     <td>${response.data[i].pro_cantidad_disponible}</td>
                     <td><input  class="form-control col-m2" type="number" id="prod-${response.data[i].id_producto}" value="0" ></td>
                     <td class="d-flex justify-content-around">
-                        <img src="views/assets/icons/basket-duo.png" class="icon-list" id="func-${response.data[i].id_producto}" onclick="AddProductMove(${response.data[i].id_producto})">
+                        <img src="views/assets/icons/plus.png" class="icon-list" id="func-${response.data[i].id_producto}" onclick="AddProductMove(${response.data[i].id_producto})">
                     </td>
                 </tr>
                 `);
@@ -343,7 +343,7 @@ function AddProductMove(id){
         $("#prod-"+id).attr("disabled",true);
         var element = document.getElementById("func-"+id);
         element.setAttribute('onclick','deleteProductMove('+dataMoves.length+')') ;
-        element.setAttribute('src','X.png') ;
+        element.setAttribute('src','views/assets/icons/minus.png') ;
         dataMoves.push({    
             "id": id,
             "cantidad": cantidad
@@ -359,7 +359,7 @@ function deleteProductMove(index){
     $("#prod-"+dataMoves[index].id).val("0");
     var element = document.getElementById("func-"+dataMoves[index].id);
     element.setAttribute('onclick','AddProductMove('+dataMoves[index].id+')') ;
-    element.setAttribute('src','views/assets/icons/basket-duo.png') ;
+    element.setAttribute('src','views/assets/icons/plus.png') ;
     // dataMoves.splice(index,1);
     delete dataMoves[index];
     console.log(dataMoves);
