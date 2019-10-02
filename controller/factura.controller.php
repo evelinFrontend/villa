@@ -410,5 +410,28 @@ Class FacturaController{
         echo json_encode($result);
     }  
     
+    function obtenerDetallesFactura(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $dataType = $this->masterModel->sqlSelect("SELECT * FROM facturas WHERE  fac_consecutivo =  ?",array($request["consecutivo"]));
+            if(!empty($dataType)){
+                $dataType[0]->productos = $this->masterModel->sqlSelect("SELECT df.*,p.pro_nombre FROM detalle_factura df INNER JOIN  producto p ON p.id_producto = df.det_id_producto WHERE  fac_consecutivo =  ?",array($request["consecutivo"]));
+                $dataType[0]->caja = $this->masterModel->sqlSelect("SELECT usu_nombres FROM usuario  WHERE  usu_id =  ?",array($dataType[0]->id_usuario));
+                $status = "success";
+                $message = "Consultas realizada.";
+                $data = $dataType;
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica los parametros.";
+                $data = null;
+            }
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }
 }
 ?>

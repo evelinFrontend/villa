@@ -94,6 +94,7 @@ RewriteRule ^reservaAfactura$ index.php?controller=factura&a=reservaAfactura
 RewriteRule ^AjustarFacturas$ index.php?controller=views&a=settingInvoices
 RewriteRule ^readByInvoice$ index.php?controller=factura&a=readByInvoice
 RewriteRule ^obtenerDetallesTiempoParcial$ index.php?controller=factura&a=obtenerDetallesTiempoParcial
+RewriteRule ^obtenerDetallesFactura$ index.php?controller=factura&a=obtenerDetallesFactura
 
 #Reportes
 RewriteRule ^readByCountCortesia$ index.php?controller=reporte&a=readByCountCortesia
