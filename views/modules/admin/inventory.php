@@ -384,7 +384,7 @@
                             <div class="form-group col">
                                 <label for="provider-product-up">Proveedor:</label>
                                 <select id="provider-product-up" class="form-control">
-                                    <option value="null">N/A
+                                    
                                 </select>
                             </div>
                         </div>
@@ -516,35 +516,33 @@
         <div class="row">
             <div class="d-flex col ">
                 <strong>Usuario:</strong>
-                <p>Evelin Herrera</p>
+                <p id="nombreUsuario"></p>
             </div>
             <div class="d-flex col">
                 <strong>Fecha de realización:</strong>
-                <p>12 Jul. 2019</p>
+                <p id="fechaMovimiento"></p>
             </div>
             <div class="d-flex col">
                 <strong>Fecha Actual:</strong>
-                <p>12 Jul. 2019</p>
+                <p id="fechaActual"></p>
             </div>
         </div>
         <div class="row border-bottom mb-4">
             <div class="d-flex col">
                 <strong>Tipo de movimiento:</strong>
-                <p>Sumar</p>
+                <p id="tipoMov">Sumar</p>
             </div>
             <div class="d-flex col">
                 <strong>observaciones:</strong>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque rerum eos rem beatae accusamus, maxime doloremque quaerat minus, libero suscipit sapiente minima, architecto est expedita mollitia distinctio modi repellendus! Voluptatibus.</p>
+                <p id="obsMov"></p>
             </div>
         </div>
         <div class="dataProducts">
-           <table class="table table-light">
+           <table class="table table-light" id="tableProducMov">
                <thead>
                    <tr>
                        <th>Codigo</th>
                        <th>Nombre</th>
-                       <th>Categoria</th>
-                       <th>Proveedor</th>
                        <th>Cant. disponible</th>
                        <th>Cant. modificada</th>
                    </tr>

@@ -511,10 +511,44 @@ function reloadMoves() {
 
 //print movement
 function printMove(id) {
-    console.log(id);
-    $(".printMovenment").addClass("show");
-    // window.print();
-    // location.reload();
+    $.ajax({
+        url: 'obtenerDetalleMovimientos',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id_movimiento": id
+        }),
+        success: function(success) {
+            console.log(success);
+            var data = success.data[0];
+            $("#nombreUsuario").append(data.usu_nombres);
+            $("#fechaMovimiento").append(data.mov_fecha_realizacion);
+            $("#fechaActual").append(data.mov_fecha);
+            $("#tipoMov").append(data.mov_tipo);
+            $("#obsMov").append(data.mov_observaciones);
+            var array = data.productos;
+            for (let i = 0; i < array.length; i++) {
+                const element = array[i];
+                console.log(element);
+                $("#tableProducMov > tbody").append(`
+                    <tr>
+                        <td>${element.id_producto}</tb>
+                        <td>${element.pro_nombre}</tb>
+                        <td>12313</tb>
+                        <td>${element.det_mov_cantidad}</tb>
+                    </tr>
+                `)   
+            }
+            $(".printMovenment").addClass("show");
+            window.print();
+            location.reload();
+            
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
 }
 //delete
 function deleteData(value, url) {
@@ -581,14 +615,14 @@ function updateProduct(id) {
                 <p>proveedor: ${data[0].pr_nombre}</p>
            `); 
            $("#name-product-up").val(data[0].pro_nombre)
-           $("#status-product-up").val(data[0].pro_estado)
            $("#id-product-up").val(data[0].id_producto)
            $("#code-product-up").val(data[0].pro_codigo)
            $("#value-pay-product-up").val(data[0].pro_precio_compra)
            $("#value-buy-product-up").val(data[0].pro_precio_venta)
            $("#cant-product-up").val(data[0].pro_cantidad_disponible)
-           $("#category-product-up").val(data[0].cat_nombre)
-           $("#provider-product-up").val(data[0].pr_nombre)  
+           $("#status-product-up").val(data[0].pro_estado)
+           $(`'#category-product-up option[value="${id_categoria}"]'`).attr("selected", true);
+           $(`'#provider-product-up option[value="${id_proveedor}"]'`).attr("selected", true);
         },
         error: function (err) {
             console.log(err);
