@@ -289,7 +289,7 @@ Class ReservaController{
         }
     }    
 
-    function cambiarEstadoReserva(){
+    function cambiarEstadoReserva(){ 
         header('Content-Type:application/json');
         if(!empty($_POST)){
             $request = $_POST;
@@ -306,11 +306,15 @@ Class ReservaController{
                         $result["status"] = "error";
                         $result["message"] = "Estado no disponible para cambiar.";
                         $result["error"] = true;
+                        $data = null;
                     }
                     $status = $result["status"];
                     $message = $result["message"];
                     if($result["error"]){
+                        $data = null;
                         header('Internal server error', true, 500);
+                    }else{
+                        $data = $this->detallesReserva($request["habitacion"])["data"];
                     }
                 }else{
                     header('Internal server error', true, 500);
@@ -322,7 +326,7 @@ Class ReservaController{
                 $status = "error";
                 $message = "no hay información asociada a esta consulta verifica si la habitación esta reservada.";
             }
-            $result = array("status"=>$status,"message"=>$message);
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
             echo json_encode($result);
         }else{
             header('405 Method Not Allowede', true, 405);

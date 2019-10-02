@@ -426,7 +426,11 @@ function verReserva(hab) {
             reservaTotal = financiero.total
             idReserva = success.data.reserva.id_reserva;
             consultFacturadata(financiero, product);
-
+            if(success.data.reserva.sr_estado_reserva==3){
+                $("#print-parcial").html("Continuar tiempo parcial");
+            }else{
+                $("#print-parcial").html("Imprimir tiempo parcial");
+            }
             if(parseInt(success.data.financieros.totalTiempo)==0 && parseInt(success.data.financieros.productos)==0 ){
                 $("#btn-anular-reserva").show();
             }else{
@@ -474,6 +478,7 @@ function verReserva(hab) {
             //VALORES DE DETALLE
             personasAdicionales = reserva.ra_numero_personas_adicionales;
             habitacionDecorada = reserva.ra_habitacion_decorada;
+            // location.reload();
         },
         error: function (err) {
 
@@ -645,6 +650,7 @@ $("#form-reserva").submit(function(e) {
                     `);
                 }
             //    $("#").html(response.configuracion_factura.);
+            location.reload();
             },
             error: function (err) {
                 $(".a-modal-danger").empty();
@@ -668,9 +674,7 @@ $("#close-print").click(function() {
     
 })
 $("#print-parcial").click(function() {
-    $(".data-time").addClass("show")
-    $("#content-print").addClass("show");
-    window.print();
+   
     $.ajax({
         url: 'cambiarEstadoReserva',
         dataType: "json",
@@ -681,8 +685,25 @@ $("#print-parcial").click(function() {
         }),
         success: function (success) {
            console.log(success);
-           
-            // location.reload();
+           $("#reservaID").html(success.data.reserva.id_reserva);
+           $("#numhab").html(success.data.reserva.hab_numero);
+           $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
+           $("#totalTiempoParcial").html(success.data.financieros.total)
+        //    $("#horatrancurrido").html(success.data)
+        // $('#table-type-room> tbody>').empty();
+        for (var i = 0; i < success.data.productos.length; i++) {
+            $('#tableProductsTIME> tbody:last').append(`
+            <tr>
+                <th>${success.data.productos[i].pro_nombre}</th>
+                <td>${success.data.productos[i].re_det_cantidad}</td>
+                <td>${success.data.productos[i].re_det_valor_total}</td>
+            </tr>
+            `);
+        }
+        $(".data-time").addClass("show")
+        $("#content-print").addClass("show");
+        window.print();
+        location.reload();
         },
         error: function (err) {
             console.log(err);
