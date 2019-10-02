@@ -112,6 +112,7 @@ RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso
 RewriteRule ^reporteVentas$ index.php?controller=reporte&a=reporteVentas
 RewriteRule ^reporteFormarDePago$ index.php?controller=reporte&a=reporteFormarDePago
 RewriteRule ^reporteHabitaciones$ index.php?controller=reporte&a=reporteHabitaciones
+RewriteRule ^reporteInventario$ index.php?controller=reporte&a=reporteInventario
 
 
 #DESARROLLO

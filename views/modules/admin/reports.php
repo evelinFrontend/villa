@@ -11,7 +11,7 @@
             <p class="text-center">Reporte de Habitaciones</p>
         </div>
         <div class="cards reporte col-3 p-4 mb-4" id="reporInvetario">
-            <p class="text-center">Reporte de inventario</p>
+            <p class="text-center">Reporte de inventario Actual</p>
         </div>
         <div class="cards reporte col-3 p-4 mb-4" id="ReporMovimiento">
             <p class="text-center">Reporte de movimientos</p>

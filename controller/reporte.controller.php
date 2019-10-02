@@ -115,6 +115,23 @@ Class ReporteController{
             header('405 Method Not Allowede', true, 405);
         }
     }
+    function reporteInventario(){
+        header('Content-Type:application/json');
+        $request = $_POST;
+        $inventario = $this->masterModel->sqlSelect("SELECT * FROM producto",array(""));
+        if(!empty($inventario)){
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $inventario;
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+        }
+        $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+        echo json_encode($result);
+    }
     function reporteHabitaciones(){
         header('Content-Type:application/json');
         if(!empty($_POST)){
