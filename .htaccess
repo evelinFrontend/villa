@@ -108,6 +108,10 @@ RewriteRule ^obtenerDetalleMovimientos$ index.php?controller=movimientos&a=obten
 #PROCESO
 RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso
 
+#REPORTES 
+RewriteRule ^reporteVentas$ index.php?controller=reporte&a=reporteVentas
+
+
 #DESARROLLO
 RewriteRule ^tiempoTranscurridoFechas$ index.php?controller=tiempo&a=tiempoTranscurridoFechas
 RewriteRule ^restarTiempoParcial$ index.php?controller=tiempo&a=restarTiempoParcial
