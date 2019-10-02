@@ -420,9 +420,16 @@ Class FacturaController{
                 $dataType[0]->productos = $this->masterModel->sqlSelect("SELECT df.*,p.pro_nombre FROM detalle_factura df INNER JOIN  producto p ON p.id_producto = df.det_id_producto WHERE  fac_consecutivo =  ?",array($request["consecutivo"]));
                 $dataType[0]->caja = $this->masterModel->sqlSelect("SELECT usu_nombres FROM usuario  WHERE  usu_id =  ?",array($dataType[0]->id_usuario));
                 $dataType[0]->configuracionFatura = $this->masterModel->sqlSelect("SELECT * FROM villa_conf_facturas ",array(""))[0];
-                $dataType[0]->iva=  ($dataType[0]->valor_factura*intval($valorIva))/100;
-                $dataType[0]->baseIva=  number_format($dataType[0]->valor_factura/119,2);
-                $dataType[0]->subtotal=  $dataType[0]->valor_factura-$dataType[0]->iva;
+                $dataType[0]->iva=  (intval($dataType[0]->valor_factura)*intval($valorIva))/100;
+                $dataType[0]->baseIva=  number_format(intval($dataType[0]->valor_factura)/119,2);
+                $dataType[0]->subtotal=  intval($dataType[0]->valor_factura)-$dataType[0]->iva;
+
+                $totalProdutos = 0;
+                foreach($dataType[0]->productos as $producto){
+                    $totalProduto += intval($producto->det_valor_total);
+                }
+                $dataType[0]->totalSoloTiempo = intval($dataType[0]->valor_factura)- $totalProdutos ;
+                $dataType[0]->totalSoloProductos =$totalProdutos;
                 $status = "success";
                 $message = "Consultas realizada.";
                 $data = $dataType;
