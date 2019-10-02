@@ -334,3 +334,6 @@ table.dataTable.no-footer {
 .ganancia.show, .pago.show, .search-reporte.show, #icon-back.show, .items-repor.show{
     display: block;
 }
+#confirmProcess{
+    display: none;
+}
