@@ -193,8 +193,6 @@ $("#form-update-room").submit(function(e) {
             "estado": $("#room-status-up").val()
         }),
         success: function(success) {
-            console.log(success);
-            
             $("#update-room").modal('hide');
             $("#alert-success").addClass('show');
             $("#alert-success").append(success.message);

@@ -18,9 +18,9 @@ function reloadDatoConfig() {
         dataType: "json",
         type: "GET",
         success: function (success) {
-            var values = success.data;
-            console.log(values);
+            console.log(success);
             
+            var values = success.data;
             $("#name").val(values.conf_nombre_empresa)
             $("#resolution").val(values.conf_resolucion),
                 $("#business-name").val(values.conf_razon_social),
@@ -214,28 +214,46 @@ function reloadInvoices() {
 }
 
 function printInvoices(data) {
-    //la  de la factura no trae productos y muchos otras datos
-    // getConfg();
-    console.log(data);
-    $("#content-print").addClass("show");
-    $(".data-invoces").addClass("show")
-    window.print();
-    // location.reload();
-
-}
-
-function getDetailInvoices() {
     $.ajax({
-        url: 'readByConf',
+        url: 'obtenerDetallesFactura',
         dataType: "json",
-        type: "GET",
-        success: function (success) {
+        type: "POST",
+        data: ({
+            "consecutivo": data
+        }),
+        success: function(success) {
             console.log(success);
-            var data = success.data;
-
+            var data = success.data[0];
+            $("#numeroFacturaFAC").append(data.fac_consecutivo);
+            $("#habitacionNumFAC").append(data.hab_numero);
+            $("#horaEntradaFAC").append(data.fac_fecha_hora_ingreso);
+            $("#horaSalidaFAC").append(data.fac_hora_salida);
+            $("#descTiempoFAC").append(data.tiempo_total);
+            // $("#valorTiempoFAC").append(data.valor_factura);
+            $("#valorTotalFAC").append(data.valor_factura);
+            var array = data.productos;
+            for (let i = 0; i < array.length; i++) {
+                const element = array[i];
+                $("#tableProductsFAC> tbody").append(`
+                <tr>
+                    <th>${element.pro_nombre}</th>
+                    <th>${element.det_cantidad}</th>
+                    <th>${element.det_valor_total}</th>
+                </tr>
+                `);                
+            }
+            
+            $("#content-print").addClass("show");
+            $(".data-invoces").addClass("show")
+            // window.print();
+            // location.reload();
         },
         error: function (err) {
-
+            
         }
     })
+    console.log(data);
+
+
 }
+
