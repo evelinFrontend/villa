@@ -13,15 +13,15 @@
         <div class="cards reporte col-3 p-4 mb-4" id="reporInvetario">
             <p class="text-center">Reporte de inventario Actual</p>
         </div>
-        <div class="cards reporte col-3 p-4 mb-4" id="ReporMovimiento">
+        <!-- <div class="cards reporte col-3 p-4 mb-4" id="ReporMovimiento">
             <p class="text-center">Reporte de movimientos</p>
-        </div>
-        <div class="cards reporte col-3 p-4 mb-4" id="productVendidos">
+        </div> -->
+        <!-- <div class="cards reporte col-3 p-4 mb-4" id="productVendidos">
             <p class="text-center">Productos vendidos</p>
-        </div>
-        <div class="cards reporte col-3 p-4 mb-4" id="GananciaXproducto">
+        </div> -->
+        <!-- <div class="cards reporte col-3 p-4 mb-4" id="GananciaXproducto">
             <p class="text-center">Ganancia por producto</p>
-        </div>
+        </div> -->
         <div class="cards reporte col-3 p-4 mb-4" id="formasPago">
             <p class="text-center">Formas de pago</p>
         </div>
