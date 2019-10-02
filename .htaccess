@@ -103,6 +103,7 @@ RewriteRule ^obtenerReporteGraficaInicio$ index.php?controller=reporte&a=obtener
 #MOVIMIENTOS
 RewriteRule ^createMove$ index.php?controller=movimientos&a=createMove
 RewriteRule ^readByMoves$ index.php?controller=movimientos&a=readByMoves
+RewriteRule ^obtenerDetalleMovimientos$ index.php?controller=movimientos&a=obtenerDetalleMovimientos
 
 #PROCESO
 RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso

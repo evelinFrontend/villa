@@ -164,5 +164,28 @@ Class MovimientosController{
         $result = array("status"=>$status,"message"=>$message,"data"=>$data);
         echo json_encode($result);
     }    
+    function obtenerDetalleMovimientos(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $dataType = $this->masterModel->sqlSelect("SELECT m.*,u.usu_nombres FROM movimientos m INNER JOIN usuario u ON u.usu_id = m.id_usuario WHERE  m.id_movimiento = ? ",array($request["id_movimiento"]));
+            // $dataType = $this->masterModel->sqlSelect("SELECT * FROM movimientos m INNER JOIN detalle_movimiento dm ON dm.id_movimiento = m.id_movimiento WHERE m.id_movimiento = ?",array($request[""]));
+            if(!empty($dataType)){
+                $dataType[0]->productos = $this->masterModel->sqlSelect("SELECT dm.*,p.pro_nombre FROM detalle_movimiento dm INNER JOIN producto p ON dm.id_producto=p.id_producto WHERE  dm.id_movimiento = ? ",array($dataType[0]->id_movimiento));
+                $status = "success";
+                $message = "Consultas realizada.";
+                $data = $dataType;
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica los parametros.";
+                $data = null;
+            }
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }    
 }
 ?>
