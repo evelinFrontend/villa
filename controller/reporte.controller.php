@@ -115,5 +115,42 @@ Class ReporteController{
             header('405 Method Not Allowede', true, 405);
         }
     }
+    function reporteHabitaciones(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $resultReport = array();
+            $habitaciones = $this->masterModel->sqlSelect("SELECT hab_numero FROM habitacion",array(""));
+            if(!empty($habitaciones)){
+                foreach($habitaciones as $room){
+                    $totalEfectivo = number_format($this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? AND hab_numero = ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59",$room->hab_numero))[0]->totalEfectivo);
+                    $totalCredito = number_format($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? AND hab_numero = ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59",$room->hab_numero))[0]->totalCredito);
+                    $totalTransferencia = number_format($this->masterModel->sqlSelect("SELECT SUM(fac_valor_transferencia) as totalTransferencia FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? AND hab_numero = ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59",$room->hab_numero))[0]->totalTransferencia);
+                    $totalVentas = number_format($this->masterModel->sqlSelect("SELECT SUM(valor_factura) as totalTransferencia FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? AND hab_numero = ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59",$room->hab_numero))[0]->totalTransferencia);
+                    $facturasRealizadas = $this->masterModel->sqlSelect("SELECT COUNT(*) AS  facturasRealizadas FROM facturas WHERE fac_hora_salida BETWEEN ? AND ? AND hab_numero = ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59",$room->hab_numero))[0]->facturasRealizadas;
+                    $resultReport[] = array(
+                        "habitacion"=>$room->hab_numero,
+                        "totalEfectivo"=>$totalEfectivo,
+                        "totalCredito"=>$totalCredito,
+                        "totalTransferencia"=>$totalTransferencia,
+                        "totalVentas"=>$totalVentas,
+                        "facturasRealizadas"=>$facturasRealizadas
+                    );
+                }
+                $status = "success";
+                $message = "Consultas realizada.";
+                $data = $resultReport;
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "no hay información asociada a esta consulta verifica los parametros.";
+                $data = null;
+            }
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }
 }
 ?>
