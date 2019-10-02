@@ -299,7 +299,7 @@
                         <table class="table table-striped col" id="table-product-moves">
                             <thead>
                                 <tr>
-                                    <th scope="col">Codigo</th>
+                                    <th scope="col">Cod</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Categoria</th>
                                     <th scope="col">Proveedor</th>

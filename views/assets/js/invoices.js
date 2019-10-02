@@ -18,9 +18,11 @@ function reloadDatoConfig() {
         dataType: "json",
         type: "GET",
         success: function (success) {
-            var values = success.data
-                $("#name").val(values.conf_nombre_empresa)
-                $("#resolution").val(values.conf_resolucion),
+            var values = success.data;
+            console.log(values);
+            
+            $("#name").val(values.conf_nombre_empresa)
+            $("#resolution").val(values.conf_resolucion),
                 $("#business-name").val(values.conf_razon_social),
                 $("#nit").val(values.conf_nit),
                 $("#adress").val(values.conf_direccion),
@@ -30,30 +32,37 @@ function reloadDatoConfig() {
                 $("#config-date-finish").val(values.conf_fecha_fin),
                 $("#range-init").val(values.conf_rango_inicio),
                 $("#range-finish").val(values.conf_rango_fin),
-                $("#text").val(values.conf_mensaje)
-
+                $("#text").val(values.conf_mensaje);
+            // agregar a primir factura
+            $("#razonSocialFAC").append(values.conf_razon_social);
+            $("#nombreEmpresaFAC").append(values.conf_nombre_empresa);
+            $("#nitFAC").append(values.conf_nit);
+            $("#numeroTelFac").append(values.conf_telefono);
+            $("#ciudadFAC").append(values.conf_ciudad);
+            $("#resolucionFAC").append(values.conf_resolucion);
+            $("#mensajeFooterFAC").append(values.conf_mensaje);
         },
         error: function (err) {
             console.log(err);
 
         }
-    }) 
+    })
 }
 function reloadValue() {
     $.ajax({
         url: 'readByConfig',
         dataType: "json",
         type: "GET",
-        success: function(success) {
+        success: function (success) {
             var data = success.data;
             $("#value-iva").val(data.conf_iva);
             $("#min-cort").val(data.conf_minutos_cortesia);
             $("#dec-hab").val(data.conf_precio_decoracion);
             $("#minutosCobrar").val(data.minutos_contar_hora);
-            
+
         },
         error: function (err) {
-            
+
         }
     })
 }
@@ -73,17 +82,17 @@ $("#form-search-invoice").submit(function (e) {
     e.preventDefault();
     data = [];
     const value = $("#select-option").val();
-    if (value =="range") {
+    if (value == "range") {
         data.push({
-            "fechaInicial": $("#date-init").val()+" 00:00:00",
-            "fechaFinal": $("#date-finish").val()+" 23:59:59"
+            "fechaInicial": $("#date-init").val() + " 00:00:00",
+            "fechaFinal": $("#date-finish").val() + " 23:59:59"
         })
-    }else if(value =="fac_consecutivo"){
+    } else if (value == "fac_consecutivo") {
         data.push({ "fac_consecutivo": $("#number-invoice").val() });
-    }else{
+    } else {
         data.push({ "id_reserva": $("#number-invoice").val() });
     }
-    
+
     $.ajax({
         url: "readByInvoice",
         type: 'POST',
@@ -107,7 +116,7 @@ $("#form-search-invoice").submit(function (e) {
             }
             $('#table-search-invoices').DataTable();
         },
-        error: function (response){
+        error: function (response) {
             alert(response.responseJSON.message);
         }
     });
@@ -146,7 +155,7 @@ $("#config-invoce").submit(function (e) {
     closeAlerts()
 })
 
-$("#update-config").submit(function(e) {
+$("#update-config").submit(function (e) {
     e.preventDefault()
     $.ajax({
         url: 'UptadeConfig',
@@ -155,19 +164,19 @@ $("#update-config").submit(function(e) {
         data: ({
             "iva": $("#value-iva").val(),
             "minutos_cortesia": $("#min-cort").val(),
-            "precio_decoracion" : $("#dec-hab").val(),
-            "minutos_contar_hora" : $("#minutosCobrar").val()
+            "precio_decoracion": $("#dec-hab").val(),
+            "minutos_contar_hora": $("#minutosCobrar").val()
         }),
-        success: function(success) {
+        success: function (success) {
             $("#modal-iva").modal("hide");
             $(".alert-success").addClass("show");
             $(".alert-success").append(success.message);
             reloadValue();
-            
+
         },
         error: function (err) {
             $(".alert-danger").addClass("show");
-            $(".alert-danger").append(err.responseJSON.message);            
+            $(".alert-danger").append(err.responseJSON.message);
         }
     });
     closeAlerts()
@@ -181,7 +190,7 @@ function reloadInvoices() {
         type: "POST",
         success: function (response) {
             console.log(response);
-            
+
             $('#table-search-invoices> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-search-invoices > tbody:last').append(`
@@ -205,11 +214,28 @@ function reloadInvoices() {
 }
 
 function printInvoices(data) {
-    //la consulta de la factura no trae productos y muchos otras datos
+    //la  de la factura no trae productos y muchos otras datos
+    // getConfg();
     console.log(data);
     $("#content-print").addClass("show");
     $(".data-invoces").addClass("show")
     window.print();
-    location.reload();
-    
+    // location.reload();
+
+}
+
+function getDetailInvoices() {
+    $.ajax({
+        url: 'readByConf',
+        dataType: "json",
+        type: "GET",
+        success: function (success) {
+            console.log(success);
+            var data = success.data;
+
+        },
+        error: function (err) {
+
+        }
+    })
 }
