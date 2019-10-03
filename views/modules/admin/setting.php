@@ -60,13 +60,161 @@
         </div>
     </div>
     <div class="subcontent p-4" id="section-3-tab">
-    <h4 class="pricipal-title mb-4">Promociones</h4>
-    <p>Te recomendamos no usar el mismo color para varios estados</p>
-        <form id="changeStatus">
-            <div id="content-shema"></div>
-            <button type="submit" class="btn btn-primary float-right">Cambiar</button>
+        <h4 class="pricipal-title">Promociones</h4>
+        <p>Te recomendamos no usar el mismo color para varios estados</p>
+        <div class="alert alert-success" role="alert"></div>
+        <div class="alert alert-danger" role="alert"></div>
+        <form id="changeDisponible">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                <h6>Disponible</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-disponible"></div>
+                            <h3 class="text-center" id="text-disponible">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="disponible">Color</label>
+                            <select id="disponible" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
         </form>
-        
+        <form id="changeReservada">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                <h6>reservado</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-reservado"></div>
+                            <h3 class="text-center" id="text-reservado">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="reservado">Color</label>
+                            <select id="reservado" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="changeTiempo">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                <h6>Tiempo parcial</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-tiempo-parcial"></div>
+                            <h3 class="text-center" id="text-tiempo-parcial">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="tiempo-parcial">Color</label>
+                            <select id="tiempo-parcial" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="changeCortesia">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                 <h6>Cortesia</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-cortesia"></div>
+                            <h3 class="text-center" id="text-cortesia">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="cortesia">Color</label>
+                            <select id="cortesia" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="changePromocion">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                <h6>Promocion</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-promocion"></div>
+                            <h3 class="text-center" id="text-promocion">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="promocion">Color</label>
+                            <select id="promocion" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="changeLimpieza">
+            <div id="content-shema" class="px-4 border-top border-bottom">
+                <div class="row align-items-center py-3">
+                <div class="col">
+                 <h6>Limpieza</h6>
+                </div>
+                    <div class="col">
+                        <div class="shema-card">
+                            <div class="liner-shema" id="shema-limpieza"></div>
+                            <h3 class="text-center" id="text-limpieza">X</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="limpieza">Color</label>
+                            <select id="limpieza" class="form-control select-color">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>
 </div>
@@ -98,7 +246,7 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="doc-employee">Número de documento:</label>
-                            <input id="doc-employee" class="form-control" type="number" >
+                            <input id="doc-employee" class="form-control" type="number">
                         </div>
                         <div class="form-group col">
                             <label for="birthdate">Fecha de nacimiento:</label>
@@ -293,17 +441,17 @@
                 </div>
                 <form id="form-update-promo">
                     <div class="row">
-                    <div class="form-group col">
-                        <label for="update-promo-id">Id:</label>
-                        <input id="update-promo-id" class="form-control" type="text" disabled>
-                    </div>
-                    <div class="form-group col">
-                        <label for="update-promo-status">estados:</label>
-                        <select id="update-promo-status" class="form-control">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                    </div>
+                        <div class="form-group col">
+                            <label for="update-promo-id">Id:</label>
+                            <input id="update-promo-id" class="form-control" type="text" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="update-promo-status">estados:</label>
+                            <select id="update-promo-status" class="form-control">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="update-promo-name">Nombre:</label>
@@ -315,7 +463,7 @@
                     </div>
                     <div class="form-group">
                         <label for="update-promo-value">Valor:</label>
-                        <input id="update-promo-value" class="form-control" type="number" >
+                        <input id="update-promo-value" class="form-control" type="number">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Actualizar</button>

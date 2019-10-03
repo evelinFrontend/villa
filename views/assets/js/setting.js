@@ -6,7 +6,29 @@ $(document).ready(function () {
 
 });
 
+
+
 function getReserveStatus() {
+    colors = [
+        { "value": "#17a2b8", "label": "Azul" },
+        { "value": "#28a745", "label": "Verde" },
+        { "value": "#ffc107", "label": "Amarillo" },
+        { "value": "#6f42c1", "label": "Violeta" },
+        { "value": "#dc3545", "label": "Rojo" },
+        { "value": "#343a40", "label": "Negro" },
+        { "value": "#fd7e14", "label": "Naranja" },
+        { "value": "#6c757d", "label": "gris" },
+        { "value": "#e83e8c", "label": "rosado" }
+    ]
+    for (let i = 0; i < colors.length; i++) {
+        const color = colors[i];
+        $(".select-color").append($("<option>", {
+            value: color.value,
+            text: color.label
+        }));
+
+
+    }
     $.ajax({
         url: 'readBystateR',
         dataType: "json",
@@ -18,48 +40,40 @@ function getReserveStatus() {
         success: function (success) {
             for (let i = 0; i < success.data.length; i++) {
                 const elm = success.data[i];
-                console.log(elm.sr_color);
-                $("#content-shema").append(`
-                    <div class="row">
-                            <div class="col">
-                                <div class="shema-card">
-                                    <div class="liner-shema" id="shema-${elm.sr_estado_reserva}" style="background: ${elm.sr_color}"></div>
-                                    <h3 class="text-center" id="text-${elm.sr_estado_reserva}" style="color: ${elm.sr_color}">X</h3>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="${elm.sr_estado_reserva}">${elm.sr_nombre}</label>
-                                    <select id="${elm.sr_estado_reserva}" class="form-control select-color">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-               `);
+                console.log(elm);
+                switch (elm.sr_estado_reserva) {
+                    case "1":
+                        $("#shema-disponible").css("background-color", elm.sr_color)
+                        $("#text-disponible").css("color", elm.sr_color)
+                        // $(`'#disponible option[value="+id_categoria´+"]'`).attr("selected", true);
+                        break;
+                    case "2":
+                        $("#shema-reservado").css("background-color", elm.sr_color)
+                        $("#text-reservado").css("color", elm.sr_color)
+                        // $('#reservado option[value="#28a745"]').attr("selected", true);
+                        break;
+                    case "3":
+                        $("#shema-tiempo-parcial").css("background-color", elm.sr_color)
+                        $("#text-tiempo-parcial").css("color", elm.sr_color)
+                        break;
+                    case "4":
+                        $("#shema-cortesia").css("background-color", elm.sr_color)
+                        $("#text-cortesia").css("color", elm.sr_color)
+                        break;
+                    case "5":
+                        $("#shema-promocion").css("background-color", elm.sr_color)
+                        $("#text-promocion").css("color", elm.sr_color)
+                        break;
+                    case "6":
+                        $("#shema-limpieza").css("background-color", elm.sr_color)
+                        $("#text-limpieza").css("color", elm.sr_color)
+                        break;
+                    default:
+                        break;
+                }
 
             }
-            colors = [
-                {"value":"#17a2b8","label":"Azul"},
-                {"value":"#28a745","label":"Verde"},
-                {"value":"#ffc107","label":"Amarillo"},
-                {"value":"#6f42c1","label":"Violeta"},
-                {"value":"#dc3545","label":"Rojo"},
-                {"value":"#343a40","label":"Negro"},
-                {"value":"#fd7e14","label":"Naranja"},
-                {"value":"#6c757d","label":"gris"},
-                {"value":"#e83e8c","label":"rosado"}
-            ]
-            for (let i = 0; i < colors.length; i++) {
-                const color = colors[i];
-                $(".select-color").append($("<option>",{
-                    value: color.value,
-                    text: color.label
-                }));
-                   
-                
-            }
 
-            
         },
         error: function (err) {
 
@@ -67,10 +81,10 @@ function getReserveStatus() {
     })
 }
 
-$("#1").change(function() {
+$("#1").change(function () {
     alert("afsdfsdf")
     console.log("daojs");
-    
+
 })
 
 
@@ -394,4 +408,179 @@ $("#form-create-promo").submit(function (e) {
         $("#alert").removeClass("show");
         $("#alert").empty();
     }, 6000);
+});
+
+function closeAlert() {
+    setTimeout(() => {
+        $(".alert").empty();
+        $(".alert").removeClass("show");
+    }, 4000);
+}
+
+$("#changeDisponible").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "1",
+            "nombre": "Disponible",
+            "color": $("#disponible").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changeReservada").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "2",
+            "nombre": "Reservada",
+            "color": $("#reservado").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changeTiempo").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "3",
+            "nombre": "iempo Parcial",
+            "color": $("#tiempo-parcial").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changeCortesia").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "4",
+            "nombre": "Cortesia",
+            "color": $("#cortesia").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changeReservada").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "2",
+            "nombre": "Reservada",
+            "color": $("#reservado").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changePromocion").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "5",
+            "nombre": "Promoción",
+            "color": $("#promocion").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
+})
+$("#changeLimpieza").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'UptadeStateR',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id": "6",
+            "nombre": "Limpieza",
+            "color": $("#limpieza").val(),
+            "descripcion": "Esta disponible"
+        }),
+        success: function(success) {
+            console.log(success);
+            $(".alert-success").addClass("show");
+            $(".alert-success").append(success.message);
+        },
+        error: function (err) {
+            $(".alert-danger").addClass("show");
+            $(".alert-danger").append(err);
+        }
+    });
+    closeAlert();
 })

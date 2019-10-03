@@ -243,9 +243,9 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h4>¿Deseas imprimir la factura?</h4>
+                <h4 class="text-center my-4">¿Deseas imprimir la factura?</h4>
                 <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-dark">Ir a recepcion</button>
+                    <button type="button" class="btn btn-dark" id="goToReception">Ir a recepcion</button>
                     <button type="button" class="btn btn-success" id="btn-print">Imprimir</button>
                 </div>
             </div>

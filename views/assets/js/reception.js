@@ -660,6 +660,10 @@ $("#form-reserva").submit(function(e) {
     })
 })
 
+$("#goToReception").click(function() {
+    location.reload();
+})
+
 $("#btn-print").click(function() {
     $("#content-print").addClass("show");
     $(".data-invoces").addClass("show")
