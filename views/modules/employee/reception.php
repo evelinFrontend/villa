@@ -282,6 +282,10 @@
                 <strong>Tiempo transcurrido:</strong>
                 <p id="timetrancurrido"></p>
             </div>
+            <div class="d-flex justify-content-between">
+                <strong>Valor Tiempo:</strong>
+                <p id="valorTiempoParcial"></p>
+            </div>
             <h6 class="my-4" id=" title-parcial-time">Control de tiempo parcial</h6>
             <div class="tabla mb-4">
                 <table class="factura-tabla">

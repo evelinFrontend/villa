@@ -721,25 +721,27 @@ $("#print-parcial").click(function() {
         }),
         success: function (success) {
            console.log(success);
-           
-           $("#reservaID").html(success.data.reserva.id_reserva);
-           $("#numhab").html(success.data.reserva.hab_numero);
-           $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
-           $("#totalTiempoParcial").html(success.data.financieros.total)
-        //    $("#horatrancurrido").html(success.data)
-        // $('#table-type-room> tbody>').empty();
-        for (var i = 0; i < success.data.productos.length; i++) {
-            $('#tableProductsTIME> tbody:last').append(`
-            <tr>
-                <th>${success.data.productos[i].pro_nombre}</th>
-                <td>${success.data.productos[i].re_det_cantidad}</td>
-                <td>${success.data.productos[i].re_det_valor_total}</td>
-            </tr>
-            `);
+        if($("#print-parcial").html()!="Continuar tiempo parcial"){
+                $("#reservaID").html(success.data.reserva.id_reserva);
+                $("#numhab").html(success.data.reserva.hab_numero);
+                $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
+                $("#totalTiempoParcial").html(success.data.financieros.total)
+                $("#valorTiempoParcial").html(success.data.financieros.totalTiempo)
+            //    $("#horatrancurrido").html(success.data)
+            // $('#table-type-room> tbody>').empty();
+            for (var i = 0; i < success.data.productos.length; i++) {
+                $('#tableProductsTIME> tbody:last').append(`
+                <tr>
+                    <th>${success.data.productos[i].pro_nombre}</th>
+                    <td>${success.data.productos[i].re_det_cantidad}</td>
+                    <td>${success.data.productos[i].re_det_valor_total}</td>
+                </tr>
+                `);
+            }
+            $(".data-time").addClass("show")
+            $("#content-print").addClass("show");
+            window.print();
         }
-        $(".data-time").addClass("show")
-        $("#content-print").addClass("show");
-        window.print();
         location.reload();
         },
         error: function (err) {
