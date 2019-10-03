@@ -233,6 +233,10 @@
                     <label for="input-transferencia">Transferencia</label>
                     <input id="input-transferencia" class="form-control" type="number" reuired>
                 </div>
+                <div class="my-3 float-right d-flex">
+                    <p class="ml-2" id="restar">RESTAN:</p>
+                    <h6 id="restan-value"></h6>
+                </div>
                 <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Facturar</button>
             </div>
         </div>

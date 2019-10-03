@@ -80,7 +80,7 @@ p{
 .reception-table table.dataTable thead th{display: none}
 .reception-table table.dataTable thead th{width: 100%}
 
-#reception.hide, #invoices.hide, .data-time, .data-invoces{
+#reception.hide, #invoices.hide, .data-time, .data-invoces, #restan {
     display: none;
 }
 .data-time.show, .data-invoces.show{

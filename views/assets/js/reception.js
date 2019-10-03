@@ -3,10 +3,15 @@ $("#reception").ready(function () {
     $("#content-additional").hide();
     $("#content-additional-re").hide();
     getTurno();
-    getRooms();
+    getRooms()
     getProducts();
     getPromo();
+    $("#restar").hide();
+    setTimeout(refrescar, 30000);
 });
+function refrescar(){
+    location.reload();
+}
 function closeAlerts() {
     setTimeout(() => {
         $(".alert").removeClass('show')
@@ -402,6 +407,7 @@ var reservaTotal;
 var personasAdicionales;
 var habitacionDecorada;
 var idReserva;
+var restante;
 
 function verReserva(hab) {
     //crear una funcion que consulte los datos de la factura ya tengo valor actuañ de la consulta 
@@ -452,6 +458,9 @@ function verReserva(hab) {
                     </div>
                 `)
             }
+
+            //dar valor al restante en la modal
+            restante = financiero.total;
             $("#modalTotal, #totalReserva").append(financiero.total);
            
             $("#detail-reserva").append(`
@@ -552,9 +561,36 @@ $("#type-pay").change(function() {
         $("#efectivo").show()
         $("#credito").show()
         $("#transferencia").show() 
+        $("#restar").show()
+        $("#restan-value").append(restante)
+
     }
 })
-
+var restotal;
+var resEfectivo;
+$("#input-efectivo").keyup(function() {
+    $("#restan-value").empty();
+    var value = $(this).val();
+    resEfectivo = restante - value
+    restotal = resEfectivo
+    $("#restan-value").append(restotal) 
+});
+var resCredito;
+$("#input-credito").keyup(function() {
+    $("#restan-value").empty();
+    var value = $(this).val();
+    restotal = resEfectivo - value;
+    resCredito = restotal;
+    $("#restan-value").append(restotal) 
+})
+var resTranfer;
+$("#input-transferencia").keyup(function() {
+    $("#restan-value").empty();
+    var value = $(this).val();
+    restotal = resCredito - value
+    $("#restan-value").append(restotal) 
+    console.log(resCredito, value);
+})
 
 $("#form-reserva").submit(function(e) {
     var valueTranferencia = 0;
