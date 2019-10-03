@@ -300,7 +300,7 @@ function validateDate($date,$acction = 'no',$date2 = '0000-00-00'){
 	function exportarTablas($host, $usuario, $pasword, $nombreDeBaseDeDatos){
 		set_time_limit(3000);
 		// $tablasARespaldar = ["reservas_anuladas"];
-		$tablasARespaldar = ["rol","estado_reserva","usuario","categorias","villa_config","villa_conf_facturas","tipo_habitacion","habitacion","control_turnos","promocion","proveedores","reservas_anuladas","producto","movimientos","detalle_movimiento","reserva_activa","reserva_activa_detalle","facturas","detalle_factura","cortesia","detalle_cortesia"];
+		$tablasARespaldar = ["rol","estado_reserva","usuario","categorias","villa_config","villa_conf_facturas","tipo_habitacion","habitacion","control_turnos","promocion","proveedores","reservas_anuladas","producto","movimientos","detalle_movimiento","reserva_activa","reserva_activa_detalle","facturas","detalle_factura","cortesia","detalle_cortesia","historial_proceso"];
 		$tablasConNull = array("reservas_anuladas","facturas","control_turnos","cortesia","reserva_activa");
 		$mysqli = new mysqli($host, $usuario, $pasword, $nombreDeBaseDeDatos);
 		$mysqli->select_db($nombreDeBaseDeDatos);

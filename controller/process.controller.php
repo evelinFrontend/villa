@@ -67,6 +67,7 @@ Class ProcessController{
         foreach($facturasRestantes as $factura){
             $this->masterModel->sql("UPDATE facturas SET fac_consecutivo = ? WHERE fac_consecutivo = ?",array($facturasEliminadas[$i],$factura));
         }
+        $this->masterModel->insert("historial_proceso",array(date("Y-m-d"),$request["porcentaje"],$valorEliminar,$valorEliminado,implode(",",$facturasEliminadas),implode(",",$facturasRestantes)),array("id_historial"));
         $result  = array("valorQueSeDebeEliminar"=>$valorEliminar,"facturas"=>$dataProcess,"valorEliminado"=>$valorEliminado,"facturasEliminadas"=>$facturasEliminadas,"todasLasFaturas"=>$todasLasFacturas,"facurasRestantes"=>$facturasRestantes );
         echo json_encode($result);
 
