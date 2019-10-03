@@ -5,7 +5,10 @@ $("#content-close").ready(function() {
         type: "GET",
         success: function(success) {
             console.log(success);
-            
+            $("#facEnd").append(success.data.facturaFin);
+            $("#facInit").append(success.data.facturaInicio);
+            $("#facnum").append(success.data.totalFacturasRealizadas);
+            $("#cierre-input").val(success.data.totalVentasTurno);  
         },
         error: function (err) {
             
@@ -13,31 +16,6 @@ $("#content-close").ready(function() {
     })
 })
 
-$("#cierre").submit(function (e) {
-    e.preventDefault()
-    if ($("#cierre-input").val() !== '') {
-        $.ajax({
-            url: 'UptadeTurn',
-            dataType: "json",
-            type: "POST",
-            data: ({
-                "valor_final": $("#cierre-input").val()
-            }),
-            success: function (success) {
-               location.href = 'login'
-            },
-            error: function (err) {
-                $(".alert-danger").addClass("show");
-                $(".alert-danger").append(err);
-            }
-        })
-
-    } else {
-        $(".alert-danger").addClass("show");
-        $(".alert-danger").append("Ingrese un valor para cerrar el turno");
-    }
-    setTimeout(() => {
-        $(".alert").empty()
-        $(".alert").removeClass('show')
-    }, 5000)
+$("#cierre").click(function () {
+    location.href = 'login'
 })
