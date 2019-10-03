@@ -28,13 +28,12 @@
                 <input id="porcentaje" class="form-control" type="number">
             </div>
             <div class="pt-2">
-                <button class="btn btn-primary mt-4" type="submit">Realizar Proceso</button>
+                <button class="btn btn-primary mt-4" type="submit" id="realizarProceso">Realizar Proceso</button>
             </div>
             </div>
         </form>
 
         <div class="content-table">
-        <button class="btn btn-primary m-4" type="button" id="btnDeleteInvoices">Eliminar Facturas</button>
             <table class="table table-striped col" id="table-process">
                 <thead>
                     <tr>
