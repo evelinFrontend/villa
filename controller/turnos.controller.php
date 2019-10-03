@@ -78,27 +78,32 @@ Class TurnosController{
                     if($insert){
                         $status = "success";
                         $message = "Turno modificado exitosamente.";
+                        $data = array("totalFacturasRealizadas"=>$totalFacturasRealizadas,"facturaInicio"=>$facturaInicio,"facturaFin"=>$facturaFin,"totalVentasTurno"=>$totalVentasTurno);
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
                         $message = "error guardando en base de datos.";
+                        $data = null;
                         }
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
                         $message = "Este usuario no ha registrado su turno el día de hoy.";
+                        $data = null;
                     }
                 }else{
                     header('Internal server error', true, 500);
                     $status = "error";
                     $message = "Este usuario no esta registrado en nuestro sistema.";
+                    $data = null;
                 }
         }else{
             header('Internal server error', true, 500);
             $status = "error";
             $message = "Por favor ingresa un usuario.";
+            $data = null;
         }
-        $result = array("status"=>$status,"message"=>$message);
+        $result = array("status"=>$status,"message"=>$message,"data"=>$data);
         echo json_encode($result);
     }
 
