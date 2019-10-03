@@ -1,4 +1,17 @@
-
+$("#content-close").ready(function() {
+    $.ajax({
+        url: 'UptadeTurn',
+        dataType: "json",
+        type: "GET",
+        success: function(success) {
+            console.log(success);
+            
+        },
+        error: function (err) {
+            
+        }
+    })
+})
 
 $("#cierre").submit(function (e) {
     e.preventDefault()

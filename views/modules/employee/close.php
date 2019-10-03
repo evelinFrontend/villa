@@ -1,4 +1,4 @@
-<div class="content-main">
+<div class="content-main" id="content-close">
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Cierre de turno</h4>
         <p>Al momento de cerrar la aplicación te llevará al inicio de sesion.</p>
