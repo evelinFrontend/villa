@@ -26,7 +26,6 @@ $("#form-create-product").submit(function (e) {
             processData: false,
             cache: false,
             success: function (success) {
-                $('#table-product> tbody>').empty();
                 $(".alert-success").addClass("show");
                 $(".alert").append(success.message);
                 $('#create-product').modal('hide');
@@ -164,7 +163,7 @@ $("#form-update-product").submit(function(e) {
                 // $('#table-product> tbody>').empty();
                 $('#modal-pr-update').modal('hide');
                 $("#form-update-product").trigger('reset');
-                // reloadProduct();
+                reloadProduct();
             },
             error: function (err) {
                 console.log(err);
@@ -279,6 +278,7 @@ function reloadProduct() {
             "value": 1
         }),
         success: function (response) {
+            $('#table-product> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product> tbody:last').append(`
                 <tr>
@@ -313,6 +313,7 @@ function reloadTableProductMoves() {
             "value": 1
         }),
         success: function (response) {
+            $('#table-product-moves> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product-moves> tbody:last').append(`
                 <tr>

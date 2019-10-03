@@ -104,7 +104,9 @@ $("#form-type-room").submit(function (e) {
                 reloadTypeRoom();
                 $("#alert-success").addClass('show')
                 $("#alert-success").empty()
-                $("#alert-success").append(success.message)
+                $("#alert-success").append()
+                alert(success.message);
+                $("#form-type-room")[0].reset();
             },
             error: function (err) {
                 var message = err.responseJSON.message;

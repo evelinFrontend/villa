@@ -151,7 +151,7 @@ function getProducts() {
             "value": 1
         }),
         success: function (success) {
-
+            $('#modal-content-products-re').empty();
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
                 cosa.push(data);
