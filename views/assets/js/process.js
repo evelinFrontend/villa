@@ -50,24 +50,17 @@ $("#confirmProcess").submit(function(e){
                 "porcentaje":$("#porcentaje").val()
             }),
             beforeSend: function() {
-                $("#confirmProcess").append("<h3>Procesando...</h3>");
+                $("#confirmProcess").append("<h3 class='infoProgressProcess'>Procesando...</h3>");
             },
             success:function(response){
                 console.log(response);
-                // $("#confirmProcess").show();
-                // $("#valorTotal").val(response.valorTotal);
-                // $('#table-process> tbody>').empty();
-                // for (var i = 0; i < response.data.length; i++) {
-                //     $('#table-process > tbody:last').append(`
-                //     <tr>
-                //         <td>${response.data[i].fac_consecutivo}</td>
-                //         <td>${response.data[i].fac_hora_salida}</td>
-                //         <td>${response.data[i].valor_factura}</td>
-                //         <td>${response.data[i].tipo_pago}</td>
-                //     </tr>
-                //     `);
-                // }
-                // $('#table-process').DataTable();
+                $(".infoProgressProcess").html("Proceso Realizado Correctamente.<br>");
+                // $(".infoProgressProcess").append(`<p></p>`);
+                $(".infoProgressProcess").append(`<br><small>Valor Eliminado: ${response.valorEliminado} </small><br>`);
+                $(".infoProgressProcess").append(`<br><small>Valor que se debia Eliminar: ${response.valorQueSeDebeEliminar}</small><br>`);
+                $(".infoProgressProcess").append(`<br><small> Porcentaje Ingresado: ${$("#porcentaje").val()}</small><br>`);
+                $('#table-process> tbody>').empty();
+                $("#realizarProceso").attr("disabled",true);
             },
             error:function(response){
                 console.log(response);
