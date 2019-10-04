@@ -157,28 +157,34 @@ $("#config-invoce").submit(function (e) {
 
 $("#update-config").submit(function (e) {
     e.preventDefault()
-    $.ajax({
-        url: 'UptadeConfig',
-        dataType: "json",
-        type: "POST",
-        data: ({
-            "iva": $("#value-iva").val(),
-            "minutos_cortesia": $("#min-cort").val(),
-            "precio_decoracion": $("#dec-hab").val(),
-            "minutos_contar_hora": $("#minutosCobrar").val()
-        }),
-        success: function (success) {
-            $("#modal-iva").modal("hide");
-            $(".alert-success").addClass("show");
-            $(".alert-success").append(success.message);
-            reloadValue();
+    if ($("#min-cort").val() < 59) {
+        $.ajax({
+            url: 'UptadeConfig',
+            dataType: "json",
+            type: "POST",
+            data: ({
+                "iva": $("#value-iva").val(),
+                "minutos_cortesia": $("#min-cort").val(),
+                "precio_decoracion": $("#dec-hab").val(),
+                "minutos_contar_hora": $("#minutosCobrar").val()
+            }),
+            success: function (success) {
+                $("#modal-iva").modal("hide");
+                $(".alert-success").addClass("show");
+                $(".alert-success").append(success.message);
+                reloadValue();
+    
+            },
+            error: function (err) {
+                $(".alert-danger").addClass("show");
+                $(".alert-danger").append(err.responseJSON.message);
+            }
+        });    
+    } else {
+        $(".alert-danger").addClass("show");
+        $(".alert-danger").append("El tiempo de cortesia no debe ser mayor a 59 minutos");
 
-        },
-        error: function (err) {
-            $(".alert-danger").addClass("show");
-            $(".alert-danger").append(err.responseJSON.message);
-        }
-    });
+    }
     closeAlerts()
 
 })

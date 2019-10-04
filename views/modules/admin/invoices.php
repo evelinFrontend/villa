@@ -154,6 +154,7 @@
                     <div class="form-group">
                         <label for="min-cort">Minutos de cortesia:</label>
                         <input id="min-cort" class="form-control" type="number" name="">
+                        <small>mínimo 1 minuto maximo 59 minutos</small>
                     </div>
                     <div class="form-group">
                         <label for="dec-hab">Valor habitación decorada:</label>

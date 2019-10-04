@@ -45,6 +45,11 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                <div class="form-group col-6">
+                    <button class="btn btn-primary btn-block" type="submit" id="btn-reservar">Reservar</button>
+                </div>
+                </div>
                 <h5>Seleccionar productos</h5>
                 <div class="reception-table">
                     <table class="table-reception-product" id="modal-content-products-re">
@@ -57,11 +62,6 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
-                <div class="form-group">
-                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                        <button class="btn btn-primary" type="submit" id="btn-reservar">Reservar</button>
-                    </div>
                 </div>
             </form>
         </div>
@@ -115,6 +115,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="d-flex justify-content-end my-2 py-3 border-top" role="group">
+                    <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
+                        Reserva</button>
+                    <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
+                    <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar
+                        Reserva</button>
+                    <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
+                </div>
                 <h5>Seleccionar productos</h5>
                 <div class="reception-table">
                     <table class="table-reception-product" id="modal-content-products">
@@ -128,15 +136,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-end" role="group">
-                        <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
-                            Reserva</button>
-                        <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
-                        <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar
-                            Reserva</button>
-                        <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
-                    </div>
-
             </form>
         </div>
     </div>

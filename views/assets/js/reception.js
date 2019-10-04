@@ -2,12 +2,13 @@
 $("#reception").ready(function () {
     $("#content-additional").hide();
     $("#content-additional-re").hide();
+    $('#modal-content-products-re').DataTable();
     getTurno();
     getRooms()
     getProducts();
     getPromo();
     $("#restar").hide();
-    setTimeout(refrescar, 30000);
+    // setTimeout(refrescar, 30000);
 });
 function refrescar(){
     location.reload();
@@ -133,8 +134,6 @@ $("#select-person, #select-person-re").change(function () {
 $("#select-person-re").change(function () {
     if ($("#select-person-re").val() === 'si') {
         $("#content-additional-re").show()
-        console.log("sdkocmsdn");
-        
     } else {
         $("#content-additional-re").hide()
     }
@@ -175,7 +174,6 @@ function getProducts() {
                 `)
             }
             $('#modal-content-products').DataTable();
-            $('#modal-content-products-re').DataTable();
         },
         error: function (err) {
 
@@ -203,7 +201,6 @@ function reserva(data, id) {
             "value": id
         }),
         success: function (success) {
-            console.log(data);
             switch (data) {
                 case 1:
                     valorTiempo = success.data[0].th_valor_hora1;
@@ -211,6 +208,7 @@ function reserva(data, id) {
                     $("#content-card").hide()
                     $("#reception").hide()
                     $("#btn-facturar").hide()
+                    
                     sumar();
                     break;
                 case 2:
