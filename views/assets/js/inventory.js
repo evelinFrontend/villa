@@ -180,7 +180,7 @@ $("#form-update-product").submit(function(e) {
             success: function (success) {
                 $(".alert-success").addClass("show");
                 $(".alert-success").append(success.message);
-                // $('#table-product> tbody>').empty();
+                $('#table-product> tbody>').empty();
                 $('#modal-pr-update').modal('hide');
                 $("#form-update-product").trigger('reset');
                 reloadProduct();
