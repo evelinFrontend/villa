@@ -186,6 +186,7 @@
                                 accept="image/gif, image/jpeg, image/png">
                             <label for="img-product" class="custom-file-label">Imagen:</label>
                         </div>
+                            <img src="" alt="" id="imgPreviewNew" width="200px" heigth="200px">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Crear</button>
                 </form>
@@ -390,10 +391,11 @@
                         </div>
                         <div class="row">
                             <div class="custom-file col my-4 mx-3">
-                                <input id="img-product" class="custom-file-input" type="file"
+                                <input id="img-product-update" class="custom-file-input" type="file"
                                     accept="image/gif, image/jpeg, image/png">
-                                <label for="img-product" class="custom-file-label">Imagen:</label>
+                                <label for="img-product-update" class="custom-file-label">Imagen:</label>
                             </div>
+                            <img src="" alt="" id="imgPreviewUpdate" width="200px" heigth="200px">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
                     </form>

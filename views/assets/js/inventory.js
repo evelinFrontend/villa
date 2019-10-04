@@ -5,6 +5,16 @@ $(document).ready(function () {
     reloadMoves();
 });
 
+$("#img-product").change(function(){
+    var input =document.getElementById("img-product");
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgPreviewNew').attr('src', e.target.result); // Renderizamos la imagen
+            console.log(e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+});
+
 $("#form-create-product").submit(function (e) {
     e.preventDefault();
     if ($("#name-product").val() !== '' && $("#value-pay-product").val() !== '' && $("#value-buy-product").val() !== '' && $("#category-product").val()) {
@@ -135,10 +145,20 @@ $("#form-create-provider").submit(function (e) {
 });
 
 //forms update
+$("#img-product-update").change(function(){
+    var input = document.getElementById("img-product-update");
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgPreviewUpdate').attr('src', e.target.result); // Renderizamos la imagen
+            console.log(e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+});
+
 $("#form-update-product").submit(function(e) {
     e.preventDefault();
     if ($("#name-product-up").val() !== '' && $("#value-pay-product-up").val() !== '' && $("#value-buy-product-up").val() !== '' && $("#category-product-up").val() !== '' && $("#provider-product-up").val() !== '') {
-        var file = document.getElementById("img-product").files[0];
+        var file = document.getElementById("img-product-update").files[0];
         var data = new FormData();
         data.append("imagen", file);
         data.append("id", $("#id-product-up").val());
