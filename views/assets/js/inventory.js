@@ -182,7 +182,7 @@ $("#form-update-product").submit(function(e) {
                 $(".alert-success").append(success.message);
                 $('#modal-pr-update').modal('hide');
                 $("#form-update-product").trigger('reset');
-                location.reload();
+                
             },
             error: function (err) {
                 $(".alert-update").addClass("show");
@@ -197,6 +197,7 @@ $("#form-update-product").submit(function(e) {
     setTimeout(() => {
         $(".alert").removeClass("show");
         $(".alert").empty();
+        location.reload();
     }, 4000);
 })
 
@@ -217,7 +218,7 @@ $("#form-update-category").submit(function(e) {
                 $("#alert-scc-category").show();
                 $("#alert-scc-category").append(success.message);
                 $("#modal-ct-update").modal("hide");
-                location.reload();
+                
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -233,6 +234,7 @@ $("#form-update-category").submit(function(e) {
         $(".alert").removeClass("show");
         $(".alert").hide();
         $(".alert").empty();
+        location.reload();
     }, 5000);
 })
 
@@ -263,7 +265,7 @@ $("#form-update-provider").submit(function(e) {
                 $(".alert").append(success.message);
                 $('#update-provider').modal('hide');
                 $("#form-create-product").trigger('reset');
-                location.reload();
+                
             },
             error: function (err) {
                 console.log(err);
@@ -281,6 +283,7 @@ $("#form-update-provider").submit(function(e) {
     setTimeout(() => {
         $(".alert").removeClass("show");
         $(".alert").empty();
+        location.reload();
     }, 4000);
 })
 
