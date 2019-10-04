@@ -35,6 +35,7 @@
             </div>
         </form>
         <h4 class="pricipal-title mb-4">Lista de habitaciones</h4>
+        <div class="alert alert-success alert-list" role="alert"></div>
         <table class="table table-striped col" id="table-create-room">
             <thead>
                 <tr>

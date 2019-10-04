@@ -180,13 +180,11 @@ $("#form-update-product").submit(function(e) {
             success: function (success) {
                 $(".alert-success").addClass("show");
                 $(".alert-success").append(success.message);
-                $('#table-product> tbody>').empty();
                 $('#modal-pr-update').modal('hide');
                 $("#form-update-product").trigger('reset');
-                reloadProduct();
+                location.reload();
             },
             error: function (err) {
-                console.log(err);
                 $(".alert-update").addClass("show");
                 $(".alert-update").append(err.message);
             }
@@ -216,10 +214,10 @@ $("#form-update-category").submit(function(e) {
             }),
             success: function (success) {
                 $('#table-category> tbody>').empty();
-                reloadCategory();
                 $("#alert-scc-category").show();
                 $("#alert-scc-category").append(success.message);
                 $("#modal-ct-update").modal("hide");
+                location.reload();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
@@ -257,7 +255,6 @@ $("#form-update-provider").submit(function(e) {
                 "numero_cuenta": $("#account-provider-up").val(),
                 "tipo_cuenta": $("#type-account-provider-up").val(),
                 "banco": $("#bank-provider-up").val(),
-
             }
             ),
             success: function (success) {
@@ -266,7 +263,7 @@ $("#form-update-provider").submit(function(e) {
                 $(".alert").append(success.message);
                 $('#update-provider').modal('hide');
                 $("#form-create-product").trigger('reset');
-                reloadProvider();
+                location.reload();
             },
             error: function (err) {
                 console.log(err);
@@ -298,7 +295,7 @@ function reloadProduct() {
             "value": 1
         }),
         success: function (response) {
-            $('#table-product> tbody>').empty();
+            $('#table-product> tbody').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-product> tbody:last').append(`
                 <tr>
@@ -618,7 +615,6 @@ function updateProduct(id) {
         }),
         success: function(success) {
             var data = success.data
-            console.log(data);
             $(".update-pr-img").empty()
             $(".update-pr-detail").empty()
             $(".update-pr-img").append(

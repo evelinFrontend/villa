@@ -11,7 +11,6 @@ $(document).ready(function () {
         },
         error: function (err) {
             var message = err.responseJSON.message;
-            console.log(message);
         }
     });
 });
@@ -42,7 +41,6 @@ $("#create-room").submit(function(e) {
                     },
                     error: function (err) {
                         var message = err.responseJSON.message;
-                        console.log(message);
                     }
                 });
                 $(".alert-success").addClass("show");
@@ -196,15 +194,13 @@ $("#form-update-room").submit(function(e) {
         }),
         success: function(success) {
             $("#update-room").modal('hide');
-            $("#alert-success").addClass('show');
-            $("#alert-success").append(success.message);
+            $(".alert-list").addClass('show');
+            $(".alert-list").append(success.message);
             realoadRoom();
         },
         error: function (err) {
-           console.log(err);
-           
             $(".danger-modal").addClass("show");
-            $(".danger-modal").append(err.message)
+            $(".danger-modal").append(err.responseJSON.message)
         }
     });
     setTimeout(() => {
@@ -223,7 +219,6 @@ function realoadRoom(){
             "value": 1
         }),
         success: function (response) {
-            console.log(response);
             $('#table-create-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
                 $('#table-create-room> tbody:last').append(`
@@ -316,7 +311,6 @@ function deleteRoom(id, url) {
             "id": id,
         }),
         success: function(success) {
-            console.log(success);
             reloadTypeRoom();
             realoadRoom();
             $(".alert-success").addClass('show');
@@ -325,7 +319,6 @@ function deleteRoom(id, url) {
             
         },
         error: function (err) {
-            console.log(err);
             $(".alert-alert-danger").addClass('show')
             $(".alert-alert-danger").empty();
             $(".alert-alert-danger").append(success.message)
@@ -346,7 +339,6 @@ function updateType(id) {
             "value": id
         }),
         success: function(success) {
-            console.log(success);
             var data = success.data[0];
             $("#update-type").modal('show');
             $('#room-type-id-up').val(data.id_tipo_habitacion),
@@ -401,8 +393,8 @@ function updateRoom(id) {
             $("#update-room").modal("show");
             $("#room-status-up").val(data.hab_estado);
             $("#room-number-up").val(data.hab_numero);
-            $("#room-type-up").val(data.th_nombre_tipo);
             $("#room-detail-up").val(data.hab_detalle);
+            $(`#room-type-up option[value=${id}]`).attr("selected", true);
         },
         error: function (err) {
             

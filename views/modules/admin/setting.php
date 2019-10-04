@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>
@@ -209,7 +209,7 @@
                         </div>
                     </div>
                     <div class="col">
-                         <button type="submit" class="btn btn-primary float-right" id="dispo-btn">Cambiar</button>
+                         <button type="submit" class="btn btn-primary float-right"  >Cambiar</button>
                     </div>
                 </div>
             </div>

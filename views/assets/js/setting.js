@@ -40,33 +40,36 @@ function getReserveStatus() {
         success: function (success) {
             for (let i = 0; i < success.data.length; i++) {
                 const elm = success.data[i];
-                console.log(elm);
                 switch (elm.sr_estado_reserva) {
                     case "1":
                         $("#shema-disponible").css("background-color", elm.sr_color)
                         $("#text-disponible").css("color", elm.sr_color)
-                        // $(`'#disponible option[value="+id_categoria´+"]'`).attr("selected", true);
+                        $(`#disponible option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     case "2":
                         $("#shema-reservado").css("background-color", elm.sr_color)
                         $("#text-reservado").css("color", elm.sr_color)
-                        // $('#reservado option[value="#28a745"]').attr("selected", true);
+                        $(`#reservado option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     case "3":
-                        $("#shema-tiempo-parcial").css("background-color", elm.sr_color)
-                        $("#text-tiempo-parcial").css("color", elm.sr_color)
+                        $("#shema-tiempo-parcial").css("background-color", elm.sr_color);
+                        $("#text-tiempo-parcial").css("color", elm.sr_color);
+                        $(`#tiempo-parcial option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     case "4":
-                        $("#shema-cortesia").css("background-color", elm.sr_color)
-                        $("#text-cortesia").css("color", elm.sr_color)
+                        $("#shema-cortesia").css("background-color", elm.sr_color);
+                        $("#text-cortesia").css("color", elm.sr_color);
+                        $(`#cortesia option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     case "5":
-                        $("#shema-promocion").css("background-color", elm.sr_color)
-                        $("#text-promocion").css("color", elm.sr_color)
+                        $("#shema-promocion").css("background-color", elm.sr_color);
+                        $("#text-promocion").css("color", elm.sr_color);
+                        $(`#promocion option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     case "6":
-                        $("#shema-limpieza").css("background-color", elm.sr_color)
-                        $("#text-limpieza").css("color", elm.sr_color)
+                        $("#shema-limpieza").css("background-color", elm.sr_color);
+                        $("#text-limpieza").css("color", elm.sr_color);
+                        $(`#limpieza option[value="${elm.sr_color}"]`).attr("selected", true);
                         break;
                     default:
                         break;
@@ -180,6 +183,7 @@ function updateUser(id) {
         }),
         success: function (success) {
             $("#update-employee").modal('show');
+            $(".modal-user-data").empty();
             var data = success.data[0];
             $(".modal-user-data").append(`
                 <div class="col-4">
@@ -219,7 +223,6 @@ function updateUser(id) {
         },
         error: function (err) {
             console.log(err);
-
         }
     })
 }
@@ -243,7 +246,8 @@ function updatePromo(id) {
             realoanPromo();
         },
         error: function (err) {
-
+            console.log(err);
+            
         }
     })
 }
@@ -405,8 +409,8 @@ $("#form-create-promo").submit(function (e) {
         }
     });
     setTimeout(() => {
-        $("#alert").removeClass("show");
-        $("#alert").empty();
+        $(".alert").removeClass("show");
+        $(".alert").empty();
     }, 6000);
 });
 
