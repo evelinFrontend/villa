@@ -657,6 +657,15 @@ $("#form-reserva").submit(function(e) {
                 $("#subtotalFAC").html(success.data.financieros.subtotal);
                 $("#valorIvaFAC").html(success.data.financieros.iva);
                 $("#valorTotalFAC").html(success.data.financieros.total);
+                //hab itacion decora
+                if(parseInt(success.data.financieros.decoracion)>0){
+                    $('#habitacionDecorada').after(`
+                    <div class="d-flex justify-content-between">
+                    <p>Habitacion Decorada:</p>
+                    <p>${success.data.financieros.decoracion}</p>
+                    </div>
+                    `);
+                }
                 //FORMAS DE PAGO
                 if(parseInt(success.data.financieros.valor_pago_efectivo)>0){
                     $('#formasDePagoFAC').after(`

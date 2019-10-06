@@ -376,6 +376,7 @@
             <strong>TOTAL:</strong>
             <strong id="valorTotalFAC"></strong>
         </div>
+        <h6 id="habitacionDecorada"></h6>
         <h6 id="formasDePagoFAC">Forma de pago</h6>
 
     </div>
