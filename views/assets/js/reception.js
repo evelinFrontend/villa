@@ -8,7 +8,7 @@ $("#reception").ready(function () {
     getProducts();
     getPromo();
     $("#restar").hide();
-    setTimeout(refrescar, 100000);
+    // setTimeout(refrescar, 100000);
 });
 function refrescar(){
     location.reload();
@@ -191,6 +191,8 @@ var input = 1
 var num_hab;
 
 function reserva(data, id) {
+    console.log(data);
+    
     num_hab = id;
     $.ajax({
         url: 'readByRoom',
@@ -240,6 +242,20 @@ function reserva(data, id) {
                     $("#btn-cancel-changes").hide();
                     verReserva(id)
                     break;
+                case 4:
+                        $("#reserva").addClass('active');
+                        $(".input-form-reserva").hide()
+                        $("#content-card").hide();
+                        $("#reception").hide();
+                        $("#btn-cancel-changes").hide();
+                        verReserva(id);
+                        $("#detail-reserva").append(`
+                        <div class="col">
+                            <small>Cortesia:</small>
+                            <h6>Si</h6>
+                        </div>
+                    `)
+                    break;  
                 default:
                     break;
             }
@@ -419,7 +435,7 @@ function verReserva(hab) {
             "habitacion": data
         }),
         success: function (success) {
-            console.log(reserva);
+            console.log(success);
             var financiero = success.data.financieros;
             var product = success.data.productos;
             var reserva = success.data.reserva;
@@ -428,6 +444,7 @@ function verReserva(hab) {
             reservaTotal = financiero.total
             idReserva = success.data.reserva.id_reserva;
             consultFacturadata(financiero, product);
+            $("#consecutivo").append(success.data.siguienteConsecutivo)
             if(success.data.reserva.sr_estado_reserva==3){
                 $("#print-parcial").html("Continuar tiempo parcial");
             }else{
@@ -438,41 +455,41 @@ function verReserva(hab) {
             }else{
                 $("#btn-anular-reserva").hide();
             }
-            $("#TOTAL-INVOICE-SHOW").append(success.data.financieros.total);
+            console.log(success.data);
+            if (success.data.reserva.ra_habitacion_decorada === '1') {
+                $("#detail-reserva").append(`
+                <div class="col">
+                    <small>Decoración:</small>
+                    <h6>Si</h6>
+                </div>
+               `);
+            }
+            $("#TOTAL-INVOICE-SHOW").append(new Intl.NumberFormat().format(success.data.financieros.total));
             if (success.data.promocion !== null) {
                 $("#detail-reserva").append(`
                 <div class="col">
-                    <p>Promoción:</p>
+                    <small>Promoción:</small>
                     <h6>${success.data.promocion.promo_nombre}</h6>
                 </div>
                `);
                $("#courtesy").val(success.data.promocion.id_promocion);
                $(".cortesia-re").hide();
 
-             } else {
-                $("#detail-reserva").append(`
-                    <div class="col">
-                        <p>Cortesia:</p>
-                        <h6></h6>
-                    </div>
-                `)
-            }
-
+             }
             //dar valor al restante en la modal
             restante = financiero.total;
-            $("#modalTotal, #totalReserva").append(financiero.total);
-           
+            $("#modalTotal, #totalReserva").append(new Intl.NumberFormat().format(financiero.total));
             $("#detail-reserva").append(`
                 <div class="col">
-                    <p>Nro. habitación:</p>
+                    <small>Nro. habitación:</small>
                     <h6>${reserva.hab_numero}</h6>
                 </div>
                 <div class="col">
-                    <p>persona adicional:</p>
+                    <small>persona adicional:</small>
                     <h6>${reserva.ra_numero_personas_adicionales}</h6>
                 </div>
                 <div class="col">
-                    <p>Tiempo transcurrido:</p>
+                    <small>Tiempo transcurrido:</small>
                     <h6>${reserva.tiempo_transcurido}</h6>
                 </div>
             `)
@@ -840,4 +857,12 @@ $("#cancelar-reserva").submit(function(e) {
             
         }
     })
-})
+});
+function currecy(id) {
+    value = $('#'+id).val();
+    var total = new Intl.NumberFormat().format(value);
+    console.log(total);
+    $('.'+id).empty()
+    $('.'+id).append(total)
+    
+}

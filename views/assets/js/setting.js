@@ -135,11 +135,12 @@ function realoanPromo() {
             console.log(response);
             $("#table-promo> tbody:last").empty();
             for (var i = 0; i < response.data.length; i++) {
+                var valorProm = new Intl.NumberFormat().format(response.data[i].promo_valor);
                 $("#table-promo> tbody:last").append(`
                     <tr>
                     <td>${response.data[i].promo_nombre}</td>
                     <td>${response.data[i].promo_tiempo}</td>
-                    <td>${response.data[i].promo_valor}</td>
+                    <td>${valorProm}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updatePromo(${response.data[i].id_promocion})">
                     </td>
@@ -592,4 +593,12 @@ $("#changeLimpieza").submit(function(e) {
         }
     });
     closeAlert();
-})
+});
+function currecy(id) {
+    value = $('#'+id).val();
+    var total = new Intl.NumberFormat().format(value);
+    console.log(total);
+    $('.'+id).empty()
+    $('.'+id).append(total)
+    
+}

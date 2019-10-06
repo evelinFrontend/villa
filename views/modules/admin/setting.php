@@ -415,7 +415,8 @@
                     </div>
                     <div class="form-group">
                         <label for="promo-value">Valor</label>
-                        <input id="promo-value" class="form-control" type="number">
+                        <input id="promo-value" class="form-control" type="number" onkeyup="currecy(this.id)">
+                        <small class="promo-value ml-2 font-weight-bold"></small>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Crear</button>
@@ -463,7 +464,8 @@
                     </div>
                     <div class="form-group">
                         <label for="update-promo-value">Valor:</label>
-                        <input id="update-promo-value" class="form-control" type="number">
+                        <input id="update-promo-value" class="form-control" type="number" onkeyup="currecy(this.id)">
+                        <small class="update-promo-value ml-2 font-weight-bold"></small>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Actualizar</button>

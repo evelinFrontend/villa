@@ -86,9 +86,11 @@
 <div class="row" id="reserva">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
-            <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
-            class="icon-menu mr-3 goReception"></a> Facturar</h4>
-            <div class="row justify-content-end mb-4 mr-2">
+            <div class="row">
+            <h4 class="pricipal-title col-8"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"></a> Facturar</h4>
+            <p class="float-right col mt-2">Siguiente consecutivo: <b id="consecutivo"></b></p>
+            </div>
+            <div class="row justify-content-end mb-4 mr-2 border-bottom pb-4">
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
                 <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
                 <button class="btn btn-outline-dark ml-4" id="print-parcial">Imprimir tiempo parcial</button>
@@ -223,15 +225,18 @@
                 </div>
                 <div class="form-group" id="efectivo">
                     <label for="input-efectivo">Efectivo</label>
-                    <input id="input-efectivo" class="form-control" type="number" reuired>
+                    <input id="input-efectivo" class="form-control" type="number" onkeyup="currecy(this.id)" require>
+                    <small class="input-efectivo ml-2 font-weight-bold"></small>
                 </div>
                 <div class="form-group" id="credito">
                     <label for="input-credito">Credito</label>
-                    <input id="input-credito" class="form-control" type="number" reuired>
+                    <input id="input-credito" class="form-control" type="number" onkeyup="currecy(this.id)" require>
+                    <small class="input-credito ml-2 font-weight-bold"></small>
                 </div>
                 <div class="form-group" id="transferencia">
                     <label for="input-transferencia">Transferencia</label>
-                    <input id="input-transferencia" class="form-control" type="number" reuired>
+                    <input id="input-transferencia" class="form-control" type="number" onkeyup="currecy(this.id)" require>
+                    <small class="input-transferencia ml-2 font-weight-bold"></small>
                 </div>
                 <div class="my-3 float-right d-flex">
                     <p class="ml-2" id="restar">RESTAN:</p>

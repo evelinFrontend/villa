@@ -274,6 +274,7 @@
                         <div class="form-group col">
                             <label for="people-up">Valor por persona adicional :</label>
                             <input id="people-up" class="form-control" type="number"  onkeyup="currecy(this.id)" require>
+                            <small class="people-up ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="room-type-detail-up">Detalles:</label>
@@ -285,118 +286,143 @@
                         <div class="form-group col">
                             <label for="update_price_hora_1">Valor 1 hora transcurrida:</label>
                             <input id="update_price_hora_1" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_1 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_2">Valor 2 horas transcurridas:</label>
                             <input id="update_price_hora_2" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_2 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_3">Valor 3 horas transcurridas:</label>
                             <input id="update_price_hora_3" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_3 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="update_price_hora_4">Valor 4 horas transcurridas:</label>
                             <input id="update_price_hora_4" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_4 ml-2 font-weight-bold"></small>
                         </div>  
                         <div class="form-group col">
                             <label for="update_price_hora_5">Valor 5 horas transcurridas:</label>
                             <input id="update_price_hora_5" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_5 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_6">Valor 6 horas transcurridas:</label>
                             <input id="update_price_hora_6" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_6 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="update_price_hora_7">Valor 7 horas transcurridas:</label>
                             <input id="update_price_hora_7" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_7 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_8">Valor 8 horas transcurridas:</label>
                             <input id="update_price_hora_8" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_8 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_9">Valor 9 horas transcurridas:</label>
                             <input id="update_price_hora_9" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_9 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="update_price_hora_10">Valor 10 horas transcurridas:</label>
                             <input id="update_price_hora_10" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_10 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_11">Valor 11 horas transcurridas:</label>
                             <input id="update_price_hora_11" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_11 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_12">Valor 12 horas transcurridas:</label>
                             <input id="update_price_hora_12" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_12 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="update_price_hora_13">Valor 13 horas transcurridas:</label>
                             <input id="update_price_hora_13" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_13 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_14">Valor 14 horas transcurridas:</label>
                             <input id="update_price_hora_14" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_14 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_15">Valor 15 horas transcurridas:</label>
                             <input id="update_price_hora_15" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_15 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="update_price_hora_16">Valor 16 horas transcurridas:</label>
                             <input id="update_price_hora_16" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_16 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_17">Valor 17 horas transcurridas:</label>
                             <input id="update_price_hora_17" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_17 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_18">Valor 18 horas transcurridas:</label>
                             <input id="update_price_hora_18" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_18 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="update_price_hora_19">Valor 19 horas transcurridas:</label>
                             <input id="update_price_hora_19" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_19 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_20">Valor 20 horas transcurridas:</label>
                             <input id="update_price_hora_20" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_20 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_21">Valor 21 horas transcurridas:</label>
                             <input id="update_price_hora_21" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_21 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="update_price_hora_22">Valor 22 horas transcurridas:</label>
                             <input id="update_price_hora_22" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_22 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="update_price_hora_23">Valor 23 horas transcurridas:</label>
                             <input id="update_price_hora_23" class="form-control" type="number"  onkeyup="currecy(this.id)"   required>
+                            <small class="update_price_hora_23 ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-4">
                             <label for="update_price_hora_24">Valor 24 horas transcurridas:</label>
                             <input id="update_price_hora_24" class="form-control" type="number"  onkeyup="currecy(this.id)"  required>
+                            <small class="update_price_hora_24 ml-2 font-weight-bold"></small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="hour-value-up">Valor por hora:</label>
                             <input id="hour-value-up" class="form-control" type="number"  onkeyup="currecy(this.id)" require>
+                            <small class="hour-value-up ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col-2 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary btn-block">Guardar</button>
