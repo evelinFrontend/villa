@@ -4,7 +4,8 @@
 <div class="row" id="invoices">
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
-            <h4 class="pricipal-title">reservar</h4>
+            <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
+            class="icon-menu mr-3 goReception"></a>Reservar</h4>
             <p class="mb-4">Para cambiar el estado de la habitación debes ingresar los que a continuación se muestran.
             </p>
             <div class="alert alert-danger" role="alert"></div>
@@ -86,7 +87,7 @@
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
             <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
-                        class="icon-menu mr-3 goReception"></a> Facturar</h4>
+            class="icon-menu mr-3 goReception"></a> Facturar</h4>
             <div class="row justify-content-end mb-4 mr-2">
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
                 <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
@@ -191,11 +192,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body row">
+            <div class="modal-body">
                 <form id="cancelar-reserva">
-                    <div class="form-group">
-                        <label for="my-textarea">Motivo</label>
-                        <textarea id="my-textarea" class="form-control" rows="3" require></textarea>
+                    <div class="form-group col">
+                        <label for="motivo">Motivo</label>
+                        <textarea id="motivo" class="form-control" rows="3" require></textarea>
                     </div>
                     <button class="btn btn-primary" type="submit">Cancelar reserva</button>
                 </form>

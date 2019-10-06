@@ -14,6 +14,12 @@ $(document).ready(function () {
         }
     });
 });
+function closeAlerts() {
+    setTimeout(() => {
+        $(".alert").removeClass('show')
+        $(".alert").empty()
+    }, 5000);
+}
 
 function openModal() {
     $('#detail-modal').modal('show')
@@ -43,22 +49,22 @@ $("#create-room").submit(function(e) {
                         var message = err.responseJSON.message;
                     }
                 });
-                $(".alert-success").addClass("show");
-                $(".alert-success").empty();
-                $(".alert-success").append(success.message);
+                $(".alert-create-room").addClass("show");
+                $(".alert-create-room").empty();
+                $(".alert-create-room").append(success.message);
                 realoadRoom();
             },
             error: function (err) {
                 var message = err.responseJSON.message;
-                $(".alert").addClass("show");
-                $(".alert").empty();
-                $(".alert").append(message);
+                $(".alert-error").addClass("show");
+                $(".alert-error").empty();
+                $(".alert-error").append(message);
             }
         });
     } else {
         console.log("error");
-        
     }
+    closeAlerts();
 })
 
 $("#form-type-room").submit(function (e) {

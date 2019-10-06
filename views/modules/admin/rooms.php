@@ -13,8 +13,8 @@
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Crear habitación</h4>
         <form id="create-room" class="border-bottom pb-4 mb-4">
-            <div class="alert alert-success" role="alert"></div>
-            <div class="alert alert-danger" role="alert"></div>
+            <div class="alert alert-success alert-create-room" role="alert"></div>
+            <div class="alert alert-danger alert-error" role="alert"></div>
             <div class="row">
                 <div class="form-group col-4">
                     <label for="room-number">Numero de habitación:</label>

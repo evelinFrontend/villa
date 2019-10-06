@@ -8,7 +8,7 @@ $("#reception").ready(function () {
     getProducts();
     getPromo();
     $("#restar").hide();
-    // setTimeout(refrescar, 30000);
+    setTimeout(refrescar, 100000);
 });
 function refrescar(){
     location.reload();
@@ -164,7 +164,7 @@ function getProducts() {
                 </tr>
                 `)
                 $("#modal-content-products-re").append(`
-                <tr class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                <tr class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${false},${true},1)">
                     <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
                     <td>
                         <h6 class="name">${data.pro_nombre}</h6>
@@ -285,7 +285,7 @@ function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
     $("#cant-products-table > tbody").empty();
     $("#"+id).hide();
     products.push({ 'id': idProd, 'name': name, 'precio':value, 'cantidad':cantidad});
-    // console.log(products);
+    console.log(products);
     if(facturar){
         $("#btn-facturar").hide();
         $("#btn-update-invoice").show();
@@ -316,12 +316,11 @@ function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
 
 
 function deleteArray(idDiv,idProd,invoice) {
-    $("#"+idDiv).show(); 
+    console.log(idDiv);
+    $("#"+idDiv).css("display", "block"); 
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
             if (products[i].id == idProd ) {
-                console.log(products[i].id+" Eliminado.");
-                console.log(products);
                 products.splice(i, 1);
             }
         }
@@ -398,7 +397,8 @@ $("#form-invoices").submit(function (e) {
         }
     })
     closeAlerts();
-})
+});
+
 
 var reservaNumHab;
 var reservaTotal;
@@ -407,7 +407,7 @@ var habitacionDecorada;
 var idReserva;
 var restante;
 
-function verReserva(hab) {
+function verReserva(hab) {    
     //crear una funcion que consulte los datos de la factura ya tengo valor actuañ de la consulta 
     var data = hab.toString()
     $.ajax({
@@ -418,7 +418,7 @@ function verReserva(hab) {
             "habitacion": data
         }),
         success: function (success) {
-            console.log(success);
+            console.log(reserva);
             var financiero = success.data.financieros;
             var product = success.data.productos;
             var reserva = success.data.reserva;
@@ -485,7 +485,8 @@ function verReserva(hab) {
             // location.reload();
         },
         error: function (err) {
-
+            console.log(err);
+            
         }
     })
 }
@@ -794,7 +795,6 @@ $("#btn-update-invoice").click(function(){
 });
 
 function showButtons(element){
-    
     var idProducto = element.id.replace("cant-prod-add-","");
     products.forEach((product)=>{
         if(product.id==idProducto){
@@ -805,3 +805,27 @@ function showButtons(element){
     $("#btn-facturar").hide();
     console.log(products);
 }
+
+$("#btn-anular-reserva").click(function() {
+    $("#modal-cancel").modal('show');
+})
+$("#cancelar-reserva").submit(function(e) {
+    e.preventDefault()
+    $.ajax({
+        url: 'cancelarReserva',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "id_reserva": idReserva,
+            "motivo": $("#motivo").val()
+        }),
+        success: function(success) {
+            location.reload()
+            
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
+})
