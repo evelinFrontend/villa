@@ -75,12 +75,12 @@ class MasterModel{
             $cols=$this->columnsOfTable($table,$exeption);
             $comodines=$this->comodines($values);
             //convertir en string
-            $vals=$this->values($values);
-            $vals = explode(",",$vals);
+            // $vals=$this->values($values);
+            // $vals = explode(",",$vals);
             $this->sql="INSERT INTO $table($cols) VALUES ($comodines)";
             // die($this->sql);
             $query=$this->pdo->prepare($this->sql);
-            $query->execute($vals);
+            $query->execute($values);
             $result = true;
         } catch (PDOException $e) {
             error_log("Crear Usuario -".date("Y-m-d H:i:s")."-".$e->getMessage()." REQUEST ".$this->sql." VALORES ".implode($vals,"||")."\r\n",3,"errores.log");
