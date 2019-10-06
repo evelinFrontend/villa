@@ -316,6 +316,7 @@ function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
 
 
 function deleteArray(idDiv,idProd,invoice) {
+    $("#btn-update-invoice").show();
     console.log(idDiv);
     $("#"+idDiv).css("display", "block"); 
     for (let i = 0; i < products.length; i++) {

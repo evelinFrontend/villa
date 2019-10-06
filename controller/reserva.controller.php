@@ -165,6 +165,7 @@ Class ReservaController{
                     if($update){  
                         //actulizar productos
                         $productosModificados = array();
+                        $insertProducts = true;
                         foreach($products as $product){
                             //obtener datos del producto
                             $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($product["id"]))[0];
