@@ -10,7 +10,7 @@ $("#reception").ready(function () {
     $("#restar").hide();
     // setTimeout(refrescar, 100000);
 });
-function refrescar(){
+function refrescar() {
     location.reload();
 }
 function closeAlerts() {
@@ -192,7 +192,7 @@ var num_hab;
 
 function reserva(data, id) {
     console.log(data);
-    
+
     num_hab = id;
     $.ajax({
         url: 'readByRoom',
@@ -210,7 +210,7 @@ function reserva(data, id) {
                     $("#content-card").hide()
                     $("#reception").hide()
                     $("#btn-facturar").hide()
-                    
+
                     sumar();
                     break;
                 case 2:
@@ -232,8 +232,8 @@ function reserva(data, id) {
                     verReserva(id)
                     break;
                 case 6:
-                        cambiarEstadoReserva(num_hab);
-                        break;
+                    cambiarEstadoReserva(num_hab);
+                    break;
                 case 3:
                     $("#reserva").addClass('active');
                     $(".input-form-reserva").hide()
@@ -243,19 +243,19 @@ function reserva(data, id) {
                     verReserva(id)
                     break;
                 case 4:
-                        $("#reserva").addClass('active');
-                        $(".input-form-reserva").hide()
-                        $("#content-card").hide();
-                        $("#reception").hide();
-                        $("#btn-cancel-changes").hide();
-                        verReserva(id);
-                        $("#detail-reserva").append(`
+                    $("#reserva").addClass('active');
+                    $(".input-form-reserva").hide()
+                    $("#content-card").hide();
+                    $("#reception").hide();
+                    $("#btn-cancel-changes").hide();
+                    verReserva(id);
+                    $("#detail-reserva").append(`
                         <div class="col">
                             <small>Cortesia:</small>
                             <h6>Si</h6>
                         </div>
                     `)
-                    break;  
+                    break;
                 default:
                     break;
             }
@@ -269,8 +269,8 @@ function reserva(data, id) {
 
 }
 //cambiar estado de la reserva
-function cambiarEstadoReserva(habitacion){
-    if(confirm("¿Cambiar estado a disponible?")){
+function cambiarEstadoReserva(habitacion) {
+    if (confirm("¿Cambiar estado a disponible?")) {
         $.ajax({
             url: 'cambiarEstadoReservaLimpieza',
             dataType: "json",
@@ -280,7 +280,7 @@ function cambiarEstadoReserva(habitacion){
                     "habitacion": habitacion
                 }
             ),
-            success: function(success) {
+            success: function (success) {
                 location.reload();
             },
             error: function (err) {
@@ -292,29 +292,29 @@ function cambiarEstadoReserva(habitacion){
 function sumar() {
     var valorProducts = 0;
     products.forEach(element => {
-        valorProducts += (element.precio*parseInt($("#"+element.idProd).val()))
+        valorProducts += (element.precio * parseInt($("#" + element.idProd).val()))
     });
-    $("#total").html(parseInt(valorTiempo)+parseInt(valorProducts));
+    $("#total").html(parseInt(valorTiempo) + parseInt(valorProducts));
 
 }
-function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
+function addArray(id, idProd, name, value, invoice, facturar, cantidad) {
     $("#cant-products-table > tbody").empty();
-    $("#"+id).hide();
-    products.push({ 'id': idProd, 'name': name, 'precio':value, 'cantidad':cantidad});
+    $("#" + id).hide();
+    products.push({ 'id': idProd, 'name': name, 'precio': value, 'cantidad': cantidad });
     console.log(products);
-    if(facturar){
+    if (facturar) {
         $("#btn-facturar").hide();
         $("#btn-update-invoice").show();
         $("#btn-cancel-changes").show();
-    }else{
+    } else {
         $("#btn-update-invoice").hide();
     }
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
-        if(invoice){
-            var deleteID = "prod-"+element.id;
-        }else{
-            var deleteID = "prod-re-"+element.id;
+        if (invoice) {
+            var deleteID = "prod-" + element.id;
+        } else {
+            var deleteID = "prod-re-" + element.id;
         }
         $("#cant-products-table > tbody").append(`
             <tr>
@@ -326,18 +326,18 @@ function addArray(id, idProd, name, value,invoice,facturar,cantidad) {
             </tr>
         `)
     }
-    
+
     sumar();
 }
 
 
-function deleteArray(idDiv,idProd,invoice) {
+function deleteArray(idDiv, idProd, invoice) {
     $("#btn-update-invoice").show();
     console.log(idDiv);
-    $("#"+idDiv).css("display", "block"); 
+    $("#" + idDiv).css("display", "block");
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
-            if (products[i].id == idProd ) {
+            if (products[i].id == idProd) {
                 products.splice(i, 1);
             }
         }
@@ -345,12 +345,12 @@ function deleteArray(idDiv,idProd,invoice) {
     refrescarVistaProductos(invoice);
 }
 
-function refrescarVistaProductos(invoice){
+function refrescarVistaProductos(invoice) {
     $("#cant-products-table > tbody").empty();
     for (let i = 0; i < products.length; i++) {
         if (products[i].id != undefined) {
             const element = products[i];
-            if(invoice){
+            if (invoice) {
                 $("#cant-products-table > tbody").append(`
                     <tr>
                       <td>${element.name}</td>
@@ -360,7 +360,7 @@ function refrescarVistaProductos(invoice){
                       <td onclick="deleteArray('prod-${element.id}',${element.id},${true})">X</td>
                     </tr>
                 `)
-            }else{
+            } else {
                 $("#cant-products-table > tbody").append(`
                     <tr>
                       <td>${element.name}</td>
@@ -386,7 +386,7 @@ $("#form-invoices").submit(function (e) {
     var tipoReserva = 2;
     if ($("#courtesy").val() != '') {
         tipoReserva = 5;
-    } else if($("#cortesia").val() != 0){
+    } else if ($("#cortesia").val() != 0) {
         tipoReserva = 4;
     }
     var data = {
@@ -424,7 +424,7 @@ var habitacionDecorada;
 var idReserva;
 var restante;
 
-function verReserva(hab) {    
+function verReserva(hab) {
     //crear una funcion que consulte los datos de la factura ya tengo valor actuañ de la consulta 
     var data = hab.toString()
     $.ajax({
@@ -445,17 +445,16 @@ function verReserva(hab) {
             idReserva = success.data.reserva.id_reserva;
             consultFacturadata(financiero, product);
             $("#consecutivo").append(success.data.siguienteConsecutivo)
-            if(success.data.reserva.sr_estado_reserva==3){
+            if (success.data.reserva.sr_estado_reserva == 3) {
                 $("#print-parcial").html("Continuar tiempo parcial");
-            }else{
+            } else {
                 $("#print-parcial").html("Imprimir tiempo parcial");
             }
-            if(parseInt(success.data.financieros.totalTiempo)==0 && parseInt(success.data.financieros.productos)==0 ){
+            if (parseInt(success.data.financieros.totalTiempo) == 0 && parseInt(success.data.financieros.productos) == 0) {
                 $("#btn-anular-reserva").show();
-            }else{
+            } else {
                 $("#btn-anular-reserva").hide();
             }
-            console.log(success.data);
             if (success.data.reserva.ra_habitacion_decorada === '1') {
                 $("#detail-reserva").append(`
                 <div class="col">
@@ -472,10 +471,10 @@ function verReserva(hab) {
                     <h6>${success.data.promocion.promo_nombre}</h6>
                 </div>
                `);
-               $("#courtesy").val(success.data.promocion.id_promocion);
-               $(".cortesia-re").hide();
+                $("#courtesy").val(success.data.promocion.id_promocion);
+                $(".cortesia-re").hide();
 
-             }
+            }
             //dar valor al restante en la modal
             restante = financiero.total;
             $("#modalTotal, #totalReserva").append(new Intl.NumberFormat().format(financiero.total));
@@ -495,7 +494,7 @@ function verReserva(hab) {
             `)
             for (let i = 0; i < product.length; i++) {
                 const element = product[i];
-                addArray("prod-"+element.re_det_id_producto, element.re_det_id_producto, element.pro_nombre,  element.re_det_valor_unidad,true,false,element.re_det_cantidad);
+                addArray("prod-" + element.re_det_id_producto, element.re_det_id_producto, element.pro_nombre, element.re_det_valor_unidad, true, false, element.re_det_cantidad);
             }
             //VALORES DE DETALLE
             personasAdicionales = reserva.ra_numero_personas_adicionales;
@@ -504,11 +503,11 @@ function verReserva(hab) {
         },
         error: function (err) {
             console.log(err);
-            
+
         }
     })
 }
-function consultFacturadata(data, product){
+function consultFacturadata(data, product) {
     //falta datos de la factura
     $("#timetrancurrido").append(data.tiempoTranscurrido);
     $("#horavalor").append(data.valorHora);
@@ -516,17 +515,17 @@ function consultFacturadata(data, product){
     $("#totalTotal").append(data.total);
     for (let i = 0; i < product.length; i++) {
         const element = product[i];
-       $("#tableProductsTIME").append(`
+        $("#tableProductsTIME").append(`
             <tr>
                 <td>${element.pro_nombre}</td>
                 <td>${element.re_det_cantidad}</td>
                 <td>${element.re_det_valor_unidad}</td>
             </tr>
        `)
-       
-   }
-   
-    
+
+    }
+
+
 }
 var updateInvice = false;
 $("#btn-update-invoice").hide();
@@ -539,18 +538,18 @@ $("#edit").click(function name() {
     $("#btn-update-invoice").show();
     $("#btn-facturar").hide();
     $("#btn-cancel-changes").show();
-    if(parseInt(personasAdicionales)>0){
+    if (parseInt(personasAdicionales) > 0) {
         $("#additional-invoice").val(personasAdicionales);
         $("#select-person-re").val("si");
         $("#select-person-re").change();
     }
-    if(parseInt(habitacionDecorada)==1){
+    if (parseInt(habitacionDecorada) == 1) {
         $("#decorated-room-invoice").val("1");
         $("#decorated-room-invoice").change();
     }
     $("#decorated-room").val(habitacionDecorada);
 })
-$("#cancel-edit").click(function() {
+$("#cancel-edit").click(function () {
     $("#edit").show();
     $("#cancel-edit").hide()
     $("#detail-reserva").show();
@@ -560,8 +559,7 @@ $("#cancel-edit").click(function() {
     $("#btn-facturar").show();
     $("#btn-cancel-changes").hide();
 })
-
-$("#type-pay").change(function() {
+$("#type-pay").change(function () {
     if ($("#type-pay").val() == "efectivo") {
         $("#efectivo").show()
         $("#credito").hide()
@@ -573,11 +571,11 @@ $("#type-pay").change(function() {
     } else if ($("#type-pay").val() == "transferencia") {
         $("#efectivo").hide()
         $("#credito").hide()
-        $("#transferencia").show() 
+        $("#transferencia").show()
     } else {
         $("#efectivo").show()
         $("#credito").show()
-        $("#transferencia").show() 
+        $("#transferencia").show()
         $("#restar").show()
         $("#restan-value").append(restante)
 
@@ -585,37 +583,37 @@ $("#type-pay").change(function() {
 })
 var restotal;
 var resEfectivo;
-$("#input-efectivo").keyup(function() {
+$("#input-efectivo").keyup(function () {
     $("#restan-value").empty();
     var value = $(this).val();
     resEfectivo = restante - value
     restotal = resEfectivo
-    $("#restan-value").append(restotal) 
+    $("#restan-value").append(restotal)
 });
 var resCredito;
-$("#input-credito").keyup(function() {
+$("#input-credito").keyup(function () {
     $("#restan-value").empty();
     var value = $(this).val();
     restotal = resEfectivo - value;
     resCredito = restotal;
-    $("#restan-value").append(restotal) 
+    $("#restan-value").append(restotal)
 })
 var resTranfer;
-$("#input-transferencia").keyup(function() {
+$("#input-transferencia").keyup(function () {
     $("#restan-value").empty();
     var value = $(this).val();
     restotal = resCredito - value
-    $("#restan-value").append(restotal) 
+    $("#restan-value").append(restotal)
     console.log(resCredito, value);
 })
 
-$("#form-reserva").submit(function(e) {
+$("#form-reserva").submit(function (e) {
     var valueTranferencia = 0;
     var valueCredito = 0
     var valueEfectivo = 0
     e.preventDefault();
     $("#modal-type-pay").modal('show');
-    $("#btn-aceptar-metodo").click(function() {
+    $("#btn-aceptar-metodo").click(function () {
         valueTranferencia = $("#input-transferencia").val()
         valueCredito = $("#input-credito").val()
         valueEfectivo = $("#input-efectivo").val()
@@ -632,170 +630,169 @@ $("#form-reserva").submit(function(e) {
                     "cantidad_transferencia": valueTranferencia
                 }
             ),
-            success: function(success) {
+            success: function (success) {
                 console.log(success);
-               $("#modal-printer").modal("show");
-               $("#modal-type-pay").modal("hide");
-               //datos configuracion factura
-               $("#razonSocialFAC").html(success.data.configuracion_factura.conf_razon_social);
-               $("#nombreEmpresaFAC").html(success.data.configuracion_factura.conf_nombre_empresa);
-               $("#nitFAC").html("NIT "+success.data.configuracion_factura.conf_nit);
-               $("#direccionFAC").html(success.data.configuracion_factura.conf_direccion);
-               $("#numeroTelFac").html(success.data.configuracion_factura.conf_telefono);
-               $("#ciudadFAC").html(success.data.configuracion_factura.conf_ciudad);
-               $("#resolucionFAC").html("Resolución: "+success.data.configuracion_factura.conf_resolucion);
-               $("#mensajeFooterFAC").html(success.data.configuracion_factura.conf_mensaje);
-               //datos  factura
-               $("#numeroFacturaFAC").html(success.factura);
-               $("#numeroFacturaFAC").html(success.factura);
-               $("#habitacionNumFAC").html(success.data.reserva.hab_numero);
-               $("#horaEntradaFAC").html((success.data.reserva.ra_fecha_hora_ingreso).substr(0,11));
-               $("#horaSalidaFAC").html(success.data.reserva.hab_fecha_creacion);
-               
-               ///Detalles servicio
-               $("#descTiempoFAC").html("Tiempo: "+success.data.reserva.tiempo_transcurido);
-               $("#valorTiempoFAC").html(success.data.financieros.totalTiempo);
-               
-               //Productos 
-               if(success.data.productos.length<=0){
-                $("#DescProduct").hide();
-               }
-               for (var i = 0; i < success.data.productos.length; i++) {
-                   $('#tableProductsFAC > tbody:last').append(`
+                $("#modal-printer").modal("show");
+                $("#modal-type-pay").modal("hide");
+                //datos configuracion factura
+                $("#razonSocialFAC").html(success.data.configuracion_factura.conf_razon_social);
+                $("#nombreEmpresaFAC").html(success.data.configuracion_factura.conf_nombre_empresa);
+                $("#nitFAC").html("NIT " + success.data.configuracion_factura.conf_nit);
+                $("#direccionFAC").html(success.data.configuracion_factura.conf_direccion);
+                $("#numeroTelFac").html(success.data.configuracion_factura.conf_telefono);
+                $("#ciudadFAC").html(success.data.configuracion_factura.conf_ciudad);
+                $("#resolucionFAC").html("Resolución: " + success.data.configuracion_factura.conf_resolucion);
+                $("#mensajeFooterFAC").html(success.data.configuracion_factura.conf_mensaje);
+                //datos  factura
+                $("#numeroFacturaFAC").html(success.factura);
+                $("#numeroFacturaFAC").html(success.factura);
+                $("#habitacionNumFAC").html(success.data.reserva.hab_numero);
+                $("#horaEntradaFAC").html((success.data.reserva.ra_fecha_hora_ingreso).substr(0, 11));
+                $("#horaSalidaFAC").html(success.data.reserva.hab_fecha_creacion);
+
+                ///Detalles servicio
+                $("#descTiempoFAC").html("Tiempo: " + success.data.reserva.tiempo_transcurido);
+                $("#valorTiempoFAC").html(new Intl.NumberFormat().format(success.data.financieros.totalTiempo));
+
+                //Productos 
+                if (success.data.productos.length <= 0) {
+                    $("#DescProduct").hide();
+                }
+                for (var i = 0; i < success.data.productos.length; i++) {
+                    var value = new Intl.NumberFormat().format(success.data.productos[i].re_det_valor_total)
+                    $('#tableProductsFAC > tbody:last').append(`
                    <tr>
                    <td>${success.data.productos[i].pro_nombre}</td>
                    <td>${success.data.productos[i].re_det_cantidad}</td>
-                   <td>${success.data.productos[i].re_det_valor_total}</td>
+                   <td>${value}</td>
                    </tr>
                    `);
                 }
-                $("#valorProductosTotalFAC").html(success.data.financieros.productos);
-                $("#valorBaseIvaFAC").html(success.data.financieros.baseIva);
-                $("#subtotalFAC").html(success.data.financieros.subtotal);
-                $("#valorIvaFAC").html(success.data.financieros.iva);
-                $("#valorTotalFAC").html(success.data.financieros.total);
+                $("#valorProductosTotalFAC").html(new Intl.NumberFormat().format(success.data.financieros.productos));
+                $("#valorBaseIvaFAC").html(new Intl.NumberFormat().format(success.data.financieros.baseIva));
+                $("#subtotalFAC").html(new Intl.NumberFormat().format(success.data.financieros.subtotal));
+                $("#valorIvaFAC").html(new Intl.NumberFormat().format(success.data.financieros.iva));
+                $("#valorTotalFAC").html(new Intl.NumberFormat().format(success.data.financieros.total));
                 //hab itacion decora
-                if(parseInt(success.data.financieros.decoracion)>0){
+                if (parseInt(success.data.financieros.decoracion) > 0) {
                     $('#habitacionDecorada').after(`
                     <div class="d-flex justify-content-between">
                     <p>Habitacion Decorada:</p>
-                    <p>${success.data.financieros.decoracion}</p>
+                    <p>${new Intl.NumberFormat().format(success.data.financieros.decoracion)}</p>
                     </div>
                     `);
                 }
                 //FORMAS DE PAGO
-                if(parseInt(success.data.financieros.valor_pago_efectivo)>0){
+                if (parseInt(success.data.financieros.valor_pago_efectivo) > 0) {
                     $('#formasDePagoFAC').after(`
                         <div class="d-flex justify-content-between">
                             <p>Efectivo:</p>
-                            <p>${success.data.financieros.valor_pago_efectivo}</p>
+                            <p>${new Intl.NumberFormat().format(success.data.financieros.valor_pago_efectivo)}</p>
                         </div>
                     `);
                 }
-                if(parseInt(success.data.financieros.valor_pago_credito)>0){
+                if (parseInt(success.data.financieros.valor_pago_credito) > 0) {
                     $('#formasDePagoFAC').after(`
                         <div class="d-flex justify-content-between">
                             <p>Credito:</p>
-                            <p>${success.data.financieros.valor_pago_credito}</p>
+                            <p>${new Intl.NumberFormat().format(success.data.financieros.valor_pago_credito)}</p>
                         </div>
                     `);
                 }
-                if(parseInt(success.data.financieros.valor_pago_transferencia)>0){
+                if (parseInt(success.data.financieros.valor_pago_transferencia) > 0) {
                     $('#formasDePagoFAC').after(`
                         <div class="d-flex justify-content-between">
                             <p>Transferencia:</p>
-                            <p>${success.data.financieros.valor_pago_transferencia}</p>
+                            <p>${new Intl.NumberFormat().format(success.data.financieros.valor_pago_transferencia)}</p>
                         </div>
                     `);
                 }
-            //    $("#").html(response.configuracion_factura.);
-            // location.reload();
+                //    $("#").html(response.configuracion_factura.);
+                // location.reload();
             },
             error: function (err) {
                 $(".a-modal-danger").empty();
                 $(".a-modal-danger").addClass("show");
                 $(".a-modal-danger").append(err.responseJSON.message);
-                
+
             }
         })
         closeAlerts()
     })
 })
 
-$("#goToReception").click(function() {
+$("#goToReception").click(function () {
     location.reload();
 })
 
-$("#btn-print").click(function() {
+$("#btn-print").click(function () {
     $("#content-print").addClass("show");
     $(".data-invoces").addClass("show")
     window.print();
     location.reload();
 })
-$("#close-print").click(function() {
+$("#close-print").click(function () {
     $("#content-print").removeClass("show");
-    
+
 })
-$("#print-parcial").click(function() {
+$("#print-parcial").click(function () {
     $.ajax({
         url: 'cambiarEstadoReserva',
         dataType: "json",
         type: "POST",
-        data:({
+        data: ({
             "habitacion": reservaNumHab,
-            "estado_reserva":3
+            "estado_reserva": 3
         }),
         success: function (success) {
-           console.log(success);
-        if($("#print-parcial").html()!="Continuar tiempo parcial"){
+            console.log(success);
+            if ($("#print-parcial").html() != "Continuar tiempo parcial") {
                 $("#reservaID").html(success.data.reserva.id_reserva);
                 $("#numhab").html(success.data.reserva.hab_numero);
                 $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
-                $("#totalTiempoParcial").html(success.data.financieros.total)
-                $("#valorTiempoParcial").html(success.data.financieros.totalTiempo)
-            //    $("#horatrancurrido").html(success.data)
-            // $('#table-type-room> tbody>').empty();
-            for (var i = 0; i < success.data.productos.length; i++) {
-                $('#tableProductsTIME> tbody:last').append(`
+                $("#totalTiempoParcial").html(new Intl.NumberFormat().format(success.data.financieros.total))
+                $("#valorTiempoParcial").html(new Intl.NumberFormat().format(success.data.financieros.totalTiempo))
+                for (var i = 0; i < success.data.productos.length; i++) {
+                    var valor = new Intl.NumberFormat().format(success.data.productos[i].re_det_valor_total)
+                    $('#tableProductsTIME> tbody:last').append(`
                 <tr>
                     <th>${success.data.productos[i].pro_nombre}</th>
                     <td>${success.data.productos[i].re_det_cantidad}</td>
-                    <td>${success.data.productos[i].re_det_valor_total}</td>
+                    <td>${valor}</td>
                 </tr>
                 `);
+                }
+                $(".data-time").addClass("show")
+                $("#content-print").addClass("show");
+                window.print();
             }
-            $(".data-time").addClass("show")
-            $("#content-print").addClass("show");
-            window.print();
-        }
-        location.reload();
+            location.reload();
         },
         error: function (err) {
             console.log(err);
 
         }
-    }) 
+    })
 })
-
-$("#btn-cancel-changes").click(function(){
+$("#btn-cancel-changes").click(function () {
     location.reload();
 });
 
 //ACTUALIZAR RESERVA
-$("#btn-update-invoice").click(function(){
+$("#btn-update-invoice").click(function () {
     for (let i = 0; i < products.length; i++) {
         const element = products[i];
         input = $("#" + element.id).val();
         productData.push({ "id": element.id, "cantidad": element.cantidad })
     }
-    if(updateInvice){
+    if (updateInvice) {
         var data = {
             "id_reserva": idReserva,
             "numero_personas_adicionales": $("#additional-invoice").val(),
             "habitacion_decorada": $("#decorated-room-invoice").val(),
             "productos": JSON.stringify(productData)
         }
-    }else{
+    } else {
         var data = {
             "id_reserva": idReserva,
             "numero_personas_adicionales": personasAdicionales,
@@ -820,26 +817,22 @@ $("#btn-update-invoice").click(function(){
     })
     closeAlerts();
 });
-
-function showButtons(element){
-    var idProducto = element.id.replace("cant-prod-add-","");
-    products.forEach((product)=>{
-        if(product.id==idProducto){
-            product.cantidad=element.value;
+function showButtons(element) {
+    var idProducto = element.id.replace("cant-prod-add-", "");
+    products.forEach((product) => {
+        if (product.id == idProducto) {
+            product.cantidad = element.value;
         }
     });
     $("#btn-update-invoice").show();
     $("#btn-facturar").hide();
-    console.log(products);
 }
 
-$("#btn-anular-reserva").click(function() {
+$("#btn-anular-reserva").click(function () {
     $("#modal-cancel").modal('show');
 })
-$("#cancelar-reserva").submit(function(e) {
+$("#cancelar-reserva").submit(function (e) {
     e.preventDefault();
-    console.log(id_reserva);
-    
     $.ajax({
         url: 'cancelarReserva',
         dataType: "json",
@@ -848,21 +841,21 @@ $("#cancelar-reserva").submit(function(e) {
             "id_reserva": idReserva,
             "motivo": $("#motivo").val()
         }),
-        success: function(success) {
+        success: function (success) {
             location.reload()
-            
+
         },
         error: function (err) {
             console.log(err);
-            
+
         }
     })
 });
 function currecy(id) {
-    value = $('#'+id).val();
+    value = $('#' + id).val();
     var total = new Intl.NumberFormat().format(value);
     console.log(total);
-    $('.'+id).empty()
-    $('.'+id).append(total)
-    
+    $('.' + id).empty()
+    $('.' + id).append(total)
+
 }
