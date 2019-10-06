@@ -8,7 +8,9 @@ $("#content-close").ready(function() {
             $("#facEnd").append(success.data.facturaFin);
             $("#facInit").append(success.data.facturaInicio);
             $("#facnum").append(success.data.totalFacturasRealizadas);
+            $("#valorAbriCaja").append(success.data.abrioCajaCon);  
             $("#cierre-input").val(success.data.totalVentasTurno);  
+            $("#caja-input").val(success.data.valorCaja);  
         },
         error: function (err) {
             

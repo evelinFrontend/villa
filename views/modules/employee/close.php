@@ -16,12 +16,22 @@
             <p>Numero de facturas</p>
                 <h6 id="facnum"></h6>
             </div>
+            <div class="col">
+            <p>Valor con que se abrio la caja</p>
+                <h6 id="valorAbriCaja"></h6>
+            </div>
         </div>
         <form >
             <div class="row mt-4">
                 <div class="form-group col">
-                    <label for="cierre-input">Valor en caja:</label>
-                    <input id="cierre-input" class="form-control" type="number">
+                    <label for="cierre-input">Valor  de facturas realizadas:</label>
+                    <input id="cierre-input" class="form-control" type="number" disabled>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="form-group col">
+                    <label for="caja-input">Valor en caja:</label>
+                    <input id="caja-input" class="form-control" type="number" disabled>
                 </div>
                 <div class="form-group col mt-2">
                     <button type="button" id="cierre" class="btn btn-primary btn-block mt-4">Cerrar turno</button>

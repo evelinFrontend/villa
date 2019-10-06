@@ -66,7 +66,7 @@ Class TurnosController{
         if($_SESSION["DATA_USER"]["ID"]!= ""){
             $existeUsuario = $this->masterModel->sqlSelect("SELECT usu_id FROM usuario WHERE usu_id = ? ",array($_SESSION["DATA_USER"]["ID"]));
             if(!empty($existeUsuario)){
-                $existeTurno = $this->masterModel->sqlSelect("SELECT id_control FROM control_turnos WHERE id_usuario = ? AND fecha_turno = ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")));
+                $existeTurno = $this->masterModel->sqlSelect("SELECT * FROM control_turnos WHERE id_usuario = ? AND fecha_turno = ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")))[0];
                 if(!empty($existeTurno)){
                     $totalFacturasRealizadas = $this->masterModel->sqlSelect("SELECT COUNT(fac_consecutivo) as totalFacturas FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->totalFacturas;
                     $facturaInicio = $this->masterModel->sqlSelect("SELECT MIN(fac_consecutivo) as facturaInicio FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ORDER BY fac_hora_salida DESC",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->facturaInicio;
@@ -78,7 +78,8 @@ Class TurnosController{
                     if($insert){
                         $status = "success";
                         $message = "Turno modificado exitosamente.";
-                        $data = array("totalFacturasRealizadas"=>$totalFacturasRealizadas,"facturaInicio"=>$facturaInicio,"facturaFin"=>$facturaFin,"totalVentasTurno"=>$totalVentasTurno);
+                        $valorCaja = intval($totalVentasTurno)+intval($existeTurno->valor_inicial);
+                        $data = array("totalFacturasRealizadas"=>$totalFacturasRealizadas,"facturaInicio"=>$facturaInicio,"facturaFin"=>$facturaFin,"totalVentasTurno"=>$totalVentasTurno,"abrioCajaCon"=>$existeTurno->valor_inicial,"valorCaja"=>$valorCaja);
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
