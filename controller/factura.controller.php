@@ -93,7 +93,7 @@ Class FacturaController{
                             $numeroDefactura,
                             $dataReserva["data"]["reserva"]->id_reserva,
                             $dataReserva["data"]["reserva"]->hab_numero,
-                            $dataReserva["data"]["reserva"]->id_usuario,
+                            $_SESSION["DATA_USER"]["ID"],
                             $dataReserva["data"]["reserva"]->promo_id,
                             $dataReserva["data"]["reserva"]->ra_fecha_hora_ingreso,
                             $dataReserva["data"]["reserva"]->ra_inicio_tiempo_parcial,
@@ -114,7 +114,7 @@ Class FacturaController{
                             $numeroDefactura,
                             $dataReserva["data"]["reserva"]->id_reserva,
                             $dataReserva["data"]["reserva"]->hab_numero,
-                            $dataReserva["data"]["reserva"]->id_usuario,
+                            $_SESSION["DATA_USER"]["ID"],
                             $dataReserva["data"]["reserva"]->ra_fecha_hora_ingreso,
                             $dataReserva["data"]["reserva"]->ra_inicio_tiempo_parcial,
                             $dataReserva["data"]["reserva"]->ra_fin_tiempo_parcial,
@@ -335,6 +335,7 @@ Class FacturaController{
         ));
         if($insert){
             //agregar productos
+            $insertProducts = true;
             foreach($dataReserva["data"]["productos"] as $product){
                 $insertProducts = $this->masterModel->insert("detalle_cortesia",array(
                     $numeroDeCortesia,
