@@ -707,5 +707,11 @@ function updateProvider(id) {
         }
     })
 }
-
-
+function currecy(id) {
+    value = $('#'+id).val();
+    var total = new Intl.NumberFormat().format(value);
+    console.log(total);
+    $('.'+id).empty()
+    $('.'+id).append(total)
+    
+}

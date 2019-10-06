@@ -810,7 +810,9 @@ $("#btn-anular-reserva").click(function() {
     $("#modal-cancel").modal('show');
 })
 $("#cancelar-reserva").submit(function(e) {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(id_reserva);
+    
     $.ajax({
         url: 'cancelarReserva',
         dataType: "json",

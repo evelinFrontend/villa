@@ -159,6 +159,7 @@
                     <div class="form-group">
                         <label for="dec-hab">Valor habitación decorada:</label>
                         <input id="dec-hab" class="form-control" type="number" name="">
+                        <small id="value-hab-dec" class="font-weight-bold ml-2"></small>
                     </div>
                     <div class="form-group">
                         <label for="minutosCobrar">Minutos despues del cual se cobrara otra hora:</label>

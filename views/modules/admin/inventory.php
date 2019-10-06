@@ -156,11 +156,13 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="value-pay-product">Valor de compra:</label>
-                            <input id="value-pay-product" class="form-control" type="number" required>
+                            <input id="value-pay-product" class="form-control" type="number" onkeyup="currecy(this.id)" required>
+                            <small class="value-pay-product ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="value-buy-product">Valor de venta:</label>
-                            <input id="value-buy-product" class="form-control" type="number" required>
+                            <input id="value-buy-product" class="form-control" type="number" onkeyup="currecy(this.id)" required>
+                            <small class="value-buy-product ml-2 font-weight-bold"></small>
                         </div>
                         <div class="form-group col">
                             <label for="cant-product">Cant. disponible:</label>
@@ -365,11 +367,13 @@
                         <div class="row">
                             <div class="form-group col">
                                 <label for="value-pay-product-up">Valor de compra:</label>
-                                <input id="value-pay-product-up" class="form-control" type="number" required>
+                                <input id="value-pay-product-up" class="form-control" type="number" onkeyup="currecy(this.id)" required>
+                                <small class="value-pay-product-up ml-2 font-weight-bold"></small>
                             </div>
                             <div class="form-group col">
                                 <label for="value-buy-product-up">Valor de venta:</label>
-                                <input id="value-buy-product-up" class="form-control" type="number" required>
+                                <input id="value-buy-product-up" class="form-control" type="number" onkeyup="currecy(this.id)" required>
+                                <small class="value-buy-product-up ml-2 font-weight-bold"></small>
                             </div>
                             <div class="form-group col">
                                 <label for="cant-product-up">Cant. disponible:</label>

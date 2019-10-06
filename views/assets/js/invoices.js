@@ -196,14 +196,14 @@ function reloadInvoices() {
         type: "POST",
         success: function (response) {
             console.log(response);
-
             $('#table-search-invoices> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
+                var valorFactura = new Intl.NumberFormat().format(response.data[i].valor_factura);
                 $('#table-search-invoices > tbody:last').append(`
                 <tr>
                     <td>${response.data[i].fac_consecutivo}</td>
                     <td>${response.data[i].fac_hora_salida}</td>
-                    <td>${response.data[i].valor_factura}</td>
+                    <td>${valorFactura}</td>
                     <td>${response.data[i].tipo_pago}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/print.png" class="icon-list" onclick="printInvoices(${response.data[i].fac_consecutivo})">
@@ -218,6 +218,15 @@ function reloadInvoices() {
         },
     });
 }
+
+$("#dec-hab").keyup(function() {
+    var value = $(this).val();
+    var total = new Intl.NumberFormat().format(value);
+    $("#value-hab-dec").empty()
+    $("#value-hab-dec").append(total)
+    console.log(total);
+    
+})
 
 function printInvoices(data) {
     $.ajax({
