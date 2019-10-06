@@ -95,7 +95,7 @@ Class TiempoController{
             $valorHora = intval($datosReserva->th_valor_hora_despues24);
              
             //
-            if(intval($explodeHora[0])>0 || intval($explodeHora[1])>$minutosContarHora){
+            if(intval($explodeHora[0])>0 || intval($explodeHora[1])>=$minutosDeCortesia){
                 $total += $infoPromocion->promo_valor;
                 $valorPromocion = $infoPromocion->promo_valor;
             }
