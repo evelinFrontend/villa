@@ -227,13 +227,15 @@ function realoadRoom(){
         success: function (response) {
             $('#table-create-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
+                var valorHoraDesp = new Intl.NumberFormat().format(response.data[i].th_valor_hora_despues24);
+                var valorPersAdic = new Intl.NumberFormat().format(response.data[i].th_valor_persona_adicional);
                 $('#table-create-room> tbody:last').append(`
                 <tr>
                     <th>${response.data[i].hab_numero}</th>
                     <td>${response.data[i].hab_detalle}</td>
                     <td>${response.data[i].th_nombre_tipo}</td>
-                    <td>${response.data[i].th_valor_hora_despues24}</td>
-                    <td>${response.data[i].th_valor_persona_adicional}</td>
+                    <td>${valorHoraDesp}</td>
+                    <td>${valorPersAdic}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateRoom(${response.data[i].hab_numero})">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].hab_numero}, 'deleteRoom')">
@@ -287,12 +289,14 @@ function reloadTypeRoom(){
         success: function (response) {
             $('#table-type-room> tbody>').empty();
             for (var i = 0; i < response.data.length; i++) {
+                var valorHoraDesp = new Intl.NumberFormat().format(response.data[i].th_valor_hora_despues24);
+                var valorPersAdic = new Intl.NumberFormat().format(response.data[i].th_valor_persona_adicional);
                 $('#table-type-room> tbody:last').append(`
                 <tr>
                     <th>${response.data[i].th_nombre_tipo}</th>
                     <td>${response.data[i].th_descripcion}</td>
-                    <td>${response.data[i].th_valor_hora_despues24}</td>
-                    <td>${response.data[i].th_valor_persona_adicional}</td>
+                    <td>${valorHoraDesp}</td>
+                    <td>${valorPersAdic}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updateType(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
                         <img src="views/assets/icons/delete.png" class="icon-list" onclick="deleteRoom(${response.data[i].id_tipo_habitacion}, 'deleteTypeRoom')">
