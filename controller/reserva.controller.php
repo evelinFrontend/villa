@@ -461,6 +461,7 @@ Class ReservaController{
                             }
                             if($insert){
                                 $delete = $this->masterModel->delete("reserva_activa",array("id_reserva",$request["id_reserva"]));
+                                $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(1,$existeReserva->hab_numero));
                                 if($delete){
                                     $status = "success";
                                     $message = "Reserva cancelada";

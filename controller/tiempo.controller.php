@@ -72,14 +72,21 @@ Class TiempoController{
         $minutosDeCortesia = intval($this->masterModel->selectAll("villa_config")[0]->conf_minutos_cortesia);
         $minutosContarHora = intval($this->masterModel->selectAll("villa_config")[0]->minutos_contar_hora);
         $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
+        $precioPerosnaAdicionalDB = intval($datosReserva->th_valor_persona_adicional);
         $total = 0;
         $totalProductos = 0;
         $precioDecoracionFactura = 0;
         $totalTiempo =0;
+        $personaAdicional =0;
         //habitacion decorada 
         if($datosReserva->ra_habitacion_decorada==1){
             $total +=  $precioDecoracionDB;
             $precioDecoracionFactura = $precioDecoracionDB;
+        }
+        //persona Adicional  
+        if($datosReserva->ra_numero_personas_adicionales>0){
+            $total +=  $precioPerosnaAdicionalDB*intval($datosReserva->ra_numero_personas_adicionales);
+            $personaAdicional = $precioPerosnaAdicionalDB*intval($datosReserva->ra_numero_personas_adicionales);
         }
         foreach($products as $product){
             $totalProductos += $product->re_det_cantidad*$product->re_det_valor_unidad;
@@ -103,19 +110,6 @@ Class TiempoController{
                 $diferenciaHoras = intval($explodeHora[0])-intval($explodePromo[0]) ;
                 $total += $valorHora*$diferenciaHoras;
             }
-            // $hmsInt=array();
-            // foreach($explodeHora as $item){
-            //     $hmsInt[] = intval($item);
-            // }
-            //valor horas
-            // if($hmsInt[0]>0){
-            //     $total += $valorHora*$hmsInt[0];
-            // }
-            // //valor minutos 
-            // if($hmsInt[1]>$minutosDeCortesia){
-            //     $total += $valorHora;
-            // }
-            // return $total;
             $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"totalTiempo"=>$valorPromocion,"productos"=>$totalProductos);
         }else{
             $totalHorasCobrar = 0;
@@ -222,7 +216,7 @@ Class TiempoController{
                 $totalTiempo += intval($datosReserva->th_valor_hora24);
                 $totalTiempo += $valorHora*($totalHorasCobra-24);
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar,"valorPersonaAdicional"=>$personaAdicional);
         }   
         return $result;
     }
