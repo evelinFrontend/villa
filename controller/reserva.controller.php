@@ -199,6 +199,8 @@ Class ReservaController{
                         }
                         $diff = array_diff($productosEnDbArray,$productosModificados);
                         //eliminar y reestablecer stock
+                        $stock = true; 
+                        $delete = true;
                         foreach($diff as $eliminado){
                             $restablecerStock = $this->masterModel->sqlSelect("SELECT re_det_cantidad FROM reserva_activa_detalle WHERE re_det_id_producto = ? AND id_reserva = ? ",array($eliminado,$request["id_reserva"]));
                             $dataProduct = $this->masterModel->sqlSelect("SELECT * FROM producto WHERE id_producto = ? ",array($eliminado))[0];
