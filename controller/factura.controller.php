@@ -380,7 +380,8 @@ Class FacturaController{
             $status = "error";
             $message = "Error al momento de guardar la cortesia.";
         }
-        $result =array("numeroCortesia"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"reserva"=>$dataReserva["data"]["reserva"]);
+        // $dataReserva["data"]["reserva"]->productos= $dataReserva["data"]["productos"];
+        $result =array("numeroCortesia"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"data"=>$dataReserva["data"]);
         echo json_encode($result);
         return ;
     }
