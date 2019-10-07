@@ -16,14 +16,14 @@
         <!-- <div class="cards reporte col-3 p-4 mb-4" id="ReporMovimiento">
             <p class="text-center">Reporte de movimientos</p>
         </div> -->
-        <!-- <div class="cards reporte col-3 p-4 mb-4" id="productVendidos">
-            <p class="text-center">Productos vendidos</p>
-        </div> -->
-        <!-- <div class="cards reporte col-3 p-4 mb-4" id="GananciaXproducto">
-            <p class="text-center">Ganancia por producto</p>
-        </div> -->
         <div class="cards reporte col-3 p-4 mb-4" id="formasPago">
             <p class="text-center">Formas de pago</p>
+        </div>
+        <div class="cards reporte col-3 p-4 mb-4" id="cortesiasRealizadas">
+            <p class="text-center">Cortesias Realizadas</p>
+        </div>
+        <div class="cards reporte col-3 p-4 mb-4" id="reservasCanceladas">
+            <p class="text-center">Reservas Canceladas</p>
         </div>
     </div>
     <div class="search-reporte subcontent p-4">

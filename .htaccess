@@ -115,6 +115,8 @@ RewriteRule ^reporteFormarDePago$ index.php?controller=reporte&a=reporteFormarDe
 RewriteRule ^reporteHabitaciones$ index.php?controller=reporte&a=reporteHabitaciones
 RewriteRule ^reporteInventario$ index.php?controller=reporte&a=reporteInventario
 RewriteRule ^guardarFechas$ index.php?controller=reporte&a=guardarFechas
+RewriteRule ^cortesiasRealizadas$ index.php?controller=reporte&a=cortesiasRealizadas
+RewriteRule ^reservasCanceladas$ index.php?controller=reporte&a=reservasCanceladas
 
 
 #DESARROLLO

@@ -173,5 +173,46 @@ Class ReporteController{
             echo json_encode($result);
         }
     }
+    function  cortesiasRealizadas(){
+        header('Content-Type:application/json');
+        $request["fecha_inicio"] = $_SESSION["FECHA_INICIO_REPORTE"];
+        $request["fecha_final"] =  $_SESSION["FECHA_FIN_REPORTE"];
+
+        $dataCortesia = $this->masterModel->sqlSelect("SELECT *  FROM cortesia WHERE cor_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"));
+        if(!empty($dataCortesia)){
+            // $datallesCortesia = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalCredito);
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = $dataCortesia;
+            require_once "views/modules/admin/reports/cortesiasRealizadas.php"; 
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }
+    }
+    function  reservasCanceladas(){
+        header('Content-Type:application/json');
+        $request["fecha_inicio"] = $_SESSION["FECHA_INICIO_REPORTE"];
+        $request["fecha_final"] =  $_SESSION["FECHA_FIN_REPORTE"];
+
+        $data = $this->masterModel->sqlSelect("SELECT *  FROM reservas_anuladas WHERE ranula_fecha_hora_ingreso BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"));
+        if(!empty($data)){
+            // $datallesCortesia = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalCredito);
+            $status = "success";
+            $message = "Consultas realizada.";
+            require_once "views/modules/admin/reports/reservasAnuladas.php"; 
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }
+    }
 }
 ?>

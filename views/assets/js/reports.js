@@ -9,12 +9,12 @@ $(".reporte").click(function (e) {
         $(".ganancia").hide();
         $(".pago").hide();
         $(".items-repor").hide();
-    } else if (type === "GananciaXproducto") {
-        tipoReporte = "GananciaXproducto";
+    } else if (type === "cortesiasRealizadas") {
+        tipoReporte = "cortesiasRealizadas";
         $("#icon-back").addClass("show")
-        $(".ganancia").addClass("show");
+        $(".search-reporte").addClass("show");
+        $(".ganancia").hide();
         $(".pago").hide();
-        $(".search-reporte").hide();
         $(".items-repor").hide();
     } else if (type === "reporteVenta" ) {
         tipoReporte = "reporteVenta";
@@ -54,8 +54,8 @@ $(".reporte").click(function (e) {
         $(".ganancia").hide();
         $(".pago").hide();
         $(".items-repor").hide();
-    }else if(type === "productVendidos"){
-        tipoReporte = "productVendidos";
+    }else if(type === "reservasCanceladas"){
+        tipoReporte = "reservasCanceladas";
         $("#icon-back").addClass("show")
         $(".search-reporte").addClass("show");
         $(".ganancia").hide();
@@ -110,7 +110,42 @@ $("#form-search").submit(function (e) {
         }else{
             alert("Ingresa las fechas para el reporte.");
         }
-    } else if (tipoReporte === "GananciaXproducto") {
+    } else if (tipoReporte === "cortesiasRealizadas") {
+        if($("#fecha_inicio").val()!="" || $("#fecha_final").val()!=""){
+            $.ajax({
+               url:"guardarFechas",
+               type:"POST",
+               dataType:"json",
+               data:({
+                   fecha_inicio:$("#init-date").val(),
+                   fecha_final :$("#fin-date").val()
+               }),
+               success:function(response){
+                   console.log(response);
+                   fetch('cortesiasRealizadas')
+                    .then(resp => resp.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        // the filename you want
+                        a.download = 'Cortesias Realizadas '+$("#init-date").val()+'-'+$("#fin-date").val()+'.xls';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        // alert('your file has downloaded!'); 
+                    })
+                    .catch(() => alert('oh no!'));
+               },
+               error:function(response){
+                   console.log(response);
+                   alert(response.responseJSON.message);
+               },
+           });
+        }else{
+            alert("Ingresa las fechas para el reporte.");
+        }
     } else if (tipoReporte === "reporteVenta" ) {
         if($("#fecha_inicio").val()!="" || $("#fecha_final").val()!=""){
             $.ajax({
@@ -181,7 +216,42 @@ $("#form-search").submit(function (e) {
         });
     }else if(tipoReporte === "reporInvetario"){
     }else if(tipoReporte === "ReporMovimiento"){
-    }else if(tipoReporte === "productVendidos"){
+    }else if(tipoReporte === "reservasCanceladas"){
+        if($("#fecha_inicio").val()!="" || $("#fecha_final").val()!=""){
+            $.ajax({
+               url:"guardarFechas",
+               type:"POST",
+               dataType:"json",
+               data:({
+                   fecha_inicio:$("#init-date").val(),
+                   fecha_final :$("#fin-date").val()
+               }),
+               success:function(response){
+                   console.log(response);
+                   fetch('reservasCanceladas')
+                    .then(resp => resp.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        // the filename you want
+                        a.download = 'Reservas Canceladas '+$("#init-date").val()+'-'+$("#fin-date").val()+'.xls';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        // alert('your file has downloaded!'); 
+                    })
+                    .catch(() => alert('oh no!'));
+               },
+               error:function(response){
+                   console.log(response);
+                   alert(response.responseJSON.message);
+               },
+           });
+        }else{
+            alert("Ingresa las fechas para el reporte.");
+        }
     }
     console.log(tipoReporte);
 });
