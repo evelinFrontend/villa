@@ -313,7 +313,8 @@ Class FacturaController{
     }
     
     function crearCortesia($dataReserva,$request){
-        //obtener el numero de la cortesia
+        //obtener el numero de la cortesia y el valor del iba
+        $valorIva = $this->masterModel->sqlSelect("SELECT  conf_iva FROM villa_config",array(""))[0]->conf_iva;
         $numeroDeCortesia = $this->masterModel->sqlSelect("SELECT MAX(cor_consecutivo) as ultimaCortesia FROM cortesia",array(""))[0]->ultimaCortesia+1;
         //guardar cortesia
         $insert = $this->masterModel->insert("cortesia",array(
@@ -380,8 +381,15 @@ Class FacturaController{
             $status = "error";
             $message = "Error al momento de guardar la cortesia.";
         }
-        // $dataReserva["data"]["reserva"]->productos= $dataReserva["data"]["productos"];
-        $result =array("numeroCortesia"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"data"=>$dataReserva["data"]);
+        $dataReserva["data"]["configuracion_factura"]= $this->masterModel->selectAll("villa_conf_facturas")[0];
+        $dataReserva["data"]["financieros"]["tipo_pago"]= $request["tipo_pago"];
+        $dataReserva["data"]["financieros"]["valor_pago_efectivo"]= $request["cantidad_efectivo"];
+        $dataReserva["data"]["financieros"]["valor_pago_credito"]= $request["cantidad_credito"];
+        $dataReserva["data"]["financieros"]["valor_pago_transferencia"]= $request["cantidad_transferencia"];
+        $dataReserva["data"]["financieros"]["iva"]=  ($dataReserva["data"]["financieros"]["total"]*intval($valorIva))/100;
+        $dataReserva["data"]["financieros"]["baseIva"]=  number_format($dataReserva["data"]["financieros"]["total"]/119,2);
+        $dataReserva["data"]["financieros"]["subtotal"]=  $dataReserva["data"]["financieros"]["total"]-$dataReserva["data"]["financieros"]["iva"];
+        $result =array("factura"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"data"=>$dataReserva["data"]);
         echo json_encode($result);
         return ;
     }
