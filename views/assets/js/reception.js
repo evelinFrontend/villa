@@ -7,6 +7,7 @@ $("#reception").ready(function () {
     getRooms()
     getProducts();
     getPromo();
+    HabitacionSelect();
     $("#restar").hide();
     // setTimeout(refrescar, 100000);
 });
@@ -831,6 +832,9 @@ function showButtons(element) {
 $("#btn-anular-reserva").click(function () {
     $("#modal-cancel").modal('show');
 })
+$("#btn-cambio-habitacion").click(function () {
+    $("#modal-cambio-habitacion").modal('show');
+})
 $("#cancelar-reserva").submit(function (e) {
     e.preventDefault();
     $.ajax({
@@ -859,3 +863,57 @@ function currecy(id) {
     $('.' + id).append(total)
 
 }
+
+function HabitacionSelect(){
+    $.ajax({
+        url: 'readByRoom',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (success) {
+            var options = success.data;
+            $('#nueva-habitacion').empty();
+            $.each(options, function (value, item) {
+                $("#nueva-habitacion").append($("<option>",{
+                    value: item.hab_numero,
+                    text: item.hab_numero
+                }));
+                   
+            })
+        },
+        error: function (err) {
+            var message = err.responseJSON.message;
+            alert(message);
+        }
+    });
+}
+
+$("#cambiarHabitacionReserva").submit(function(e){
+    e.preventDefault();
+    if(confirm("Realizar el cambio de habitación?")){
+        $.ajax({
+            url: 'cambiarHabitacionReserva',
+            type: 'POST',
+            dataType: 'json',
+            data: ({
+                "habitacionNueva": $("#nueva-habitacion").val(),
+                "habitacionActual": num_hab,
+                "reiniciarTiempo": $("#reiniciar-tiempo").val()
+            }),
+            success: function (success) {
+                var options = success.data;
+                console.log(success);
+                alert(success.message)
+                location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+                var message = err.responseJSON.message;
+                alert(message);
+            }
+        });
+    }
+});

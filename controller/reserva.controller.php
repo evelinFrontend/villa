@@ -379,6 +379,34 @@ Class ReservaController{
         $result = array("status"=>$status,"message"=>$message,"error"=>$error);
         return $result;
     }
+    function cambiarHabitacionReserva(){
+        $request = $_POST;
+        $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE hab_numero = ? ",array($request["habitacionNueva"]));
+        // cambiar estado
+        if(empty($existeReserva)){
+            $update = $this->masterModel->sql("UPDATE reserva_activa SET hab_numero = ? WHERE hab_numero = ?",array($request["habitacionNueva"],$request["habitacionActual"]));
+            $cambiarEstadoLimpieza = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array(6,$request["habitacionActual"]));
+            $cambiarEstadoResevada = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array(2,$request["habitacionNueva"]));
+            
+            if($request["reiniciarTiempo"]=="si"){
+                $cambiarEstadoResevada = $this->masterModel->sql("UPDATE reserva_activa SET ra_fecha_hora_ingreso = ? , ra_inicio_tiempo_parcial = ? , ra_fin_tiempo_parcial = ? WHERE hab_numero = ?",array(date('Y-m-d H:i:s'),NULL,NULL,$request["habitacionNueva"]));
+            }
+            if($update && $cambiarEstadoLimpieza &&  $cambiarEstadoResevada){
+                $status = "success";
+                $message = "Habitación cambiada Exitosamente";
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "Error al momento de modificar.";
+            }
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "Actualmente este habitación se encuentra reservada, por favor elige otra.";
+        }
+        $result = array("status"=>$status,"message"=>$message);
+        echo json_encode($result);
+    }
     function cambiarEstadTiempoParcial($id_reserva,$nuevo_estado,$estadoActualReserva,$numeroHabitacion,$inicioTiempo,$finTiempo,$tipoReserva){
         //si esta en reserva o promocion  y va a pasar a timpo parcial
         if(($estadoActualReserva==2 || $estadoActualReserva==5 || $nuevo_estado==3) && $nuevo_estado==3){

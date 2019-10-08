@@ -82,6 +82,7 @@ RewriteRule ^detallesReserva$ index.php?controller=reserva&a=detallesReserva
 RewriteRule ^cambiarEstadoReserva$ index.php?controller=reserva&a=cambiarEstadoReserva
 RewriteRule ^cancelarReserva$ index.php?controller=reserva&a=cancelarReserva
 RewriteRule ^cambiarEstadoReservaLimpieza$ index.php?controller=reserva&a=cambiarEstadoReservaLimpieza
+RewriteRule ^cambiarHabitacionReserva$ index.php?controller=reserva&a=cambiarHabitacionReserva
 
 #PROMOCION
 RewriteRule ^createPromo$ index.php?controller=promocion&a=createPromo

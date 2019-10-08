@@ -119,6 +119,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end my-2 py-3 border-top" role="group">
+                    <button class="btn btn-primary ml-4" type="button" id="btn-cambio-habitacion">Cambiar Habitacion</button>
                     <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
                         Reserva</button>
                     <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
@@ -201,6 +202,39 @@
                         <textarea id="motivo" class="form-control" rows="3" require></textarea>
                     </div>
                     <button class="btn btn-primary" type="submit">Cancelar reserva</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-cambio-habitacion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="status">Cambiar La habitación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="cambiarHabitacionReserva">
+                    <!-- <div class="form-group col">
+                        <label for="motivo">Motivo</label>
+                        <textarea id="motivo" class="form-control" rows="3" require></textarea>
+                    </div> -->
+                    <div class="form-group col">
+                        <label for="nueva-habitacion">Nueva Habitación</label>
+                        <select id="nueva-habitacion" class="form-control" name="">
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="nueva-habitacion">Reiniciar Tiempo:</label>
+                        <select id="reiniciar-tiempo" class="form-control" name="">
+                            <option value="no">NO</option>
+                            <option value="si">SI</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Realizar Cambio de habitación</button>
                 </form>
             </div>
         </div>
