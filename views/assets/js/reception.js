@@ -648,8 +648,8 @@ $("#form-reserva").submit(function (e) {
                 $("#numeroFacturaFAC").html(success.factura);
                 $("#numeroFacturaFAC").html(success.factura);
                 $("#habitacionNumFAC").html(success.data.reserva.hab_numero);
-                $("#horaEntradaFAC").html((success.data.reserva.ra_fecha_hora_ingreso).substr(0, 11));
-                $("#horaSalidaFAC").html(success.data.reserva.hab_fecha_creacion);
+                $("#horaEntradaFAC").html(success.data.reserva.ra_fecha_hora_ingreso);
+                $("#horaSalidaFAC").html(success.fechaRealizacion);
 
                 ///Detalles servicio
                 $("#descTiempoFAC").html("Tiempo: " + success.data.reserva.tiempo_transcurido);

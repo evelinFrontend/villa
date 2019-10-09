@@ -183,7 +183,7 @@ Class FacturaController{
                         $message = "Error al momento de guardar la factura.";
                     }
                 }
-                $result = array("status"=>$status,"message"=>$message,"factura"=>$numeroDefactura,"data"=>$dataReserva["data"]);
+                $result = array("status"=>$status,"message"=>$message,"factura"=>$numeroDefactura,"data"=>$dataReserva["data"],"fechaRealizacion"=>date('Y-m-d H:i:s'));
                 echo json_encode($result);
             }else{
                 echo json_encode($dataReserva);
@@ -389,7 +389,7 @@ Class FacturaController{
         $dataReserva["data"]["financieros"]["iva"]=  ($dataReserva["data"]["financieros"]["total"]*intval($valorIva))/100;
         $dataReserva["data"]["financieros"]["baseIva"]=  number_format($dataReserva["data"]["financieros"]["total"]/119,2);
         $dataReserva["data"]["financieros"]["subtotal"]=  $dataReserva["data"]["financieros"]["total"]-$dataReserva["data"]["financieros"]["iva"];
-        $result =array("factura"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"data"=>$dataReserva["data"]);
+        $result =array("factura"=>$numeroDeCortesia,"status"=>$status,"message"=> $message,"data"=>$dataReserva["data"],"fechaRealizacion"=>date('Y-m-d H:i:s'));
         echo json_encode($result);
         return ;
     }

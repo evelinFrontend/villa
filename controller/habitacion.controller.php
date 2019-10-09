@@ -148,7 +148,7 @@ Class HabitacionController{
                         }
                     }
                     //notificar si es cortesia
-                    if($datosReserva->ra_tipo_cortesia!=null){
+                    if(isset($datosReserva->ra_tipo_cortesia)){
                         $row->notificarCortesia = $this->tiempoController->timeToMoney($datosReserva->id_reserva,$row->tiempo_transcurido,array())["notificarCortesia"];
                     }
                 }
