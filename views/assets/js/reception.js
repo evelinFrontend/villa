@@ -42,9 +42,16 @@ function getRooms() {
             "value": 1
         }),
         success: function (success) {
+            
             for (var i = 0; i < success.data.length; i++) {
-                var data = success.data[i]
+                var data = success.data[i];
                 var time;
+                if (data.notificarCortesia === true) {
+                    var isCortesia = 'x'
+                } else {
+                    var isCortesia = ''
+                    
+                }
                 if (data.tiempo_transcurido) {
                     var time = data.tiempo_transcurido
                 } else {
@@ -54,8 +61,8 @@ function getRooms() {
                 <div class="cards room mb-2" onclick="reserva(${data.sr_estado_reserva}, ${data.hab_numero})">
                     <div class="linear-room" style="background:${data.sr_color};"></div>
                     <div class="body-room-card d-flex">
-                        <div>
-                            <h1 class="card-number" style="color:${data.sr_color};">${data.hab_numero}</h1>
+                        <div class="d-flex">
+                            <h1 class="card-number" style="color:${data.sr_color};">${data.hab_numero}${isCortesia}</h1>
                         </div>
                     <div>
                         <p id="type-room">${data.sr_nombre}</p>
@@ -632,7 +639,6 @@ $("#form-reserva").submit(function (e) {
                 }
             ),
             success: function (success) {
-                console.log(success);
                 $("#modal-printer").modal("show");
                 $("#modal-type-pay").modal("hide");
                 //datos configuracion factura

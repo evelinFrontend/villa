@@ -17,7 +17,7 @@
                 <h6 id="facnum"></h6>
             </div>
             <div class="col">
-            <p>Valor con que se abrio la caja</p>
+            <p>Valor al iniciar turno</p>
                 <h6 id="valorAbriCaja"></h6>
             </div>
         </div>
@@ -39,5 +39,43 @@
             </div>
         </form>
     </div>
+</div>
+<div id="printClose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="text-center my-4">¿Desea imprimir datos del cierre de turno?</p>
+                <button type="button" id="btn-print" class="btn btn-primary">Imprimir comprobante</button>
+                <button type="button" id="btn-close" class="btn btn-outline-primary ">Cerrar turno</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content-print" class="text-center">
+    <span id="close-print">cerrar X</span>
+        <h6 id="title-unit-box">Villa campestre</h6>
+        <p class="mb-4">Detalle de cierre de turno</p>
+        <div class="col-6">
+        <div class="d-flex justify-content-between">
+            <strong>Fecha de inicio:</strong>
+            <p id="p-data-init"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Fecha de cierre:</strong>
+            <p id="p-data-end"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Numero de facturas:</strong>
+            <p id="p-fac-number"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Valor al iniciar turno:</strong>
+            <p id="p-value-init"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Valor al finalizar turno:</strong>
+            <p id="p-value-end"></p>
+        </div>
+        </div>
 </div>
 <script src="views/assets/js/close.js"></script>

@@ -171,7 +171,8 @@
                 <form id="turn">
                     <div class="form-group">
                         <label for="value">Valor en caja</label>
-                        <input id="value" class="form-control" type="number">
+                        <input id="value" class="form-control" type="number" onkeyup="currecy(this.id)">
+                        <small class="value ml-2 font-weight-bold"></small>
                         <div class="invalid-feedback" id="mss-err-username">
                             Llena este campo para continuar
                         </div>
