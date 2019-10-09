@@ -47,9 +47,11 @@ function getRooms() {
                 var data = success.data[i];
                 var time;
                 if (data.notificarCortesia === true) {
-                    var isCortesia = 'x'
+                    var isCortesia = '¡'
+                    var isCortesia2 = '!'
                 } else {
                     var isCortesia = ''
+                    var isCortesia2 = ''
                     
                 }
                 if (data.tiempo_transcurido) {
@@ -62,7 +64,7 @@ function getRooms() {
                     <div class="linear-room" style="background:${data.sr_color};"></div>
                     <div class="body-room-card d-flex">
                         <div class="d-flex">
-                            <h1 class="card-number" style="color:${data.sr_color};">${data.hab_numero}${isCortesia}</h1>
+                            <h1 class="card-number" style="color:${data.sr_color};">${isCortesia}${data.hab_numero}${isCortesia2}</h1>
                         </div>
                     <div>
                         <p id="type-room">${data.sr_nombre}</p>
