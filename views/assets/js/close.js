@@ -4,6 +4,9 @@ var totalFacturas;
 var valorInicio;
 var totalVentas;
 var valorCaja;
+var cantidadCortesias;
+var ValorTotalCortesias;
+var cantidaFacturasAnuladas;
 $("#content-close").ready(function() {
     $.ajax({
         url: 'UptadeTurn',
@@ -17,10 +20,17 @@ $("#content-close").ready(function() {
             valorInicio = success.data.abrioCajaCon;
             totalVentas = success.data.totalVentasTurno;
             valorCaja = success.data.valorCaja;
+            cantidadCortesias = success.data.cortesiasRealizadas;
+            ValorTotalCortesias = success.data.valorCortesias;
+            cantidaFacturasAnuladas = success.data.cantidaFacturasAnuladas;
+
             $("#facEnd").append(fechaFin);
             $("#facInit").append(fechaInicio);
             $("#facnum").append(totalFacturas);
             $("#valorAbriCaja").append(valorInicio);  
+            $("#cantidadCortesias").append(cantidadCortesias);  
+            $("#ValorTotalCortesias").append(ValorTotalCortesias); 
+            $("#cantidaFacturasAnuladas").append(cantidaFacturasAnuladas);  
             $("#cierre-input").val(totalVentas);  
             $("#caja-input").val(valorCaja);  
         },
@@ -40,8 +50,12 @@ $("#btn-print").click(function() {
     $("#p-data-init").append(fechaInicio);
     $("#p-data-end").append(fechaFin);
     $("#p-fac-number").append(totalFacturas);
+    $("#p-valor-fac-number").append(totalVentas);
     $("#p-value-init").append(valorInicio);
-    $("#p-value-end").append(totalVentas);
+    $("#p-value-end").append(valorCaja);
+    $("#p-cor-number").append(cantidadCortesias);
+    $("#p-valor-cor-number").append(ValorTotalCortesias);
+    $("#p-anulada-number").append(cantidaFacturasAnuladas);
     $("#printClose").modal('hide');
     $("#content-print").addClass("show");
     window.print();

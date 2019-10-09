@@ -320,7 +320,7 @@ Class FacturaController{
         $insert = $this->masterModel->insert("cortesia",array(
             $numeroDeCortesia,
             $dataReserva["data"]["reserva"]->hab_numero,
-            $dataReserva["data"]["reserva"]->id_usuario,
+            $_SESSION["DATA_USER"]["ID"],
             $dataReserva["data"]["reserva"]->ra_fecha_hora_ingreso,
             $dataReserva["data"]["reserva"]->ra_inicio_tiempo_parcial,
             $dataReserva["data"]["reserva"]->ra_fin_tiempo_parcial,
