@@ -73,6 +73,7 @@ Class TiempoController{
         $minutosContarHora = intval($this->masterModel->selectAll("villa_config")[0]->minutos_contar_hora);
         $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
         $precioPerosnaAdicionalDB = intval($datosReserva->th_valor_persona_adicional);
+        $notificarCortesia = false;
         $total = 0;
         $totalProductos = 0;
         $precioDecoracionFactura = 0;
@@ -130,6 +131,12 @@ Class TiempoController{
                 // $total += $valorHora;
                 // $totalTiempo += $valorHora;
                 $totalHorasCobrar+=1;
+            }
+            //Notificar fin de cortesia 
+            if($datosReserva->ra_tipo_cortesia!=null){
+                if($hmsInt[0]==0 && $hmsInt[1]>45 || $hmsInt[0]==1 && $hmsInt[1]>45 ){
+                    $notificarCortesia = true;
+                }
             }
 
             //validar si existe una cortesia
@@ -216,7 +223,7 @@ Class TiempoController{
                 $totalTiempo += intval($datosReserva->th_valor_hora24);
                 $totalTiempo += $valorHora*($totalHorasCobra-24);
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar,"valorPersonaAdicional"=>$personaAdicional);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar,"valorPersonaAdicional"=>$personaAdicional,"notificarCortesia"=>$notificarCortesia);
         }   
         return $result;
     }

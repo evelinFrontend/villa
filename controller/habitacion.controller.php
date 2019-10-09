@@ -147,6 +147,10 @@ Class HabitacionController{
                             }
                         }
                     }
+                    //notificar si es cortesia
+                    if($datosReserva->ra_tipo_cortesia!=null){
+                        $row->notificarCortesia = $this->tiempoController->timeToMoney($datosReserva->id_reserva,$row->tiempo_transcurido,array())["notificarCortesia"];
+                    }
                 }
                 $data = $dataType;
             }else{
