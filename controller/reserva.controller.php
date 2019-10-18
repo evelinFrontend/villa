@@ -486,9 +486,9 @@ Class ReservaController{
                         if(empty($existenProductos)){
                             //validar promocion
                             if(isset($existeReserva->promo_id)){
-                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$existeReserva->id_usuario,$existeReserva->promo_id,$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion"));
+                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$_SESSION["DATA_USER"]["ID"],$existeReserva->promo_id,$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion"));
                             }else{
-                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$existeReserva->id_usuario,$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion","promo_id"));
+                                $insert = $this->masterModel->insert("reservas_anuladas",array($existeReserva->hab_numero,$_SESSION["DATA_USER"]["ID"],$existeReserva->ra_fecha_hora_ingreso,$existeReserva->ra_habitacion_decorada,$request["motivo"]),array("id_anulacion","promo_id"));
                             }
                             if($insert){
                                 $delete = $this->masterModel->delete("reserva_activa",array("id_reserva",$request["id_reserva"]));

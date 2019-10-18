@@ -21,6 +21,20 @@
                 <h6 id="valorAbriCaja"></h6>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col">
+            <p>Cortesias Realizadas</p>
+                <h6 id="cantidadCortesias"></h6>
+            </div>
+            <div class="col">
+            <p>Valor Cortesias</p>
+                <h6 id="ValorTotalCortesias"></h6>
+            </div>
+            <div class="col">
+            <p>Facturas Anuladas</p>
+                <h6 id="cantidaFacturasAnuladas"></h6>
+            </div>
+        </div>
         <form >
             <div class="row mt-4">
                 <div class="form-group col">
@@ -57,11 +71,11 @@
         <p class="mb-4">Detalle de cierre de turno</p>
         <div class="col-6">
         <div class="d-flex justify-content-between">
-            <strong>Fecha de inicio:</strong>
+            <strong>Factura de inicio:</strong>
             <p id="p-data-init"></p>
         </div>
         <div class="d-flex justify-content-between">
-            <strong>Fecha de cierre:</strong>
+            <strong>Factura de cierre:</strong>
             <p id="p-data-end"></p>
         </div>
         <div class="d-flex justify-content-between">
@@ -69,11 +83,27 @@
             <p id="p-fac-number"></p>
         </div>
         <div class="d-flex justify-content-between">
+            <strong>Valor de facturas:</strong>
+            <p id="p-valor-fac-number"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Numero de Cortesias:</strong>
+            <p id="p-cor-number"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Valor de Cortesias:</strong>
+            <p id="p-valor-cor-number"></p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <strong>Reservas Anuladas:</strong>
+            <p id="p-anulada-number"></p>
+        </div>
+        <div class="d-flex justify-content-between">
             <strong>Valor al iniciar turno:</strong>
             <p id="p-value-init"></p>
         </div>
         <div class="d-flex justify-content-between">
-            <strong>Valor al finalizar turno:</strong>
+            <strong>Valor en caja:</strong>
             <p id="p-value-end"></p>
         </div>
         </div>

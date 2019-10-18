@@ -73,13 +73,26 @@ Class TurnosController{
                     $facturaFin = $this->masterModel->sqlSelect("SELECT MAX(fac_consecutivo) as facturaFin FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ORDER BY fac_hora_salida DESC",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->facturaFin;
                     $metodosPago = $this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo,SUM(fac_valor_credito) as totalCredito,SUM(fac_valor_transferencia) as totalTransferencia  FROM facturas WHERE id_usuario = ? AND fac_hora_salida BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0];
                     $totalVentasTurno = intval($metodosPago->totalEfectivo)+intval($metodosPago->totalCredito)+intval($metodosPago->totalTransferencia);
+                    //Cortesias 
+                    $totalCortesiasRealizadas = $this->masterModel->sqlSelect("SELECT *  FROM cortesia WHERE id_usuario = ? AND cor_hora_salida BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"));
                     
+                    $totalValorCortesias = 0;
+                    $cantidadCortesias = 0;
+                    foreach($totalCortesiasRealizadas as $row){
+                        $totalValorCortesias += intval($row->cor_valor_efectivo);
+                        $totalValorCortesias += intval($row->cor_valor_credito);
+                        $totalValorCortesias += intval($row->cor_valor_transferencia);
+                        $cantidadCortesias++;
+                    }
+
+                    //anulaciones 
+                    $cantidaFacturasAnuladas =  $this->masterModel->sqlSelect("SELECT COUNT(*) as totalFacturasAnuladas FROM reservas_anuladas WHERE id_usuario = ? AND ranula_fecha_hora_ingreso BETWEEN  ? AND ? ",array($_SESSION["DATA_USER"]["ID"],date("Y-m-d")." 00:00:01",date("Y-m-d")." 23:59:59"))[0]->totalFacturasAnuladas;
                     $insert = $this->masterModel->sql("UPDATE control_turnos SET factura_inicio = ?, factura_fin = ?,hora_fin = ?,valor_total_cierre = ?, total_facturas_realizadas = ?  ,total_efectivo = ?,total_credito = ?,total_transferencia = ? WHERE id_usuario = ? AND fecha_turno = ?",array($facturaInicio,$facturaFin,$request["hora_fin"],$totalVentasTurno,$totalFacturasRealizadas,$metodosPago->totalEfectivo,$metodosPago->totalCredito,$metodosPago->totalTransferencia,$_SESSION["DATA_USER"]["ID"],date("Y-m-d")));
                     if($insert){
                         $status = "success";
                         $message = "Turno modificado exitosamente.";
-                        $valorCaja = intval($totalVentasTurno)+intval($existeTurno->valor_inicial);
-                        $data = array("totalFacturasRealizadas"=>$totalFacturasRealizadas,"facturaInicio"=>$facturaInicio,"facturaFin"=>$facturaFin,"totalVentasTurno"=>$totalVentasTurno,"abrioCajaCon"=>$existeTurno->valor_inicial,"valorCaja"=>$valorCaja);
+                        $valorCaja = intval($totalVentasTurno)+intval($existeTurno->valor_inicial)+$totalValorCortesias;
+                        $data = array("totalFacturasRealizadas"=>$totalFacturasRealizadas,"facturaInicio"=>$facturaInicio,"facturaFin"=>$facturaFin,"totalVentasTurno"=>$totalVentasTurno,"abrioCajaCon"=>$existeTurno->valor_inicial,"valorCaja"=>$valorCaja,"cortesiasRealizadas"=>$cantidadCortesias,"valorCortesias"=> $totalValorCortesias,"cantidaFacturasAnuladas"=>$cantidaFacturasAnuladas);
                     }else{
                         header('Internal server error', true, 500);
                         $status = "error";
