@@ -38,7 +38,7 @@ p{
 }
 
 .main-item:hover{
-    background: #C9DF8A;
+    background: rgb(212, 212, 212);
 }
 .liner{
     width: 151px;
@@ -135,7 +135,8 @@ p{
 .slide-menu{
     width: 100%;
     height: 70px;
-    background: #e6e7e8;
+    background: #77ab59;
+    color: white;
     border-radius: 8px;
     justify-content: space-around;
     display: flex;
@@ -155,6 +156,7 @@ p{
 }
 #section-2-tab , #section-3-tab, #section-4-tab { display: none}
 /* home-admin */
+.pricipal-title{color: #77AB59}
 .cards {
     background: white;
     border: 1px solid #dedede;

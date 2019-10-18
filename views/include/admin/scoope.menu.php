@@ -3,7 +3,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/home-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/home-duo.png" class="icon-menu">
                 </div>
                 <a href="home">Inicio</a>
             </li>
@@ -12,7 +12,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1 || $_SESSION["DATA_USER"]["ROL"]==2 ){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/bell-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/bell-duo.png" class="icon-menu">
                 </div>
                 <a href="recepcion">Recepción</a>
             </li>
@@ -21,7 +21,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1 || $_SESSION["DATA_USER"]["ROL"]==2){?>
             <li class="main-item"> 
                 <div>
-                    <img src="views/assets/icons/file-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/file-duo.png" class="icon-menu">
                 </div>
                 <a href="facturas">Facturas</a>
             </li>
@@ -30,7 +30,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/basket-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/basket-duo.png" class="icon-menu">
                 </div>
                 <a href="inventario">Inventario</a>
             </li>
@@ -39,7 +39,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/bed-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/bed-duo.png" class="icon-menu">
                 </div>
                 <a href="habitaciones">Habitaciones</a>
             </li>
@@ -48,7 +48,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/poll.png" class="icon-menu">
+                    <img src="views/assets/icons/poll-duo.png" class="icon-menu">
                 </div>
                 <a href="reportes">Reportes</a>
             </li>
@@ -57,7 +57,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1){?> 
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/setting-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/setting-duo.png" class="icon-menu">
                 </div>
                 <a href="configuraciones">Configuraciones</a>
             </li>
@@ -66,7 +66,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==2){?>
             <li class="main-item">
                 <div>
-                    <img src="views/assets/icons/setting-gray.png" class="icon-menu">
+                    <img src="views/assets/icons/setting-duo.png" class="icon-menu">
                 </div>
                 <a href="cierre">Cierres</a>
             </li>
@@ -75,7 +75,7 @@
         <?php if($_SESSION["DATA_USER"]["ROL"]==1 && $_SESSION["DATA_USER"]["ID"]==0){?>
             <li class="main-item">
                     <div>
-                        <img src="views/assets/icons/setting-gray.png" class="icon-menu">
+                        <img src="views/assets/icons/setting-duo.png" class="icon-menu">
                     </div>
                     <a href="AjustarFacturas">Ajustar facturas</a>
             </li>
