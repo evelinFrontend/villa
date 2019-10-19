@@ -151,9 +151,6 @@ p{
     transition: .2s all ease;
 }
 
-.border-slide{
-    border-left: 1px solid #dcdcdc
-}
 #section-2-tab , #section-3-tab, #section-4-tab { display: none}
 /* home-admin */
 .pricipal-title{color: #77AB59}

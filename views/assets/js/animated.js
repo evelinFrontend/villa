@@ -70,3 +70,7 @@ $(".slide-item").click(function (e) {
     }
 });
 
+function goTo(id) {
+    location.href = id
+}
+
