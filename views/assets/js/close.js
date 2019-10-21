@@ -62,3 +62,39 @@ $("#btn-print").click(function() {
     location.reload();
     
 })
+
+$("#cierreDeDia").click(function() {
+    let date = new Date();
+    // alert(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+    $.ajax({
+        url:"guardarFechas",
+        type:"POST",
+        dataType:"json",
+        data:({
+            fecha_inicio: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+            fecha_final :`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+        }),
+        success:function(response){
+            console.log(response);
+            fetch('reporteVentas')
+             .then(resp => resp.blob())
+             .then(blob => {
+                 const url = window.URL.createObjectURL(blob);
+                 const a = document.createElement('a');
+                 a.style.display = 'none';
+                 a.href = url;
+                 // the filename you want
+                 a.download = 'reporte de ventas'+`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`+'.xls';
+                 document.body.appendChild(a);
+                 a.click();
+                 window.URL.revokeObjectURL(url);
+                 // alert('your file has downloaded!'); 
+             })
+             .catch(() => alert('oh no!'));
+        },
+        error:function(response){
+            console.log(response);
+            alert(response.responseJSON.message);
+        },
+    });
+});

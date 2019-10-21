@@ -89,6 +89,7 @@ RewriteRule ^createPromo$ index.php?controller=promocion&a=createPromo
 RewriteRule ^UptadePromo$ index.php?controller=promocion&a=UptadePromo
 RewriteRule ^cambiarEstadoPromo$ index.php?controller=promocion&a=cambiarEstadoPromo
 RewriteRule ^readByPromo$ index.php?controller=promocion&a=readByPromo
+RewriteRule ^DeletePromo$ index.php?controller=promocion&a=DeletePromo
 
 #FACTURAS 
 RewriteRule ^reservaAfactura$ index.php?controller=factura&a=reservaAfactura

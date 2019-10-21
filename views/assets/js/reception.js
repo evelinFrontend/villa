@@ -88,7 +88,7 @@ function getPromo() {
         dataType: "json",
         type: "POST",
         data: ({
-            "columnDBSearch": 1,
+            "columnDBSearch": "promo_estado",
             "value": 1
         }),
         success: function (success) {
@@ -757,6 +757,7 @@ $("#print-parcial").click(function () {
             console.log(success);
             if ($("#print-parcial").html() != "Continuar tiempo parcial") {
                 $("#reservaID").html(success.data.reserva.id_reserva);
+                $("#horaEntradaTP").html(success.data.reserva.ra_fecha_hora_ingreso);
                 $("#numhab").html(success.data.reserva.hab_numero);
                 $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
                 $("#totalTiempoParcial").html(new Intl.NumberFormat().format(success.data.financieros.total))

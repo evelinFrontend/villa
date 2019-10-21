@@ -157,5 +157,24 @@ Class PromocionController{
             header('405 Method Not Allowede', true, 405);
         }
     }    
+    function DeletePromo(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $dataType = $this->masterModel->delete("promocion",array("id_promocion",$request["id"]));
+            if($dataType){
+                $status = "success";
+                $message = "Consultas realizada.";
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "No es posible eliminar este registro.";
+            }
+            $result = array("status"=>$status,"message"=>$message);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }    
 }
 ?>

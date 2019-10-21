@@ -50,6 +50,9 @@
                 <div class="form-group col mt-2">
                     <button type="button" id="cierre" class="btn btn-primary btn-block mt-4">Cerrar turno</button>
                 </div>
+                <div class="form-group col mt-2">
+                    <button type="button" id="cierreDeDia" class="btn btn-primary btn-block mt-4">Cerrar Dia</button>
+                </div>
             </div>
         </form>
     </div>

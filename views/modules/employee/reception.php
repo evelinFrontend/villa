@@ -319,6 +319,10 @@
                 <p id="numhab"></p>
             </div>
             <div class="d-flex justify-content-between">
+                <strong>Ingreso:</strong>
+                <p id="horaEntradaTP"></p>
+            </div>
+            <div class="d-flex justify-content-between">
                 <strong>Tiempo transcurrido:</strong>
                 <p id="timetrancurrido"></p>
             </div>

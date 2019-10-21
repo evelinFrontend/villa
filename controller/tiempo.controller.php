@@ -221,7 +221,7 @@ Class TiempoController{
             //si supera las 24 horas
             if($totalHorasCobrar>24){
                 $totalTiempo += intval($datosReserva->th_valor_hora24);
-                $totalTiempo += $valorHora*($totalHorasCobra-24);
+                $totalTiempo += $valorHora*($totalHorasCobrar-24);
             }
             $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"totalTiempo"=>$totalTiempo,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"productos"=>$totalProductos,"horasCobrar"=> $totalHorasCobrar,"valorPersonaAdicional"=>$personaAdicional,"notificarCortesia"=>$notificarCortesia);
         }   

@@ -143,6 +143,7 @@ function realoanPromo() {
                     <td>${valorProm}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/edit.png" class="icon-list" onclick="updatePromo(${response.data[i].id_promocion})">
+                        <img src="views/assets/icons/delete.png" class="icon-list" onclick="DeletePromo(${response.data[i].id_promocion})">
                     </td>
                     </tr>
                 `)
@@ -172,6 +173,27 @@ function deleteData(id, url) {
 
         }
     })
+}
+function DeletePromo(id) {
+    if(confirm("¿Deseas eliminar esta promoción?")){
+        $.ajax({
+            url: "DeletePromo",
+            dataType: "json",
+            type: "POST",
+            data: ({
+                "id": id,
+            }),
+            success: function (success) {
+               location.reload();
+    
+            },
+            error: function (err) {
+                alert("Esta promoción no se puede eliminar debido a que tiene registros relacionados, puedes inactivarla.");
+                console.log(err);
+    
+            }
+        })
+    }
 }
 function updateUser(id) {
     $.ajax({
