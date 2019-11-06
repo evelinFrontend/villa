@@ -207,6 +207,7 @@ function reloadInvoices() {
                     <td>${response.data[i].tipo_pago}</td>
                     <td class="d-flex justify-content-around">
                         <img src="views/assets/icons/print.png" class="icon-list" onclick="printInvoices(${response.data[i].fac_consecutivo})">
+                        <img src="views/assets/icons/edit.png" class="icon-list" onclick="editMethosPay(${response.data[i].fac_consecutivo})">
                     </td>
                 </tr>
                 `);
@@ -217,6 +218,126 @@ function reloadInvoices() {
             console.log(response);
         },
     });
+}
+var habitacionSeleccionada;
+function editMethosPay(factura){
+    habitacionSeleccionada = factura;
+    $.ajax({
+        url: 'obtenerDetallesFactura',
+        dataType: "json",
+        type: "POST",
+        data: ({
+            "consecutivo": factura
+        }),
+        success: function(success) {
+            console.log(success);
+            $("#btn-aceptar-metodo")[0].textContent="Cambiar Metodo de pago";
+            $("#modalTotal").html(success.data[0].valor_factura);
+            $("#opcionMixtoPay").hide();
+            $("#restar").hide();
+            $("#modal-type-pay").modal('show');
+            
+            $("#input-efectivo").val(success.data[0].valor_factura);
+            $("#input-credito").val(success.data[0].valor_factura);
+            $("#input-transferencia").val(success.data[0].valor_factura);
+            if(success.data[0].tipo_pago=="efectivo"){
+                $("#type-pay").val("efectivo");
+                $("#type-pay").change();
+            }else if(success.data[0].tipo_pago=="credito"){
+                $("#type-pay").val("credito");
+                $("#type-pay").change();
+            }else if(success.data[0].tipo_pago=="transferencia"){
+                $("#type-pay").val("transferencia");
+                $("#type-pay").change();
+            }else{
+                alert("Este es un pago mixto, no puede ser editado.");
+            }
+        },
+        error: function (err) {
+            console.log(err);
+            
+        }
+    })
+
+}
+$("#btn-aceptar-metodo").click(function() {
+    var valueTranferencia,valueCredito,valueEfectivo;
+    if($("#type-pay").val()=="efectivo"){
+        valueTranferencia = 0;
+        valueCredito = 0;
+        valueEfectivo = $("#input-efectivo").val();
+    }else if($("#type-pay").val()=="credito"){
+        valueTranferencia = 0;
+        valueCredito = $("#input-credito").val();
+        valueEfectivo = 0;
+    }else if($("#type-pay").val()=="transferencia"){
+        valueTranferencia = $("#input-transferencia").val();
+        valueCredito = 0;
+        valueEfectivo = 0;
+    }else{
+        valueTranferencia = $("#input-transferencia").val();
+        valueCredito = $("#input-credito").val();
+        valueEfectivo = $("#input-efectivo").val();
+    }
+
+    $.ajax({
+        url: 'cambiarMetodoPago',
+        dataType: "json",
+        type: "POST",
+        data: (
+            {
+                "habitacion": habitacionSeleccionada,
+                "tipo_pago": $("#type-pay").val(),
+                "cantidad_efectivo": valueEfectivo,
+                "cantidad_credito": valueCredito,
+                "cantidad_transferencia": valueTranferencia
+            }
+        ),
+        success: function (success) {
+            alert("Modificación Exitosa");
+            location.reload();
+        },
+        error:function(err){
+            console.log("Ha ocurrido un error.");
+            location.reload();
+        }
+    });
+    
+})
+
+$("#type-pay").change(function () {
+    $("#input-efectivo").attr("disabled",true);
+    $("#input-credito").attr("disabled",true);
+    $("#input-transferencia").attr("disabled",true);
+
+    if ($("#type-pay").val() == "efectivo") {
+        $("#efectivo").show()
+        $("#credito").hide()
+        $("#transferencia").hide()
+    } else if ($("#type-pay").val() == "credito") {
+        $("#efectivo").hide()
+        $("#credito").show()
+        $("#transferencia").hide()
+    } else if ($("#type-pay").val() == "transferencia") {
+        $("#efectivo").hide()
+        $("#credito").hide()
+        $("#transferencia").show()
+    } else {
+        $("#efectivo").show()
+        $("#credito").show()
+        $("#transferencia").show()
+        $("#restar").show()
+        $("#restan-value").append(restante)
+
+    }
+})
+function currecy(id) {
+    value = $('#'+id).val();
+    var total = new Intl.NumberFormat().format(value);
+    console.log(total);
+    $('.'+id).empty()
+    $('.'+id).append(total)
+    
 }
 
 $("#dec-hab").keyup(function() {

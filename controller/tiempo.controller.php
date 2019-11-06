@@ -71,9 +71,11 @@ Class TiempoController{
         $datosReserva = $this->masterModel->sqlSelect("SELECT * FROM reserva_activa ra INNER JOIN habitacion  h ON ra.hab_numero = h.hab_numero INNER JOIN tipo_habitacion th ON h.id_tipo_habitacion = th.id_tipo_habitacion WHERE id_reserva = ?",array($id_reserva))[0];
         $minutosDeCortesia = intval($this->masterModel->selectAll("villa_config")[0]->conf_minutos_cortesia);
         $minutosContarHora = intval($this->masterModel->selectAll("villa_config")[0]->minutos_contar_hora);
-        $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
+        $precioDecoracionDB = 0;
+        // $precioDecoracionDB = intval($this->masterModel->selectAll("villa_config")[0]->conf_precio_decoracion);
         $precioPerosnaAdicionalDB = intval($datosReserva->th_valor_persona_adicional);
         $notificarCortesia = false;
+        $notificarPromocion = false;
         $total = 0;
         $totalProductos = 0;
         $precioDecoracionFactura = 0;
@@ -101,7 +103,10 @@ Class TiempoController{
             $valorPromocion = 0;
             $explodeHora = explode(":",$tiempoTrancurrido);
             $valorHora = intval($datosReserva->th_valor_hora_despues24);
-             
+            // if(){
+            if(intval($explodeHora[0])==(intval($explodePromo[0])-1) && intval($explodeHora[1])>40 && intval($explodePromo[1])==0 || (intval($explodeHora[0])==intval($explodePromo[0]) && intval($explodeHora[1])>(intval($explodePromo[1])+20) )){
+                $notificarPromocion = true;
+            }
             //
             if(intval($explodeHora[0])>0 || intval($explodeHora[1])>=$minutosDeCortesia){
                 $total += $infoPromocion->promo_valor;
@@ -111,7 +116,7 @@ Class TiempoController{
                 $diferenciaHoras = intval($explodeHora[0])-intval($explodePromo[0]) ;
                 $total += $valorHora*$diferenciaHoras;
             }
-            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"totalTiempo"=>$valorPromocion,"productos"=>$totalProductos);
+            $result =array("valorHora"=>$valorHora,"decoracion"=>$precioDecoracionFactura,"total"=>$total,"tiempoTranscurrido"=>$tiempoTrancurrido,"totalTiempo"=>$valorPromocion,"productos"=>$totalProductos,"notificarPromocion"=>$notificarPromocion);
         }else{
             $totalHorasCobrar = 0;
             $valorHora = intval($datosReserva->th_valor_hora_despues24);

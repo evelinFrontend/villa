@@ -14,7 +14,7 @@ Class PromocionController{
                 if($request["duracion"]!= ""){
                     if($request["valor"]!= ""){
                         $request["estado"] = 1;
-                        $insert = $this->masterModel->insert("promocion",array($request["nombre"],$request["duracion"],$request["valor"],date("Y-m-d"),$_SESSION["DATA_USER"]["ID"],$request["estado"] ),array("id_promocion"));
+                        $insert = $this->masterModel->insert("promocion",array($request["nombre"],$request["duracion"],$request["valor"],date("Y-m-d"),$_SESSION["DATA_USER"]["ID"],$request["estado"],$request["color"]),array("id_promocion"));
                         if($insert){
                             $status = "success";
                             $message = "Promoción registrada exitosamente.";
@@ -56,7 +56,7 @@ Class PromocionController{
                         if($request["duracion"]!= ""){
                             if($request["valor"]!= ""){
                                 if($request["estado"]==1 || $request["estado"]==0){
-                                    $update = $this->masterModel->sql("UPDATE promocion SET promo_nombre = ?, promo_tiempo = ?, promo_valor = ?, id_usuario = ?, promo_estado = ?  WHERE id_promocion = ?",array($request["nombre"],$request["duracion"],$request["valor"],$_SESSION["DATA_USER"]["ID"],$request["estado"],$request["id"]));
+                                    $update = $this->masterModel->sql("UPDATE promocion SET promo_nombre = ?, promo_tiempo = ?, promo_valor = ?, id_usuario = ?, promo_estado = ? ,promo_color = ? WHERE id_promocion = ?",array($request["nombre"],$request["duracion"],$request["valor"],$_SESSION["DATA_USER"]["ID"],$request["estado"],$request["color"],$request["id"]));
                                     if($update){
                                         $status = "success";
                                         $message = "Promoción Modificada exitosamente.";

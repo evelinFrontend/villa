@@ -151,6 +151,11 @@ Class HabitacionController{
                     if(isset($datosReserva->ra_tipo_cortesia)){
                         $row->notificarCortesia = $this->tiempoController->timeToMoney($datosReserva->id_reserva,$row->tiempo_transcurido,array())["notificarCortesia"];
                     }
+                    //saber si notifica una promocion
+                    if(isset($datosReserva->promo_id)){
+                        $row->notificarPromocion = $this->tiempoController->timeToMoney($datosReserva->id_reserva,$row->tiempo_transcurido,array())["notificarPromocion"];
+                        $row->colorPromo =$this->masterModel->selectBy("promocion",array("id_promocion",$datosReserva->promo_id))->promo_color;
+                    }
                 }
                 $data = $dataType;
             }else{

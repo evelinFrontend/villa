@@ -266,6 +266,7 @@ function updatePromo(id) {
             $("#update-promo-value").val(data.promo_valor);
             $("#update-promo-id").val(data.id_promocion);
             $("#update-promo-status").val(data.promo_estado);
+            $("#update-color-promo").val(data.promo_color);
             // realoanPromo();
         },
         error: function (err) {
@@ -394,7 +395,8 @@ $("#form-update-promo").submit(function (e) {
             "duracion": $("#update-promo-times").val(),
             "valor": $("#update-promo-value").val(),
             "id": $("#update-promo-id").val(),
-            "estado": $("#update-promo-status").val()
+            "estado": $("#update-promo-status").val(),
+            "color": $("#update-color-promo").val()
         }),
         success: function (success) {
             console.log(success);
@@ -423,9 +425,11 @@ $("#form-create-promo").submit(function (e) {
         data: ({
             "nombre": $("#promo-name").val(),
             "duracion": $("#promo-time").val(),
-            "valor": $("#promo-value").val()
+            "valor": $("#promo-value").val(),
+            "color":$("#color-promo").val()
         }),
         success: function (success) {
+            console.log(success);
             $("#create-promo").modal('hide');
             $(".alert-success").addClass('show')
             $(".alert-success").append(success.message)

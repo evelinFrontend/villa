@@ -419,6 +419,11 @@
                         <small class="promo-value ml-2 font-weight-bold"></small>
                     </div>
                     <div class="form-group">
+                        <label for="color-promo">Color</label>
+                        <input id="color-promo" class="form-control" type="color" >
+                        <small class="promo-value ml-2 font-weight-bold"></small>
+                    </div>
+                    <div class="form-group">
                         <button class="btn btn-primary" type="submit">Crear</button>
                     </div>
                 </form>
@@ -466,6 +471,11 @@
                         <label for="update-promo-value">Valor:</label>
                         <input id="update-promo-value" class="form-control" type="number" onkeyup="currecy(this.id)">
                         <small class="update-promo-value ml-2 font-weight-bold"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-color-promo">Color</label>
+                        <input id="update-color-promo" class="form-control" type="color" >
+                        <small class="promo-value ml-2 font-weight-bold"></small>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Actualizar</button>

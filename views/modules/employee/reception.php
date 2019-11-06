@@ -41,7 +41,7 @@
                     <div class="form-group col">
                         <label for="decorated-room">habitación decorada:</label>
                         <select id="decorated-room" class="form-control">
-                            <option value="0">No</option>
+                            <option value="0" selected>No</option>
                             <option value="1">Si</option>
                         </select>
                     </div>
@@ -88,7 +88,10 @@
         <div class="subcontent p-4">
             <div class="row">
             <h4 class="pricipal-title col-8"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"></a> Facturar</h4>
-            <p class="float-right col mt-2">Siguiente consecutivo: <b id="consecutivo"></b></p>
+            </div>
+            <div class="row">
+                <p class="float-right col mt-2">Fecha de  ingreso: <b id="ra_fecha_hora_ingreso"></b></p>
+                <p class="float-right col mt-2">Siguiente consecutivo: <b id="consecutivo"></b></p>
             </div>
             <div class="row justify-content-end mb-4 mr-2 border-bottom pb-4">
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
@@ -115,6 +118,14 @@
                         <select id="decorated-room-invoice" class="form-control">
                             <option value="0">No</option>
                             <option value="1">Si</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="cortesia-update">Cortesia:</label>
+                        <select id="cortesia-update" class="form-control">
+                            <option value="no">No</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
                         </select>
                     </div>
                 </div>
@@ -241,47 +252,7 @@
         </div>
     </div>
 </div>
-<div id="modal-type-pay" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <h3 class="text-center mt-3">Saldo total: <b id="modalTotal"></b></h3>
-            <div class="modal-body">
-                <div class="alert alert-danger a-modal-danger" role="alert">
-                </div>
-                <div class="form-group">
-                    <label for="type-pay">Selecciona un metodo de pago</label>
-                    <select id="type-pay" class="form-control" name="">
-                        <option value="efectivo">Efectivo</option>
-                        <option value="credito">Credito</option>
-                        <option value="transferencia">Transferencia</option>
-                        <option value="mixto">Mixto</option>
-                    </select>
-                </div>
-                <div class="form-group" id="efectivo">
-                    <label for="input-efectivo">Efectivo</label>
-                    <input id="input-efectivo" class="form-control" type="number" onkeyup="currecy(this.id)" require>
-                    <small class="input-efectivo ml-2 font-weight-bold"></small>
-                </div>
-                <div class="form-group" id="credito">
-                    <label for="input-credito">Credito</label>
-                    <input id="input-credito" class="form-control" type="number" onkeyup="currecy(this.id)" require>
-                    <small class="input-credito ml-2 font-weight-bold"></small>
-                </div>
-                <div class="form-group" id="transferencia">
-                    <label for="input-transferencia">Transferencia</label>
-                    <input id="input-transferencia" class="form-control" type="number" onkeyup="currecy(this.id)" require>
-                    <small class="input-transferencia ml-2 font-weight-bold"></small>
-                </div>
-                <div class="my-3 float-right d-flex">
-                    <p class="ml-2" id="restar">RESTAN:</p>
-                    <h6 id="restan-value"></h6>
-                </div>
-                <button class="btn btn-primary" type="button" id="btn-aceptar-metodo">Facturar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<?php require "views/include/modal-pays.php"; ?>
 
 <div id="modal-printer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
     <div class="modal-dialog modal-dialog-centered" role="document">

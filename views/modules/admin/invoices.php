@@ -138,6 +138,9 @@
         </form>
     </div>
 </div>
+
+<?php require "views/include/modal-pays.php"; ?>
+
 <div id="modal-iva" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

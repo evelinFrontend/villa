@@ -134,7 +134,7 @@ Class ReservaController{
             $request = $_POST;
             //validar  si la habitacion tiene una reserva
             if($request["id_reserva"]!= "" ){
-                $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva FROM reserva_activa WHERE  id_reserva = ? ",array($request["id_reserva"]));
+                $existeReserva = $this->masterModel->sqlSelect("SELECT id_reserva,hab_numero,ra_tipo_reserva_inicio FROM reserva_activa WHERE  id_reserva = ? ",array($request["id_reserva"]));
                 if(!empty($existeReserva)){
                     //comentar 
                     $products = json_decode($request["productos"],true);
@@ -161,7 +161,13 @@ Class ReservaController{
                         $i++;
                     }
                     //Modificar
-                    $update = $this->masterModel->sql("UPDATE reserva_activa SET ra_numero_personas_adicionales = ?, ra_habitacion_decorada = ? WHERE id_reserva = ?",array($request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["id_reserva"]));
+                    if($request["cortesia"]!="no"){
+                        $update = $this->masterModel->sql("UPDATE reserva_activa SET ra_numero_personas_adicionales = ?, ra_habitacion_decorada = ?, ra_tipo_cortesia = ? WHERE id_reserva = ?",array($request["numero_personas_adicionales"],$request["habitacion_decorada"],$request["cortesia"],$request["id_reserva"]));
+                        $updateHab = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array(4,$existeReserva[0]->hab_numero));
+                    }else{
+                        $update = $this->masterModel->sql("UPDATE reserva_activa SET ra_numero_personas_adicionales = ?, ra_habitacion_decorada = ?, ra_tipo_cortesia = ? WHERE id_reserva = ?",array($request["numero_personas_adicionales"],$request["habitacion_decorada"],null,$request["id_reserva"]));
+                        $updateHab = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero = ?",array($existeReserva[0]->ra_tipo_reserva_inicio,$existeReserva[0]->hab_numero));
+                    }
                     if($update){  
                         //actulizar productos
                         $productosModificados = array();

@@ -46,7 +46,7 @@ function getRooms() {
             for (var i = 0; i < success.data.length; i++) {
                 var data = success.data[i];
                 var time;
-                if (data.notificarCortesia === true) {
+                if (data.notificarCortesia === true || data.notificarPromocion ===true ) {
                     var isCortesia = '¡'
                     var isCortesia2 = '!'
                 } else {
@@ -58,6 +58,9 @@ function getRooms() {
                     var time = data.tiempo_transcurido
                 } else {
                     var time = '';
+                }
+                if(data.colorPromo){
+                    data.sr_color= data.colorPromo;
                 }
                 $("#content-card").append(`
                 <div class="cards room mb-2" onclick="reserva(${data.sr_estado_reserva}, ${data.hab_numero})">
@@ -433,7 +436,21 @@ var personasAdicionales;
 var habitacionDecorada;
 var idReserva;
 var restante;
-
+var existeCortesia;
+function formatAMPM(date) {
+  date =  new Date(date);
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var dia = date.getDate();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; //the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = year +"-"+month+"-"+dia+" "+hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
 function verReserva(hab) {
     //crear una funcion que consulte los datos de la factura ya tengo valor actuañ de la consulta 
     var data = hab.toString()
@@ -455,6 +472,7 @@ function verReserva(hab) {
             idReserva = success.data.reserva.id_reserva;
             consultFacturadata(financiero, product);
             $("#consecutivo").append(success.data.siguienteConsecutivo)
+            $("#ra_fecha_hora_ingreso").html(formatAMPM(success.data.reserva.ra_fecha_hora_ingreso))
             if (success.data.reserva.sr_estado_reserva == 3) {
                 $("#print-parcial").html("Continuar tiempo parcial");
             } else {
@@ -463,7 +481,7 @@ function verReserva(hab) {
             if (parseInt(success.data.financieros.totalTiempo) == 0 && parseInt(success.data.financieros.productos) == 0) {
                 $("#btn-anular-reserva").show();
             } else {
-                $("#btn-anular-reserva").hide();
+                $("#btn-anular-reserva").show();
             }
             if (success.data.reserva.ra_habitacion_decorada === '1') {
                 $("#detail-reserva").append(`
@@ -509,6 +527,7 @@ function verReserva(hab) {
             //VALORES DE DETALLE
             personasAdicionales = reserva.ra_numero_personas_adicionales;
             habitacionDecorada = reserva.ra_habitacion_decorada;
+            existeCortesia = reserva.ra_tipo_cortesia;
             // location.reload();
         },
         error: function (err) {
@@ -557,6 +576,10 @@ $("#edit").click(function name() {
         $("#decorated-room-invoice").val("1");
         $("#decorated-room-invoice").change();
     }
+    if(existeCortesia!=null){
+        $("#cortesia-update").val(existeCortesia);
+        $("#cortesia-update").change();
+    }
     $("#decorated-room").val(habitacionDecorada);
 })
 $("#cancel-edit").click(function () {
@@ -570,6 +593,9 @@ $("#cancel-edit").click(function () {
     $("#btn-cancel-changes").hide();
 })
 $("#type-pay").change(function () {
+    $("#input-efectivo").attr("disabled",true);
+    $("#input-credito").attr("disabled",true);
+    $("#input-transferencia").attr("disabled",true);
     if ($("#type-pay").val() == "efectivo") {
         $("#efectivo").show()
         $("#credito").hide()
@@ -588,6 +614,9 @@ $("#type-pay").change(function () {
         $("#transferencia").show()
         $("#restar").show()
         $("#restan-value").append(restante)
+        $("#input-efectivo").attr("disabled",false);
+        $("#input-credito").attr("disabled",false);
+        $("#input-transferencia").attr("disabled",false);
 
     }
 })
@@ -619,14 +648,39 @@ $("#input-transferencia").keyup(function () {
 
 $("#form-reserva").submit(function (e) {
     var valueTranferencia = 0;
-    var valueCredito = 0
-    var valueEfectivo = 0
+    var valueCredito = 0;
+    var valueEfectivo = 0;
     e.preventDefault();
     $("#modal-type-pay").modal('show');
+    //precargar total
+    $("#input-efectivo").val(reservaTotal);
+    $("#input-credito").val(reservaTotal);
+    $("#input-transferencia").val(reservaTotal);
+
+    $("#input-efectivo").attr("disabled",true);
+    $("#input-credito").attr("disabled",true);
+    $("#input-transferencia").attr("disabled",true);
+    
     $("#btn-aceptar-metodo").click(function () {
-        valueTranferencia = $("#input-transferencia").val()
-        valueCredito = $("#input-credito").val()
-        valueEfectivo = $("#input-efectivo").val()
+        
+        if($("#type-pay").val()=="efectivo"){
+            valueTranferencia = 0;
+            valueCredito = 0;
+            valueEfectivo = $("#input-efectivo").val();
+        }else if($("#type-pay").val()=="credito"){
+            valueTranferencia = 0;
+            valueCredito = $("#input-credito").val();
+            valueEfectivo = 0;
+        }else if($("#type-pay").val()=="transferencia"){
+            valueTranferencia = $("#input-transferencia").val();
+            valueCredito = 0;
+            valueEfectivo = 0;
+        }else{
+            valueTranferencia = $("#input-transferencia").val();
+            valueCredito = $("#input-credito").val();
+            valueEfectivo = $("#input-efectivo").val();
+        }
+
         $.ajax({
             url: 'reservaAfactura',
             dataType: "json",
@@ -800,7 +854,8 @@ $("#btn-update-invoice").click(function () {
             "id_reserva": idReserva,
             "numero_personas_adicionales": $("#additional-invoice").val(),
             "habitacion_decorada": $("#decorated-room-invoice").val(),
-            "productos": JSON.stringify(productData)
+            "productos": JSON.stringify(productData),
+            "cortesia": $("#cortesia-update").val()
         }
     } else {
         var data = {
@@ -838,32 +893,52 @@ function showButtons(element) {
     $("#btn-facturar").hide();
 }
 
-$("#btn-anular-reserva").click(function () {
-    $("#modal-cancel").modal('show');
+$("#btn-anular-reserva").click(function (e) {
+    // $("#modal-cancel").modal('show');
+    if(confirm("¿Cancelar Reserva?")){
+        e.preventDefault();
+        $.ajax({
+            url: 'cancelarReserva',
+            dataType: "json",
+            type: "POST",
+            data: ({
+                "id_reserva": idReserva,
+                "motivo": "N/A"
+            }),
+            success: function (success) {
+                location.reload()
+    
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.responseJSON.message);
+            }
+        })
+    }
 })
 $("#btn-cambio-habitacion").click(function () {
     $("#modal-cambio-habitacion").modal('show');
 })
-$("#cancelar-reserva").submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        url: 'cancelarReserva',
-        dataType: "json",
-        type: "POST",
-        data: ({
-            "id_reserva": idReserva,
-            "motivo": $("#motivo").val()
-        }),
-        success: function (success) {
-            location.reload()
+// $("#cancelar-reserva").submit(function (e) {
+//     e.preventDefault();
+//     $.ajax({
+//         url: 'cancelarReserva',
+//         dataType: "json",
+//         type: "POST",
+//         data: ({
+//             "id_reserva": idReserva,
+//             "motivo": $("#motivo").val()
+//         }),
+//         success: function (success) {
+//             location.reload()
 
-        },
-        error: function (err) {
-            console.log(err);
+//         },
+//         error: function (err) {
+//             console.log(err);
 
-        }
-    })
-});
+//         }
+//     })
+// });
 function currecy(id) {
     value = $('#' + id).val();
     var total = new Intl.NumberFormat().format(value);

@@ -149,7 +149,7 @@ Class FacturaController{
                             $deleteReserva=$this->masterModel->delete("reserva_activa",array("id_reserva",$dataReserva["data"]["reserva"]->id_reserva));
                             if($deleteReserva){
                                 //cambiar habitacion a limpieza
-                                $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(6,$dataReserva["data"]["reserva"]->hab_numero));
+                                $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(1,$dataReserva["data"]["reserva"]->hab_numero));
                                 if($update){
                                     $status = "success";
                                     $message = "Factura creada.";
@@ -352,7 +352,7 @@ Class FacturaController{
                 $delete = $this->masterModel->delete("reserva_activa",array("hab_numero",$dataReserva["data"]["reserva"]->hab_numero));
                 if($delete){
                     //cambiar habitacion a limpieza
-                    $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(6,$dataReserva["data"]["reserva"]->hab_numero));
+                    $update = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE  hab_numero = ?",array(1,$dataReserva["data"]["reserva"]->hab_numero));
                     if($update){
                         $numeroDeCortesia = $numeroDeCortesia;
                         $status ="success";
@@ -450,6 +450,26 @@ Class FacturaController{
                 $data = null;
             }
             $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }else{
+            header('405 Method Not Allowede', true, 405);
+        }
+    }
+
+    function cambiarMetodoPago(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $update = $this->masterModel->sql("UPDATE facturas SET tipo_pago = ? ,fac_valor_efectivo = ?, fac_valor_credito = ?, fac_valor_transferencia = ? WHERE  fac_consecutivo =  ?",array($request["tipo_pago"],$request["cantidad_efectivo"],$request["cantidad_credito"],$request["cantidad_transferencia"],$request["habitacion"]));
+            if(!empty($update)){
+                $status = "success";
+                $message = "Consultas realizada.";
+            }else{
+                header('Internal server error', true, 500);
+                $status = "error";
+                $message = "Error al modificar.";
+            }
+            $result = array("status"=>$status,"message"=>$message);
             echo json_encode($result);
         }else{
             header('405 Method Not Allowede', true, 405);
