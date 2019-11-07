@@ -301,6 +301,9 @@ table.dataTable.no-footer {
     width: 100%;
     height: 5px;
 }
+.without::-webkit-datetime-edit-ampm-field {
+    display: none;
+  }
 /* div imprimir */
 #content-print{
     display: none;
