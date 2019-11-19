@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 03, 2019 at 06:35 AM
+-- Generation Time: Nov 19, 2019 at 01:06 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -40,7 +40,7 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id_categoria`, `cat_nombre`, `cat_descripcion`, `cat_fecha_creacion`) VALUES
-(4, 'Lubricantes', 'pa que entre derecho y rico', '2019-09-12');
+(4, 'Lubricantes', 'pa que entre derecho y rico0', '2019-09-12');
 
 -- --------------------------------------------------------
 
@@ -63,6 +63,17 @@ CREATE TABLE `control_turnos` (
   `total_credito` bigint(20) NOT NULL DEFAULT 0,
   `total_transferencia` bigint(20) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `control_turnos`
+--
+
+INSERT INTO `control_turnos` (`id_control`, `id_usuario`, `valor_inicial`, `factura_inicio`, `factura_fin`, `fecha_turno`, `hora_inicio`, `hora_fin`, `valor_total_cierre`, `total_facturas_realizadas`, `total_efectivo`, `total_credito`, `total_transferencia`) VALUES
+(2, 1, 30000, 2, 2, '2019-10-05', '09:20:44', '09:29:31', 20000, 1, 20000, 0, 0),
+(3, 1, 2000, 7, 7, '2019-10-06', '01:11:57', '01:19:24', 6783, 1, 6783, 0, 0),
+(4, 1, 20000, 14, 14, '2019-10-09', '09:38:35', '10:15:10', 6783, 1, 6783, 0, 0),
+(5, 1, 2130, 15, 16, '2019-10-21', '10:11:46', '11:05:03', 8783, 2, 6783, 0, 2000),
+(6, 1, 2000, 23, 23, '2019-10-30', '05:45:45', '05:45:54', 42000, 1, 42000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -88,6 +99,57 @@ CREATE TABLE `cortesia` (
   `cor_valor_transferencia` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `cortesia`
+--
+
+INSERT INTO `cortesia` (`cor_consecutivo`, `hab_numero`, `id_usuario`, `cor_fecha_hora_ingreso`, `cor_inicio_tiempo_parcial`, `cor_fin_tiempo_parcial`, `cor_numero_personas_adicionales`, `cor_habitacion_decorada`, `cor_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_cortesia`, `cor_valor_efectivo`, `cor_valor_credito`, `cor_valor_transferencia`) VALUES
+(1, 1, 2, '2019-10-05 21:53:20', NULL, NULL, 0, 0, '2019-10-06 13:17:35', 'efectivo', '15:24:00', 1, 85000, 0, 0),
+(2, 1, 2, '2019-10-05 21:53:20', NULL, NULL, 0, 0, '2019-10-06 13:18:46', 'efectivo', '15:25:00', 1, 85000, 0, 0),
+(3, 1, 2, '2019-10-06 13:24:53', NULL, NULL, 0, 0, '2019-10-06 17:19:44', 'efectivo', '03:54:00', 1, 30000, 0, 0),
+(4, 1, 2, '2019-10-06 17:21:57', NULL, NULL, 0, 0, '2019-10-06 17:22:31', 'credito', '00:00:34', 1, 0, 16783, 0),
+(5, 1, 2, '2019-10-06 17:27:12', NULL, NULL, 0, 0, '2019-10-06 17:27:15', 'credito', '00:00:03', 1, 0, 16783, 0),
+(6, 1, 2, '2019-10-06 17:27:27', NULL, NULL, 0, 0, '2019-10-06 17:27:31', 'credito', '00:00:04', 1, 0, 16783, 0),
+(7, 1, 2, '2019-10-06 17:29:34', NULL, NULL, 0, 0, '2019-10-06 17:29:36', 'credito', '00:00:02', 1, 0, 16783, 0),
+(8, 1, 2, '2019-10-06 17:30:03', NULL, NULL, 0, 0, '2019-10-06 17:30:14', 'efectivo', '00:00:11', 1, 6783, 0, 0),
+(9, 1, 2, '2019-10-06 17:32:34', NULL, NULL, 0, 0, '2019-10-06 17:34:14', 'credito', '00:01:00', 1, 0, 6783, 0),
+(10, 1, 2, '2019-10-06 17:35:27', NULL, NULL, 0, 0, '2019-10-06 17:35:30', 'credito', '00:00:03', 1, 0, 16783, 0),
+(11, 1, 2, '2019-10-06 17:35:44', NULL, NULL, 0, 0, '2019-10-06 17:35:46', 'credito', '00:00:02', 1, 0, 16783, 0),
+(12, 1, 2, '2019-10-06 17:36:03', NULL, NULL, 0, 0, '2019-10-06 17:36:05', 'credito', '00:00:02', 1, 0, 16783, 0),
+(13, 1, 2, '2019-10-06 17:36:20', NULL, NULL, 0, 0, '2019-10-06 17:36:23', 'credito', '00:00:03', 1, 0, 16783, 0),
+(14, 1, 2, '2019-10-06 17:36:47', NULL, NULL, 0, 0, '2019-10-06 17:36:48', 'credito', '00:00:01', 1, 0, 16783, 0),
+(15, 1, 2, '2019-10-06 17:38:09', NULL, NULL, 0, 0, '2019-10-06 17:38:12', 'credito', '00:00:03', 1, 0, 16783, 0),
+(16, 1, 2, '2019-10-06 17:38:35', NULL, NULL, 0, 0, '2019-10-06 17:38:37', 'credito', '00:00:02', 1, 0, 16783, 0),
+(17, 1, 2, '2019-10-06 17:39:02', NULL, NULL, 0, 0, '2019-10-06 17:39:04', 'credito', '00:00:02', 1, 0, 16783, 0),
+(18, 1, 2, '2019-10-06 17:39:15', NULL, NULL, 0, 0, '2019-10-06 17:39:17', 'credito', '00:00:02', 1, 0, 16783, 0),
+(19, 1, 2, '2019-10-06 17:39:41', NULL, NULL, 0, 0, '2019-10-06 17:39:43', 'credito', '00:00:02', 1, 0, 16783, 0),
+(20, 1, 2, '2019-10-06 17:39:58', NULL, NULL, 0, 0, '2019-10-06 17:40:00', 'credito', '00:00:02', 1, 0, 16783, 0),
+(21, 1, 2, '2019-10-06 17:40:27', NULL, NULL, 0, 0, '2019-10-06 17:40:30', 'credito', '00:00:03', 1, 0, 16783, 0),
+(22, 1, 2, '2019-10-06 17:41:27', NULL, NULL, 0, 0, '2019-10-06 17:41:28', 'credito', '00:00:01', 1, 0, 16783, 0),
+(23, 1, 2, '2019-10-06 17:41:45', NULL, NULL, 0, 0, '2019-10-06 17:41:46', 'credito', '00:00:01', 1, 0, 16783, 0),
+(24, 1, 2, '2019-10-06 17:42:23', NULL, NULL, 0, 0, '2019-10-06 17:42:26', 'credito', '00:00:03', 1, 0, 16783, 0),
+(25, 1, 2, '2019-10-06 17:43:23', NULL, NULL, 0, 0, '2019-10-06 17:43:25', 'credito', '00:00:02', 1, 0, 16783, 0),
+(26, 1, 2, '2019-10-07 09:20:57', NULL, NULL, 0, 0, '2019-10-07 09:21:14', 'credito', '00:00:17', 1, 0, 16783, 0),
+(27, 1, 2, '2019-10-07 09:33:50', NULL, NULL, 0, 0, '2019-10-07 09:34:07', 'credito', '00:00:17', 1, 0, 16783, 0),
+(28, 1, 2, '2019-10-07 09:35:08', NULL, NULL, 0, 0, '2019-10-07 09:35:09', 'credito', '00:00:01', 1, 0, 16783, 0),
+(29, 1, 2, '2019-10-07 09:35:52', NULL, NULL, 0, 0, '2019-10-07 09:35:54', 'credito', '00:00:02', 1, 0, 16783, 0),
+(30, 1, 2, '2019-10-07 09:36:46', NULL, NULL, 0, 0, '2019-10-07 09:36:49', 'credito', '00:00:03', 1, 0, 16783, 0),
+(31, 1, 2, '2019-10-07 09:37:10', NULL, NULL, 0, 0, '2019-10-07 09:37:12', 'credito', '00:00:02', 1, 0, 16783, 0),
+(32, 1, 2, '2019-10-07 09:38:16', NULL, NULL, 0, 0, '2019-10-07 09:38:17', 'credito', '00:00:01', 1, 0, 16783, 0),
+(33, 1, 2, '2019-10-07 09:38:46', NULL, NULL, 0, 0, '2019-10-07 09:38:54', 'efectivo', '00:00:08', 1, 6783, 0, 0),
+(34, 1, 2, '2019-10-07 09:39:41', NULL, NULL, 0, 0, '2019-10-07 09:39:49', 'efectivo', '00:00:08', 1, 6783, 0, 0),
+(35, 2, 2, '2019-10-07 09:40:58', NULL, NULL, 0, 0, '2019-10-07 09:41:23', 'efectivo', '00:00:25', 2, 6783, 0, 0),
+(36, 1, 2, '2019-10-08 17:54:02', NULL, NULL, 0, 0, '2019-10-08 19:47:05', 'credito', '01:53:00', 1, 0, 36783, 0),
+(37, 1, 2, '2019-10-08 19:55:53', NULL, NULL, 0, 0, '2019-10-08 19:56:10', 'credito', '00:00:17', 1, 0, 16783, 0),
+(38, 1, 2, '2019-10-08 19:57:21', NULL, NULL, 0, 0, '2019-10-08 19:57:23', 'credito', '00:00:02', 1, 0, 16783, 0),
+(39, 1, 2, '2019-10-08 19:58:27', NULL, NULL, 0, 0, '2019-10-08 19:58:28', 'credito', '00:00:01', 1, 0, 16783, 0),
+(40, 1, 2, '2019-10-08 19:59:11', NULL, NULL, 0, 0, '2019-10-08 19:59:20', 'efectivo', '00:00:09', 1, 6783, 0, 0),
+(41, 1, 2, '2019-10-08 22:59:42', NULL, NULL, 0, 0, '2019-10-09 09:38:48', 'efectivo', '10:39:00', 1, 71783, 0, 0),
+(42, 1, 1, '2019-10-09 09:45:14', NULL, NULL, 0, 0, '2019-10-09 09:45:19', 'efectivo', '00:00:05', 1, 6783, 0, 0),
+(43, 1, 1, '2019-10-09 09:25:59', '2019-10-21 09:56:10', NULL, 0, 0, '2019-10-21 10:32:44', 'efectivo', '288:30:00', 1, 0, 0, 0),
+(44, 4, 2, '2019-10-30 14:58:28', NULL, NULL, 0, 0, '2019-10-30 15:00:30', 'efectivo', '00:02:00', 1, 6783, 0, 0),
+(45, 4, 2, '2019-10-30 15:22:31', NULL, NULL, 0, 0, '2019-10-30 15:22:49', 'efectivo', '00:00:18', 2, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +167,83 @@ CREATE TABLE `detalle_cortesia` (
   `det_cor_fecha_venta` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detalle_cortesia`
+--
+
+INSERT INTO `detalle_cortesia` (`id_detalle`, `cor_consecutivo`, `det_cor_id_producto`, `det_cor_cantidad`, `det_cor_precio_compra`, `det_cor_valor_unidad`, `det_cor_valor_total`, `det_cor_fecha_venta`) VALUES
+(1, 4, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(2, 4, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(3, 5, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(4, 5, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(5, 6, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(6, 6, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(7, 7, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(8, 7, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(9, 8, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(10, 9, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(11, 10, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(12, 10, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(13, 11, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(14, 11, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(15, 12, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(16, 12, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(17, 13, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(18, 13, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(19, 14, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(20, 14, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(21, 15, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(22, 15, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(23, 16, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(24, 16, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(25, 17, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(26, 17, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(27, 18, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(28, 18, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(29, 19, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(30, 19, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(31, 20, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(32, 20, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(33, 21, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(34, 21, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(35, 22, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(36, 22, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(37, 23, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(38, 23, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(39, 24, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(40, 24, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(41, 25, 15, 1, 7667, 6783, 6783, '2019-10-06'),
+(42, 25, 16, 5, 20000, 2000, 10000, '2019-10-06'),
+(43, 26, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(44, 26, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(45, 27, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(46, 27, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(47, 28, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(48, 28, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(49, 29, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(50, 29, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(51, 30, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(52, 30, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(53, 31, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(54, 31, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(55, 32, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(56, 32, 16, 5, 20000, 2000, 10000, '2019-10-07'),
+(57, 33, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(58, 34, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(59, 35, 15, 1, 7667, 6783, 6783, '2019-10-07'),
+(60, 36, 15, 1, 7667, 6783, 6783, '2019-10-08'),
+(61, 36, 16, 5, 20000, 2000, 10000, '2019-10-08'),
+(62, 37, 15, 1, 7667, 6783, 6783, '2019-10-08'),
+(63, 37, 16, 5, 20000, 2000, 10000, '2019-10-08'),
+(64, 38, 15, 1, 7667, 6783, 6783, '2019-10-08'),
+(65, 38, 16, 5, 20000, 2000, 10000, '2019-10-08'),
+(66, 39, 15, 1, 7667, 6783, 6783, '2019-10-08'),
+(67, 39, 16, 5, 20000, 2000, 10000, '2019-10-08'),
+(68, 40, 15, 1, 7667, 6783, 6783, '2019-10-08'),
+(69, 41, 15, 1, 7667, 6783, 6783, '2019-10-09'),
+(70, 42, 15, 1, 7667, 6783, 6783, '2019-10-09'),
+(71, 44, 15, 1, 7667, 6783, 6783, '2019-10-30');
+
 -- --------------------------------------------------------
 
 --
@@ -121,6 +260,28 @@ CREATE TABLE `detalle_factura` (
   `det_valor_total` bigint(20) NOT NULL,
   `det_fecha_venta` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detalle_factura`
+--
+
+INSERT INTO `detalle_factura` (`id_detalle`, `fac_consecutivo`, `det_id_producto`, `det_cantidad`, `det_pro_precio_compra`, `det_valor_unidad`, `det_valor_total`, `det_fecha_venta`) VALUES
+(109, 2, 15, 1, 7667, 6783, 6783, '2019-10-05 21:16:48'),
+(110, 4, 15, 1, 7667, 6783, 6783, '2019-10-06 13:12:09'),
+(111, 4, 16, 1, 20000, 2000, 2000, '2019-10-06 13:12:09'),
+(112, 7, 15, 1, 7667, 6783, 6783, '2019-10-06 13:19:21'),
+(113, 10, 15, 1, 7667, 6783, 6783, '2019-10-07 09:22:42'),
+(114, 11, 16, 1, 20000, 2000, 2000, '2019-10-08 19:44:39'),
+(115, 12, 15, 1, 7667, 6783, 6783, '2019-10-08 19:51:53'),
+(116, 13, 15, 1, 7667, 6783, 6783, '2019-10-08 19:59:41'),
+(117, 14, 15, 1, 7667, 6783, 6783, '2019-10-09 09:39:17'),
+(118, 15, 15, 1, 7667, 6783, 6783, '2019-10-21 10:33:06'),
+(119, 16, 16, 1, 20000, 2000, 2000, '2019-10-21 11:05:00'),
+(120, 17, 15, 1, 7667, 6783, 6783, '2019-10-30 13:48:24'),
+(121, 18, 15, 1, 7667, 6783, 6783, '2019-10-30 14:28:54'),
+(122, 19, 15, 1, 7667, 6783, 6783, '2019-10-30 14:52:02'),
+(123, 22, 15, 1, 7667, 6783, 6783, '2019-10-30 15:39:42'),
+(124, 23, 16, 1, 20000, 2000, 2000, '2019-10-30 17:45:52');
 
 -- --------------------------------------------------------
 
@@ -190,6 +351,35 @@ CREATE TABLE `facturas` (
   `fac_valor_transferencia` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `facturas`
+--
+
+INSERT INTO `facturas` (`fac_consecutivo`, `id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `fac_fecha_hora_ingreso`, `fac_inicio_tiempo_parcial`, `fac_fin_tiempo_parcial`, `fac_numero_personas_adicionales`, `fac_habitacion_decorada`, `fac_hora_salida`, `tipo_pago`, `tiempo_total`, `valor_factura`, `tipo_reserva`, `fac_valor_efectivo`, `fac_valor_credito`, `fac_valor_transferencia`) VALUES
+(1, 10, 1, 2, NULL, '2019-10-05 21:06:09', NULL, NULL, 0, 0, '2019-10-05 21:14:26', 'efectivo', '00:08:00', 20000, 2, 20000, 0, 0),
+(2, 11, 2, 1, NULL, '2019-10-05 21:16:32', NULL, NULL, 0, 0, '2019-10-05 21:16:48', 'efectivo', '00:00:16', 6783, 2, 20000, 0, 0),
+(3, 12, 2, 1, NULL, '2019-10-05 21:35:31', NULL, NULL, 0, 1, '2019-10-05 21:46:59', 'efectivo', '00:11:00', 110000, 2, 110000, 0, 0),
+(4, 14, 2, 2, NULL, '2019-10-06 13:06:20', NULL, NULL, 0, 0, '2019-10-06 13:12:09', 'efectivo', '00:05:00', 28783, 2, 28783, 0, 0),
+(5, 15, 4, 2, NULL, '2019-10-06 13:06:48', NULL, NULL, 0, 1, '2019-10-06 13:13:07', 'efectivo', '00:06:00', 110000, 2, 110000, 0, 0),
+(6, 4, 3, 2, 1, '2019-10-05 20:28:14', NULL, NULL, 0, 0, '2019-10-06 13:15:55', 'efectivo', '16:47:00', 290000, 5, 290000, 0, 0),
+(7, 16, 1, 1, NULL, '2019-10-06 13:19:17', NULL, NULL, 0, 0, '2019-10-06 13:19:21', 'efectivo', '00:00:04', 6783, 2, 6783, 0, 0),
+(8, 17, 2, 2, NULL, '2019-10-06 13:24:40', NULL, NULL, 0, 0, '2019-10-06 17:20:01', 'efectivo', '03:55:00', 35000, 2, 35000, 0, 0),
+(9, 20, 4, 2, 1, '2019-10-06 13:25:04', NULL, NULL, 2, 0, '2019-10-06 17:20:15', 'efectivo', '03:55:00', 50000, 5, 50000, 0, 0),
+(10, 44, 2, 2, NULL, '2019-10-07 09:22:31', NULL, NULL, 0, 0, '2019-10-07 09:22:42', 'credito', '00:00:11', 6783, 2, 0, 6783, 0),
+(11, 18, 2, 2, NULL, '2019-10-08 17:40:31', NULL, NULL, 0, 0, '2019-10-08 19:44:39', 'efectivo', '02:04:00', 27500, 2, 27500, 0, 0),
+(12, 54, 4, 2, NULL, '2019-10-08 17:44:38', NULL, NULL, 0, 0, '2019-10-08 19:51:53', 'efectivo', '02:07:00', 32283, 2, 32283, 0, 0),
+(13, 60, 2, 2, NULL, '2019-10-08 19:59:34', NULL, NULL, 0, 0, '2019-10-08 19:59:41', 'efectivo', '00:00:07', 6783, 2, 6783, 0, 0),
+(14, 62, 2, 1, NULL, '2019-10-09 09:39:11', NULL, NULL, 0, 0, '2019-10-09 09:39:17', 'efectivo', '00:00:06', 6783, 2, 6783, 0, 0),
+(15, 66, 3, 1, NULL, '2019-10-21 10:33:01', NULL, NULL, 0, 0, '2019-10-21 10:33:06', 'efectivo', '00:00:05', 6783, 2, 6783, 0, 0),
+(16, 67, 1, 1, NULL, '2019-10-21 11:04:50', NULL, NULL, 0, 0, '2019-10-21 11:05:00', 'transferencia', '00:00:10', 2000, 2, 0, 0, 2000),
+(17, 68, 1, 2, NULL, '2019-10-30 13:48:18', NULL, NULL, 0, 0, '2019-10-30 13:48:24', 'efectivo', '00:00:06', 6783, 2, 6783, 0, 0),
+(18, 69, 1, 2, NULL, '2019-10-30 13:52:22', NULL, NULL, 0, 0, '2019-10-30 14:28:54', 'efectivo', '00:36:00', 26783, 2, 26783, 0, 0),
+(19, 71, 3, 2, NULL, '2019-10-30 14:51:57', NULL, NULL, 0, 0, '2019-10-30 14:52:02', 'efectivo', '00:00:05', 6783, 2, 6783, 0, 0),
+(20, 75, 4, 2, NULL, '2019-10-30 15:06:16', '2019-10-30 15:16:07', '2019-10-30 15:16:12', 0, 0, '2019-10-30 15:22:24', 'efectivo', '00:15:55', 20000, 2, 20000, 0, 0),
+(21, 78, 4, 2, NULL, '2019-10-30 15:35:01', NULL, NULL, 0, 0, '2019-10-30 15:38:13', 'efectivo', '00:03:00', 0, 2, 0, 0, 0),
+(22, 79, 4, 2, NULL, '2019-10-30 15:38:27', '2019-10-30 15:38:34', '2019-10-30 15:38:38', 0, 0, '2019-10-30 15:39:42', 'efectivo', '00:00:56', 6783, 2, 6783, 0, 0),
+(23, 70, 1, 1, NULL, '2019-10-30 14:31:23', NULL, NULL, 1, 0, '2019-10-30 17:45:52', 'efectivo', '03:14:00', 42000, 2, 42000, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -211,8 +401,9 @@ CREATE TABLE `habitacion` (
 
 INSERT INTO `habitacion` (`hab_numero`, `id_tipo_habitacion`, `hab_detalle`, `sr_estado_reserva`, `hab_fecha_creacion`, `hab_estado`) VALUES
 (1, 1, 'nada', 1, '0000-00-00', 1),
-(2, 1, 'sad', 1, '2019-09-08', 1),
-(3, 1, '221', 1, '2019-09-08', 1);
+(2, 1, 'sad', 4, '2019-09-08', 1),
+(3, 1, '221', 2, '2019-09-08', 1),
+(4, 1, '', 5, '2019-10-05', 1);
 
 -- --------------------------------------------------------
 
@@ -271,7 +462,9 @@ CREATE TABLE `producto` (
 -- Dumping data for table `producto`
 --
 
-
+INSERT INTO `producto` (`id_producto`, `pro_codigo`, `pro_nombre`, `pro_precio_compra`, `pro_precio_venta`, `id_categoria`, `id_proveedor`, `pro_imagen`, `pro_cantidad_disponible`, `pro_fecha_ultima_modificacion`, `pro_fecha_creacion`, `pro_estado`) VALUES
+(15, '78692', '876832', 7667, 6783, 4, 4, '3d15e4d092aaf3fc3af0ffc672285bc0.png', -46, '2019-10-04', '2019-10-03', 1),
+(16, 'CODD-0001', 'EJEMPLO', 20000, 2000, 4, 4, '556a2f5311d96723404a18e826762205.png', -149, '2019-10-05', '2019-10-05', 1);
 
 -- --------------------------------------------------------
 
@@ -286,15 +479,16 @@ CREATE TABLE `promocion` (
   `promo_valor` bigint(20) NOT NULL,
   `promo_fecha_registro` date NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `promo_estado` int(1) NOT NULL
+  `promo_estado` int(1) NOT NULL,
+  `promo_color` varchar(20) NOT NULL DEFAULT '#000000'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `promocion`
 --
 
-INSERT INTO `promocion` (`id_promocion`, `promo_nombre`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`, `promo_estado`) VALUES
-(1, '3x1', '03:00:00', 30000, '2019-09-05', 2, 0);
+INSERT INTO `promocion` (`id_promocion`, `promo_nombre`, `promo_tiempo`, `promo_valor`, `promo_fecha_registro`, `id_usuario`, `promo_estado`, `promo_color`) VALUES
+(1, '3x1', '03:00:00', 30000, '2019-09-05', 2, 1, '#4104b5');
 
 -- --------------------------------------------------------
 
@@ -323,7 +517,7 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `pr_nit`, `pr_nombre`, `pr_razon_social`, `pr_telefono`, `pr_direccion`, `pr_email`, `pr_numero_cuenta`, `pr_tipo_cuenta`, `pr_banco`, `nombre_contacto`, `pr_ultimo_aprovisionamiento`, `pr_fecha_registro`) VALUES
-(4, '78778782-1', 'Condoncito feliz', 'Dale Dale!!!', 32338889, 'calle 95', 'sinhijos@hotmail.com', '8000222222', 'Ahorros', 'BBVA', 'Javier', '2019-09-12', '2019-09-12');
+(4, '78778782-1', 'Condoncito felizx', 'Dale Dale!!!', 32338889, 'calle 95', 'sinhijos@hotmail.com', '8000222222', 'Ahorros', 'BBVA', 'Javier', '2019-09-12', '2019-09-12');
 
 -- --------------------------------------------------------
 
@@ -340,6 +534,17 @@ CREATE TABLE `reservas_anuladas` (
   `ranula_habitacion_decorada` int(1) NOT NULL,
   `ranula_motivo` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservas_anuladas`
+--
+
+INSERT INTO `reservas_anuladas` (`id_anulacion`, `hab_numero`, `id_usuario`, `promo_id`, `ranula_fecha_hora_ingreso`, `ranula_habitacion_decorada`, `ranula_motivo`) VALUES
+(1, 4, 2, NULL, '2019-10-05 20:54:28', 0, 'Por que la vida es dura Puta vida'),
+(2, 4, 2, NULL, '2019-10-05 20:58:10', 0, 'Por que quiero y puedo'),
+(3, 4, 2, 1, '2019-10-30 15:01:30', 0, 'N/A'),
+(4, 4, 2, NULL, '2019-10-30 15:23:03', 0, 'N/A'),
+(5, 4, 2, NULL, '2019-10-30 15:39:59', 0, 'N/A');
 
 -- --------------------------------------------------------
 
@@ -361,6 +566,15 @@ CREATE TABLE `reserva_activa` (
   `ra_tipo_cortesia` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reserva_activa`
+--
+
+INSERT INTO `reserva_activa` (`id_reserva`, `hab_numero`, `id_usuario`, `promo_id`, `ra_fecha_hora_ingreso`, `ra_inicio_tiempo_parcial`, `ra_fin_tiempo_parcial`, `ra_numero_personas_adicionales`, `ra_habitacion_decorada`, `ra_tipo_reserva_inicio`, `ra_tipo_cortesia`) VALUES
+(65, 2, 2, NULL, '2019-10-18 18:30:50', '2019-10-18 18:30:52', NULL, 0, 0, 2, NULL),
+(72, 3, 2, NULL, '2019-10-30 14:55:28', NULL, NULL, 0, 1, 2, NULL),
+(81, 4, 2, 1, '2019-10-30 15:50:54', NULL, NULL, 0, 0, 5, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -376,6 +590,14 @@ CREATE TABLE `reserva_activa_detalle` (
   `re_det_valor_unidad` bigint(20) NOT NULL,
   `re_det_valor_total` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reserva_activa_detalle`
+--
+
+INSERT INTO `reserva_activa_detalle` (`id_detalle`, `id_reserva`, `re_det_id_producto`, `re_det_cantidad`, `re_precio_compra`, `re_det_valor_unidad`, `re_det_valor_total`) VALUES
+(85, 65, 15, 1, 7667, 6783, 6783),
+(94, 72, 15, 3, 7667, 6783, 20349);
 
 -- --------------------------------------------------------
 
@@ -442,7 +664,14 @@ CREATE TABLE `tipo_habitacion` (
 --
 
 INSERT INTO `tipo_habitacion` (`id_tipo_habitacion`, `th_nombre_tipo`, `th_descripcion`, `th_valor_hora_despues24`, `th_valor_persona_adicional`, `th_estado`, `th_fecha_creacion`, `th_valor_hora1`, `th_valor_hora2`, `th_valor_hora3`, `th_valor_hora4`, `th_valor_hora5`, `th_valor_hora6`, `th_valor_hora7`, `th_valor_hora8`, `th_valor_hora9`, `th_valor_hora10`, `th_valor_hora11`, `th_valor_hora12`, `th_valor_hora13`, `th_valor_hora14`, `th_valor_hora15`, `th_valor_hora16`, `th_valor_hora17`, `th_valor_hora18`, `th_valor_hora19`, `th_valor_hora20`, `th_valor_hora21`, `th_valor_hora22`, `th_valor_hora23`, `th_valor_hora24`) VALUES
-(1, 'Premium', 'Cama doble para tiki tiki', 20000, 12000, 1, '2019-09-07', 20000, 25500, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 115000, 120000, 125000, 130000, 135000, 140000);
+(1, 'Premium', 'Cama doble para tiki tiki', 20000, 10000, 1, '2019-09-07', 20000, 25500, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 115000, 120000, 125000, 130000, 135000, 140000),
+(2, 'ljh', 'kjh', 20000, 789, 1, '2019-10-03', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(3, '234lnjkhg', 'ghjk', 20000, 43, 1, '2019-10-03', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(4, 'nadasd', 'dada,ada', 20000, 3245, 1, '2019-10-05', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(5, 'Hola', 'tv,jacussi,hola,nada,todo', 20000, 3245, 1, '2019-10-05', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(6, '3242', '32423', 20000, 234, 1, '2019-10-05', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(7, '2321321', 'holaaa,nnn,aaqa', 20000, 123120, 1, '2019-10-05', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000),
+(8, 'nueva', 'tv,bb,vv', 20000, 20000, 1, '2019-10-06', 20000, 25000, 30000, 35000, 40000, 45000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000);
 
 -- --------------------------------------------------------
 
@@ -493,7 +722,7 @@ CREATE TABLE `villa_config` (
 --
 
 INSERT INTO `villa_config` (`id_conf`, `conf_iva`, `conf_minutos_cortesia`, `conf_precio_decoracion`, `minutos_contar_hora`, `id_usuario`) VALUES
-(1, 19, 15, 2000, 30, 2);
+(1, 19, 2, 90000, 30, 2);
 
 -- --------------------------------------------------------
 
@@ -710,19 +939,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT for table `control_turnos`
 --
 ALTER TABLE `control_turnos`
-  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_control` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detalle_cortesia`
 --
 ALTER TABLE `detalle_cortesia`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `detalle_movimiento`
@@ -752,13 +981,13 @@ ALTER TABLE `movimientos`
 -- AUTO_INCREMENT for table `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `promocion`
 --
 ALTER TABLE `promocion`
-  MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `proveedores`
@@ -770,19 +999,19 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT for table `reservas_anuladas`
 --
 ALTER TABLE `reservas_anuladas`
-  MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa`
 --
 ALTER TABLE `reserva_activa`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `reserva_activa_detalle`
 --
 ALTER TABLE `reserva_activa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `rol`
@@ -794,7 +1023,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT for table `tipo_habitacion`
 --
 ALTER TABLE `tipo_habitacion`
-  MODIFY `id_tipo_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tipo_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `usuario`
