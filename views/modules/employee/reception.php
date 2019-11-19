@@ -267,9 +267,9 @@
         </div>
     </div>
 </div>
-<div id="content-print" class="text-center">
+<div id="content-print">
     <span id="close-print">cerrar X</span>
-    <div class="col-8">
+    <div class="text-center">
         <h6 id="razonSocialFAC"></h6>
         <p id="nombreEmpresaFAC"></p>
         <p id="nitFAC"></p>
@@ -278,7 +278,7 @@
         <small id="ciudadFAC"></small>
         <p id="resolucionFAC"></p>
     </div>
-    <div class="col-8">
+    <div>
         <div class="data-time">
             <h6 class="my-4" id=" title-parcial-time"> Imprimir Tiempo parcial</h6>
             <div class="d-flex justify-content-between">
@@ -301,7 +301,7 @@
                 <strong>Valor Tiempo:</strong>
                 <p id="valorTiempoParcial"></p>
             </div>
-            <h6 class="my-4" id=" title-parcial-time">Control de tiempo parcial</h6>
+            <h6 class="my-5" id=" title-parcial-time">Control de tiempo parcial</h6>
             <div class="tabla mb-4">
                 <table class="factura-tabla">
                     <thead>

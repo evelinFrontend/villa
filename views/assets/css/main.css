@@ -312,13 +312,12 @@ table.dataTable.no-footer {
     width: 100%;
     position: fixed;
     top: 0;
-    padding: 20px 270px;
+    padding: 20px 345px;
     background: white;
     min-height: 100%;
     z-index: 10000;
     display: none;
     flex-direction: column;
-    align-items: center
 }
 #content-print.show{
     display: flex;
@@ -326,7 +325,8 @@ table.dataTable.no-footer {
 
 .factura-tabla{
     width: 100%;
-    text-align: left
+    text-align: left;
+
 }
 #close-print{
     position: absolute;
