@@ -35,6 +35,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Factura Nro.</th>
+                        <th scope="col">Nro Habitación.</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">valor</th>
                         <th scope="col">opcioones</th>

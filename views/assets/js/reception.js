@@ -812,6 +812,7 @@ $("#print-parcial").click(function () {
             if ($("#print-parcial").html() != "Continuar tiempo parcial") {
                 $("#reservaID").html(success.data.reserva.id_reserva);
                 $("#horaEntradaTP").html(success.data.reserva.ra_fecha_hora_ingreso);
+                $("#horaSalidaTP").html(success.data.reserva.ra_inicio_tiempo_parcial);
                 $("#numhab").html(success.data.reserva.hab_numero);
                 $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
                 $("#totalTiempoParcial").html(new Intl.NumberFormat().format(success.data.financieros.total))
@@ -862,7 +863,8 @@ $("#btn-update-invoice").click(function () {
             "id_reserva": idReserva,
             "numero_personas_adicionales": personasAdicionales,
             "habitacion_decorada": habitacionDecorada,
-            "productos": JSON.stringify(productData)
+            "productos": JSON.stringify(productData),
+            "cortesia": "no"
         }
     }
     $.ajax({

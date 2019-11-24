@@ -202,6 +202,7 @@ function reloadInvoices() {
                 $('#table-search-invoices > tbody:last').append(`
                 <tr>
                     <td>${response.data[i].fac_consecutivo}</td>
+                    <td>${response.data[i].hab_numero}</td>
                     <td>${response.data[i].fac_hora_salida}</td>
                     <td>${valorFactura}</td>
                     <td>${response.data[i].tipo_pago}</td>
@@ -357,30 +358,80 @@ function printInvoices(data) {
         data: ({
             "consecutivo": data
         }),
-        success: function(success) {
+        success: function(success) { 
             console.log(success);
             var data = success.data[0];
-            $("#numeroFacturaFAC").append(data.fac_consecutivo);
-            $("#habitacionNumFAC").append(data.hab_numero);
-            $("#horaEntradaFAC").append(data.fac_fecha_hora_ingreso);
-            $("#horaSalidaFAC").append(data.fac_hora_salida);
-            $("#descTiempoFAC").append(data.tiempo_total);
-            $("#valorTiempoFAC").append(data.totalSoloTiempo);
-            $("#valorTotalFAC").append(data.valor_factura);
-            $("#valorProductosTotalFAC").append(data.totalSoloProductos);
-            $("#valorIvaFAC").append(data.iva);
-            $("#subtotalFAC").append(data.subtotal);
-            var array = data.productos;
-            for (let i = 0; i < array.length; i++) {
-                const element = array[i];
-                $("#tableProductsFAC> tbody").append(`
-                <tr>
-                    <th>${element.pro_nombre}</th>
-                    <th>${element.det_cantidad}</th>
-                    <th>${element.det_valor_total}</th>
-                </tr>
-                `);                
+            var factura = success.data[0].fac_consecutivo;
+            //datos configuracion factura
+            $("#razonSocialFAC").html(data.configuracionFatura.conf_razon_social);
+            $("#nombreEmpresaFAC").html(data.configuracionFatura.conf_nombre_empresa);
+            $("#nitFAC").html("NIT " + data.configuracionFatura.conf_nit);
+            $("#direccionFAC").html(data.configuracionFatura.conf_direccion);
+            $("#numeroTelFac").html(data.configuracionFatura.conf_telefono);
+            $("#ciudadFAC").html(data.configuracionFatura.conf_ciudad);
+            $("#resolucionFAC").html("Resolución: " + data.configuracionFatura.conf_resolucion);
+            $("#mensajeFooterFAC").html(data.configuracionFatura.conf_mensaje);
+            //datos  factura
+            $("#numeroFacturaFAC").html(factura);
+            $("#numeroFacturaFAC").html(factura);
+            $("#habitacionNumFAC").html(data.hab_numero);
+            $("#horaEntradaFAC").html(data.fac_fecha_hora_ingreso);
+            $("#horaSalidaFAC").html(data.fac_hora_salida);
+             //Productos 
+             if (data.productos.length <= 0) {
+                $("#DescProduct").hide();
             }
+            for (var i = 0; i < data.productos.length; i++) {
+                var value = new Intl.NumberFormat().format(data.productos[i].re_det_valor_total)
+                $('#tableProductsFAC > tbody:last').append(`
+               <tr>
+               <td>${data.productos[i].pro_nombre}</td>
+               <td>${data.productos[i].re_det_cantidad}</td>
+               <td>${value}</td>
+               </tr>
+               `);
+            }
+            $("#valorProductosTotalFAC").html(new Intl.NumberFormat().format(data.totalSoloProductos));
+            $("#valorBaseIvaFAC").html(new Intl.NumberFormat().format(data.baseIva));
+            $("#subtotalFAC").html(new Intl.NumberFormat().format(data.subtotal));
+            $("#valorIvaFAC").html(new Intl.NumberFormat().format(data.iva));
+            $("#valorTotalFAC").html(new Intl.NumberFormat().format(data.valor_factura));
+
+
+             //hab itacion decora
+                if (parseInt(data.fac_habitacion_decorada) > 0) {
+                    $('#habitacionDecorada').after(`
+                    <div class="d-flex justify-content-between">
+                    <p>Habitacion Decorada:</p>
+                    <p>${new Intl.NumberFormat().format(data.fac_habitacion_decorada)}</p>
+                    </div>
+                    `);
+                }
+                //FORMAS DE PAGO
+                if (parseInt(data.fac_valor_efectivo) > 0) {
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Efectivo:</p>
+                            <p>${new Intl.NumberFormat().format(data.fac_valor_efectivo)}</p>
+                        </div>
+                    `);
+                }
+                if (parseInt(data.fac_valor_credito) > 0) {
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Credito:</p>
+                            <p>${new Intl.NumberFormat().format(data.fac_valor_credito)}</p>
+                        </div>
+                    `);
+                }
+                if (parseInt(data.fac_valor_transferencia) > 0) {
+                    $('#formasDePagoFAC').after(`
+                        <div class="d-flex justify-content-between">
+                            <p>Transferencia:</p>
+                            <p>${new Intl.NumberFormat().format(data.fac_valor_transferencia)}</p>
+                        </div>
+                    `);
+                }
             $("#content-print").addClass("show");
             $(".data-invoces").addClass("show")
             window.print();
