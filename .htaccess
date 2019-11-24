@@ -111,6 +111,7 @@ RewriteRule ^obtenerDetalleMovimientos$ index.php?controller=movimientos&a=obten
 
 #PROCESO
 RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso
+RewriteRule ^previewProcess$ index.php?controller=process&a=previewProcess
 RewriteRule ^confirmarProceso$ index.php?controller=process&a=confirmarProceso
 
 #REPORTES 

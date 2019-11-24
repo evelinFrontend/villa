@@ -49,5 +49,51 @@
         </div>
     </div>
 </div>
+
+<div id="modal-preview-proceso" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="status">El Resultado del proceso Sera:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                        <div id="infoProcessPreview"></div>
+                        <h3>Facturas Eliminadas:</h3>
+                        <table class="table table-striped col" id="previewFacturasEliminasdas">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Factura Nro.</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">valor</th>
+                                    <th scope="col">Tipo de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                    </table>
+                        <h3>Facturas que cambiaran de consecutivo:</h3>
+                        <table class="table table-striped col" id="previewFacturasReorganizadas">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Factura Nro.</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">valor</th>
+                                    <th scope="col">Tipo de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                    </table>
+                        
+                    <button class="btn btn-primary" type="button" id="RealizarProcesoConfirmado">Deseo Realizar el preceso</button>
+                    <button class="btn btn-primary" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="views/assets/js/data-tables.min.js"></script>
 <script src="views/assets/js/process.js"></script>

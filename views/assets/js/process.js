@@ -39,9 +39,8 @@ $("#deleteInvoices").submit(function(e){
 $("#confirmProcess").submit(function(e){
     e.preventDefault();
     if($("#porcentaje").val()>0){
-        if(confirm("Seguro que deseas iniciar el proceso?"))
         $.ajax({
-            url:"confirmarProceso",
+            url:"previewProcess",
             type:"post",
             dataType:"json",
             data:({
@@ -50,17 +49,39 @@ $("#confirmProcess").submit(function(e){
                 "porcentaje":$("#porcentaje").val()
             }),
             beforeSend: function() {
+                $('.infoProgressProcess').remove();
                 $("#confirmProcess").append("<h3 class='infoProgressProcess'>Procesando...</h3>");
             },
             success:function(response){
                 console.log(response);
+                $(".infoProgressProcess").empty();
                 $(".infoProgressProcess").html("Proceso Realizado Correctamente.<br>");
-                // $(".infoProgressProcess").append(`<p></p>`);
-                $(".infoProgressProcess").append(`<br><small>Valor Eliminado: ${response.valorEliminado} </small><br>`);
-                $(".infoProgressProcess").append(`<br><small>Valor que se debia Eliminar: ${response.valorQueSeDebeEliminar}</small><br>`);
-                $(".infoProgressProcess").append(`<br><small> Porcentaje Ingresado: ${$("#porcentaje").val()}</small><br>`);
-                $('#table-process> tbody>').empty();
-                $("#realizarProceso").attr("disabled",true);
+                $("#infoProcessPreview").append(`<b> Porcentaje Ingresado:</b> ${$("#porcentaje").val()}, <b>Valor Eliminado:</b> ${response.valorEliminado},<b>Valor que se debia Eliminar:</b> ${response.valorQueSeDebeEliminar}`);
+                
+                $('#previewFacturasEliminasdas> tbody>').empty();
+                for (var i = 0; i < response.facturasEliminadas.length; i++) {
+                    $('#previewFacturasEliminasdas > tbody:last').append(`
+                    <tr>
+                        <td>${response.facturasEliminadas[i].consecutivo}</td>
+                        <td>${response.facturasEliminadas[i].fecha}</td>
+                        <td>${response.facturasEliminadas[i].valor}</td>
+                        <td>${response.facturasEliminadas[i].tipoPago}</td>
+                    </tr>
+                    `);
+                }
+                
+                $('#previewFacturasReorganizadas> tbody>').empty();
+                for (var i = 0; i < response.facurasRestantesMostrar.length; i++) {
+                    $('#previewFacturasReorganizadas > tbody:last').append(`
+                    <tr>
+                        <td>${response.facurasRestantesMostrar[i].fac_consecutivo}</td>
+                        <td>${response.facurasRestantesMostrar[i].fac_hora_salida}</td>
+                        <td>${response.facurasRestantesMostrar[i].valor_factura}</td>
+                        <td>${response.facurasRestantesMostrar[i].tipo_pago}</td>
+                    </tr>
+                    `);
+                }
+                $("#modal-preview-proceso").modal('show');
             },
             error:function(response){
                 console.log(response);
@@ -72,19 +93,40 @@ $("#confirmProcess").submit(function(e){
     }
 });
 
-// $.ajax({
-//     url:"confirmarRealizarProceso",
-//     dataType:"json",
-//     data:({porcentaje:porcentaje,fecha1: $("#fechaDesde").val(),fecha2:$("#fechaDesde").val()}),
-//     type:"post",
-//     beforeSend: function() {
-//          notify("Procesando...","info");
-//     },
-//     success:function(response){
-//         console.log(response);
-//         location.reload();
-//     },
-//     error:function(response){
-//         console.log(response);
-//     }
-// });
+$("#RealizarProcesoConfirmado").click(function(e){
+    if($("#porcentaje").val()>0){
+        if(confirm("Seguro que deseas iniciar el proceso?"))
+        $.ajax({
+            url:"confirmarProceso",
+            type:"post",
+            dataType:"json",
+            data:({
+                "fecha_inicio":$("#date-init").val(),
+                "fecha_fin":$("#date-fin").val(),
+                "porcentaje":$("#porcentaje").val()
+            }),
+            beforeSend: function() {
+                $(".infoProgressProcess").remove();
+                $("#confirmProcess").append("<h3 class='infoProgressProcess'>Procesando...</h3>");
+            },
+            success:function(response){
+                console.log(response);
+                $(".infoProgressProcess").empty();
+                $(".infoProgressProcess").html("Proceso Realizado Correctamente.<br>");
+                // $(".infoProgressProcess").append(`<p></p>`);
+                $(".infoProgressProcess").append(`<br><small>Valor Eliminado: ${response.valorEliminado} </small><br>`);
+                $(".infoProgressProcess").append(`<br><small>Valor que se debia Eliminar: ${response.valorQueSeDebeEliminar}</small><br>`);
+                $(".infoProgressProcess").append(`<br><small> Porcentaje Ingresado: ${$("#porcentaje").val()}</small><br>`);
+                $('#table-process> tbody>').empty();
+                $("#modal-preview-proceso").modal('hide');
+                $("#realizarProceso").attr("disabled",true);
+            },
+            error:function(response){
+                console.log(response);
+                alert(response.responseJSON.message);
+            }
+        });
+    }else{
+        alert("Ingresa un porcentaje válido.");
+    }
+});
