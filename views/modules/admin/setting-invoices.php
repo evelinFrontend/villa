@@ -1,6 +1,9 @@
 <div class="content-main">
     <div class="subcontent p-4" id="section-1-tab">
         <h4 class="pricipal-title mb-4">Reorganización De faturas</h4>
+        <div class="pt-2">
+            <button class="btn btn-primary mt-4" type="submit" id="validarConsecutivos">Validar Consecutivos</button><br><br>
+        </div>
         <form id="deleteInvoices">
             <div class="row">
             <div class="form-group col">
@@ -89,7 +92,29 @@
                     </table>
                         
                     <button class="btn btn-primary" type="button" id="RealizarProcesoConfirmado">Deseo Realizar el preceso</button>
-                    <button class="btn btn-primary" type="button">Cancelar</button>
+                    <button class="btn btn-primary" type="button" id="RealizarProcesoConfirmadoCancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-validar-consecutivos" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="status">Elije el dia que quieras validar los Consecutivos:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="date-init">Fecha:</label>
+                        <input id="date-reorganice" class="form-control" type="date">
+                    </div>
+                </div>
+                    <button class="btn btn-primary" type="button" id="reorganizarConsecutivosDia">Validar y Organiza Consecutivos</button>
+                    <button class="btn btn-primary" id="reorganizarConsecutivosDiaCancelar">Cancelar</button>
             </div>
         </div>
     </div>

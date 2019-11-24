@@ -130,3 +130,39 @@ $("#RealizarProcesoConfirmado").click(function(e){
         alert("Ingresa un porcentaje válido.");
     }
 });
+$("#RealizarProcesoConfirmadoCancelar").click(function(){
+    $("#modal-preview-proceso").modal('hide');
+});
+$("#validarConsecutivos").click(function(){
+    $("#modal-validar-consecutivos").modal('show');
+});
+$("#reorganizarConsecutivosDiaCancelar").click(function(){
+    $("#modal-validar-consecutivos").modal('hide');
+});
+
+$("#reorganizarConsecutivosDia").click(function(){
+    var fecha = $("#date-reorganice").val();
+    if(fecha!=""){
+        $.ajax({
+            url:"reorganizarIndices",
+            type:"post",
+            dataType:"json",
+            data:({
+                "fecha":fecha
+            }),
+            success:function(response){
+                alert("Se han reorganizado los consecutivos: "+response);
+                console.log(response);
+                location.reload();
+                // alert(response.message);
+            },
+            error:function(response){
+                console.log(response);
+                location.reload();
+                // alert(response.responseJSON.message);
+            }
+        });    
+    }else{
+        alert("Por Favor ingresa una fecha.");
+    }
+});

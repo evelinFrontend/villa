@@ -116,5 +116,26 @@ Class ProcessController{
     function realizarBackup(){
         $this->doizer->exportarTablas("localhost", "root", "", "villa_campestre");
     }
+
+
+    function reorganizarIndices(){
+        $this->realizarBackup();
+        $request = $_POST;
+        $result = $this->masterModel->sqlSelect("SELECT fac_consecutivo FROM facturas WHERE fac_hora_salida LIKE ? ORDER BY fac_consecutivo ASC",array($request["fecha"]."%"));
+        $modificaciones = array();
+        $contador =  $result[0]->fac_consecutivo;
+        foreach($result as $row){
+            if($row->fac_consecutivo!=$contador){
+                if(!empty($this->masterModel->sqlSelect("SELECT fac_consecutivo FROM facturas WHERE  fac_consecutivo = ? ",array($row->fac_consecutivo+1)))){
+                    $update = $this->masterModel->sql("UPDATE facturas SET fac_consecutivo = ? WHERE fac_consecutivo = ? ",array($contador,$row->fac_consecutivo+1));
+                }else{
+                    $update = $this->masterModel->sql("UPDATE facturas SET fac_consecutivo = ? WHERE fac_consecutivo = ? ",array($contador,$row->fac_consecutivo));
+                }
+                $modificaciones[]= $row->fac_consecutivo;
+            }
+            $contador++;
+        }
+        echo json_encode(implode(",",$modificaciones));
+    }
 }
 ?>
