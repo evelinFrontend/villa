@@ -540,5 +540,27 @@ Class ReservaController{
         $result = array("status"=>$status,"message"=>$message);
         echo  json_encode($result);
     }
+
+    function activarPromocionEnReserva(){
+        header('Content-Type:application/json');
+        if(!empty($_POST)){
+            $request = $_POST;
+            $update = $this->masterModel->sql("UPDATE reserva_activa SET promo_id = ?, ra_tipo_cortesia = ? , ra_tipo_reserva_inicio = ? WHERE hab_numero =? ",array($request["promocion"],null,5,$request["habitacion"]));
+            $updateHab = $this->masterModel->sql("UPDATE habitacion SET sr_estado_reserva = ? WHERE hab_numero =? ",array(5,$request["habitacion"]));
+            if($update && $updateHab){
+                $status = "success";
+                $message = "Promoción Activada."; 
+            }else{
+                $status = "error";
+                $message = "Error Activando la promoción.";
+            }
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "Unsoprted media type.";
+        }
+        $result = array("status"=>$status,"message"=>$message);
+        echo  json_encode($result);
+    }
 }
 ?>

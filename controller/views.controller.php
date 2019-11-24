@@ -2,7 +2,6 @@
 
 class ViewsController{
     private $masterModel;
-  
     function main(){
         require_once "views/modules/login.php";
     }

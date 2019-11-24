@@ -59,11 +59,47 @@ Class ReporteController{
         $request["fecha_inicio"] = $_SESSION["FECHA_INICIO_REPORTE"];
         $request["fecha_final"] =  $_SESSION["FECHA_FIN_REPORTE"];
         $catidadDeFacturas = $this->masterModel->sqlSelect("SELECT COUNT(*) as catidadDeFacturas FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->catidadDeFacturas;
-        $totalEfectivo = number_format($this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalEfectivo);
-        $totalCredito = number_format($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalCredito);
+        $totalEfectivo = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalEfectivo);
+        $totalCredito = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalCredito);
         $totalTransferencia = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_transferencia) as totalTransferencia FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalTransferencia);
-        $totalVentas = number_format($this->masterModel->sqlSelect("SELECT SUM(valor_factura) as totalTransferencia FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalTransferencia);
+        $totalVentas = ($this->masterModel->sqlSelect("SELECT SUM(valor_factura) as totalTransferencia FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalTransferencia);
         $facturasRealizadas = $this->masterModel->sqlSelect("SELECT *  FROM facturas WHERE fac_hora_salida BETWEEN ? AND ?",array($request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"));
+        $productos = array();
+        if(!empty($catidadDeFacturas)){
+            foreach($facturasRealizadas as $fatura){
+                $fatura->productos = $this->masterModel->sqlSelect("SELECT df.*,p.pro_nombre FROM detalle_factura df INNER JOIN  producto p ON p.id_producto = df.det_id_producto WHERE  fac_consecutivo =  ?",array($fatura->fac_consecutivo));
+                $productos[]=$this->masterModel->sqlSelect("SELECT df.*,p.pro_nombre FROM detalle_factura df INNER JOIN  producto p ON p.id_producto = df.det_id_producto WHERE  fac_consecutivo =  ?",array($fatura->fac_consecutivo));
+            }
+            $status = "success";
+            $message = "Consultas realizada.";
+            $data = array(
+                "catidadDeFacturas"=>$catidadDeFacturas,
+                "totalEfectivo"=>$totalEfectivo,
+                "totalCredito"=>$totalCredito,
+                "totalTransferencia"=>$totalTransferencia,
+                "totalVentas"=>$totalVentas,
+                "facturasRealizadas" => $facturasRealizadas,
+                "productosVendidos" =>$productos
+            );
+            require_once "views/modules/admin/reports/reporteVentas.php"; 
+        }else{
+            header('Internal server error', true, 500);
+            $status = "error";
+            $message = "no hay información asociada a esta consulta verifica los parametros.";
+            $data = null;
+            $result = array("status"=>$status,"message"=>$message,"data"=>$data);
+            echo json_encode($result);
+        }
+    }
+    function reporteVentasTurno(){
+        $request["fecha_inicio"] = $_SESSION["FECHA_INICIO_REPORTE"];
+        $request["fecha_final"] =  $_SESSION["FECHA_FIN_REPORTE"];
+        $catidadDeFacturas = $this->masterModel->sqlSelect("SELECT COUNT(*) as catidadDeFacturas FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->catidadDeFacturas;
+        $totalEfectivo = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_efectivo) as totalEfectivo FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalEfectivo);
+        $totalCredito = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_credito) as totalCredito FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalCredito);
+        $totalTransferencia = ($this->masterModel->sqlSelect("SELECT SUM(fac_valor_transferencia) as totalTransferencia FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalTransferencia);
+        $totalVentas = ($this->masterModel->sqlSelect("SELECT SUM(valor_factura) as totalTransferencia FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"))[0]->totalTransferencia);
+        $facturasRealizadas = $this->masterModel->sqlSelect("SELECT *  FROM facturas WHERE id_usuario= ? AND fac_hora_salida BETWEEN ? AND ?",array($_SESSION["DATA_USER"]["ID"],$request["fecha_inicio"]." 00:00:01",$request["fecha_final"]." 23:59:59"));
         $productos = array();
         if(!empty($catidadDeFacturas)){
             foreach($facturasRealizadas as $fatura){

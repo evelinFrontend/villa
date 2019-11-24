@@ -97,6 +97,8 @@
                 <button class="btn btn-outline-dark" id="edit">Editar</button>
                 <button class="btn btn-outline-dark" id="cancel-edit">Cancelar edicion</button>
                 <button class="btn btn-outline-dark ml-4" id="print-parcial">Imprimir tiempo parcial</button>
+                <button class="btn btn-outline-dark ml-4"  type="button" id="activarPromocion">Activar Promoción</button>
+                
             </div>
             <div class="alert alert-danger" role="alert"></div>
             <div class="row" id="detail-reserva"></div>
@@ -137,6 +139,7 @@
                     <button class="btn btn-primary ml-4" type="button" id="btn-update-invoice">Actualizar
                         Reserva</button>
                     <button class="btn btn-primary ml-4" type="submit" id="btn-facturar">Facturar</button>
+                    
                 </div>
                 <h5>Seleccionar productos</h5>
                 <div class="reception-table">
@@ -219,6 +222,7 @@
         </div>
     </div>
 </div>
+
 <div id="modal-cambio-habitacion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -252,6 +256,32 @@
         </div>
     </div>
 </div>
+
+<div id="modal-activar-promocion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="status">Activar Promoción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="activarPromocionEnReserva">
+                    <div class="form-group col">
+                        <label for="nueva-habitacion">Selecccionar Promoción:</label>
+                        <select id="activarPromoOptions" class="form-control" name="">
+                          
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Realizar Activación de Promoción</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php require "views/include/modal-pays.php"; ?>
 
 <div id="modal-printer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
