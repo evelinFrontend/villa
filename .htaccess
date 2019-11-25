@@ -83,6 +83,7 @@ RewriteRule ^cambiarEstadoReserva$ index.php?controller=reserva&a=cambiarEstadoR
 RewriteRule ^cancelarReserva$ index.php?controller=reserva&a=cancelarReserva
 RewriteRule ^cambiarEstadoReservaLimpieza$ index.php?controller=reserva&a=cambiarEstadoReservaLimpieza
 RewriteRule ^cambiarHabitacionReserva$ index.php?controller=reserva&a=cambiarHabitacionReserva
+RewriteRule ^activarPromocionEnReserva$ index.php?controller=reserva&a=activarPromocionEnReserva
 
 #PROMOCION
 RewriteRule ^createPromo$ index.php?controller=promocion&a=createPromo
@@ -110,10 +111,13 @@ RewriteRule ^obtenerDetalleMovimientos$ index.php?controller=movimientos&a=obten
 
 #PROCESO
 RewriteRule ^iniciarProceso$ index.php?controller=process&a=iniciarProceso
+RewriteRule ^previewProcess$ index.php?controller=process&a=previewProcess
 RewriteRule ^confirmarProceso$ index.php?controller=process&a=confirmarProceso
+RewriteRule ^reorganizarIndices$ index.php?controller=process&a=reorganizarIndices
 
 #REPORTES 
 RewriteRule ^reporteVentas$ index.php?controller=reporte&a=reporteVentas
+RewriteRule ^reporteVentasTurno$ index.php?controller=reporte&a=reporteVentasTurno
 RewriteRule ^reporteFormarDePago$ index.php?controller=reporte&a=reporteFormarDePago
 RewriteRule ^reporteHabitaciones$ index.php?controller=reporte&a=reporteHabitaciones
 RewriteRule ^reporteInventario$ index.php?controller=reporte&a=reporteInventario

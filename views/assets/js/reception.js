@@ -232,6 +232,7 @@ function reserva(data, id) {
                     $("#content-card").hide();
                     $("#reception").hide();
                     $("#btn-cancel-changes").hide();
+                    $("#activarPromocion").show();
                     verReserva(id)
                     break;
                 case 5:
@@ -242,6 +243,8 @@ function reserva(data, id) {
                     $("#reception").hide();
                     $("#btn-cancel-changes").hide();
                     $("#btn-update-invoice").hide();
+                    $("#activarPromocion").show();
+                    $("#activarPromocion").html("Cambiar Promoción");
                     verReserva(id)
                     break;
                 case 6:
@@ -253,6 +256,7 @@ function reserva(data, id) {
                     $("#content-card").hide();
                     $("#reception").hide();
                     $("#btn-cancel-changes").hide();
+                    $("#activarPromocion").show();
                     verReserva(id)
                     break;
                 case 4:
@@ -261,6 +265,7 @@ function reserva(data, id) {
                     $("#content-card").hide();
                     $("#reception").hide();
                     $("#btn-cancel-changes").hide();
+                    $("#activarPromocion").show();
                     verReserva(id);
                     $("#detail-reserva").append(`
                         <div class="col">
@@ -812,6 +817,7 @@ $("#print-parcial").click(function () {
             if ($("#print-parcial").html() != "Continuar tiempo parcial") {
                 $("#reservaID").html(success.data.reserva.id_reserva);
                 $("#horaEntradaTP").html(success.data.reserva.ra_fecha_hora_ingreso);
+                $("#horaSalidaTP").html(success.data.reserva.ra_inicio_tiempo_parcial);
                 $("#numhab").html(success.data.reserva.hab_numero);
                 $("#timetrancurrido").html(success.data.financieros.tiempoTranscurrido)
                 $("#totalTiempoParcial").html(new Intl.NumberFormat().format(success.data.financieros.total))
@@ -862,7 +868,8 @@ $("#btn-update-invoice").click(function () {
             "id_reserva": idReserva,
             "numero_personas_adicionales": personasAdicionales,
             "habitacion_decorada": habitacionDecorada,
-            "productos": JSON.stringify(productData)
+            "productos": JSON.stringify(productData),
+            "cortesia": "no"
         }
     }
     $.ajax({
@@ -986,6 +993,62 @@ $("#cambiarHabitacionReserva").submit(function(e){
                 "habitacionNueva": $("#nueva-habitacion").val(),
                 "habitacionActual": num_hab,
                 "reiniciarTiempo": $("#reiniciar-tiempo").val()
+            }),
+            success: function (success) {
+                var options = success.data;
+                console.log(success);
+                alert(success.message)
+                location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+                var message = err.responseJSON.message;
+                alert(message);
+            }
+        });
+    }
+});
+
+
+$("#activarPromocion").click(function(){
+    $("#modal-activar-promocion").modal('show');
+
+    $.ajax({
+        url: 'readByPromo',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+            "columnDBSearch": 1,
+            "value": 1
+        }),
+        success: function (success) {
+            var options = success.data;
+            $('#activarPromoOptions').empty();
+            $.each(options, function (value, item) {
+                $("#activarPromoOptions").append($("<option>",{
+                    value: item.id_promocion,
+                    text: item.promo_nombre
+                }));
+                   
+            })
+        },
+        error: function (err) {
+            var message = err.responseJSON.message;
+            alert(message);
+        }
+    });
+});
+
+$("#activarPromocionEnReserva").submit(function(e){
+    e.preventDefault();
+    if(confirm("Realizar la Activación de la promoción?")){
+        $.ajax({
+            url: 'activarPromocionEnReserva',
+            type: 'POST',
+            dataType: 'json',
+            data: ({
+                "habitacion": num_hab,
+                "promocion": $("#activarPromoOptions").val()
             }),
             success: function (success) {
                 var options = success.data;

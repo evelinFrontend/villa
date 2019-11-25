@@ -83,7 +83,7 @@ class MasterModel{
             $query->execute($values);
             $result = true;
         } catch (PDOException $e) {
-            error_log("Crear Usuario -".date("Y-m-d H:i:s")."-".$e->getMessage()." REQUEST ".$this->sql." VALORES ".implode($vals,"||")."\r\n",3,"errores.log");
+            error_log("Crear Usuario -".date("Y-m-d H:i:s")."-".$e->getMessage()." REQUEST ".$this->sql." VALORES ".implode($values,"||")."\r\n",3,"errores.log");
             $result = false;
         }
        return $result;
