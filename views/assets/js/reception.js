@@ -598,15 +598,15 @@ function verReserva(hab) {
             $("#detail-reserva").append(`
                 <div class="col">
                     <small>Nro. habitación:</small>
-                    <h6>${reserva.hab_numero}</h6>
+                    <h4>${reserva.hab_numero}</h4>
                 </div>
                 <div class="col">
                     <small>persona adicional:</small>
-                    <h6>${reserva.ra_numero_personas_adicionales}</h6>
+                    <h4>${reserva.ra_numero_personas_adicionales}</h4>
                 </div>
                 <div class="col">
                     <small>Tiempo transcurrido:</small>
-                    <h6>${reserva.tiempo_transcurido}</h6>
+                    <h4>${reserva.tiempo_transcurido}</h4>
                 </div>
             `)
             for (let i = 0; i < product.length; i++) {
