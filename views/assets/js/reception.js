@@ -1,15 +1,15 @@
-
 $("#reception").ready(function () {
     $("#content-additional").hide();
     $("#content-additional-re").hide();
-    $('#modal-content-products-re').DataTable();
+    // $('#modal-content-products-re').DataTable();
     getTurno();
     getRooms()
     getProducts();
     getPromo();
     HabitacionSelect();
+    getCategory()
     $("#restar").hide();
-    // setTimeout(refrescar, 100000);
+    setTimeout(refrescar, 100000);
 });
 function refrescar() {
     location.reload();
@@ -151,8 +151,63 @@ $("#select-person-re").change(function () {
         $("#content-additional-re").hide()
     }
 })
-var cosa = [];
+var arrayProducts = [];
+var arrayProductsId = [];
 
+$("#select-category").change(function () {
+  var value = $("#select-category").val();
+  arrayProductsId = arrayProducts.filter(obj => obj.id_categoria === value);
+  addProducts(arrayProductsId)
+  console.log(value);
+  console.log(arrayProductsId);
+})
+$("#select-category-re").change(function () {
+  var value = $("#select-category-re").val();  
+  arrayProductsId = arrayProducts.filter(obj => obj.id_categoria === value);
+  addProducts(arrayProductsId);
+  console.log(value);
+  console.log(arrayProductsId);
+})
+$("#search-product").keyup(function () {
+  var data = $("#search-product").val();
+  arrayProductsLetter = arrayProducts.filter(obj => obj.pro_nombre.toLowerCase().includes(data));
+  addProducts(arrayProductsLetter)
+})
+$("#search-product-re").keyup(function () {
+  var data = $("#search-product-re").val();
+  arrayProductsLetter = arrayProducts.filter(obj => obj.pro_nombre.toLowerCase().includes(data));
+  addProducts(arrayProductsLetter)
+})
+function addProducts(array) {
+  $("#modal-content-products").empty();
+  $("#modal-content-products-re").empty();
+  for (let i = 0; i < array.length; i++) {
+    const data = array[i];
+    $("#modal-content-products").append(`
+        <div class="col-6 align-items-center justify-content-between border product-card" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+            <div id="img-product">
+                <img src="views/assets/img/products/img_deafult_product.jpg">
+            </div>
+            <div>
+              <h6 class="name text-right">${data.pro_nombre}</h6>
+              <p class="text-right">${data.pro_precio_venta}</p>
+            </div>
+        </div>
+    `)
+    $("#modal-content-products-re").append(`
+        <div class="col-6 align-items-center justify-content-between border product-card" id="prod-re${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+            <div id="img-product">
+                <img src="views/assets/img/products/img_deafult_product.jpg">
+            </div>
+            <div>
+              <h6 class="name text-right">${data.pro_nombre}</h6>
+              <p class="text-right">${data.pro_precio_venta}</p>
+            </div>
+        </div>
+    `)
+  }
+
+}
 function getProducts() {
     $.ajax({
         url: 'readByProduct',
@@ -163,36 +218,65 @@ function getProducts() {
             "value": 1
         }),
         success: function (success) {
-            $('#modal-content-products-re> tbody>').empty();
-            for (var i = 0; i < success.data.length; i++) {
-                var data = success.data[i];
-                cosa.push(data);
-                $("#modal-content-products > tbody").append(`
-                <tr class="product-card row" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
-                    <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
-                    <td>
-                        <h6 class="name">${data.pro_nombre}</h6>
-                        <p>${data.pro_precio_venta}</p>
-                    </td>
-                </tr>
-                `)
-                $("#modal-content-products-re").append(`
-                <tr class="product-card row" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${false},${true},1)">
-                    <td id="img-product"><img src="views/assets/img/products/${data.pro_imagen}"></td>
-                    <td>
-                        <h6 class="name">${data.pro_nombre}</h6>
-                        <p>${data.pro_precio_venta}</p>
-                    </td>
-                </tr>
-                `)
-            }
-            $('#modal-content-products').DataTable();
+        arrayProducts = success.data;
+        for (var i = 0; i < arrayProducts.length; i++) {
+            var data = arrayProducts[i];
+            $("#modal-content-products").append(`
+                    <div class="col-6 align-items-center justify-content-between border product-card" id="prod-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                            <div id="img-product">
+                                <img src="views/assets/img/products/img_deafult_product.jpg">
+                            </div>
+                            <div>
+                                <h6 class="name text-right">${data.pro_nombre}</h6>
+                                <p class="text-right">${data.pro_precio_venta}</p>
+                            </div>
+                        </div>
+                    `)
+            $("#modal-content-products-re").append(`
+                    <div class="col-6 align-items-center justify-content-between border product-card" id="prod-re-${data.id_producto}" onclick="addArray(this.id, ${data.id_producto}, '${data.pro_nombre}', ${data.pro_precio_venta},${true},${true},1)">
+                            <div id="img-product">
+                                <img src="views/assets/img/products/img_deafult_product.jpg">
+                            </div>
+                            <div>
+                                <h6 class="name text-right">${data.pro_nombre}</h6>
+                                <p class="text-right">${data.pro_precio_venta}</p>
+                            </div>
+                        </div>
+                    `)
+
+        }
+
         },
         error: function (err) {
 
         }
     })
+
 }
+
+function getCategory() {
+  $.ajax({
+    url: 'readByCategory',
+    dataType: "json",
+    type: "POST",
+    data: ({
+      "columnDBSearch": 1,
+      "value": 1
+    }),
+    success: function (response) {
+      for (var i = 0; i < response.data.length; i++) {
+        $("#select-category, #select-category-re").append(`
+                    <option value="${response.data[i].id_categoria}">${response.data[i].cat_nombre}</option>
+                `);
+      }
+    },
+    error: function (response) {
+      console.log(response);
+    },
+  });
+}
+
+
 
 // reservar
 var products = [];

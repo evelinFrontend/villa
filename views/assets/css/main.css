@@ -95,24 +95,29 @@ p{
 .content-main-recep.left{
     padding-left: 190px;
 }
-#modal-content-products{
+#modal-content-products, #modal-content-products-re{
     overflow-y: scroll;
     padding: 10px;
     height: 300px;
 }
 .product-card{
-    width: 640px;
-    height: 80px;
-    margin-bottom: 10px;
-    background: white;
-    border: 1px solid #dedede;
+    /* width: 640px; */
+    /* margin-bottom: 10px; */
+    /* background: white; */
+    /* border: 1px solid #dedede; */
+    cursor: pointer;
+    display: flex;
+    height: 100px;
     border-radius: 8px;
     box-shadow: 0 2px 6px 0 rgba(0,0,0,.07);
+    transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
     
+}
+.product-card:hover{
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.47);
 }
 #img-product{
   width: 150px;
-  height: 100%;
 }
 #img-product img {
     width: 100%;

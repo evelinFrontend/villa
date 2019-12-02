@@ -5,7 +5,7 @@
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
             <h4 class="pricipal-title"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
-            class="icon-menu mr-3 goReception"></a>Reservar</h4>
+                        class="icon-menu mr-3 goReception"></a>Reservar</h4>
             <p class="mb-4">Para cambiar el estado de la habitación debes ingresar los que a continuación se muestran.
             </p>
             <div class="alert alert-danger" role="alert"></div>
@@ -47,22 +47,25 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="form-group col-6">
-                    <button class="btn btn-primary btn-block" type="submit" id="btn-reservar">Reservar</button>
-                </div>
+                    <div class="form-group col-6">
+                        <button class="btn btn-primary btn-block" type="submit" id="btn-reservar">Reservar</button>
+                    </div>
                 </div>
                 <h5>Seleccionar productos</h5>
                 <div class="reception-table">
-                    <table class="table-reception-product" id="modal-content-products-re">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="select-category">Categoria:</label>
+                            <select id="select-category" class="form-control" >
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="search-product">Buscar:</label>
+                            <input id="search-product" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between" id="modal-content-products">
+                    </div>
                 </div>
             </form>
         </div>
@@ -87,10 +90,11 @@
     <div class="content-main-recep left col-8">
         <div class="subcontent p-4">
             <div class="row">
-            <h4 class="pricipal-title col-8"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg" class="icon-menu mr-3 goReception"></a> Facturar</h4>
+                <h4 class="pricipal-title col-8"><a href="recepcion"><img src="views/assets/icons/angle-left-solid.svg"
+                            class="icon-menu mr-3 goReception"></a> Facturar</h4>
             </div>
             <div class="row">
-                <p class="float-right col mt-2">Fecha de  ingreso: <b id="ra_fecha_hora_ingreso"></b></p>
+                <p class="float-right col mt-2">Fecha de ingreso: <b id="ra_fecha_hora_ingreso"></b></p>
                 <p class="float-right col mt-2">Siguiente consecutivo: <b id="consecutivo"></b></p>
             </div>
             <div class="row justify-content-end mb-4 mr-2 border-bottom pb-4">
@@ -132,7 +136,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end my-2 py-3 border-top" role="group">
-                    <button class="btn btn-primary ml-4" type="button" id="btn-cambio-habitacion">Cambiar Habitacion</button>
+                    <button class="btn btn-primary ml-4" type="button" id="btn-cambio-habitacion">Cambiar
+                        Habitacion</button>
                     <button class="btn btn-primary ml-4" type="button" id="btn-anular-reserva">Cancelar
                         Reserva</button>
                     <button class="btn btn-primary" type="button" id="btn-cancel-changes">Cancelar Cambios</button>
@@ -142,17 +147,20 @@
                     
                 </div>
                 <h5>Seleccionar productos</h5>
-                <div class="reception-table">
-                    <table class="table-reception-product" id="modal-content-products">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                 <div class="reception-table">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="select-category-re">Categoria:</label>
+                            <select id="select-category-re" class="form-control" >
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="search-product-re">Buscar:</label>
+                            <input id="search-product-re" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between" id="modal-content-products-re">
+                    </div>
                 </div>
             </form>
         </div>
